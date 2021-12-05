@@ -1,0 +1,8 @@
+name: BungeeAutumn
+main: dev.dementisimus.autumn.bungee.plugin.AutumnPlugin
+version: ${project.version}
+softdepends:
+  - Autumn-Dependencies
+
+author: dementisimus
+website: dementisimus.dev

@@ -1,0 +1,50 @@
+name: build
+on: [ push, workflow_dispatch ]
+
+env:
+  name: Autumn
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        platform: [ ubuntu-latest ]
+        tag: [ release,  development ]
+        branch: [ main,  develop ]
+        module: [autumn-dependencies, autumn-common-api, autumn-common, autumn-bukkit-api, autumn-bukkit, autumn-bungee-api, autumn-bungee]
+        artifactId: [dependencies, common.api, common, bukkit.api, bukkit, bungee.api, bungee]
+
+    runs-on: ${{ matrix.platform }}
+    name: on ${{ matrix.platform }}
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: setup-jdk-16
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '16'
+
+      - name: cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ secrets.CACHE_KEY }}
+
+      - name: evaluate project info
+        run: |
+          echo "version=$(mvn org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+
+      - name: build ${{ matrix.module }}
+        run: mvn -U clean package -pl ${{ matrix.module }} javadoc:javadoc --file pom.xml
+
+      - name: pre-deploy
+        run: |
+          mkdir ./artifacts
+          mkdir ./javadocs
+          cp ./${{ matrix.module }}/target/autumn-${{ matrix.artifactId }}-${{ env.version }}.jar ./artifacts/${{ matrix.module }}/autumn-${{ matrix.artifactId }}-${{ env.version }}.jar
+          cp ./${{ matrix.module }}/pom.xml ./artifacts/${{ matrix.module }}/autumn-${{ matrix.artifactId }}-${{ env.version }}.pom
+          cp -R ./${{ matrix.module }}/target/site/apidocs/. ./javadocs/${{ matrix.module }}/javadocs/
+          ls -R ./

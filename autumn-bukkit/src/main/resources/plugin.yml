@@ -1,0 +1,16 @@
+name: BukkitAutumn
+main: dev.dementisimus.autumn.bukkit.plugin.AutumnPlugin
+version: ${project.version}
+api-version: 1.17
+softdepend:
+  - Autumn-Dependencies
+
+author: dementisimus
+website: dementisimus.dev
+
+libraries:
+  - org.mongodb:mongodb-driver-reactivestreams:${mongodb.version}
+
+commands:
+  language:
+  lang:

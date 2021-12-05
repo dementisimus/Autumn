@@ -1,0 +1,7 @@
+name: Autumn-Dependencies
+main: dev.dementisimus.autumn.dependencies.plugin.bukkit.AutumnDependenciesPlugin
+version: ${project.version}
+api-version: 1.17
+
+author: dementisimus
+website: dementisimus.dev

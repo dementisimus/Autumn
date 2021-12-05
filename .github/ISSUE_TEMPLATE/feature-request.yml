@@ -1,0 +1,27 @@
+name: Feature Request
+description: Request a new feature or an enhancement to an existing one
+labels: ["feature", "enhancement"]
+assignees:
+  - dementisimus
+
+body:
+  - type: dropdown
+    id: module
+    attributes:
+      label: Module
+      description: To what module does your feature request belong to?
+      options:
+        - 'Bukkit'
+        - 'Bungeecord'
+        - 'Common'
+        - 'Dependencies'
+    validations:
+      required: true
+
+  - type: textarea
+    id: request-details
+    attributes:
+      label: Request details
+      description: Try to explain your request and how it may improve Autumn
+    validations:
+      required: true
