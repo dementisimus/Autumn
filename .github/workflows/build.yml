@@ -3,19 +3,16 @@ on: [ push, workflow_dispatch ]
 
 env:
   name: Autumn
+  package: dev/dementisimus/autumn/
 
 jobs:
   build:
     strategy:
       matrix:
         platform: [ ubuntu-latest ]
-        tag: [ release,  development ]
-        branch: [ main,  develop ]
-        module: [autumn-dependencies, autumn-common-api, autumn-common, autumn-bukkit-api, autumn-bukkit, autumn-bungee-api, autumn-bungee]
-        artifactId: [dependencies, common.api, common, bukkit.api, bukkit, bungee.api, bungee]
 
     runs-on: ${{ matrix.platform }}
-    name: on ${{ matrix.platform }}
+    name: ${{ matrix.platform }}
 
     steps:
       - name: checkout
@@ -37,14 +34,14 @@ jobs:
         run: |
           echo "version=$(mvn org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
 
-      - name: build ${{ matrix.module }}
-        run: mvn -U clean package -pl ${{ matrix.module }} javadoc:javadoc --file pom.xml
+      - name: build
+        run: mvn -U clean package javadoc:javadoc --file pom.xml
 
       - name: pre-deploy
         run: |
           mkdir ./artifacts
           mkdir ./javadocs
-          cp ./${{ matrix.module }}/target/autumn-${{ matrix.artifactId }}-${{ env.version }}.jar ./artifacts/${{ matrix.module }}/autumn-${{ matrix.artifactId }}-${{ env.version }}.jar
-          cp ./${{ matrix.module }}/pom.xml ./artifacts/${{ matrix.module }}/autumn-${{ matrix.artifactId }}-${{ env.version }}.pom
-          cp -R ./${{ matrix.module }}/target/site/apidocs/. ./javadocs/${{ matrix.module }}/javadocs/
+          cp ./autumn-dependencies/target/autumn-dependencies-${{ env.version }}.jar ./artifacts/${{ env.package }}/autumn-dependencies/${{ env.version }}/
+          cp ./autumn-dependencies/pom.xml ./artifacts/${{ env.package }}/autumn-dependencies/${{ env.version }}/autumn-dependencies-${{ env.version }}.pom
+          cp ./autumn-dependencies/target/site/apidocs/. ./javadocs/${{ env.package }}/autumn-dependencies/${{ env.version }}/
           ls -R ./
