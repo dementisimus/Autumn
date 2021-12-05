@@ -30,11 +30,16 @@ jobs:
           key: ${{ runner.os }}-maven-${{ secrets.CACHE_KEY }}
 
       - name: evaluate project info
-        run: |
-          echo "version=$(mvn org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+        run: echo "version=$(mvn org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
 
-      - name: build
-        run: mvn -U clean package javadoc:javadoc --file pom.xml
+      - name: build dependencies
+        run: mvn -U clean install javadoc:javadoc -pl :autumn,:autumn-dependencies
+
+      - name: build api
+        run: mvn -U clean install javadoc:javadoc -pl :autumn,:autumn-common-api,:autumn-bukkit-api,:autumn-bungee-api
+
+      - name: build implementation
+        run: mvn -U clean install -pl :autumn,:autumn-bukkit,:autumn-bungee,:autumn-common -file pom.xml
 
       - name: pre-deploy
         run: |
