@@ -39,18 +39,24 @@ jobs:
       - name: pre-deploy
         run: |
           declare -a modules=("autumn-dependencies" "autumn-common-api" "autumn-common" "autumn-bukkit-api" "autumn-bukkit" "autumn-bungee-api" "autumn-bungee")
+          declare -a javadocModules=("autumn-common-api" "autumn-bukkit-api" "autumn-bungee-api")
 
           for module in "${modules[@]}"; do
             fullModule=$module-${{ env.version }}
             package=dev/dementisimus/autumn/$module/${{ env.version }}
             artifactsTarget=./artifacts/$package
-            javadocsTarget=./javadocs/$package
 
             mkdir -p $artifactsTarget
-            mkdir -p $javadocsTarget
 
             cp ./$module/target/$fullModule.jar $artifactsTarget/
             cp ./$module/pom.xml $artifactsTarget/$fullModule.pom
-            cp ./$module/target/site/apidocs/. $javadocsTarget/
+          done
+
+          for module in "${javadocModules[@]}"; do
+            package=dev/dementisimus/autumn/$module/${{ env.version }}
+            javadocsTarget=./javadocs/$package
+
+            mkdir -p $javadocsTarget
+            cp -r ./$module/target/site/apidocs/. $javadocsTarget/
           done
           ls -R ./
