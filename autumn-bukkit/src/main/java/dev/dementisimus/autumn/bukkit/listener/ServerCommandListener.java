@@ -1,7 +1,6 @@
 package dev.dementisimus.autumn.bukkit.listener;
 
 import dev.dementisimus.autumn.common.DefaultAutumn;
-import dev.dementisimus.autumn.common.api.setup.SetupManager;
 import dev.dementisimus.autumn.common.setup.DefaultSetupManager;
 import dev.dementisimus.autumn.common.setup.value.SetupValueManager;
 import org.bukkit.event.EventHandler;

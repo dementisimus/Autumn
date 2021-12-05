@@ -16,7 +16,7 @@ public interface InfiniteInventoryFactory {
 
     <T> void setItems(List<T> items, Class<T> clazz);
 
-    void addCreateFor(Player player);
+    void createFor(Player createFor);
 
     void create();
 }

@@ -1,7 +1,5 @@
 package dev.dementisimus.autumn.common.setup.state.type;
 
-import dev.dementisimus.autumn.common.debug.SysOut;
-import dev.dementisimus.autumn.common.helper.StringHelper;
 import dev.dementisimus.autumn.common.setup.state.DefaultSetupState;
 
 import java.io.File;

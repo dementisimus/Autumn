@@ -7,7 +7,6 @@ import dev.dementisimus.autumn.common.api.injection.annotation.AutumnCommand;
 import dev.dementisimus.autumn.common.api.injection.annotation.AutumnListener;
 import dev.dementisimus.autumn.common.api.injection.annotation.AutumnSetupListener;
 import dev.dementisimus.autumn.common.api.log.AutumnLogging;
-import dev.dementisimus.autumn.common.debug.SysOut;
 import dev.dementisimus.autumn.common.i18n.DefaultAutumnTranslation;
 import dev.dementisimus.autumn.common.injection.DefaultAutumnInjector;
 import org.bukkit.Bukkit;

@@ -24,6 +24,10 @@ public class BukkitSerializeSetupStateEvent extends Event implements SerializeSe
 
     private Object value;
 
+    public static HandlerList getHandlerList() {
+        return HANDLERS;
+    }
+
     @Override
     public SetupState setupState() {
         return this.setupState;
@@ -41,10 +45,6 @@ public class BukkitSerializeSetupStateEvent extends Event implements SerializeSe
 
     @Override
     public @NotNull HandlerList getHandlers() {
-        return HANDLERS;
-    }
-
-    public static HandlerList getHandlerList() {
         return HANDLERS;
     }
 }

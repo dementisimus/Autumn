@@ -3,10 +3,7 @@ package dev.dementisimus.autumn.bukkit.i18n;
 import dev.dementisimus.autumn.bukkit.api.i18n.AutumnBukkitTranslation;
 import dev.dementisimus.autumn.common.i18n.DefaultAutumnTranslation;
 import dev.dementisimus.autumn.common.language.PlayerLanguage;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-
-import java.util.Locale;
 /**
  * Copyright (c) by dementisimus,
  * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International

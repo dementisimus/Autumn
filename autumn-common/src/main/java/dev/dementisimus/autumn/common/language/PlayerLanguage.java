@@ -1,10 +1,8 @@
 package dev.dementisimus.autumn.common.language;
 
 import dev.dementisimus.autumn.common.api.database.Database;
-import dev.dementisimus.autumn.common.api.database.property.DataProperty;
 import dev.dementisimus.autumn.common.api.i18n.AutumnLanguage;
 import dev.dementisimus.autumn.common.database.property.AutumnDataProperty;
-import dev.dementisimus.autumn.common.debug.SysOut;
 
 import java.util.HashMap;
 import java.util.Locale;

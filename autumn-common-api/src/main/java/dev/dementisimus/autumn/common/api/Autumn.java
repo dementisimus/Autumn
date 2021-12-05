@@ -1,7 +1,6 @@
 package dev.dementisimus.autumn.common.api;
 
 import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
-import dev.dementisimus.autumn.common.api.callback.AutumnEmptyCallback;
 import dev.dementisimus.autumn.common.api.database.property.source.DataSourceProperty;
 import dev.dementisimus.autumn.common.api.injection.AutumnInjector;
 import dev.dementisimus.autumn.common.api.setup.state.SetupState;

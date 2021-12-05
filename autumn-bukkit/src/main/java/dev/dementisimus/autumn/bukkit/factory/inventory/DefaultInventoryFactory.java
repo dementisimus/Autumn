@@ -7,7 +7,6 @@ import dev.dementisimus.autumn.bukkit.api.i18n.AutumnBukkitTranslation;
 import dev.dementisimus.autumn.bukkit.factory.item.DefaultItemFactory;
 import dev.dementisimus.autumn.bukkit.i18n.DefaultAutumnBukkitTranslation;
 import dev.dementisimus.autumn.common.api.i18n.AutumnTranslationReplacement;
-import dev.dementisimus.autumn.common.debug.SysOut;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

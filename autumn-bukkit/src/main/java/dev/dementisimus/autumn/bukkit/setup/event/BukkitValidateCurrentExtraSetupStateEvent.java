@@ -25,6 +25,10 @@ public class BukkitValidateCurrentExtraSetupStateEvent extends Event implements 
 
     private boolean validInput;
 
+    public static HandlerList getHandlerList() {
+        return HANDLERS;
+    }
+
     @Override
     public SetupState currentSetupState() {
         return this.currentSetupState;
@@ -47,10 +51,6 @@ public class BukkitValidateCurrentExtraSetupStateEvent extends Event implements 
 
     @Override
     public @NotNull HandlerList getHandlers() {
-        return HANDLERS;
-    }
-
-    public static HandlerList getHandlerList() {
         return HANDLERS;
     }
 }

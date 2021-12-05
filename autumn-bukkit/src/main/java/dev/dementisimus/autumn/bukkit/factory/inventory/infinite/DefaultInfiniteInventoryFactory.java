@@ -25,7 +25,6 @@ public class DefaultInfiniteInventoryFactory implements InfiniteInventoryFactory
 
     private final int nextPageItemSlot = 53;
     private final int previousPageItemSlot = 45;
-    private final List<Player> createFor = new ArrayList<>();
 
     private final int inventoryRows;
     private final String titleTranslationProperty;
@@ -34,6 +33,7 @@ public class DefaultInfiniteInventoryFactory implements InfiniteInventoryFactory
     private final List<ItemStack> items = new ArrayList<>();
     private final InventoryFactory inventoryFactory;
 
+    private Player createFor;
     private int itemCount;
     private int lastItemIndexPlaced;
 
@@ -65,8 +65,8 @@ public class DefaultInfiniteInventoryFactory implements InfiniteInventoryFactory
     }
 
     @Override
-    public void addCreateFor(Player player) {
-        if(!this.createFor.contains(player)) this.createFor.add(player);
+    public void createFor(Player createFor) {
+        this.createFor = createFor;
     }
 
     @Override
@@ -92,7 +92,7 @@ public class DefaultInfiniteInventoryFactory implements InfiniteInventoryFactory
         if(slot == stopAt && pageItems.size() == this.pageSize) {
             if(this.replacedNextPageItem == null) this.replacedNextPageItem = this.inventoryFactory.getItemAt(this.nextPageItemSlot);
 
-            this.setPageMovementItem(Material.LIME_DYE, this.nextPageItemSlot, "NEXT_PAGE", this.lastItemIndexPlaced + pageItems.size());
+            this.setPageMovementItem(Material.LIME_DYE, this.nextPageItemSlot, this.createFor, "autumn.infinite.inventory.next.page", this.lastItemIndexPlaced + pageItems.size());
         }else {
             this.inventoryFactory.setItemOrPlaceholder(this.nextPageItemSlot, this.replacedNextPageItem, this.placeholder);
             this.replacedNextPageItem = null;
@@ -101,15 +101,13 @@ public class DefaultInfiniteInventoryFactory implements InfiniteInventoryFactory
         if(this.lastItemIndexPlaced > 0) {
             if(this.replacedPreviousPageItem == null) this.replacedPreviousPageItem = this.inventoryFactory.getItemAt(this.previousPageItemSlot);
 
-            this.setPageMovementItem(Material.RED_DYE, this.previousPageItemSlot, "PREVIOUS_PAGE", this.lastItemIndexPlaced - this.pageSize);
+            this.setPageMovementItem(Material.RED_DYE, this.previousPageItemSlot, this.createFor, "autumn.infinite.inventory.previous.page", this.lastItemIndexPlaced - this.pageSize);
         }else {
             this.inventoryFactory.setItemOrPlaceholder(this.previousPageItemSlot, this.replacedPreviousPageItem, this.placeholder);
             this.lastItemIndexPlaced = 0;
         }
 
-        for(Player player : this.createFor) {
-            this.inventoryFactory.createFor(player);
-        }
+        this.inventoryFactory.createFor(this.createFor);
     }
 
     private int adjustSlot(int slot) {
@@ -142,8 +140,8 @@ public class DefaultInfiniteInventoryFactory implements InfiniteInventoryFactory
         return pageItems;
     }
 
-    private void setPageMovementItem(Material material, int slot, String displayName, int newLastItemIndexPlaced) {
-        ItemFactory itemFactory = new DefaultItemFactory(material).displayName(displayName);
+    private void setPageMovementItem(Material material, int slot, Player player, String translationProperty, int newLastItemIndexPlaced) {
+        ItemFactory itemFactory = new DefaultItemFactory(material).displayName(player, translationProperty);
         this.inventoryFactory.setItem(slot, itemFactory);
 
         itemFactory.onClick(itemFactoryClickInteraction -> {

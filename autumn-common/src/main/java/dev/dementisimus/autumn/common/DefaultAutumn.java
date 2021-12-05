@@ -22,7 +22,6 @@ import dev.dementisimus.autumn.common.api.server.ServerType;
 import dev.dementisimus.autumn.common.api.setup.state.SetupState;
 import dev.dementisimus.autumn.common.configuration.DefaultAutumnConfiguration;
 import dev.dementisimus.autumn.common.database.DefaultDatabase;
-import dev.dementisimus.autumn.common.debug.SysOut;
 import dev.dementisimus.autumn.common.dependency.DefaultAutumnDependency;
 import dev.dementisimus.autumn.common.dependency.DefaultAutumnRepository;
 import dev.dementisimus.autumn.common.file.DefaultFileDownloader;
@@ -248,20 +247,15 @@ public abstract class DefaultAutumn implements Autumn {
         autumnDependency.setVersion("1.0.0");
 
         File dependenciesPluginFile = new File("plugins/" + autumnDependency.getFileName());
-        SysOut.debug("1");
         if(!this.isLoadedPlugin("Autumn-Dependencies")) {
-            SysOut.debug("2");
             if(!dependenciesPluginFile.exists()) {
-                SysOut.debug("3");
                 this.fileDownloader.setDownloadTo(new File("plugins/"));
                 this.fileDownloader.download(autumnDependency, file -> {
-                    SysOut.debug("4");
                     this.loadPlugin(file);
                     emptyCallback.done();
                 });
                 return;
             }else {
-                SysOut.debug("5");
                 this.loadPlugin(dependenciesPluginFile);
             }
         }

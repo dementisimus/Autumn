@@ -9,7 +9,6 @@ import dev.dementisimus.autumn.bukkit.factory.item.DefaultItemFactory;
 import dev.dementisimus.autumn.bukkit.factory.item.interaction.DefaultItemFactoryClickInteraction;
 import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
 import dev.dementisimus.autumn.common.api.injection.annotation.AutumnListener;
-import dev.dementisimus.autumn.common.debug.SysOut;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.persistence.PersistentDataType;

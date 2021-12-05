@@ -1,7 +1,6 @@
 package dev.dementisimus.autumn.common.file;
 
 import dev.dementisimus.autumn.common.DefaultAutumn;
-import dev.dementisimus.autumn.common.api.Autumn;
 import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
 import dev.dementisimus.autumn.common.api.file.AutumnZipFileDownloader;
 import net.lingala.zip4j.ZipFile;

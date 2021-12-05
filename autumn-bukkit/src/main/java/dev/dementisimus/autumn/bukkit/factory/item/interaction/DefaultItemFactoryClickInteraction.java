@@ -3,7 +3,6 @@ package dev.dementisimus.autumn.bukkit.factory.item.interaction;
 import dev.dementisimus.autumn.bukkit.api.event.inventory.ValidInventoryClickEvent;
 import dev.dementisimus.autumn.bukkit.api.factory.item.ItemFactory;
 import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryClickInteraction;
-import dev.dementisimus.autumn.bukkit.factory.item.DefaultItemFactory;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;

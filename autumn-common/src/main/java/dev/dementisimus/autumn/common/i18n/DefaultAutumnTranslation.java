@@ -4,7 +4,6 @@ import dev.dementisimus.autumn.common.api.i18n.AutumnLanguage;
 import dev.dementisimus.autumn.common.api.i18n.AutumnTranslation;
 import dev.dementisimus.autumn.common.api.i18n.AutumnTranslationReplacement;
 import dev.dementisimus.autumn.common.console.ConsoleColor;
-import dev.dementisimus.autumn.common.debug.SysOut;
 import dev.dementisimus.autumn.common.i18n.property.AutumnTranslationProperty;
 import lombok.AllArgsConstructor;
 

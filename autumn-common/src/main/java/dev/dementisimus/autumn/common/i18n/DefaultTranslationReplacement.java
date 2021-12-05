@@ -19,6 +19,10 @@ public class DefaultTranslationReplacement implements AutumnTranslationReplaceme
     private String target;
     private String replacement;
 
+    public static AutumnTranslationReplacement of(String target, String replacement) {
+        return new DefaultTranslationReplacement(target, replacement);
+    }
+
     @Override
     public void target(String target) {
         this.target = target;
@@ -37,9 +41,5 @@ public class DefaultTranslationReplacement implements AutumnTranslationReplaceme
     @Override
     public String replacement() {
         return this.replacement;
-    }
-
-    public static AutumnTranslationReplacement of(String target, String replacement) {
-        return new DefaultTranslationReplacement(target, replacement);
     }
 }

@@ -15,13 +15,13 @@ public interface AutumnTaskExecutor {
 
     ExecutorService EXECUTOR_SERVICE = Executors.newFixedThreadPool(3);
 
+    static void staticAsynchronous(Runnable runnable) {
+        EXECUTOR_SERVICE.execute(runnable);
+    }
+
     default void asynchronous(Runnable runnable) {
         EXECUTOR_SERVICE.execute(runnable);
     }
 
     void synchronous(Runnable runnable);
-
-    static void staticAsynchronous(Runnable runnable) {
-        EXECUTOR_SERVICE.execute(runnable);
-    }
 }

@@ -10,7 +10,6 @@ import dev.dementisimus.autumn.bukkit.helper.BukkitHelper;
 import dev.dementisimus.autumn.bukkit.i18n.DefaultAutumnBukkitTranslation;
 import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
 import dev.dementisimus.autumn.common.api.i18n.AutumnTranslationReplacement;
-import dev.dementisimus.autumn.common.debug.SysOut;
 import lombok.Getter;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.bukkit.Bukkit;

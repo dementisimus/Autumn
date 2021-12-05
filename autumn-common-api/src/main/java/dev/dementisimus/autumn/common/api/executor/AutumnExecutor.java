@@ -1,7 +1,5 @@
 package dev.dementisimus.autumn.common.api.executor;
 
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
 /**
  * Copyright (c) by dementisimus,
  * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International

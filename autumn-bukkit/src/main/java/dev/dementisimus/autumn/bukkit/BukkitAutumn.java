@@ -10,7 +10,6 @@ import dev.dementisimus.autumn.bukkit.setup.BukkitSetupManager;
 import dev.dementisimus.autumn.common.DefaultAutumn;
 import dev.dementisimus.autumn.common.api.server.ServerType;
 import dev.dementisimus.autumn.common.api.setup.SetupManager;
-import dev.dementisimus.autumn.common.debug.SysOut;
 import dev.dementisimus.autumn.common.injection.DefaultAutumnInjector;
 import lombok.Getter;
 import lombok.SneakyThrows;
