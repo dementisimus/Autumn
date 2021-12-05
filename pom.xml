@@ -25,7 +25,7 @@
         <maven.compiler.target>16</maven.compiler.target>
 
         <!-- autumn -->
-        <annotations.version>22.0.0</annotations.version>
+        <annotations.version>23.0.0</annotations.version>
         <guice.version>5.0.1</guice.version>
         <lombok.version>1.18.22</lombok.version>
         <mongodb.version>4.4.0</mongodb.version>
