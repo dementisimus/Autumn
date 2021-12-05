@@ -243,7 +243,7 @@ public abstract class DefaultAutumn implements Autumn {
         AutumnDependency autumnDependency = new DefaultAutumnDependency();
 
         autumnDependency.setRepository(autumnRepository);
-        autumnDependency.setGroupId("dev.dementisimus");
+        autumnDependency.setGroupId("dev.dementisimus.autumn");
         autumnDependency.setArtifactId("autumn-dependencies");
         autumnDependency.setVersion("1.0.0");
 
