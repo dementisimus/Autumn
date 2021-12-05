@@ -3,7 +3,6 @@ on: [ push, workflow_dispatch ]
 
 env:
   name: Autumn
-  package: dev/dementisimus/autumn/
 
 jobs:
   build:
@@ -39,9 +38,19 @@ jobs:
 
       - name: pre-deploy
         run: |
-          mkdir ./artifacts
-          mkdir ./javadocs
-          cp ./autumn-dependencies/target/autumn-dependencies-${{ env.version }}.jar ./artifacts/${{ env.package }}/autumn-dependencies/${{ env.version }}/
-          cp ./autumn-dependencies/pom.xml ./artifacts/${{ env.package }}/autumn-dependencies/${{ env.version }}/autumn-dependencies-${{ env.version }}.pom
-          cp ./autumn-dependencies/target/site/apidocs/. ./javadocs/${{ env.package }}/autumn-dependencies/${{ env.version }}/
+          declare -a modules=("autumn-dependencies" "autumn-common-api" "autumn-common" "autumn-bukkit-api" "autumn-bukkit" "autumn-bungee-api" "autumn-bungee")
+
+          for module in "${modules[@]}"; do
+            fullModule=$module-${{ env.version }}
+            package=dev/dementisimus/autumn/$module/${{ env.version }}
+            artifactsTarget=./artifacts/$package
+            javadocsTarget=./javadocs/$package
+
+            mkdir -p $artifactsTarget
+            mkdir -p $javadocsTarget
+
+            cp ./$module/target/$fullModule.jar $artifactsTarget/
+            cp ./$module/pom.xml $artifactsTarget/$fullModule.pom
+            cp ./$module/target/site/apidocs/. $javadocsTarget/
+          done
           ls -R ./
