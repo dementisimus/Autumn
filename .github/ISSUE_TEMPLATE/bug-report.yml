@@ -82,7 +82,7 @@ body:
       label: Java version
       description: What version of Java are you using ('java -version' output) ?
     validations:
-      required: true
+      required: false
 
   - type: dropdown
     id: database
@@ -111,7 +111,7 @@ body:
       label: Minecraft version
       description: What version of Minecraft are you using ('/version' output)?
     validations:
-      required: true
+      required: false
 
   - type: dropdown
     id: using-paper
@@ -122,7 +122,7 @@ body:
         - 'yes'
         - 'no'
     validations:
-      required: true
+      required: false
 
   - type: input
     id: autumn-version
