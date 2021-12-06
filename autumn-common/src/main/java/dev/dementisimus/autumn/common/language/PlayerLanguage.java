@@ -1,3 +1,11 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.common.language;
 
 import dev.dementisimus.autumn.common.api.database.Database;
@@ -8,15 +16,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
-/**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
- *
- * Class PlayerLanguage @ Autumn
- *
- * @author dementisimus
- * @since 04.12.2021:22:48
- */
+
 public class PlayerLanguage {
 
     private static final Map<UUID, Locale> PLAYER_LOCALES = new HashMap<>();

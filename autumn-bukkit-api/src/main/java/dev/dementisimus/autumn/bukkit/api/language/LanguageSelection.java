@@ -1,16 +1,28 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.bukkit.api.language;
 
 import org.bukkit.entity.Player;
+
 /**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
+ * Used for custom user language selection
  *
- * Class LanguageSelection @ Autumn
- *
- * @author dementisimus
- * @since 05.12.2021:13:51
+ * @since 1.0.0
  */
 public interface LanguageSelection {
 
+    /**
+     * Opens the inventory for language selection
+     *
+     * @param player player
+     *
+     * @since 1.0.0
+     */
     void open(Player player);
 }

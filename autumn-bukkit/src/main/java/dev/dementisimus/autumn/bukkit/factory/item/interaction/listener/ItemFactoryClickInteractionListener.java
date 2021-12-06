@@ -1,3 +1,11 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.bukkit.factory.item.interaction.listener;
 
 import dev.dementisimus.autumn.bukkit.api.event.inventory.ValidInventoryClickEvent;
@@ -15,15 +23,7 @@ import org.bukkit.persistence.PersistentDataType;
 
 import java.util.HashMap;
 import java.util.Map;
-/**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
- *
- * Class ItemFactoryClickInteractionListener @ BukkitAutumn
- *
- * @author dementisimus
- * @since 27.11.2021:23:17
- */
+
 @AutumnListener
 public class ItemFactoryClickInteractionListener implements Listener {
 

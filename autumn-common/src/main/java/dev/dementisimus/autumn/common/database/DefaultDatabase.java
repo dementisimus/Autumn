@@ -1,3 +1,11 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.common.database;
 
 import com.google.common.base.Preconditions;
@@ -18,15 +26,7 @@ import org.bson.Document;
 
 import java.util.ArrayList;
 import java.util.List;
-/**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
- *
- * Class DefaultDatabase @ Autumn
- *
- * @author dementisimus
- * @since 30.11.2021:15:15
- */
+
 public class DefaultDatabase implements Database {
 
     @Getter private final List<DataSourceProperty> dataSourceProperties = new ArrayList<>();

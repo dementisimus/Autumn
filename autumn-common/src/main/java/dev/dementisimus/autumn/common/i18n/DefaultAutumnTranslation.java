@@ -1,3 +1,11 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.common.i18n;
 
 import dev.dementisimus.autumn.common.api.i18n.AutumnLanguage;
@@ -11,15 +19,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Pattern;
-/**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
- *
- * Class DefaultAutumnTranslation @ AutumnCommon
- *
- * @author dementisimus
- * @since 26.11.2021:16:25
- */
+
 @AllArgsConstructor
 public class DefaultAutumnTranslation implements AutumnTranslation {
 

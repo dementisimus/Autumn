@@ -1,6 +1,7 @@
 package dev.dementisimus.autumn.common.api.map;
 
 import java.util.Objects;
+
 /*******************************************************************************
  * Copyright (c) 2017 Pablo Pavon Marino and others.
  * All rights reserved. This program and the accompanying materials

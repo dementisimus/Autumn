@@ -1,3 +1,11 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.common;
 
 import com.github.derrop.documents.Document;
@@ -38,15 +46,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.File;
-/**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
- *
- * Class DefaultAutumn @ AutumnCommon
- *
- * @author dementisimus
- * @since 22.11.2021:20:33
- */
+
 public abstract class DefaultAutumn implements Autumn {
 
     @Getter(AccessLevel.PROTECTED) private final Object plugin;

@@ -1,3 +1,11 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.bukkit.factory.inventory.infinite;
 
 import dev.dementisimus.autumn.bukkit.api.factory.inventory.InventoryFactory;
@@ -12,15 +20,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-/**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
- *
- * Class DefaultInfiniteInventoryFactory @ BukkitAutumn
- *
- * @author dementisimus
- * @since 25.11.2021:22:37
- */
+
 public class DefaultInfiniteInventoryFactory implements InfiniteInventoryFactory {
 
     private final int nextPageItemSlot = 53;

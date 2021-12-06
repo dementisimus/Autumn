@@ -1,3 +1,11 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.common.configuration;
 
 import com.github.derrop.documents.Document;
@@ -11,15 +19,7 @@ import dev.dementisimus.autumn.common.api.configuration.AutumnConfiguration;
 import java.io.File;
 import java.net.URI;
 import java.util.Properties;
-/**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
- *
- * Class AutumnConfiguration @ AutumnCommon
- *
- * @author dementisimus
- * @since 22.11.2021:22:49
- */
+
 public class DefaultAutumnConfiguration implements AutumnConfiguration {
 
     private final File file;

@@ -1,17 +1,17 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.common.dependency;
 
 import dev.dementisimus.autumn.common.api.dependency.AutumnDependency;
 import dev.dementisimus.autumn.common.api.dependency.AutumnRepository;
 import lombok.RequiredArgsConstructor;
-/**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
- *
- * Class AutumnDependency @ AutumnCommon
- *
- * @author dementisimus
- * @since 24.11.2021:18:32
- */
+
 @RequiredArgsConstructor
 public class DefaultAutumnDependency implements AutumnDependency {
 

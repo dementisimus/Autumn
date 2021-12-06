@@ -1,24 +1,68 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.common.api.database.property;
 
 import org.bson.Document;
+import org.bson.conversions.Bson;
+
 /**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
+ * Represents data (key & value + their name & value) for storage operations
  *
- * Class UpdateDataProperty @ Autumn
- *
- * @author dementisimus
- * @since 04.12.2021:14:49
+ * @since 1.0.0
  */
 public interface UpdateDataProperty extends DataProperty {
 
+    /**
+     * Sets the data property name & value
+     *
+     * @param name the data property name
+     * @param value the data property value
+     *
+     * @return the update data property object
+     *
+     * @since 1.0.0
+     */
     UpdateDataProperty value(String name, Object value);
 
+    /**
+     * Gets the data property name
+     *
+     * @return data property name
+     *
+     * @since 1.0.0
+     */
     String name();
 
+    /**
+     * Gets the data property value
+     *
+     * @return data property value
+     *
+     * @since 1.0.0
+     */
     Object value();
 
+    /**
+     * Transforms {@link #name()} & {@link #value()} into a bson document
+     *
+     * @return {@link Bson} bson document
+     *
+     * @since 1.0.0
+     */
     Document document();
 
+    /**
+     * Transforms {@link #fieldName()} + {@link #fieldValue()} & {@link #name()} + {@link #value()} into a bson document
+     *
+     * @return {@link Bson} bson document
+     *
+     * @since 1.0.0
+     */
     Document fullDocument();
 }

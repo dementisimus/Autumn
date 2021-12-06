@@ -1,3 +1,11 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.bukkit.listener;
 
 import com.google.inject.Inject;
@@ -9,15 +17,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLocaleChangeEvent;
 
 import javax.annotation.Nullable;
-/**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
- *
- * Class PlayerLocaleChangeListener @ Autumn
- *
- * @author dementisimus
- * @since 04.12.2021:22:50
- */
+
 @AutumnListener
 public class PlayerLocaleChangeListener implements Listener {
 

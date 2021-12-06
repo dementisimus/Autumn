@@ -1,3 +1,11 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.bukkit.setup;
 
 import com.github.derrop.documents.Document;
@@ -13,15 +21,7 @@ import dev.dementisimus.autumn.common.api.setup.event.ValidateCurrentExtraSetupS
 import dev.dementisimus.autumn.common.api.setup.state.SetupState;
 import dev.dementisimus.autumn.common.setup.DefaultSetupManager;
 import org.bukkit.Bukkit;
-/**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
- *
- * Class BukkitSetupManager @ Autumn
- *
- * @author dementisimus
- * @since 03.12.2021:19:37
- */
+
 public class BukkitSetupManager extends DefaultSetupManager {
 
     public BukkitSetupManager(DefaultAutumn autumn) {

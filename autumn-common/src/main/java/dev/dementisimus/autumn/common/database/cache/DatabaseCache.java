@@ -1,3 +1,11 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.common.database.cache;
 
 import com.google.common.cache.Cache;
@@ -6,15 +14,7 @@ import org.bson.Document;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-/**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
- *
- * Class DatabaseCache @ Autumn
- *
- * @author dementisimus
- * @since 04.12.2021:15:40
- */
+
 public class DatabaseCache {
 
     private static final Cache<String, Document> CACHED_DOCUMENTS = CacheBuilder.newBuilder().expireAfterWrite(10, TimeUnit.MINUTES).build();

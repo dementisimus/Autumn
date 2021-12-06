@@ -1,3 +1,11 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.common.setup.state;
 
 import dev.dementisimus.autumn.common.api.setup.state.SetupState;
@@ -6,15 +14,7 @@ import dev.dementisimus.autumn.common.setup.state.type.SetupStateFile;
 import dev.dementisimus.autumn.common.setup.state.type.SetupStateInteger;
 import dev.dementisimus.autumn.common.setup.state.type.SetupStateLanguageType;
 import dev.dementisimus.autumn.common.setup.state.type.SetupStateString;
-/**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
- *
- * Class MainSetupStates @ Autumn
- *
- * @author dementisimus
- * @since 30.11.2021:22:58
- */
+
 public class MainSetupStates {
 
     public static final SetupState CONSOLE_LANGUAGE = new SetupStateLanguageType("CONSOLE_LANGUAGE", "autumn.setup.console.language");

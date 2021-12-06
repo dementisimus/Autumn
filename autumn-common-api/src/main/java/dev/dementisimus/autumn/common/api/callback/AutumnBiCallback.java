@@ -1,16 +1,29 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.common.api.callback;
 
 /**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
+ * Represents an interface for passing on data
  *
- * Class AutumnCallback @ AutumnCommon
+ * @param <A> class type for element a
+ * @param <B> class type for element b
  *
- * @author dementisimus
- * @since 22.11.2021:22:21
+ * @since 1.0.0
  */
 public interface AutumnBiCallback<A, B> {
 
+    /**
+     * @param a element a
+     * @param b element b
+     *
+     * @since 1.0.0
+     */
     void done(A a, B b);
 
 }

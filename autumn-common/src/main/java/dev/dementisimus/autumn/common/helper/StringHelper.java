@@ -1,14 +1,13 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.common.helper;
 
-/**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
- *
- * Class StringHelper @ Autumn
- *
- * @author dementisimus
- * @since 30.11.2021:22:19
- */
 public class StringHelper {
 
     public static boolean equalsTo(String string, String... strings) {

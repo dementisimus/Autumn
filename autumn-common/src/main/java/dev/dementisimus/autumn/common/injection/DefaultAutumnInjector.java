@@ -1,3 +1,11 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.common.injection;
 
 import com.google.common.reflect.ClassPath;
@@ -15,15 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-/**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
- *
- * Class DefaultAutumnInjector @ AutumnCommon
- *
- * @author dementisimus
- * @since 26.11.2021:21:13
- */
+
 public abstract class DefaultAutumnInjector implements AutumnInjector {
 
     private static final Map<ClassLoader, List<Class<?>>> CLASSLOADER_CLASSES = new HashMap<>();

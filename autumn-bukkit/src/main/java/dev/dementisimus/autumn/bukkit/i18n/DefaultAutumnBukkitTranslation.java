@@ -1,18 +1,18 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.bukkit.i18n;
 
 import dev.dementisimus.autumn.bukkit.api.i18n.AutumnBukkitTranslation;
 import dev.dementisimus.autumn.common.i18n.DefaultAutumnTranslation;
 import dev.dementisimus.autumn.common.language.PlayerLanguage;
 import org.bukkit.entity.Player;
-/**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
- *
- * Class DefaultAutumnBukkitTranslation @ BukkitAutumn
- *
- * @author dementisimus
- * @since 26.11.2021:16:28
- */
+
 public class DefaultAutumnBukkitTranslation extends DefaultAutumnTranslation implements AutumnBukkitTranslation {
 
     public DefaultAutumnBukkitTranslation(String translationProperty) {

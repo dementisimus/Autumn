@@ -1,15 +1,15 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.bukkit.helper;
 
 import org.bukkit.Location;
-/**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
- *
- * Class LocationHelper @ Autumn
- *
- * @author dementisimus
- * @since 05.12.2021:00:21
- */
+
 public class LocationHelper {
 
     public static Location round(Location loc) {
