@@ -1,6 +1,6 @@
 name: Enhancement Request
 description: Request an enhancement
-labels: ["enhancement"]
+labels: [ "enhancement" ]
 assignees:
   - dementisimus
 
@@ -12,9 +12,20 @@ body:
       description: To what module does your enhancement request belong to?
       options:
         - 'Bukkit'
-        - 'Bungeecord'
+        - 'Bukkit-API'
+        - 'Bungee'
+        - 'Bungee-API'
+        - 'Common-API'
         - 'Common'
         - 'Dependencies'
+    validations:
+      required: true
+
+  - type: input
+    id: module-section
+    attributes:
+      label: Module section
+      description: What section of the previously chosen module does this enhancement request belong to?
     validations:
       required: true
 
