@@ -28,10 +28,6 @@ public class BukkitNextExtraSetupStateEvent extends Event implements NextExtraSe
     private SetupState nextSetupState;
     private boolean cancelled;
 
-    public static HandlerList getHandlerList() {
-        return HANDLERS;
-    }
-
     @Override
     public SetupManager setupManager() {
         return this.setupManager;
@@ -69,6 +65,10 @@ public class BukkitNextExtraSetupStateEvent extends Event implements NextExtraSe
 
     @Override
     public @NotNull HandlerList getHandlers() {
+        return HANDLERS;
+    }
+
+    public static HandlerList getHandlerList() {
         return HANDLERS;
     }
 }

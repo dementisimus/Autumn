@@ -19,10 +19,6 @@ public class AutumnDataProperty implements DataProperty {
     private final String fieldName;
     private final Object fieldValue;
 
-    public static DataProperty of(String fieldName, Object fieldValue) {
-        return new AutumnUpdateDataProperty(fieldName, fieldValue);
-    }
-
     @Override
     public String fieldName() {
         return this.fieldName;
@@ -41,5 +37,9 @@ public class AutumnDataProperty implements DataProperty {
     @Override
     public String toString() {
         return "DataProperty{" + "fieldName='" + this.fieldName + '\'' + ", fieldValue=" + this.fieldValue + '}';
+    }
+
+    public static DataProperty of(String fieldName, Object fieldValue) {
+        return new AutumnUpdateDataProperty(fieldName, fieldValue);
     }
 }

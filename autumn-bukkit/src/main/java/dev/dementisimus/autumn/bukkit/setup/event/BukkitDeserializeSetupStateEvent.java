@@ -27,10 +27,6 @@ public class BukkitDeserializeSetupStateEvent extends Event implements Deseriali
 
     private Object value;
 
-    public static HandlerList getHandlerList() {
-        return HANDLERS;
-    }
-
     @Override
     public SetupState setupState() {
         return this.setupState;
@@ -58,6 +54,10 @@ public class BukkitDeserializeSetupStateEvent extends Event implements Deseriali
 
     @Override
     public @NotNull HandlerList getHandlers() {
+        return HANDLERS;
+    }
+
+    public static HandlerList getHandlerList() {
         return HANDLERS;
     }
 }

@@ -65,19 +65,6 @@ public class DefaultItemFactory implements ItemFactory {
         });
     }
 
-    private void initialize(ItemStack itemStack) {
-        this.itemStack = itemStack;
-        this.itemMeta = itemStack.getItemMeta();
-
-        String itemId = this.retrieve(ItemFactoryNamespace.NAMESPACE, ItemFactoryNamespace.ITEM_ID, PersistentDataType.STRING);
-
-        this.itemId = Objects.requireNonNullElseGet(itemId, () -> RandomStringUtils.randomAlphanumeric(5));
-
-        if(this.itemMeta != null && itemId == null) {
-            this.store(ItemFactoryNamespace.NAMESPACE, ItemFactoryNamespace.ITEM_ID, PersistentDataType.STRING, this.itemId);
-        }
-    }
-
     @Override
     public ItemFactory material(Material material) {
         this.itemStack.setType(material);
@@ -269,6 +256,19 @@ public class DefaultItemFactory implements ItemFactory {
     @Override
     public ItemStack create() {
         return this.itemStack;
+    }
+
+    private void initialize(ItemStack itemStack) {
+        this.itemStack = itemStack;
+        this.itemMeta = itemStack.getItemMeta();
+
+        String itemId = this.retrieve(ItemFactoryNamespace.NAMESPACE, ItemFactoryNamespace.ITEM_ID, PersistentDataType.STRING);
+
+        this.itemId = Objects.requireNonNullElseGet(itemId, () -> RandomStringUtils.randomAlphanumeric(5));
+
+        if(this.itemMeta != null && itemId == null) {
+            this.store(ItemFactoryNamespace.NAMESPACE, ItemFactoryNamespace.ITEM_ID, PersistentDataType.STRING, this.itemId);
+        }
     }
 
     private List<String> getLore() {

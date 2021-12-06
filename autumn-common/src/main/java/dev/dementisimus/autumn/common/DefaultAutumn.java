@@ -19,6 +19,7 @@ import dev.dementisimus.autumn.common.api.injection.annotation.AutumnListener;
 import dev.dementisimus.autumn.common.api.injection.annotation.AutumnSetupListener;
 import dev.dementisimus.autumn.common.api.log.AutumnLogging;
 import dev.dementisimus.autumn.common.api.server.ServerType;
+import dev.dementisimus.autumn.common.api.setup.SetupManager;
 import dev.dementisimus.autumn.common.api.setup.state.SetupState;
 import dev.dementisimus.autumn.common.configuration.DefaultAutumnConfiguration;
 import dev.dementisimus.autumn.common.database.DefaultDatabase;
@@ -137,10 +138,7 @@ public abstract class DefaultAutumn implements Autumn {
             this.injector.registerModule(DefaultAutumnInjector.class, this.injector);
             this.injector.registerModule(AutumnLanguage.class, this.defaultLanguage);
             this.injector.registerModule(DefaultSetupManager.class, this.setupManager);
-
-            if(this.database != null) {
-                this.injector.registerModule(Database.class, this.database);
-            }
+            this.injector.registerModule(Database.class, this.database);
 
             this.injector.annotation(AutumnSetupListener.class);
             this.injector.scan();
@@ -188,6 +186,36 @@ public abstract class DefaultAutumn implements Autumn {
     @Override
     public void optionalListeners(boolean optionalListeners) {
         this.optionalListeners = optionalListeners;
+    }
+
+    @Override
+    public AutumnTaskExecutor taskExecutor() {
+        return this.taskExecutor;
+    }
+
+    @Override
+    public AutumnLogging logging() {
+        return this.logging;
+    }
+
+    @Override
+    public AutumnInjector injector() {
+        return this.injector;
+    }
+
+    @Override
+    public AutumnLanguage defaultLanguage() {
+        return this.defaultLanguage;
+    }
+
+    @Override
+    public SetupManager setupManager() {
+        return this.setupManager;
+    }
+
+    @Override
+    public Database database() {
+        return this.database;
     }
 
     public void postSetupInitialization() {

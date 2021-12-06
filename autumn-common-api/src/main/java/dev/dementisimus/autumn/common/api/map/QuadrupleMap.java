@@ -22,10 +22,10 @@ public class QuadrupleMap<A, B, C, D> {
     /**
      * Default constructor.
      *
-     * @param a            The first element, may be {@code null}
-     * @param b            The second element, may be {@code null}
-     * @param c            The third element, may be {@code null}
-     * @param d            The fourth element, may be {@code null}
+     * @param a The first element, may be {@code null}
+     * @param b The second element, may be {@code null}
+     * @param c The third element, may be {@code null}
+     * @param d The fourth element, may be {@code null}
      * @param isModifiable Indicates whether or not the elements can be changed after initialization
      */
     public QuadrupleMap(A a, B b, C c, D d, boolean isModifiable) {
@@ -37,39 +37,18 @@ public class QuadrupleMap<A, B, C, D> {
     }
 
     /**
-     * This factory allows a QuadrupleMap to be created using inference to obtain the generic types.
+     * Returns a hash code value for the object. This method is supported for the benefit of hash tables such as those provided by {@code HashMap}.
      *
-     * @param <A> Class type for the first element
-     * @param <B> Class type for the second element
-     * @param <C> Class type for the third element
-     * @param <D> Class type for the fourth element
-     * @param a   The first element, may be {@code null}
-     * @param b   The second element, may be {@code null}
-     * @param c   The third element, may be {@code null}
-     * @param d   The fourth element, may be {@code null}
-     *
-     * @return A QuadrupleMap formed from four parameters
+     * @return Hash code value for this object
      */
-    public static <A, B, C, D> QuadrupleMap<A, B, C, D> of(A a, B b, C c, D d) {
-        return new QuadrupleMap<A, B, C, D>(a, b, c, d, true);
-    }
-
-    /**
-     * This factory allows an unmodifiable pair to be created using inference to obtain the generic types.
-     *
-     * @param <A> Class type for the first element
-     * @param <B> Class type for the second element
-     * @param <C> Class type for the third element
-     * @param <D> Class type for the fourth element
-     * @param a   The first element, may be {@code null}
-     * @param b   The second element, may be {@code null}
-     * @param c   The third element, may be {@code null}
-     * @param d   The fourth element, may be {@code null}
-     *
-     * @return An unmodifiable QuadrupleMap formed from two parameters
-     */
-    public static <A, B, C, D> QuadrupleMap<A, B, C, D> unmodifiableOf(A a, B b, C c, D d) {
-        return new QuadrupleMap<A, B, C, D>(a, b, c, d, false);
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 97 * hash + Objects.hashCode(this.getFirst());
+        hash = 97 * hash + Objects.hashCode(this.getSecond());
+        hash = 97 * hash + Objects.hashCode(this.getThird());
+        hash = 97 * hash + Objects.hashCode(this.getFourth());
+        return hash;
     }
 
     /**
@@ -111,21 +90,6 @@ public class QuadrupleMap<A, B, C, D> {
     }
 
     /**
-     * Returns a hash code value for the object. This method is supported for the benefit of hash tables such as those provided by {@code HashMap}.
-     *
-     * @return Hash code value for this object
-     */
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 97 * hash + Objects.hashCode(this.getFirst());
-        hash = 97 * hash + Objects.hashCode(this.getSecond());
-        hash = 97 * hash + Objects.hashCode(this.getThird());
-        hash = 97 * hash + Objects.hashCode(this.getFourth());
-        return hash;
-    }
-
-    /**
      * Returns a {@code String} representation of this QuadrupleMap using the format (first, second, third, fourth).
      *
      * @return A {@code String} representation of this QuadrupleMap
@@ -133,10 +97,6 @@ public class QuadrupleMap<A, B, C, D> {
     @Override
     public String toString() {
         return "(" + this.a + ", " + this.b + ", " + this.c + ", " + this.d + ")";
-    }
-
-    private void checkIsModifiable() {
-
     }
 
     /**
@@ -221,6 +181,46 @@ public class QuadrupleMap<A, B, C, D> {
      * @return {@code true} if the element can be changed. Otherwise, {@code false}
      */
     public boolean isModifiable() {
-        return isModifiable;
+        return this.isModifiable;
+    }
+
+    private void checkIsModifiable() {
+
+    }
+
+    /**
+     * This factory allows a QuadrupleMap to be created using inference to obtain the generic types.
+     *
+     * @param <A> Class type for the first element
+     * @param <B> Class type for the second element
+     * @param <C> Class type for the third element
+     * @param <D> Class type for the fourth element
+     * @param a The first element, may be {@code null}
+     * @param b The second element, may be {@code null}
+     * @param c The third element, may be {@code null}
+     * @param d The fourth element, may be {@code null}
+     *
+     * @return A QuadrupleMap formed from four parameters
+     */
+    public static <A, B, C, D> QuadrupleMap<A, B, C, D> of(A a, B b, C c, D d) {
+        return new QuadrupleMap<A, B, C, D>(a, b, c, d, true);
+    }
+
+    /**
+     * This factory allows an unmodifiable pair to be created using inference to obtain the generic types.
+     *
+     * @param <A> Class type for the first element
+     * @param <B> Class type for the second element
+     * @param <C> Class type for the third element
+     * @param <D> Class type for the fourth element
+     * @param a The first element, may be {@code null}
+     * @param b The second element, may be {@code null}
+     * @param c The third element, may be {@code null}
+     * @param d The fourth element, may be {@code null}
+     *
+     * @return An unmodifiable QuadrupleMap formed from two parameters
+     */
+    public static <A, B, C, D> QuadrupleMap<A, B, C, D> unmodifiableOf(A a, B b, C c, D d) {
+        return new QuadrupleMap<A, B, C, D>(a, b, c, d, false);
     }
 }

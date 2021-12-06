@@ -10,6 +10,4 @@ import net.md_5.bungee.api.plugin.Plugin;
  * @author dementisimus
  * @since 24.11.2021:14:45
  */
-public class AutumnDependenciesPlugin extends Plugin {
-
-}
+public class AutumnDependenciesPlugin extends Plugin {}

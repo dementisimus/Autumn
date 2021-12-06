@@ -10,10 +10,4 @@ import net.md_5.bungee.api.plugin.Plugin;
  * @author dementisimus
  * @since 23.11.2021:14:05
  */
-public class AutumnPlugin extends Plugin {
-
-    @Override
-    public void onEnable() {
-
-    }
-}
+public class AutumnPlugin extends Plugin {}

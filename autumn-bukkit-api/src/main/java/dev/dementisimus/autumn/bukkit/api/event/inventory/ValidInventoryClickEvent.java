@@ -27,12 +27,11 @@ public class ValidInventoryClickEvent extends Event {
     @Getter @Setter private ItemStack currentItem;
     @Getter @Setter private String currentItemDisplayName;
 
-    public static HandlerList getHandlerList() {
-        return HANDLERS;
-    }
-
     public @NotNull HandlerList getHandlers() {
         return HANDLERS;
     }
 
+    public static HandlerList getHandlerList() {
+        return HANDLERS;
+    }
 }

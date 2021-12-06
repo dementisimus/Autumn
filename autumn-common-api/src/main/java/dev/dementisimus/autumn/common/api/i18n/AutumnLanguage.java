@@ -29,19 +29,6 @@ public enum AutumnLanguage {
     @Getter private final int selectionInventorySlot;
     @Getter private final String textureId;
 
-    public static AutumnLanguage fromLocale(Locale locale) {
-        AutumnLanguage language = null;
-
-        for(AutumnLanguage autumnLanguage : AutumnLanguage.values()) {
-            if(autumnLanguage.getId().equals(locale.getLanguage())) {
-                language = autumnLanguage;
-                break;
-            }
-        }
-
-        return language;
-    }
-
     public static class DataSource implements DataSourceProperty {
 
         public static final DataSource PROPERTY = new DataSource();
@@ -58,5 +45,18 @@ public enum AutumnLanguage {
         public Map<String, String> fields() {
             return Map.ofEntries(Map.entry(USER, SQLTypes.LONGTEXT), Map.entry(LANGUAGE, SQLTypes.LONGTEXT));
         }
+    }
+
+    public static AutumnLanguage fromLocale(Locale locale) {
+        AutumnLanguage language = null;
+
+        for(AutumnLanguage autumnLanguage : AutumnLanguage.values()) {
+            if(autumnLanguage.getId().equals(locale.getLanguage())) {
+                language = autumnLanguage;
+                break;
+            }
+        }
+
+        return language;
     }
 }

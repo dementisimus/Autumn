@@ -29,6 +29,14 @@ public class BukkitSetupManager extends DefaultSetupManager {
     }
 
     @Override
+    public ValidateCurrentExtraSetupStateEvent callValidateCurrentSetupStateEvent(SetupState currentSetupState, String consoleInput, boolean validInput) {
+        BukkitValidateCurrentExtraSetupStateEvent validateCurrentExtraSetupStateEvent = new BukkitValidateCurrentExtraSetupStateEvent(currentSetupState, consoleInput, validInput);
+
+        Bukkit.getPluginManager().callEvent(validateCurrentExtraSetupStateEvent);
+        return validateCurrentExtraSetupStateEvent;
+    }
+
+    @Override
     protected DeserializeSetupStateEvent callDeserializeSetupStateEvent(SetupState setupState, Document configuration, String name, Object value) {
         BukkitDeserializeSetupStateEvent deserializeSetupStateEvent = new BukkitDeserializeSetupStateEvent(setupState, configuration, name, value);
 
@@ -50,13 +58,5 @@ public class BukkitSetupManager extends DefaultSetupManager {
 
         Bukkit.getPluginManager().callEvent(serializeSetupStateEvent);
         return serializeSetupStateEvent;
-    }
-
-    @Override
-    public ValidateCurrentExtraSetupStateEvent callValidateCurrentSetupStateEvent(SetupState currentSetupState, String consoleInput, boolean validInput) {
-        BukkitValidateCurrentExtraSetupStateEvent validateCurrentExtraSetupStateEvent = new BukkitValidateCurrentExtraSetupStateEvent(currentSetupState, consoleInput, validInput);
-
-        Bukkit.getPluginManager().callEvent(validateCurrentExtraSetupStateEvent);
-        return validateCurrentExtraSetupStateEvent;
     }
 }

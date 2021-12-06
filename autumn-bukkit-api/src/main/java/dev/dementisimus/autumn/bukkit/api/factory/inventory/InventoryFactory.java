@@ -20,16 +20,6 @@ public interface InventoryFactory {
     String PLACEHOLDER = " ";
     ItemStack AIR = new ItemStack(Material.AIR);
 
-    static boolean isPlaceholder(ItemStack itemStack) {
-        ItemMeta itemMeta = itemStack.getItemMeta();
-
-        if(itemMeta != null) {
-            return itemMeta.getDisplayName().equals(PLACEHOLDER);
-        }
-
-        return false;
-    }
-
     InventoryFactory setContents(ItemStack[] itemStacks);
 
     InventoryFactory setItem(int slot, ItemFactory itemFactory);
@@ -57,4 +47,14 @@ public interface InventoryFactory {
     Inventory create();
 
     void createFor(Player player);
+
+    static boolean isPlaceholder(ItemStack itemStack) {
+        ItemMeta itemMeta = itemStack.getItemMeta();
+
+        if(itemMeta != null) {
+            return itemMeta.getDisplayName().equals(PLACEHOLDER);
+        }
+
+        return false;
+    }
 }

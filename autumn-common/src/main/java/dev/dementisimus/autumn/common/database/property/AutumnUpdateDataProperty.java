@@ -20,10 +20,6 @@ public class AutumnUpdateDataProperty extends AutumnDataProperty implements Upda
         super(fieldName, fieldValue);
     }
 
-    public static UpdateDataProperty of(String fieldName, Object fieldValue) {
-        return new AutumnUpdateDataProperty(fieldName, fieldValue);
-    }
-
     @Override
     public UpdateDataProperty value(String name, Object value) {
         this.name = name;
@@ -55,5 +51,9 @@ public class AutumnUpdateDataProperty extends AutumnDataProperty implements Upda
         document.put(this.name, this.value);
 
         return document;
+    }
+
+    public static UpdateDataProperty of(String fieldName, Object fieldValue) {
+        return new AutumnUpdateDataProperty(fieldName, fieldValue);
     }
 }

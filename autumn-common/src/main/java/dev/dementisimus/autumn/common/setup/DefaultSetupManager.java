@@ -52,6 +52,14 @@ public abstract class DefaultSetupManager implements SetupManager {
         this.autumn = autumn;
     }
 
+    public abstract ValidateCurrentExtraSetupStateEvent callValidateCurrentSetupStateEvent(SetupState currentSetupState, String consoleInput, boolean validInput);
+
+    protected abstract DeserializeSetupStateEvent callDeserializeSetupStateEvent(SetupState setupState, Document configuration, String name, Object value);
+
+    protected abstract NextExtraSetupStateEvent callNextSetupStateEvent(SetupState currentSetupState, int currentStateListIndex, SetupState nextSetupState, boolean cancelled);
+
+    protected abstract SerializeSetupStateEvent callSerializeSetupStateEvent(SetupState setupState, Object value);
+
     @Override
     public void mainSetupState(SetupState setupState) {
         this.mainSetupStates.add(setupState);
@@ -265,14 +273,6 @@ public abstract class DefaultSetupManager implements SetupManager {
     public boolean isExtraState(SetupState setupState) {
         return this.extraSetupStates.contains(setupState);
     }
-
-    protected abstract DeserializeSetupStateEvent callDeserializeSetupStateEvent(SetupState setupState, Document configuration, String name, Object value);
-
-    protected abstract NextExtraSetupStateEvent callNextSetupStateEvent(SetupState currentSetupState, int currentStateListIndex, SetupState nextSetupState, boolean cancelled);
-
-    protected abstract SerializeSetupStateEvent callSerializeSetupStateEvent(SetupState setupState, Object value);
-
-    public abstract ValidateCurrentExtraSetupStateEvent callValidateCurrentSetupStateEvent(SetupState currentSetupState, String consoleInput, boolean validInput);
 
     private AutumnTranslation getSetupTranslation(String translationProperty) {
         AutumnTranslation translation = new DefaultAutumnTranslation(translationProperty);

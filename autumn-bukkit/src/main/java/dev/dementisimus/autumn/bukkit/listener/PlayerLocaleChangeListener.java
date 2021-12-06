@@ -7,6 +7,8 @@ import dev.dementisimus.autumn.common.language.PlayerLanguage;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLocaleChangeEvent;
+
+import javax.annotation.Nullable;
 /**
  * Copyright (c) by dementisimus,
  * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
@@ -19,7 +21,7 @@ import org.bukkit.event.player.PlayerLocaleChangeEvent;
 @AutumnListener
 public class PlayerLocaleChangeListener implements Listener {
 
-    @Inject Database database;
+    @Inject @Nullable Database database;
 
     @EventHandler
     public void on(PlayerLocaleChangeEvent event) {

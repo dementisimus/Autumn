@@ -10,6 +10,4 @@ import org.bukkit.plugin.java.JavaPlugin;
  * @author dementisimus
  * @since 24.11.2021:14:44
  */
-public class AutumnDependenciesPlugin extends JavaPlugin {
-
-}
+public class AutumnDependenciesPlugin extends JavaPlugin {}
