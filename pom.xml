@@ -7,7 +7,7 @@
     <groupId>dev.dementisimus</groupId>
     <artifactId>autumn</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <modules>
         <module>autumn-bukkit</module>
         <module>autumn-bungee</module>
