@@ -20,8 +20,8 @@ body:
         - 'Bukkit-API'
         - 'Bungee'
         - 'Bungee-API'
-        - 'Common-API'
         - 'Common'
+        - 'Common-API'
         - 'Dependencies'
     validations:
       required: true
