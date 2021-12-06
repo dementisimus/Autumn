@@ -12,14 +12,14 @@ import org.bson.Document;
 import org.bson.conversions.Bson;
 
 /**
- * Represents data (key & value + their name & value) for storage operations
+ * Represents data (key and value + their name and value) for storage operations
  *
  * @since 1.0.0
  */
 public interface UpdateDataProperty extends DataProperty {
 
     /**
-     * Sets the data property name & value
+     * Sets the data property name and value
      *
      * @param name the data property name
      * @param value the data property value
@@ -49,7 +49,7 @@ public interface UpdateDataProperty extends DataProperty {
     Object value();
 
     /**
-     * Transforms {@link #name()} & {@link #value()} into a bson document
+     * Transforms {@link #name()} and {@link #value()} into a bson document
      *
      * @return {@link Bson} bson document
      *
@@ -58,7 +58,7 @@ public interface UpdateDataProperty extends DataProperty {
     Document document();
 
     /**
-     * Transforms {@link #fieldName()} + {@link #fieldValue()} & {@link #name()} + {@link #value()} into a bson document
+     * Transforms {@link #fieldName()} + {@link #fieldValue()} and {@link #name()} + {@link #value()} into a bson document
      *
      * @return {@link Bson} bson document
      *

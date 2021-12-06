@@ -16,6 +16,11 @@ import lombok.RequiredArgsConstructor;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ * All languages supported by Autumn
+ *
+ * @since 1.0.0
+ */
 @RequiredArgsConstructor
 public enum AutumnLanguage {
 
@@ -40,11 +45,32 @@ public enum AutumnLanguage {
     @Getter private final int selectionInventorySlot;
     @Getter private final String textureId;
 
+    /**
+     * The data source property used by Autumn for storing UserLanguages
+     *
+     * @since 1.0.0
+     */
     public static class DataSource implements DataSourceProperty {
 
+        /**
+         * The data source property
+         *
+         * @since 1.0.0
+         */
         public static final DataSource PROPERTY = new DataSource();
 
+        /**
+         * The user field
+         *
+         * @since 1.0.0
+         */
         public static final String USER = "user";
+
+        /**
+         * The language field
+         *
+         * @since 1.0.0
+         */
         public static final String LANGUAGE = "language";
 
         @Override
@@ -58,6 +84,15 @@ public enum AutumnLanguage {
         }
     }
 
+    /**
+     * Parses a locale into a AutumnLanguage
+     *
+     * @param locale locale
+     *
+     * @return an autumn language, or null, if no one was found
+     *
+     * @since 1.0.0
+     */
     public static AutumnLanguage fromLocale(Locale locale) {
         AutumnLanguage language = null;
 

@@ -49,7 +49,7 @@ public interface Autumn {
     void extraSetupStates(SetupState... setupStates);
 
     /**
-     * Initializes Autumn & its plugin
+     * Initializes Autumn and its plugin
      *
      * @param initializationCallback the injector for adding plugin modules when the initialization has been completed
      *

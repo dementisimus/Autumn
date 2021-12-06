@@ -51,6 +51,7 @@ public interface AutumnInjector {
      *
      * @param clazz module class type
      * @param value module value
+     * @param <T> module class type
      *
      * @since 1.0.0
      */

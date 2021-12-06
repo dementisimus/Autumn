@@ -18,6 +18,11 @@ import java.util.concurrent.Executors;
  */
 public interface AutumnTaskExecutor {
 
+    /**
+     * ExecutorService used for executing threads
+     *
+     * @since 1.0.0
+     */
     ExecutorService EXECUTOR_SERVICE = Executors.newFixedThreadPool(3);
 
     /**

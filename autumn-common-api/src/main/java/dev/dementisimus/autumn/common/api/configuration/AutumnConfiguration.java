@@ -114,7 +114,7 @@ public interface AutumnConfiguration {
     AutumnConfiguration set(String key, byte[] bytes);
 
     /**
-     * Saves all previously set keys & values to the storage file
+     * Saves all previously set keys and values to the storage file
      *
      * @since 1.0.0
      */
@@ -123,7 +123,7 @@ public interface AutumnConfiguration {
     /**
      * Reads the file
      *
-     * @return {@link Document} containing all keys & values
+     * @return {@link Document} containing all keys and values
      *
      * @since 1.0.0
      */
@@ -132,7 +132,7 @@ public interface AutumnConfiguration {
     /**
      * Reads the file
      *
-     * @param callback Callback used to deliver the {@link Document} containing all keys & values
+     * @param callback Callback used to deliver the {@link Document} containing all keys and values
      *
      * @since 1.0.0
      */

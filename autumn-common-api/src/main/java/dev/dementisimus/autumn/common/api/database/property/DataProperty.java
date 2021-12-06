@@ -11,7 +11,7 @@ package dev.dementisimus.autumn.common.api.database.property;
 import org.bson.conversions.Bson;
 
 /**
- * Represents data (key & value) for storage operations
+ * Represents data (key and value) for storage operations
  *
  * @since 1.0.0
  */
@@ -36,7 +36,7 @@ public interface DataProperty {
     Object fieldValue();
 
     /**
-     * Transforms {@link #fieldName()} & {@link #fieldValue()} into a bson filter
+     * Transforms {@link #fieldName()} and {@link #fieldValue()} into a bson filter
      *
      * @return {@link Bson} bson filter
      *

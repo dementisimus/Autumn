@@ -8,6 +8,11 @@
 
 package dev.dementisimus.autumn.common.api.server;
 
+/**
+ * All supported server types
+ *
+ * @since 1.0.0
+ */
 public enum ServerType {
 
     /**
