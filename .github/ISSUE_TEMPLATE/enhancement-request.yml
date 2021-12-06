@@ -1,6 +1,6 @@
-name: Feature Request
-description: Request a new feature
-labels: ["feature"]
+name: Enhancement Request
+description: Request an enhancement
+labels: ["enhancement"]
 assignees:
   - dementisimus
 
@@ -9,7 +9,7 @@ body:
     id: module
     attributes:
       label: Module
-      description: To what module does your feature request belong to?
+      description: To what module does your enhancement request belong to?
       options:
         - 'Bukkit'
         - 'Bungeecord'
@@ -22,6 +22,6 @@ body:
     id: request-details
     attributes:
       label: Request details
-      description: Try to explain your feature request and how it may improve Autumn
+      description: Try to explain your enhancement request and how it may improve Autumn
     validations:
       required: true
