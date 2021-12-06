@@ -10,6 +10,7 @@ body:
     attributes:
       label: Module
       description: To what module does your enhancement request belong to?
+      multiple: true
       options:
         - 'Bukkit'
         - 'Bukkit-API'

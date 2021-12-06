@@ -14,6 +14,7 @@ body:
     attributes:
       label: Module
       description: To what module does your bug report belong to?
+      multiple: true
       options:
         - 'Bukkit'
         - 'Bukkit-API'
@@ -88,6 +89,7 @@ body:
     attributes:
       label: Database
       description: What database are you using?
+      multiple: true
       options:
         - 'MongoDB'
         - 'MariaDB (MySQL)'
@@ -99,7 +101,7 @@ body:
     id: database-version
     attributes:
       label: Database version
-      description: What version of the previously specified database are you using?
+      description: What version(s) of the previously specified database(s) are you using?
     validations:
       required: false
 
