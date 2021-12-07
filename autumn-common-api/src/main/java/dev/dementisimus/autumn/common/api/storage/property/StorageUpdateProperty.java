@@ -6,7 +6,7 @@
  | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
  */
 
-package dev.dementisimus.autumn.common.api.database.property;
+package dev.dementisimus.autumn.common.api.storage.property;
 
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -17,33 +17,33 @@ import org.jetbrains.annotations.NotNull;
  *
  * @since 1.0.0
  */
-public interface UpdateDataProperty extends DataProperty {
+public interface StorageUpdateProperty extends StorageProperty {
 
     /**
-     * Sets the data property name and value
+     * Sets the storage property name and value
      *
-     * @param name the data property name
-     * @param value the data property value
+     * @param name the storage property name
+     * @param value the storage property value
      *
-     * @return the update data property object
+     * @return the storage update property object
      *
      * @since 1.0.0
      */
-    @NotNull UpdateDataProperty value(@NotNull String name, @NotNull Object value);
+    @NotNull StorageUpdateProperty value(@NotNull String name, @NotNull Object value);
 
     /**
-     * Gets the data property name
+     * Gets the storage update property name
      *
-     * @return data property name
+     * @return the storage update property name
      *
      * @since 1.0.0
      */
     @NotNull String name();
 
     /**
-     * Gets the data property value
+     * Gets the storage update property value
      *
-     * @return data property value
+     * @return the storage update property value
      *
      * @since 1.0.0
      */
@@ -61,7 +61,7 @@ public interface UpdateDataProperty extends DataProperty {
     /**
      * Transforms {@link #fieldName()} + {@link #fieldValue()} and {@link #name()} + {@link #value()} into a bson document
      *
-     * @return {@link Bson} bson document
+     * @return {@link Bson} document
      *
      * @since 1.0.0
      */

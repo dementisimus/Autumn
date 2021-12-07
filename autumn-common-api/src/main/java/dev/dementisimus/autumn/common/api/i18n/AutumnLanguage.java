@@ -8,8 +8,8 @@
 
 package dev.dementisimus.autumn.common.api.i18n;
 
-import dev.dementisimus.autumn.common.api.database.property.source.DataSourceProperty;
-import dev.dementisimus.autumn.common.api.database.sql.SQLTypes;
+import dev.dementisimus.autumn.common.api.storage.property.source.StorageSourceProperty;
+import dev.dementisimus.autumn.common.api.storage.type.sql.SQLTypes;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
@@ -48,18 +48,18 @@ public enum AutumnLanguage {
     @Getter private final String textureId;
 
     /**
-     * The data source property used by Autumn for storing UserLanguages
+     * The storage source property used by Autumn for storing UserLanguages
      *
      * @since 1.0.0
      */
-    public static class DataSource implements DataSourceProperty {
+    public static class StorageSource implements StorageSourceProperty {
 
         /**
-         * The data source property
+         * The storage source property
          *
          * @since 1.0.0
          */
-        public static final DataSource PROPERTY = new DataSource();
+        public static final StorageSource PROPERTY = new StorageSource();
 
         /**
          * The user field

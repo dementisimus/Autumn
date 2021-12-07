@@ -15,11 +15,11 @@ import dev.dementisimus.autumn.bukkit.api.language.LanguageSelection;
 import dev.dementisimus.autumn.bukkit.factory.inventory.DefaultInventoryFactory;
 import dev.dementisimus.autumn.bukkit.factory.item.DefaultItemFactory;
 import dev.dementisimus.autumn.bukkit.helper.BukkitHelper;
-import dev.dementisimus.autumn.common.api.database.Database;
-import dev.dementisimus.autumn.common.api.database.property.UpdateDataProperty;
 import dev.dementisimus.autumn.common.api.i18n.AutumnLanguage;
-import dev.dementisimus.autumn.common.database.property.AutumnUpdateDataProperty;
+import dev.dementisimus.autumn.common.api.storage.Storage;
+import dev.dementisimus.autumn.common.api.storage.property.StorageUpdateProperty;
 import dev.dementisimus.autumn.common.language.PlayerLanguage;
+import dev.dementisimus.autumn.common.storage.property.AutumnStorageUpdateProperty;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -39,7 +39,7 @@ public class DefaultLanguageSelection implements LanguageSelection {
     public void open(@NotNull Player player) {
         InventoryFactory inventoryFactory = new DefaultInventoryFactory(3, player, "autumn.bukkit.player.language.selection");
 
-        Database database = this.autumn.getDatabase();
+        Storage storage = this.autumn.getStorage();
 
         inventoryFactory.placeholder(Material.WHITE_STAINED_GLASS_PANE);
         for(AutumnLanguage language : AutumnLanguage.values()) {
@@ -53,15 +53,15 @@ public class DefaultLanguageSelection implements LanguageSelection {
 
                     AutumnLanguage newLanguage = AutumnLanguage.valueOf(clickedItemFactory.retrieve(NAMESPACE, KEY, PersistentDataType.STRING));
 
-                    if(database != null) {
-                        database.dataSourceProperty(AutumnLanguage.DataSource.PROPERTY);
+                    if(storage != null) {
+                        storage.storageSourceProperty(AutumnLanguage.StorageSource.PROPERTY);
 
-                        UpdateDataProperty updateDataProperty = AutumnUpdateDataProperty.of(AutumnLanguage.DataSource.USER, player.getUniqueId().toString());
-                        updateDataProperty.value(AutumnLanguage.DataSource.LANGUAGE, newLanguage.name());
+                        StorageUpdateProperty storageUpdateProperty = AutumnStorageUpdateProperty.of(AutumnLanguage.StorageSource.USER, player.getUniqueId().toString());
+                        storageUpdateProperty.value(AutumnLanguage.StorageSource.LANGUAGE, newLanguage.name());
 
-                        database.document(updateDataProperty.fullDocument());
-                        database.updateDataProperty(updateDataProperty);
-                        database.writeOrUpdate(success -> {
+                        storage.document(storageUpdateProperty.fullDocument());
+                        storage.storageUpdateProperty(storageUpdateProperty);
+                        storage.writeOrUpdate(success -> {
                             this.apply(player, newLanguage);
                         });
                     }else {

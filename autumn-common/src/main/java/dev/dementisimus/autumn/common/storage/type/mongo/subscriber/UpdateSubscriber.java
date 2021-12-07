@@ -6,7 +6,7 @@
  | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
  */
 
-package dev.dementisimus.autumn.common.database.type.mongo.subscriber;
+package dev.dementisimus.autumn.common.storage.type.mongo.subscriber;
 
 import com.mongodb.client.result.UpdateResult;
 import dev.dementisimus.autumn.common.api.callback.AutumnCallback;

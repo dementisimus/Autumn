@@ -6,23 +6,23 @@
  | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
  */
 
-package dev.dementisimus.autumn.common.database.property;
+package dev.dementisimus.autumn.common.storage.property;
 
-import dev.dementisimus.autumn.common.api.database.property.UpdateDataProperty;
+import dev.dementisimus.autumn.common.api.storage.property.StorageUpdateProperty;
 import org.bson.Document;
 import org.jetbrains.annotations.NotNull;
 
-public class AutumnUpdateDataProperty extends AutumnDataProperty implements UpdateDataProperty {
+public class AutumnStorageUpdateProperty extends AutumnStorageProperty implements StorageUpdateProperty {
 
     private String name;
     private Object value;
 
-    public AutumnUpdateDataProperty(String fieldName, Object fieldValue) {
+    public AutumnStorageUpdateProperty(String fieldName, Object fieldValue) {
         super(fieldName, fieldValue);
     }
 
     @Override
-    public @NotNull UpdateDataProperty value(@NotNull String name, @NotNull Object value) {
+    public @NotNull StorageUpdateProperty value(@NotNull String name, @NotNull Object value) {
         this.name = name;
         this.value = value;
 
@@ -54,7 +54,7 @@ public class AutumnUpdateDataProperty extends AutumnDataProperty implements Upda
         return document;
     }
 
-    public static UpdateDataProperty of(String fieldName, Object fieldValue) {
-        return new AutumnUpdateDataProperty(fieldName, fieldValue);
+    public static StorageUpdateProperty of(String fieldName, Object fieldValue) {
+        return new AutumnStorageUpdateProperty(fieldName, fieldValue);
     }
 }

@@ -9,17 +9,17 @@
 package dev.dementisimus.autumn.common.setup.value;
 
 import dev.dementisimus.autumn.common.DefaultAutumn;
-import dev.dementisimus.autumn.common.api.database.Database;
 import dev.dementisimus.autumn.common.api.i18n.AutumnLanguage;
 import dev.dementisimus.autumn.common.api.setup.event.ValidateCurrentExtraSetupStateEvent;
 import dev.dementisimus.autumn.common.api.setup.state.SetupState;
+import dev.dementisimus.autumn.common.api.storage.Storage;
 import dev.dementisimus.autumn.common.setup.DefaultSetupManager;
 import dev.dementisimus.autumn.common.setup.state.MainSetupStates;
 import dev.dementisimus.autumn.common.setup.state.type.SetupStateBoolean;
-import dev.dementisimus.autumn.common.setup.state.type.SetupStateDatabaseType;
 import dev.dementisimus.autumn.common.setup.state.type.SetupStateFile;
 import dev.dementisimus.autumn.common.setup.state.type.SetupStateInteger;
 import dev.dementisimus.autumn.common.setup.state.type.SetupStateLanguageType;
+import dev.dementisimus.autumn.common.setup.state.type.SetupStateStorageType;
 
 public abstract class SetupValueManager {
 
@@ -39,11 +39,11 @@ public abstract class SetupValueManager {
         Object value = consoleInput;
         if(setupState instanceof SetupStateBoolean) {
             value = SetupStateBoolean.transform(consoleInput);
-        }else if(setupState instanceof SetupStateDatabaseType) {
-            Database.Type databaseType = SetupStateDatabaseType.transform(consoleInput);
+        }else if(setupState instanceof SetupStateStorageType) {
+            Storage.Type storageType = SetupStateStorageType.transform(consoleInput);
 
-            this.autumn.setDatabaseType(databaseType);
-            value = databaseType;
+            this.autumn.setStorageType(storageType);
+            value = storageType;
         }else if(setupState.equals(MainSetupStates.SQLITE_FILE_PATH)) {
             value = SetupStateFile.transform(consoleInput, false);
         }else if(setupState instanceof SetupStateInteger) {

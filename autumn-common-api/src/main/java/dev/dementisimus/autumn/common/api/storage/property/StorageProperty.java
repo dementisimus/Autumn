@@ -6,7 +6,7 @@
  | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
  */
 
-package dev.dementisimus.autumn.common.api.database.property;
+package dev.dementisimus.autumn.common.api.storage.property;
 
 import org.bson.conversions.Bson;
 import org.jetbrains.annotations.NotNull;
@@ -16,21 +16,21 @@ import org.jetbrains.annotations.NotNull;
  *
  * @since 1.0.0
  */
-public interface DataProperty {
+public interface StorageProperty {
 
     /**
-     * Gets the data property field name
+     * Gets the storage property field name
      *
-     * @return data property field name
+     * @return storage property field name
      *
      * @since 1.0.0
      */
     @NotNull String fieldName();
 
     /**
-     * Gets the data property field value
+     * Gets the storage property field value
      *
-     * @return data property field value
+     * @return storage property field value
      *
      * @since 1.0.0
      */
@@ -46,9 +46,9 @@ public interface DataProperty {
     @NotNull Bson filter();
 
     /**
-     * Transforms the data property into a string
+     * Transforms the storage property into a string
      *
-     * @return data property as string
+     * @return storage property as string
      *
      * @since 1.0.0
      */

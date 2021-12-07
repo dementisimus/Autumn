@@ -6,34 +6,32 @@
  | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
  */
 
-package dev.dementisimus.autumn.common.api.database.property.source;
+package dev.dementisimus.autumn.common.api.storage.property.source;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 
 /**
- * Represents a data source in the provided storage
+ * Represents a source in the provided storage
  *
  * @since 1.0.0
  */
-public interface DataSourceProperty {
+public interface StorageSourceProperty {
 
     /**
-     * The name of the data source
+     * The name of the source
      *
-     * @return data source name
+     * @return source name
      *
      * @since 1.0.0
      */
     @NotNull String name();
 
     /**
-     * The fields used by Autumn in the data source
+     * The fields used by Autumn in the source
      *
-     * - Only used by MariaDB/SQLite
-     *
-     * @return data source fields
+     * @return source fields
      *
      * @since 1.0.0
      */
