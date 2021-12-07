@@ -16,7 +16,7 @@ import org.jetbrains.annotations.Nullable;
 
 @NoArgsConstructor
 @AllArgsConstructor
-public class DefaultTranslationReplacement implements AutumnTranslationReplacement {
+public class CustomTranslationReplacement implements AutumnTranslationReplacement {
 
     private String target;
     private String replacement;
@@ -42,6 +42,6 @@ public class DefaultTranslationReplacement implements AutumnTranslationReplaceme
     }
 
     public static AutumnTranslationReplacement of(String target, String replacement) {
-        return new DefaultTranslationReplacement(target, replacement);
+        return new CustomTranslationReplacement(target, replacement);
     }
 }

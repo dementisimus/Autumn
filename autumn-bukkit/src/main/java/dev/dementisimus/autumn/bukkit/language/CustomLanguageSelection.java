@@ -12,8 +12,8 @@ import dev.dementisimus.autumn.bukkit.BukkitAutumn;
 import dev.dementisimus.autumn.bukkit.api.factory.inventory.InventoryFactory;
 import dev.dementisimus.autumn.bukkit.api.factory.item.ItemFactory;
 import dev.dementisimus.autumn.bukkit.api.language.LanguageSelection;
-import dev.dementisimus.autumn.bukkit.factory.inventory.DefaultInventoryFactory;
-import dev.dementisimus.autumn.bukkit.factory.item.DefaultItemFactory;
+import dev.dementisimus.autumn.bukkit.factory.inventory.CustomInventoryFactory;
+import dev.dementisimus.autumn.bukkit.factory.item.CustomItemFactory;
 import dev.dementisimus.autumn.bukkit.helper.BukkitHelper;
 import dev.dementisimus.autumn.common.api.i18n.AutumnLanguage;
 import dev.dementisimus.autumn.common.api.storage.Storage;
@@ -28,7 +28,7 @@ import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
 @RequiredArgsConstructor
-public class DefaultLanguageSelection implements LanguageSelection {
+public class CustomLanguageSelection implements LanguageSelection {
 
     private static final String NAMESPACE = "AUTUMN_LANGUAGE_SELECTION";
     private static final String KEY = "LANGUAGE";
@@ -37,13 +37,13 @@ public class DefaultLanguageSelection implements LanguageSelection {
 
     @Override
     public void open(@NotNull Player player) {
-        InventoryFactory inventoryFactory = new DefaultInventoryFactory(3, player, "autumn.bukkit.player.language.selection");
+        InventoryFactory inventoryFactory = new CustomInventoryFactory(3, player, "autumn.bukkit.player.language.selection");
 
         Storage storage = this.autumn.getStorage();
 
         inventoryFactory.placeholder(Material.WHITE_STAINED_GLASS_PANE);
         for(AutumnLanguage language : AutumnLanguage.values()) {
-            new DefaultItemFactory(language.getTextureId(), itemFactory -> {
+            new CustomItemFactory(language.getTextureId(), itemFactory -> {
                 itemFactory.store(NAMESPACE, KEY, PersistentDataType.STRING, language.name());
 
                 inventoryFactory.item(language.getSelectionInventorySlot(), itemFactory.displayName(player, language.getTranslationProperty()));

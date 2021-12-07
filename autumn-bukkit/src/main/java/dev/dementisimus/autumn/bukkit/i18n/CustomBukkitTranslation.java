@@ -9,14 +9,14 @@
 package dev.dementisimus.autumn.bukkit.i18n;
 
 import dev.dementisimus.autumn.bukkit.api.i18n.AutumnBukkitTranslation;
-import dev.dementisimus.autumn.common.i18n.DefaultAutumnTranslation;
+import dev.dementisimus.autumn.common.i18n.CustomAutumnTranslation;
 import dev.dementisimus.autumn.common.language.PlayerLanguage;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-public class DefaultAutumnBukkitTranslation extends DefaultAutumnTranslation implements AutumnBukkitTranslation {
+public class CustomBukkitTranslation extends CustomAutumnTranslation implements AutumnBukkitTranslation {
 
-    public DefaultAutumnBukkitTranslation(String translationProperty) {
+    public CustomBukkitTranslation(String translationProperty) {
         super(translationProperty);
     }
 

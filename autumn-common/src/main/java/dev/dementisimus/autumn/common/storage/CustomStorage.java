@@ -9,7 +9,7 @@
 package dev.dementisimus.autumn.common.storage;
 
 import com.google.common.base.Preconditions;
-import dev.dementisimus.autumn.common.DefaultAutumn;
+import dev.dementisimus.autumn.common.CustomAutumn;
 import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
 import dev.dementisimus.autumn.common.api.executor.AutumnTaskExecutor;
 import dev.dementisimus.autumn.common.api.storage.Storage;
@@ -28,7 +28,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DefaultStorage implements Storage {
+public class CustomStorage implements Storage {
 
     @Getter private final List<StorageSourceProperty> storageSourceProperties = new ArrayList<>();
     private final AutumnTaskExecutor taskExecutor;
@@ -43,7 +43,7 @@ public class DefaultStorage implements Storage {
 
     private boolean useCache = true;
 
-    public DefaultStorage(DefaultAutumn autumn) {
+    public CustomStorage(CustomAutumn autumn) {
         this.taskExecutor = autumn.getTaskExecutor();
     }
 

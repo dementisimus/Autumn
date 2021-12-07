@@ -13,7 +13,7 @@ import dev.dementisimus.autumn.common.api.dependency.AutumnRepository;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class DefaultAutumnDependency implements AutumnDependency {
+public class CustomAutumnDependency implements AutumnDependency {
 
     private AutumnRepository repository;
     private String groupId;

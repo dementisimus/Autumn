@@ -15,8 +15,8 @@ import dev.dementisimus.autumn.common.api.injection.annotation.AutumnCommand;
 import dev.dementisimus.autumn.common.api.injection.annotation.AutumnListener;
 import dev.dementisimus.autumn.common.api.injection.annotation.AutumnSetupListener;
 import dev.dementisimus.autumn.common.api.log.AutumnLogging;
-import dev.dementisimus.autumn.common.i18n.DefaultAutumnTranslation;
-import dev.dementisimus.autumn.common.injection.DefaultAutumnInjector;
+import dev.dementisimus.autumn.common.i18n.CustomAutumnTranslation;
+import dev.dementisimus.autumn.common.injection.CustomAutumnInjector;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class AutumnBukkitInjector extends DefaultAutumnInjector {
+public class AutumnBukkitInjector extends CustomAutumnInjector {
 
     private final BukkitAutumn autumn;
     private final AutumnLogging logging;
@@ -55,7 +55,7 @@ public class AutumnBukkitInjector extends DefaultAutumnInjector {
         if(listenerObject instanceof Listener listener) {
             Bukkit.getPluginManager().registerEvents(listener, this.plugin);
         }else {
-            AutumnTranslation translation = new DefaultAutumnTranslation("autumn.injection.class.not.a.listener");
+            AutumnTranslation translation = new CustomAutumnTranslation("autumn.injection.class.not.a.listener");
             translation.replacement("plugin", this.autumn.getPluginName());
             translation.replacement("class", listenerObject.getClass().getCanonicalName());
 
@@ -86,7 +86,7 @@ public class AutumnBukkitInjector extends DefaultAutumnInjector {
                     if(pluginCommand != null) {
                         pluginCommand.setExecutor(commandExecutor);
                     }else {
-                        AutumnTranslation translation = new DefaultAutumnTranslation("autumn.injection.command.not.in.plugin.yml");
+                        AutumnTranslation translation = new CustomAutumnTranslation("autumn.injection.command.not.in.plugin.yml");
                         translation.replacement("plugin", this.autumn.getPluginName());
                         translation.replacement("command", commandName);
 
@@ -95,7 +95,7 @@ public class AutumnBukkitInjector extends DefaultAutumnInjector {
                 }
             }
         }else {
-            AutumnTranslation translation = new DefaultAutumnTranslation("autumn.injection.class.not.a.command");
+            AutumnTranslation translation = new CustomAutumnTranslation("autumn.injection.class.not.a.command");
             translation.replacement("plugin", this.autumn.getPluginName());
             translation.replacement("class", commandObject.getClass().getCanonicalName());
 

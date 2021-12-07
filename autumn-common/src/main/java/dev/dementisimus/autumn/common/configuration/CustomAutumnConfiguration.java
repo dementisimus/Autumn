@@ -22,41 +22,41 @@ import java.io.File;
 import java.net.URI;
 import java.util.Properties;
 
-public class DefaultAutumnConfiguration implements AutumnConfiguration {
+public class CustomAutumnConfiguration implements AutumnConfiguration {
 
     private final File file;
 
     private DocumentStorage documentStorage;
     private Document document;
 
-    private DefaultAutumnConfiguration(File file, DocumentStorage documentStorage) {
+    private CustomAutumnConfiguration(File file, DocumentStorage documentStorage) {
         this.file = file;
 
         this.setDocumentStorage(documentStorage);
     }
 
-    public DefaultAutumnConfiguration(String pathname) {
+    public CustomAutumnConfiguration(String pathname) {
         this(new File(pathname), Documents.jsonStorage());
     }
 
-    public DefaultAutumnConfiguration(String parent, String child) {
+    public CustomAutumnConfiguration(String parent, String child) {
         this(new File(parent, child), Documents.jsonStorage());
     }
 
-    public DefaultAutumnConfiguration(File file) {
+    public CustomAutumnConfiguration(File file) {
         this(file, Documents.jsonStorage());
     }
 
-    public DefaultAutumnConfiguration(File parent, String child) {
+    public CustomAutumnConfiguration(File parent, String child) {
         this(new File(parent, child), Documents.jsonStorage());
     }
 
-    public DefaultAutumnConfiguration(URI uri) {
+    public CustomAutumnConfiguration(URI uri) {
         this(new File(uri), Documents.jsonStorage());
     }
 
     @Override
-    public @NotNull DefaultAutumnConfiguration enableYaml() {
+    public @NotNull CustomAutumnConfiguration enableYaml() {
         this.setDocumentStorage(Documents.yamlStorage());
         return this;
     }

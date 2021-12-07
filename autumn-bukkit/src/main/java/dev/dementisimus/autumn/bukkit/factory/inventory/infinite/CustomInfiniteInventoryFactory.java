@@ -11,8 +11,8 @@ package dev.dementisimus.autumn.bukkit.factory.inventory.infinite;
 import dev.dementisimus.autumn.bukkit.api.factory.inventory.InventoryFactory;
 import dev.dementisimus.autumn.bukkit.api.factory.inventory.infinite.InfiniteInventoryFactory;
 import dev.dementisimus.autumn.bukkit.api.factory.item.ItemFactory;
-import dev.dementisimus.autumn.bukkit.factory.inventory.DefaultInventoryFactory;
-import dev.dementisimus.autumn.bukkit.factory.item.DefaultItemFactory;
+import dev.dementisimus.autumn.bukkit.factory.inventory.CustomInventoryFactory;
+import dev.dementisimus.autumn.bukkit.factory.item.CustomItemFactory;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class DefaultInfiniteInventoryFactory implements InfiniteInventoryFactory {
+public class CustomInfiniteInventoryFactory implements InfiniteInventoryFactory {
 
     private final int nextPageItemSlot = 53;
     private final int previousPageItemSlot = 45;
@@ -41,20 +41,20 @@ public class DefaultInfiniteInventoryFactory implements InfiniteInventoryFactory
     private ItemStack replacedNextPageItem;
     private ItemStack replacedPreviousPageItem;
 
-    public DefaultInfiniteInventoryFactory(int inventoryRows, String titleTranslationProperty, int pageSize, Material placeholder) {
+    public CustomInfiniteInventoryFactory(int inventoryRows, String titleTranslationProperty, int pageSize, Material placeholder) {
         this.inventoryRows = inventoryRows;
         this.titleTranslationProperty = titleTranslationProperty;
         this.pageSize = pageSize;
         this.placeholder = placeholder;
 
-        this.inventoryFactory = new DefaultInventoryFactory(this.inventoryRows, this.titleTranslationProperty);
+        this.inventoryFactory = new CustomInventoryFactory(this.inventoryRows, this.titleTranslationProperty);
         this.inventoryFactory.placeholder(this.placeholder);
     }
 
     @Override
     public <T> void items(@NotNull List<T> items, @NotNull Class<T> clazz) {
         if(clazz.equals(Material.class)) {
-            for(T item : items) this.items.add(new DefaultItemFactory((Material) item).create());
+            for(T item : items) this.items.add(new CustomItemFactory((Material) item).create());
         }else if(clazz.equals(ItemStack.class)) {
             this.items.addAll((Collection<? extends ItemStack>) items);
         }else {
@@ -142,7 +142,7 @@ public class DefaultInfiniteInventoryFactory implements InfiniteInventoryFactory
     }
 
     private void setPageMovementItem(Material material, int slot, Player player, String translationProperty, int newLastItemIndexPlaced) {
-        ItemFactory itemFactory = new DefaultItemFactory(material).displayName(player, translationProperty);
+        ItemFactory itemFactory = new CustomItemFactory(material).displayName(player, translationProperty);
         this.inventoryFactory.item(slot, itemFactory);
 
         itemFactory.onClick(itemFactoryClickInteraction -> {

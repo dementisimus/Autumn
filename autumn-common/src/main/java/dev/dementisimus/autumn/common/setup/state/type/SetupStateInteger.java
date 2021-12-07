@@ -9,9 +9,9 @@
 package dev.dementisimus.autumn.common.setup.state.type;
 
 import dev.dementisimus.autumn.common.helper.NumberHelper;
-import dev.dementisimus.autumn.common.setup.state.DefaultSetupState;
+import dev.dementisimus.autumn.common.setup.state.CustomSetupState;
 
-public class SetupStateInteger extends DefaultSetupState {
+public class SetupStateInteger extends CustomSetupState {
 
     public SetupStateInteger(String name, String messageTranslationProperty, Integer value) {
         super(name, messageTranslationProperty, value);

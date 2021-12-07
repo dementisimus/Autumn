@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 @AllArgsConstructor
-public class DefaultAutumnTranslation implements AutumnTranslation {
+public class CustomAutumnTranslation implements AutumnTranslation {
 
     private static final Pattern STRIP_COLOR_PATTERN = Pattern.compile("(?i)" + "§" + "[0-9A-FK-ORX]");
 
@@ -37,7 +37,7 @@ public class DefaultAutumnTranslation implements AutumnTranslation {
 
     @Override
     public @NotNull AutumnTranslation replacement(@NotNull String target, @NotNull String replacement) {
-        this.replacement(DefaultTranslationReplacement.of(target, replacement));
+        this.replacement(CustomTranslationReplacement.of(target, replacement));
         return this;
     }
 
