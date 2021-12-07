@@ -6,10 +6,10 @@
  | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
  */
 
-package dev.dementisimus.autumn.common.api.database.sql;
+package dev.dementisimus.autumn.common.api.storage.type.sql;
 
 /**
- * All supported sql types
+ * All supported sql storage types
  *
  * @since 1.0.0
  */

@@ -6,64 +6,64 @@
  | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
  */
 
-package dev.dementisimus.autumn.common.api.database;
+package dev.dementisimus.autumn.common.api.storage;
 
 import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
-import dev.dementisimus.autumn.common.api.database.property.DataProperty;
-import dev.dementisimus.autumn.common.api.database.property.UpdateDataProperty;
-import dev.dementisimus.autumn.common.api.database.property.source.DataSourceProperty;
+import dev.dementisimus.autumn.common.api.storage.property.StorageProperty;
+import dev.dementisimus.autumn.common.api.storage.property.StorageUpdateProperty;
+import dev.dementisimus.autumn.common.api.storage.property.source.StorageSourceProperty;
 import org.bson.Document;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 /**
- * Represents the database
+ * Represents the storage
  *
  * @since 1.0.0
  */
-public interface Database {
+public interface Storage {
 
     /**
-     * Generates the {@link DataSourceProperty} when storage is ready, if not exists
+     * Generates, if not exists, a {@link StorageSourceProperty} when the storage connection is ready, if given
      *
-     * @param dataSourceProperty data source property to be generated
+     * @param storageSourceProperty storage source property to be generated
      *
      * @since 1.0.0
      */
-    void generateDataSourceProperty(@NotNull DataSourceProperty dataSourceProperty);
+    void generateStorageSourceProperty(@NotNull StorageSourceProperty storageSourceProperty);
 
     /**
-     * The {@link DataSourceProperty} used for executing operations in the storage
+     * The {@link StorageSourceProperty} used for executing operations in the storage
      *
-     * @param dataSourceProperty data source property for storage operations
+     * @param storageSourceProperty storage source property for storage operations
      *
      * @since 1.0.0
      */
-    void dataSourceProperty(@NotNull DataSourceProperty dataSourceProperty);
+    void storageSourceProperty(@NotNull StorageSourceProperty storageSourceProperty);
 
     /**
      * Data which will be used by the storage operations
      *
-     * @param dataProperty storage operation data as {@link DataProperty}
+     * @param storageProperty storage operation data as {@link StorageProperty}
      *
      * @since 1.0.0
      */
-    void dataProperty(@NotNull DataProperty dataProperty);
+    void storageProperty(@NotNull StorageProperty storageProperty);
 
     /**
      * Data which will be used by the update storage operation
      *
-     * @param updateDataProperty update storage data as {@link UpdateDataProperty}
+     * @param storageUpdateProperty storage update data as {@link StorageUpdateProperty}
      *
      * @since 1.0.0
      */
-    void updateDataProperty(@NotNull UpdateDataProperty updateDataProperty);
+    void storageUpdateProperty(@NotNull StorageUpdateProperty storageUpdateProperty);
 
     /**
      * Document saved to storage
      *
-     * @param document document for write storage operation
+     * @param document document for storage write operation
      *
      * @since 1.0.0
      */
@@ -72,7 +72,7 @@ public interface Database {
     /**
      * Connects, if needed, to the storage type
      *
-     * @param booleanCallback true if connection was successful, false otherwise
+     * @param booleanCallback true if connection was successful, or not needed, false otherwise
      *
      * @since 1.0.0
      */
@@ -86,7 +86,7 @@ public interface Database {
     void disableCache();
 
     /**
-     * Reads from the storage
+     * Reads from storage
      *
      * @param documentCallback Callback for returning the received data
      *
@@ -131,18 +131,18 @@ public interface Database {
     void delete(@NotNull AutumnCallback<@NotNull Boolean> booleanCallback);
 
     /**
-     * Checks the availability of a {@link DataProperty} in storage
+     * Checks the availability of a {@link StorageProperty} in storage
      *
-     * @param dataSourceProperty {@link DataSourceProperty} data source property
-     * @param dataProperty fieldName + fieldValue as {@link DataProperty}
-     * @param booleanCallback A callback with value=true if an entry with fieldName + fieldValue as {@link DataProperty} exists, false otherwise
+     * @param storageSourceProperty storage source property
+     * @param storageProperty fieldName + fieldValue as {@link StorageProperty}
+     * @param booleanCallback A callback with value=true if an entry with fieldName + fieldValue as {@link StorageProperty} exists, false otherwise
      *
      * @since 1.0.0
      */
-    void isPresent(@NotNull DataSourceProperty dataSourceProperty, @NotNull DataProperty dataProperty, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback);
+    void isPresent(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageProperty storageProperty, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback);
 
     /**
-     * Writes, if field does not exist in storage, to storage, else updates field in storage
+     * Writes, if field does not exist, to storage, else updates the provided field
      *
      * @param booleanCallback A callback with value=true if the operation was successful, false otherwise
      *
@@ -151,7 +151,7 @@ public interface Database {
     void writeOrUpdate(@NotNull AutumnCallback<@NotNull Boolean> booleanCallback);
 
     /**
-     * Closes the storage connection
+     * Closes the storage connection, if needed
      *
      * @since 1.0.0
      */
@@ -159,19 +159,19 @@ public interface Database {
 
     enum Type {
         /**
-         * MongoDB Database
+         * MongoDB Storage
          *
          * @since 1.0.0
          */
         MONGODB,
         /**
-         * MariaDB Database
+         * MariaDB Storage
          *
          * @since 1.0.0
          */
         MARIADB,
         /**
-         * SQLite Database
+         * SQLite Storage
          *
          * @since 1.0.0
          */

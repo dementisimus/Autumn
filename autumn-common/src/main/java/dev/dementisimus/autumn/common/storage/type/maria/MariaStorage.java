@@ -6,20 +6,20 @@
  | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
  */
 
-package dev.dementisimus.autumn.common.database.type.maria;
+package dev.dementisimus.autumn.common.storage.type.maria;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import dev.dementisimus.autumn.common.api.callback.AutumnBiCallback;
 import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
 import dev.dementisimus.autumn.common.api.callback.AutumnTriCallback;
-import dev.dementisimus.autumn.common.api.database.Database;
-import dev.dementisimus.autumn.common.api.database.property.DataProperty;
-import dev.dementisimus.autumn.common.api.database.property.UpdateDataProperty;
-import dev.dementisimus.autumn.common.api.database.property.source.DataSourceProperty;
-import dev.dementisimus.autumn.common.api.database.type.DatabaseType;
-import dev.dementisimus.autumn.common.database.DefaultDatabase;
+import dev.dementisimus.autumn.common.api.storage.Storage;
+import dev.dementisimus.autumn.common.api.storage.property.StorageProperty;
+import dev.dementisimus.autumn.common.api.storage.property.StorageUpdateProperty;
+import dev.dementisimus.autumn.common.api.storage.property.source.StorageSourceProperty;
+import dev.dementisimus.autumn.common.api.storage.type.StorageType;
 import dev.dementisimus.autumn.common.setup.state.MainSetupStates;
+import dev.dementisimus.autumn.common.storage.DefaultStorage;
 import lombok.SneakyThrows;
 import org.bson.Document;
 import org.jetbrains.annotations.NotNull;
@@ -31,15 +31,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MariaDatabase implements DatabaseType {
+public class MariaStorage implements StorageType {
 
     private final HikariDataSource hikariDataSource;
-    private final Database.Type databaseType;
+    private final Storage.Type storageType;
 
-    public MariaDatabase(DefaultDatabase database) {
-        this.databaseType = database.getType();
+    public MariaStorage(DefaultStorage storage) {
+        this.storageType = storage.getType();
 
-        String driver = this.databaseType.equals(Database.Type.MARIADB) ? "com.mysql.cj.jdbc.Driver" : "org.sqlite.JDBC";
+        String driver = this.storageType.equals(Storage.Type.MARIADB) ? "com.mysql.cj.jdbc.Driver" : "org.sqlite.JDBC";
 
         String host = MainSetupStates.MARIADB_HOST.asString();
         int port = MainSetupStates.MARIADB_PORT.asInteger();
@@ -49,7 +49,7 @@ public class MariaDatabase implements DatabaseType {
 
         String sqliteFilePath = MainSetupStates.SQLITE_FILE_PATH.asString();
 
-        String jdbcUrl = this.databaseType.equals(Database.Type.MARIADB) ? "jdbc:mysql://" + host + ":" + port + "/" + databaseName : "jdbc:sqlite:" + sqliteFilePath;
+        String jdbcUrl = this.storageType.equals(Storage.Type.MARIADB) ? "jdbc:mysql://" + host + ":" + port + "/" + databaseName : "jdbc:sqlite:" + sqliteFilePath;
 
         this.registerDriver(driver);
 
@@ -61,7 +61,7 @@ public class MariaDatabase implements DatabaseType {
 
         hikariConfig.setDriverClassName(driver);
         hikariConfig.setJdbcUrl(jdbcUrl);
-        if(this.databaseType.equals(Database.Type.MARIADB)) {
+        if(this.storageType.equals(Storage.Type.MARIADB)) {
             hikariConfig.setUsername(user);
             hikariConfig.setPassword(password);
         }
@@ -71,30 +71,30 @@ public class MariaDatabase implements DatabaseType {
 
         this.hikariDataSource = new HikariDataSource(hikariConfig);
 
-        for(DataSourceProperty dataSourceProperty : database.getDataSourceProperties()) {
+        for(StorageSourceProperty storageSourceProperty : storage.getStorageSourceProperties()) {
             StringBuilder fields = new StringBuilder();
 
-            dataSourceProperty.fields().forEach((fieldName, fieldType) -> {
+            storageSourceProperty.fields().forEach((fieldName, fieldType) -> {
                 if(!fields.isEmpty()) {
                     fields.append(" ");
                 }
                 fields.append(fieldName).append(" ").append(fieldType).append(", ");
             });
 
-            String sql = "CREATE TABLE IF NOT EXISTS " + dataSourceProperty.name() + " (" + fields.substring(0, fields.length() - 2) + ");";
+            String sql = "CREATE TABLE IF NOT EXISTS " + storageSourceProperty.name() + " (" + fields.substring(0, fields.length() - 2) + ");";
             this.prepareStatement(sql, ExecuteAction.PLAIN, (executed, resultSet, rowCount) -> {});
         }
     }
 
     @Override
-    public void read(@NotNull DataSourceProperty dataSourceProperty, @NotNull DataProperty dataProperty, @NotNull AutumnCallback<@NotNull Document> documentCallback) {
+    public void read(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageProperty storageProperty, @NotNull AutumnCallback<@NotNull Document> documentCallback) {
         Document document = new Document();
-        List<String> fieldKeys = new ArrayList<>(dataSourceProperty.fields().keySet());
+        List<String> fieldKeys = new ArrayList<>(storageSourceProperty.fields().keySet());
 
-        String sql = "SELECT " + this.parseFieldKeysToSQLFields(fieldKeys) + " FROM " + dataSourceProperty.name() + " WHERE " + dataProperty.fieldName() + " = ?;";
+        String sql = "SELECT " + this.parseFieldKeysToSQLFields(fieldKeys) + " FROM " + storageSourceProperty.name() + " WHERE " + storageProperty.fieldName() + " = ?;";
         Map<Integer, Object> parameters = new HashMap<>();
 
-        parameters.put(1, dataProperty.fieldValue());
+        parameters.put(1, storageProperty.fieldValue());
 
         this.prepareStatement(sql, parameters, ExecuteAction.QUERY, (executed, resultSet) -> {
             try {
@@ -111,10 +111,10 @@ public class MariaDatabase implements DatabaseType {
     }
 
     @Override
-    public void list(@NotNull DataSourceProperty dataSourceProperty, @NotNull AutumnCallback<@NotNull List<Document>> listDocumentCallback) {
+    public void list(@NotNull StorageSourceProperty storageSourceProperty, @NotNull AutumnCallback<@NotNull List<Document>> listDocumentCallback) {
         List<Document> documents = new ArrayList<>();
 
-        String sql = "SELECT * FROM " + dataSourceProperty.name() + ";";
+        String sql = "SELECT * FROM " + storageSourceProperty.name() + ";";
 
         this.prepareStatement(sql, ExecuteAction.QUERY, (executed, resultSet, rowCount) -> {
             try {
@@ -138,7 +138,7 @@ public class MariaDatabase implements DatabaseType {
     }
 
     @Override
-    public void write(@NotNull DataSourceProperty dataSourceProperty, @NotNull Document document, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
+    public void write(@NotNull StorageSourceProperty storageSourceProperty, @NotNull Document document, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
         StringBuilder keys = new StringBuilder();
         StringBuilder keyValues = new StringBuilder();
         Map<Integer, Object> parameters = new HashMap<>();
@@ -155,35 +155,35 @@ public class MariaDatabase implements DatabaseType {
             }
         }
 
-        String sql = "INSERT INTO " + dataSourceProperty.name() + " (" + keys + ") VALUES (" + keyValues + ");";
+        String sql = "INSERT INTO " + storageSourceProperty.name() + " (" + keys + ") VALUES (" + keyValues + ");";
 
         this.prepareStatement(sql, parameters, ExecuteAction.PLAIN, (executed, resultSet) -> booleanCallback.done(executed));
     }
 
     @Override
-    public void update(@NotNull DataSourceProperty dataSourceProperty, @NotNull UpdateDataProperty updateDataProperty, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
-        String sql = "UPDATE " + dataSourceProperty.name() + " SET " + updateDataProperty.name() + " = ? WHERE " + updateDataProperty.fieldName() + "=?;";
+    public void update(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageUpdateProperty storageUpdateProperty, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
+        String sql = "UPDATE " + storageSourceProperty.name() + " SET " + storageUpdateProperty.name() + " = ? WHERE " + storageUpdateProperty.fieldName() + "=?;";
         Map<Integer, Object> parameters = new HashMap<>();
 
-        parameters.put(1, updateDataProperty.value());
-        parameters.put(2, updateDataProperty.fieldValue());
+        parameters.put(1, storageUpdateProperty.value());
+        parameters.put(2, storageUpdateProperty.fieldValue());
 
         this.prepareStatement(sql, parameters, ExecuteAction.PLAIN, (executed, resultSet) -> booleanCallback.done(executed));
     }
 
     @Override
-    public void delete(@NotNull DataSourceProperty dataSourceProperty, @NotNull DataProperty dataProperty, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
-        String sql = "DELETE FROM " + dataSourceProperty.name() + " WHERE " + dataProperty.fieldName() + " = ?;";
+    public void delete(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageProperty storageProperty, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
+        String sql = "DELETE FROM " + storageSourceProperty.name() + " WHERE " + storageProperty.fieldName() + " = ?;";
         Map<Integer, Object> parameters = new HashMap<>();
 
-        parameters.put(1, dataProperty.fieldValue());
+        parameters.put(1, storageProperty.fieldValue());
 
         this.prepareStatement(sql, parameters, ExecuteAction.PLAIN, (executed, resultSet) -> booleanCallback.done(executed));
     }
 
     @Override
-    public void isPresent(@NotNull DataSourceProperty dataSourceProperty, @NotNull DataProperty dataProperty, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
-        this.read(dataSourceProperty, dataProperty, document -> {
+    public void isPresent(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageProperty storageProperty, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
+        this.read(storageSourceProperty, storageProperty, document -> {
             booleanCallback.done(document != null && !document.isEmpty());
         });
     }
@@ -195,7 +195,7 @@ public class MariaDatabase implements DatabaseType {
 
     @Override
     public @NotNull String readyTranslationProperty() {
-        return this.databaseType.equals(Database.Type.MARIADB) ? "autumn.database.maria.ready" : "autumn.database.sqlite.ready";
+        return this.storageType.equals(Storage.Type.MARIADB) ? "autumn.storage.maria.ready" : "autumn.storage.sqlite.ready";
     }
 
     @SneakyThrows

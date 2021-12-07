@@ -14,8 +14,6 @@ import dev.dementisimus.autumn.common.api.Autumn;
 import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
 import dev.dementisimus.autumn.common.api.callback.AutumnEmptyCallback;
 import dev.dementisimus.autumn.common.api.configuration.AutumnConfiguration;
-import dev.dementisimus.autumn.common.api.database.Database;
-import dev.dementisimus.autumn.common.api.database.property.source.DataSourceProperty;
 import dev.dementisimus.autumn.common.api.dependency.AutumnDependency;
 import dev.dementisimus.autumn.common.api.dependency.AutumnRepository;
 import dev.dementisimus.autumn.common.api.executor.AutumnTaskExecutor;
@@ -29,8 +27,9 @@ import dev.dementisimus.autumn.common.api.log.AutumnLogging;
 import dev.dementisimus.autumn.common.api.server.ServerType;
 import dev.dementisimus.autumn.common.api.setup.SetupManager;
 import dev.dementisimus.autumn.common.api.setup.state.SetupState;
+import dev.dementisimus.autumn.common.api.storage.Storage;
+import dev.dementisimus.autumn.common.api.storage.property.source.StorageSourceProperty;
 import dev.dementisimus.autumn.common.configuration.DefaultAutumnConfiguration;
-import dev.dementisimus.autumn.common.database.DefaultDatabase;
 import dev.dementisimus.autumn.common.dependency.DefaultAutumnDependency;
 import dev.dementisimus.autumn.common.dependency.DefaultAutumnRepository;
 import dev.dementisimus.autumn.common.file.DefaultFileDownloader;
@@ -41,6 +40,7 @@ import dev.dementisimus.autumn.common.injection.DefaultAutumnInjector;
 import dev.dementisimus.autumn.common.setup.DefaultSetupManager;
 import dev.dementisimus.autumn.common.setup.state.MainSetupStates;
 import dev.dementisimus.autumn.common.setup.value.SetupValueManager;
+import dev.dementisimus.autumn.common.storage.DefaultStorage;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -60,8 +60,8 @@ public abstract class DefaultAutumn implements Autumn {
     @Getter @Setter(AccessLevel.PROTECTED) private DefaultSetupManager setupManager;
     @Getter private DefaultZipFileDownloader zipFileDownloader;
 
-    @Getter private Database.Type databaseType;
-    @Getter private DefaultDatabase database;
+    @Getter private Storage.Type storageType;
+    @Getter private DefaultStorage storage;
     @Getter private AutumnLanguage defaultLanguage = AutumnLanguage.ENGLISH;
     @Getter(AccessLevel.PROTECTED) @Setter(AccessLevel.PROTECTED) private ClassLoader autumnClassLoader;
     @Getter(AccessLevel.PROTECTED) @Setter(AccessLevel.PROTECTED) private ClassLoader pluginClassLoader;
@@ -111,7 +111,7 @@ public abstract class DefaultAutumn implements Autumn {
     }
 
     @Override
-    public void databaseSetupStates() {
+    public void storageSetupStates() {
         for(SetupState setupState : MainSetupStates.values()) {
             this.setupManager.mainSetupState(setupState);
         }
@@ -140,7 +140,7 @@ public abstract class DefaultAutumn implements Autumn {
             this.injector.registerModule(DefaultAutumnInjector.class, this.injector);
             this.injector.registerModule(AutumnLanguage.class, this.defaultLanguage);
             this.injector.registerModule(DefaultSetupManager.class, this.setupManager);
-            this.injector.registerModule(Database.class, this.database);
+            this.injector.registerModule(Storage.class, this.storage);
 
             this.injector.annotation(AutumnSetupListener.class);
             this.injector.scan();
@@ -160,14 +160,14 @@ public abstract class DefaultAutumn implements Autumn {
     }
 
     @Override
-    public void enableDatabase(@NotNull DataSourceProperty... dataSourceProperties) {
-        this.database = new DefaultDatabase(this);
+    public void useStorage(@NotNull StorageSourceProperty... storageSourceProperties) {
+        this.storage = new DefaultStorage(this);
 
-        for(DataSourceProperty dataSourceProperty : dataSourceProperties) {
-            this.database.generateDataSourceProperty(dataSourceProperty);
+        for(StorageSourceProperty storageSourceProperty : storageSourceProperties) {
+            this.storage.generateStorageSourceProperty(storageSourceProperty);
         }
 
-        this.database.generateDataSourceProperty(AutumnLanguage.DataSource.PROPERTY);
+        this.storage.generateStorageSourceProperty(AutumnLanguage.StorageSource.PROPERTY);
     }
 
     @Override
@@ -216,18 +216,18 @@ public abstract class DefaultAutumn implements Autumn {
     }
 
     @Override
-    public @Nullable Database database() {
-        return this.database;
+    public @Nullable Storage storage() {
+        return this.storage;
     }
 
     public void postSetupInitialization() {
         this.initializePlugin(this.plugin);
 
-        if(this.database != null && this.databaseType != null) {
-            this.database.setType(this.databaseType);
+        if(this.storage != null && this.storageType != null) {
+            this.storage.setType(this.storageType);
 
-            this.database.connect(connected -> {
-                AutumnTranslation translation = new DefaultAutumnTranslation(this.database.getDatabaseType().readyTranslationProperty());
+            this.storage.connect(connected -> {
+                AutumnTranslation translation = new DefaultAutumnTranslation(this.storage.getStorageType().readyTranslationProperty());
                 translation.replacement("plugin", this.pluginName);
 
                 this.logging.info(translation.get(this.getDefaultLanguage()));
@@ -251,8 +251,8 @@ public abstract class DefaultAutumn implements Autumn {
         if(defaultLanguage != null) this.defaultLanguage = defaultLanguage;
     }
 
-    public void setDatabaseType(Database.Type databaseType) {
-        if(databaseType != null) this.databaseType = databaseType;
+    public void setStorageType(Storage.Type storageType) {
+        if(storageType != null) this.storageType = storageType;
     }
 
     protected void setPluginFolder(File pluginFolder) {

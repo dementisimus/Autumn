@@ -11,7 +11,6 @@ package dev.dementisimus.autumn.common.setup;
 import com.github.derrop.documents.Document;
 import dev.dementisimus.autumn.common.DefaultAutumn;
 import dev.dementisimus.autumn.common.api.configuration.AutumnConfiguration;
-import dev.dementisimus.autumn.common.api.database.Database;
 import dev.dementisimus.autumn.common.api.i18n.AutumnLanguage;
 import dev.dementisimus.autumn.common.api.i18n.AutumnTranslation;
 import dev.dementisimus.autumn.common.api.setup.SetupManager;
@@ -20,6 +19,7 @@ import dev.dementisimus.autumn.common.api.setup.event.NextExtraSetupStateEvent;
 import dev.dementisimus.autumn.common.api.setup.event.SerializeSetupStateEvent;
 import dev.dementisimus.autumn.common.api.setup.event.ValidateCurrentExtraSetupStateEvent;
 import dev.dementisimus.autumn.common.api.setup.state.SetupState;
+import dev.dementisimus.autumn.common.api.storage.Storage;
 import dev.dementisimus.autumn.common.configuration.DefaultAutumnConfiguration;
 import dev.dementisimus.autumn.common.executor.DefaultAutumnExecutor;
 import dev.dementisimus.autumn.common.i18n.DefaultAutumnTranslation;
@@ -107,9 +107,9 @@ public abstract class DefaultSetupManager implements SetupManager {
                 SetupState nextSetupState = this.mainSetupStates.get(listIndex + 1);
 
                 if(this.currentSetupState.equals(STORAGE)) {
-                    Database.Type databaseType = this.currentSetupState.value(Database.Type.class);
+                    Storage.Type storageType = this.currentSetupState.value(Storage.Type.class);
 
-                    switch(databaseType) {
+                    switch(storageType) {
                         case MONGODB -> nextSetupState = MONGODB_URI;
                         case MARIADB -> nextSetupState = MARIADB_HOST;
                         case SQLITE -> nextSetupState = SQLITE_FILE_PATH;
@@ -193,8 +193,8 @@ public abstract class DefaultSetupManager implements SetupManager {
                     value = setupState.value(String.class);
                 }else if(setupState instanceof SetupStateInteger) {
                     value = setupState.value(Integer.class);
-                }else if(setupState instanceof SetupStateDatabaseType) {
-                    value = setupState.value(Database.Type.class);
+                }else if(setupState instanceof SetupStateStorageType) {
+                    value = setupState.value(Storage.Type.class);
                 }else if(setupState instanceof SetupStateLanguageType) {
                     value = setupState.value(AutumnLanguage.class);
                 }else if(setupState instanceof SetupStateFile) {
@@ -226,11 +226,11 @@ public abstract class DefaultSetupManager implements SetupManager {
                                 value = value.toString();
                             }else if(setupState instanceof SetupStateInteger) {
                                 value = document.get(setupState.name(), Integer.class);
-                            }else if(setupState instanceof SetupStateDatabaseType) {
-                                Database.Type databaseType = Database.Type.valueOf(value.toString());
+                            }else if(setupState instanceof SetupStateStorageType) {
+                                Storage.Type storageType = Storage.Type.valueOf(value.toString());
 
-                                this.autumn.setDatabaseType(databaseType);
-                                value = databaseType;
+                                this.autumn.setStorageType(storageType);
+                                value = storageType;
                             }else if(setupState instanceof SetupStateLanguageType) {
                                 AutumnLanguage language = AutumnLanguage.valueOf(value.toString());
 

@@ -6,7 +6,7 @@
  | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
  */
 
-package dev.dementisimus.autumn.common.database.cache;
+package dev.dementisimus.autumn.common.storage.cache;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
@@ -15,7 +15,7 @@ import org.bson.Document;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class DatabaseCache {
+public class StorageCache {
 
     private static final Cache<String, Document> CACHED_DOCUMENTS = CacheBuilder.newBuilder().expireAfterWrite(10, TimeUnit.MINUTES).build();
     private static final Cache<String, List<Document>> CACHED_DOCUMENT_LISTS = CacheBuilder.newBuilder().expireAfterWrite(10, TimeUnit.MINUTES).build();

@@ -6,22 +6,22 @@
  | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
  */
 
-package dev.dementisimus.autumn.common.database.type.mongo.subscriber;
+package dev.dementisimus.autumn.common.storage.type.mongo.subscriber;
 
-import com.mongodb.client.result.DeleteResult;
+import com.mongodb.client.result.InsertOneResult;
 import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
-public record DeleteResultSubscriber(AutumnCallback<Boolean> booleanCallback) implements Subscriber<DeleteResult> {
+public record InsertSubscriber(AutumnCallback<Boolean> booleanCallback) implements Subscriber<InsertOneResult> {
 
     @Override
     public void onSubscribe(Subscription subscription) {
-        subscription.request(Long.MAX_VALUE);
+        subscription.request(1);
     }
 
     @Override
-    public void onNext(DeleteResult deleteResult) {}
+    public void onNext(InsertOneResult insertOneResult) {}
 
     @Override
     public void onError(Throwable throwable) {

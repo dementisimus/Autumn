@@ -6,16 +6,16 @@
  | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
  */
 
-package dev.dementisimus.autumn.common.database.property;
+package dev.dementisimus.autumn.common.storage.property;
 
-import dev.dementisimus.autumn.common.api.database.property.DataProperty;
+import dev.dementisimus.autumn.common.api.storage.property.StorageProperty;
 import lombok.RequiredArgsConstructor;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.jetbrains.annotations.NotNull;
 
 @RequiredArgsConstructor
-public class AutumnDataProperty implements DataProperty {
+public class AutumnStorageProperty implements StorageProperty {
 
     private final String fieldName;
     private final Object fieldValue;
@@ -37,10 +37,10 @@ public class AutumnDataProperty implements DataProperty {
 
     @Override
     public @NotNull String toString() {
-        return "DataProperty{" + "fieldName='" + this.fieldName + '\'' + ", fieldValue=" + this.fieldValue + '}';
+        return "StorageProperty{" + "fieldName='" + this.fieldName + '\'' + ", fieldValue=" + this.fieldValue + '}';
     }
 
-    public static DataProperty of(String fieldName, Object fieldValue) {
-        return new AutumnUpdateDataProperty(fieldName, fieldValue);
+    public static StorageProperty of(String fieldName, Object fieldValue) {
+        return new AutumnStorageUpdateProperty(fieldName, fieldValue);
     }
 }
