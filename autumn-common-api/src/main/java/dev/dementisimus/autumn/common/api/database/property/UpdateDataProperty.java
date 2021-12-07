@@ -10,6 +10,7 @@ package dev.dementisimus.autumn.common.api.database.property;
 
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents data (key and value + their name and value) for storage operations
@@ -28,7 +29,7 @@ public interface UpdateDataProperty extends DataProperty {
      *
      * @since 1.0.0
      */
-    UpdateDataProperty value(String name, Object value);
+    @NotNull UpdateDataProperty value(@NotNull String name, @NotNull Object value);
 
     /**
      * Gets the data property name
@@ -37,7 +38,7 @@ public interface UpdateDataProperty extends DataProperty {
      *
      * @since 1.0.0
      */
-    String name();
+    @NotNull String name();
 
     /**
      * Gets the data property value
@@ -46,7 +47,7 @@ public interface UpdateDataProperty extends DataProperty {
      *
      * @since 1.0.0
      */
-    Object value();
+    @NotNull Object value();
 
     /**
      * Transforms {@link #name()} and {@link #value()} into a bson document
@@ -55,7 +56,7 @@ public interface UpdateDataProperty extends DataProperty {
      *
      * @since 1.0.0
      */
-    Document document();
+    @NotNull Document document();
 
     /**
      * Transforms {@link #fieldName()} + {@link #fieldValue()} and {@link #name()} + {@link #value()} into a bson document
@@ -64,5 +65,5 @@ public interface UpdateDataProperty extends DataProperty {
      *
      * @since 1.0.0
      */
-    Document fullDocument();
+    @NotNull Document fullDocument();
 }

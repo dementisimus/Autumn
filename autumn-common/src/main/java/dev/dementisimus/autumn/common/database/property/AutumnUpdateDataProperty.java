@@ -10,6 +10,7 @@ package dev.dementisimus.autumn.common.database.property;
 
 import dev.dementisimus.autumn.common.api.database.property.UpdateDataProperty;
 import org.bson.Document;
+import org.jetbrains.annotations.NotNull;
 
 public class AutumnUpdateDataProperty extends AutumnDataProperty implements UpdateDataProperty {
 
@@ -21,7 +22,7 @@ public class AutumnUpdateDataProperty extends AutumnDataProperty implements Upda
     }
 
     @Override
-    public UpdateDataProperty value(String name, Object value) {
+    public @NotNull UpdateDataProperty value(@NotNull String name, @NotNull Object value) {
         this.name = name;
         this.value = value;
 
@@ -29,22 +30,22 @@ public class AutumnUpdateDataProperty extends AutumnDataProperty implements Upda
     }
 
     @Override
-    public String name() {
+    public @NotNull String name() {
         return this.name;
     }
 
     @Override
-    public Object value() {
+    public @NotNull Object value() {
         return this.value;
     }
 
     @Override
-    public Document document() {
+    public @NotNull Document document() {
         return new Document("$set", new Document(this.name, this.value));
     }
 
     @Override
-    public Document fullDocument() {
+    public @NotNull Document fullDocument() {
         Document document = new Document();
 
         document.put(this.fieldName(), this.fieldValue());

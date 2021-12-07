@@ -8,6 +8,8 @@
 
 package dev.dementisimus.autumn.common.api.callback;
 
+import org.jetbrains.annotations.Nullable;
+
 /**
  * Represents an interface for passing on data
  *
@@ -24,6 +26,6 @@ public interface AutumnBiCallback<A, B> {
      *
      * @since 1.0.0
      */
-    void done(A a, B b);
+    void done(@Nullable A a, @Nullable B b);
 
 }

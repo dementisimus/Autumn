@@ -14,6 +14,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The event fired when a click has been issued on an item factory item
@@ -29,7 +30,7 @@ public interface ItemFactoryClickInteraction {
      *
      * @since 1.0.0
      */
-    ValidInventoryClickEvent event();
+    @NotNull ValidInventoryClickEvent event();
 
     /**
      * Gets the {@link InventoryView}
@@ -38,7 +39,7 @@ public interface ItemFactoryClickInteraction {
      *
      * @since 1.0.0
      */
-    InventoryView inventoryView();
+    @NotNull InventoryView inventoryView();
 
     /**
      * Gets the {@link Inventory}
@@ -47,7 +48,7 @@ public interface ItemFactoryClickInteraction {
      *
      * @since 1.0.0
      */
-    Inventory clickedInventory();
+    @NotNull Inventory clickedInventory();
 
     /**
      * Gets the {@link Player} who clicked on the item
@@ -56,7 +57,7 @@ public interface ItemFactoryClickInteraction {
      *
      * @since 1.0.0
      */
-    Player player();
+    @NotNull Player player();
 
     /**
      * Gets the {@link ItemStack} on which has been clicked on
@@ -65,7 +66,7 @@ public interface ItemFactoryClickInteraction {
      *
      * @since 1.0.0
      */
-    ItemStack item();
+    @NotNull ItemStack item();
 
     /**
      * Gets the {@link ItemFactory} from {@link #item()}
@@ -74,7 +75,7 @@ public interface ItemFactoryClickInteraction {
      *
      * @since 1.0.0
      */
-    ItemFactory itemFactory();
+    @NotNull ItemFactory itemFactory();
 
     /**
      * Checks if the click was a right-click

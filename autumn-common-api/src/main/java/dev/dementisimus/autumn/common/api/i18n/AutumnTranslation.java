@@ -8,6 +8,8 @@
 
 package dev.dementisimus.autumn.common.api.i18n;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Locale;
 
 /**
@@ -24,7 +26,7 @@ public interface AutumnTranslation {
      *
      * @since 1.0.0
      */
-    void translationProperty(String translationProperty);
+    void translationProperty(@NotNull String translationProperty);
 
     /**
      * Replaces a target by the given replacement in the translation
@@ -36,7 +38,7 @@ public interface AutumnTranslation {
      *
      * @since 1.0.0
      */
-    AutumnTranslation replacement(String target, String replacement);
+    @NotNull AutumnTranslation replacement(@NotNull String target, @NotNull String replacement);
 
     /**
      * Replaces a target by the given replacement in the translation
@@ -47,7 +49,7 @@ public interface AutumnTranslation {
      *
      * @since 1.0.0
      */
-    AutumnTranslation replacement(AutumnTranslationReplacement... translationReplacements);
+    @NotNull AutumnTranslation replacement(@NotNull AutumnTranslationReplacement... translationReplacements);
 
     /**
      * Gets the translation for a locale
@@ -58,7 +60,7 @@ public interface AutumnTranslation {
      *
      * @since 1.0.0
      */
-    String get(Locale locale);
+    @NotNull String get(@NotNull Locale locale);
 
     /**
      * Gets the translation for an {@link AutumnLanguage}
@@ -69,7 +71,7 @@ public interface AutumnTranslation {
      *
      * @since 1.0.0
      */
-    String get(AutumnLanguage autumnLanguage);
+    @NotNull String get(@NotNull AutumnLanguage autumnLanguage);
 
     /**
      * Checks if a string (may be already translated) matches an translation
@@ -80,5 +82,5 @@ public interface AutumnTranslation {
      *
      * @since 1.0.0
      */
-    boolean matches(String string);
+    boolean matches(@NotNull String string);
 }

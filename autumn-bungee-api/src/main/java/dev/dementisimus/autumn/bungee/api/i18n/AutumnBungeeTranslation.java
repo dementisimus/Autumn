@@ -10,6 +10,7 @@ package dev.dementisimus.autumn.bungee.api.i18n;
 
 import dev.dementisimus.autumn.common.api.i18n.AutumnTranslation;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Allows the generation of message translations for players
@@ -27,5 +28,5 @@ public interface AutumnBungeeTranslation extends AutumnTranslation {
      *
      * @since 1.0.0
      */
-    String get(ProxiedPlayer player);
+    @NotNull String get(@NotNull ProxiedPlayer player);
 }

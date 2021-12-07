@@ -9,6 +9,7 @@
 package dev.dementisimus.autumn.common.api.injection.module.provider;
 
 import com.google.inject.Provider;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents a generic injection module provider
@@ -20,7 +21,7 @@ import com.google.inject.Provider;
 public record GenericInjectionProvider<T>(T value) implements Provider<T> {
 
     @Override
-    public T get() {
+    public @Nullable T get() {
         return this.value;
     }
 }

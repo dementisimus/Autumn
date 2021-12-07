@@ -10,6 +10,7 @@ package dev.dementisimus.autumn.common.executor;
 
 import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
 import dev.dementisimus.autumn.common.api.executor.AutumnExecutor;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -43,12 +44,12 @@ public class DefaultAutumnExecutor implements AutumnExecutor {
     }
 
     @Override
-    public void schedule(Runnable runnable) {
+    public void schedule(@NotNull Runnable runnable) {
         this.scheduledFuture = SCHEDULED_EXECUTOR_SERVICE.schedule(runnable, this.delay, this.timeUnit);
     }
 
     @Override
-    public void scheduleWithFixedDelay(Runnable runnable) {
+    public void scheduleWithFixedDelay(@NotNull Runnable runnable) {
         this.scheduledFuture = SCHEDULED_EXECUTOR_SERVICE.scheduleWithFixedDelay(runnable, this.initialDelay, this.delay, this.timeUnit);
     }
 

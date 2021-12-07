@@ -10,6 +10,7 @@ package dev.dementisimus.autumn.bukkit.api.input;
 
 import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Used to retrieve text input from users via chat
@@ -25,7 +26,7 @@ public interface UserTextInput {
      *
      * @since 1.0.0
      */
-    void prefix(String prefix);
+    void prefix(@NotNull String prefix);
 
     /**
      * Sets the message translationProperty
@@ -34,7 +35,7 @@ public interface UserTextInput {
      *
      * @since 1.0.0
      */
-    void translationProperty(String translationProperty);
+    void translationProperty(@NotNull String translationProperty);
 
     /**
      * Sets the player who will be prompted to enter text
@@ -43,7 +44,7 @@ public interface UserTextInput {
      *
      * @since 1.0.0
      */
-    void player(Player player);
+    void player(@NotNull Player player);
 
     /**
      * Fetches text from an user
@@ -52,5 +53,5 @@ public interface UserTextInput {
      *
      * @since 1.0.0
      */
-    void fetch(AutumnCallback<String> stringCallback);
+    void fetch(@NotNull AutumnCallback<String> stringCallback);
 }

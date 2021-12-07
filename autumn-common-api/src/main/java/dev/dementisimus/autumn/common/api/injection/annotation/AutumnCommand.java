@@ -8,6 +8,8 @@
 
 package dev.dementisimus.autumn.common.api.injection.annotation;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
@@ -39,7 +41,7 @@ public @interface AutumnCommand {
      *
      * @since 1.0.0
      */
-    String name();
+    @NotNull String name();
 
     /**
      * The command aliases
@@ -48,5 +50,5 @@ public @interface AutumnCommand {
      *
      * @since 1.0.0
      */
-    String[] nameAliases() default {};
+    @NotNull String[] nameAliases() default {};
 }

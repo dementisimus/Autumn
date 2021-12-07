@@ -28,27 +28,27 @@ public class BukkitDeserializeSetupStateEvent extends Event implements Deseriali
     private Object value;
 
     @Override
-    public SetupState setupState() {
+    public @NotNull SetupState setupState() {
         return this.setupState;
     }
 
     @Override
-    public Document configuration() {
+    public @NotNull Document configuration() {
         return this.configuration;
     }
 
     @Override
-    public String name() {
+    public @NotNull String name() {
         return this.name;
     }
 
     @Override
-    public Object value() {
+    public @NotNull Object value() {
         return this.value;
     }
 
     @Override
-    public void value(Object value) {
+    public void value(@NotNull Object value) {
         this.value = value;
     }
 

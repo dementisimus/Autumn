@@ -10,6 +10,7 @@ package dev.dementisimus.autumn.common.api.setup.event;
 
 import dev.dementisimus.autumn.common.api.setup.SetupManager;
 import dev.dementisimus.autumn.common.api.setup.state.SetupState;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents an event called when a next extra setup state is needed
@@ -25,7 +26,7 @@ public interface NextExtraSetupStateEvent {
      *
      * @since 1.0.0
      */
-    SetupManager setupManager();
+    @NotNull SetupManager setupManager();
 
     /**
      * Gets the current setup state
@@ -34,7 +35,7 @@ public interface NextExtraSetupStateEvent {
      *
      * @since 1.0.0
      */
-    SetupState currentSetupState();
+    @NotNull SetupState currentSetupState();
 
     /**
      * Gets the current setup state list index
@@ -52,7 +53,7 @@ public interface NextExtraSetupStateEvent {
      *
      * @since 1.0.0
      */
-    SetupState nextSetupState();
+    @NotNull SetupState nextSetupState();
 
     /**
      * Sets the next setup state
@@ -61,7 +62,7 @@ public interface NextExtraSetupStateEvent {
      *
      * @since 1.0.0
      */
-    void nextSetupState(SetupState nextSetupState);
+    void nextSetupState(@NotNull SetupState nextSetupState);
 
     /**
      * Gets the cancellation state of the event

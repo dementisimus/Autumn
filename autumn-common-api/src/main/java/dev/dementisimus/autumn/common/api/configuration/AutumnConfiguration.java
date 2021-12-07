@@ -10,6 +10,8 @@ package dev.dementisimus.autumn.common.api.configuration;
 
 import com.github.derrop.documents.Document;
 import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Properties;
 
@@ -27,7 +29,7 @@ public interface AutumnConfiguration {
      *
      * @since 1.0.0
      */
-    AutumnConfiguration enableYaml();
+    @NotNull AutumnConfiguration enableYaml();
 
     /**
      * Sets key and its Object value
@@ -39,7 +41,7 @@ public interface AutumnConfiguration {
      *
      * @since 1.0.0
      */
-    AutumnConfiguration set(String key, Object object);
+    @NotNull AutumnConfiguration set(@NotNull String key, @NotNull Object object);
 
     /**
      * Sets key and its Number value
@@ -51,7 +53,7 @@ public interface AutumnConfiguration {
      *
      * @since 1.0.0
      */
-    AutumnConfiguration set(String key, Number number);
+    @NotNull AutumnConfiguration set(@NotNull String key, @NotNull Number number);
 
     /**
      * Sets key and its Boolean value
@@ -63,7 +65,7 @@ public interface AutumnConfiguration {
      *
      * @since 1.0.0
      */
-    AutumnConfiguration set(String key, Boolean bool);
+    @NotNull AutumnConfiguration set(@NotNull String key, @NotNull Boolean bool);
 
     /**
      * Sets key and its String value
@@ -75,7 +77,7 @@ public interface AutumnConfiguration {
      *
      * @since 1.0.0
      */
-    AutumnConfiguration set(String key, String string);
+    @NotNull AutumnConfiguration set(@NotNull String key, @NotNull String string);
 
     /**
      * Sets key and its Character value
@@ -87,7 +89,7 @@ public interface AutumnConfiguration {
      *
      * @since 1.0.0
      */
-    AutumnConfiguration set(String key, Character character);
+    @NotNull AutumnConfiguration set(@NotNull String key, @NotNull Character character);
 
     /**
      * Sets key and its Properties value
@@ -99,7 +101,7 @@ public interface AutumnConfiguration {
      *
      * @since 1.0.0
      */
-    AutumnConfiguration set(String key, Properties properties);
+    @NotNull AutumnConfiguration set(@NotNull String key, @NotNull Properties properties);
 
     /**
      * Sets key and its ByteArray value
@@ -111,7 +113,7 @@ public interface AutumnConfiguration {
      *
      * @since 1.0.0
      */
-    AutumnConfiguration set(String key, byte[] bytes);
+    @NotNull AutumnConfiguration set(@NotNull String key, byte[] bytes);
 
     /**
      * Saves all previously set keys and values to the storage file
@@ -127,7 +129,7 @@ public interface AutumnConfiguration {
      *
      * @since 1.0.0
      */
-    Document read();
+    @Nullable Document read();
 
     /**
      * Reads the file
@@ -136,5 +138,5 @@ public interface AutumnConfiguration {
      *
      * @since 1.0.0
      */
-    void read(AutumnCallback<Document> callback);
+    void read(@NotNull AutumnCallback<@Nullable Document> callback);
 }

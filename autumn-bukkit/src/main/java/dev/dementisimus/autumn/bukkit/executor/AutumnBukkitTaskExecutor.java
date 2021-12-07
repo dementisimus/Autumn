@@ -11,11 +11,12 @@ package dev.dementisimus.autumn.bukkit.executor;
 import dev.dementisimus.autumn.common.api.executor.AutumnTaskExecutor;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
 
 public record AutumnBukkitTaskExecutor(Plugin plugin) implements AutumnTaskExecutor {
 
     @Override
-    public void synchronous(Runnable runnable) {
+    public void synchronous(@NotNull Runnable runnable) {
         Bukkit.getScheduler().runTask(this.plugin, runnable);
     }
 }

@@ -17,6 +17,8 @@ import dev.dementisimus.autumn.common.api.injection.AutumnInjector;
 import dev.dementisimus.autumn.common.api.log.AutumnLogging;
 import dev.dementisimus.autumn.common.api.setup.SetupManager;
 import dev.dementisimus.autumn.common.api.setup.state.SetupState;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Autumn's main class
@@ -46,7 +48,7 @@ public interface Autumn {
      *
      * @since 1.0.0
      */
-    void extraSetupStates(SetupState... setupStates);
+    void extraSetupStates(@NotNull SetupState... setupStates);
 
     /**
      * Initializes Autumn and its plugin
@@ -55,7 +57,7 @@ public interface Autumn {
      *
      * @since 1.0.0
      */
-    void initialize(AutumnCallback<AutumnInjector> initializationCallback);
+    void initialize(@NotNull AutumnCallback<@NotNull AutumnInjector> initializationCallback);
 
     /**
      * Enables the database (needs at least {@link #databaseSetupStates()}
@@ -64,7 +66,7 @@ public interface Autumn {
      *
      * @since 1.0.0
      */
-    void enableDatabase(DataSourceProperty... dataSourceProperties);
+    void enableDatabase(@NotNull DataSourceProperty... dataSourceProperties);
 
     /**
      * Checks if optional commands will be registered
@@ -109,7 +111,7 @@ public interface Autumn {
      *
      * @since 1.0.0
      */
-    AutumnTaskExecutor taskExecutor();
+    @NotNull AutumnTaskExecutor taskExecutor();
 
     /**
      * Gets the {@link AutumnLogging}
@@ -118,7 +120,7 @@ public interface Autumn {
      *
      * @since 1.0.0
      */
-    AutumnLogging logging();
+    @NotNull AutumnLogging logging();
 
     /**
      * Gets the {@link AutumnInjector}
@@ -127,7 +129,7 @@ public interface Autumn {
      *
      * @since 1.0.0
      */
-    AutumnInjector injector();
+    @NotNull AutumnInjector injector();
 
     /**
      * Gets the default {@link AutumnLanguage}
@@ -136,7 +138,7 @@ public interface Autumn {
      *
      * @since 1.0.0
      */
-    AutumnLanguage defaultLanguage();
+    @NotNull AutumnLanguage defaultLanguage();
 
     /**
      * Gets the {@link SetupManager}
@@ -145,7 +147,7 @@ public interface Autumn {
      *
      * @since 1.0.0
      */
-    SetupManager setupManager();
+    @NotNull SetupManager setupManager();
 
     /**
      * Gets the {@link Database}, if enabled by {@link #enableDatabase(DataSourceProperty...)}
@@ -154,5 +156,5 @@ public interface Autumn {
      *
      * @since 1.0.0
      */
-    Database database();
+    @Nullable Database database();
 }

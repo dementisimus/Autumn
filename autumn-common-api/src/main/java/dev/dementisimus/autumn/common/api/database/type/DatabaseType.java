@@ -13,6 +13,7 @@ import dev.dementisimus.autumn.common.api.database.property.DataProperty;
 import dev.dementisimus.autumn.common.api.database.property.UpdateDataProperty;
 import dev.dementisimus.autumn.common.api.database.property.source.DataSourceProperty;
 import org.bson.Document;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -32,7 +33,7 @@ public interface DatabaseType {
      *
      * @since 1.0.0
      */
-    void read(DataSourceProperty dataSourceProperty, DataProperty dataProperty, AutumnCallback<Document> documentCallback);
+    void read(@NotNull DataSourceProperty dataSourceProperty, @NotNull DataProperty dataProperty, @NotNull AutumnCallback<@NotNull Document> documentCallback);
 
     /**
      * Lists all storage entries
@@ -42,7 +43,7 @@ public interface DatabaseType {
      *
      * @since 1.0.0
      */
-    void list(DataSourceProperty dataSourceProperty, AutumnCallback<List<Document>> listDocumentCallback);
+    void list(@NotNull DataSourceProperty dataSourceProperty, @NotNull AutumnCallback<@NotNull List<Document>> listDocumentCallback);
 
     /**
      * Writes to storage
@@ -53,7 +54,7 @@ public interface DatabaseType {
      *
      * @since 1.0.0
      */
-    void write(DataSourceProperty dataSourceProperty, Document document, AutumnCallback<Boolean> booleanCallback);
+    void write(@NotNull DataSourceProperty dataSourceProperty, @NotNull Document document, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback);
 
     /**
      * Updates an already existing field in the storage
@@ -65,7 +66,7 @@ public interface DatabaseType {
      *
      * @since 1.0.0
      */
-    void update(DataSourceProperty dataSourceProperty, UpdateDataProperty updateDataProperty, AutumnCallback<Boolean> booleanCallback);
+    void update(@NotNull DataSourceProperty dataSourceProperty, @NotNull UpdateDataProperty updateDataProperty, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback);
 
     /**
      * Deletes from storage
@@ -76,7 +77,7 @@ public interface DatabaseType {
      *
      * @since 1.0.0
      */
-    void delete(DataSourceProperty dataSourceProperty, DataProperty dataProperty, AutumnCallback<Boolean> booleanCallback);
+    void delete(@NotNull DataSourceProperty dataSourceProperty, @NotNull DataProperty dataProperty, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback);
 
     /**
      * Checks the availability of a {@link DataProperty} in storage
@@ -87,7 +88,7 @@ public interface DatabaseType {
      *
      * @since 1.0.0
      */
-    void isPresent(DataSourceProperty dataSourceProperty, DataProperty dataProperty, AutumnCallback<Boolean> booleanCallback);
+    void isPresent(@NotNull DataSourceProperty dataSourceProperty, @NotNull DataProperty dataProperty, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback);
 
     /**
      * Closes the storage connection
@@ -101,5 +102,5 @@ public interface DatabaseType {
      *
      * @since 1.0.0
      */
-    String readyTranslationProperty();
+    @NotNull String readyTranslationProperty();
 }

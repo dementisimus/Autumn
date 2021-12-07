@@ -11,6 +11,8 @@ package dev.dementisimus.autumn.common.api.injection.module;
 import com.google.inject.AbstractModule;
 import dev.dementisimus.autumn.common.api.injection.module.provider.GenericInjectionProvider;
 import lombok.Getter;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents a generic injection module
@@ -32,7 +34,7 @@ public class GenericInjectionModule<T> extends AbstractModule {
      *
      * @since 1.0.0
      */
-    public GenericInjectionModule(Class<T> clazz, T value) {
+    public GenericInjectionModule(@NotNull Class<T> clazz, @Nullable T value) {
         this.genericObject = clazz;
         this.genericInjectionProvider = new GenericInjectionProvider<>(value);
     }

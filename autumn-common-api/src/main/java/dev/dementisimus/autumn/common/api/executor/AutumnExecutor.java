@@ -8,6 +8,8 @@
 
 package dev.dementisimus.autumn.common.api.executor;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Represents an executor for scheduled tasks
  *
@@ -22,7 +24,7 @@ public interface AutumnExecutor {
      *
      * @since 1.0.0
      */
-    void schedule(Runnable runnable);
+    void schedule(@NotNull Runnable runnable);
 
     /**
      * Starts the schedule with a fixed delay
@@ -31,7 +33,7 @@ public interface AutumnExecutor {
      *
      * @since 1.0.0
      */
-    void scheduleWithFixedDelay(Runnable runnable);
+    void scheduleWithFixedDelay(@NotNull Runnable runnable);
 
     /**
      * Cancels the current schedule

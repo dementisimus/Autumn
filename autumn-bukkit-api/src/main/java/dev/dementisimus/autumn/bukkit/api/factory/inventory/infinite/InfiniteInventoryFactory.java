@@ -9,6 +9,7 @@
 package dev.dementisimus.autumn.bukkit.api.factory.inventory.infinite;
 
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -24,11 +25,10 @@ public interface InfiniteInventoryFactory {
      *
      * @param items the items
      * @param clazz the item class type
-     * @param <T> the class type
      *
      * @since 1.0.0
      */
-    <T> void setItems(List<T> items, Class<T> clazz);
+    <T> void setItems(@NotNull List<T> items, @NotNull Class<T> clazz);
 
     /**
      * Creates the infinite inventory for a player and opens it when {@link #create()} has been called
@@ -37,7 +37,7 @@ public interface InfiniteInventoryFactory {
      *
      * @since 1.0.0
      */
-    void createFor(Player createFor);
+    void createFor(@NotNull Player createFor);
 
     /**
      * Creates the infinite inventory and opens it for {@link #createFor(Player)}

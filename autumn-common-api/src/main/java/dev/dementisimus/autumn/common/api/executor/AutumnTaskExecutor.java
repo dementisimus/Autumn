@@ -8,6 +8,8 @@
 
 package dev.dementisimus.autumn.common.api.executor;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -32,7 +34,7 @@ public interface AutumnTaskExecutor {
      *
      * @since 1.0.0
      */
-    void synchronous(Runnable runnable);
+    void synchronous(@NotNull Runnable runnable);
 
     /**
      * Executes as a asynchronous task
@@ -41,7 +43,7 @@ public interface AutumnTaskExecutor {
      *
      * @since 1.0.0
      */
-    default void asynchronous(Runnable runnable) {
+    default void asynchronous(@NotNull Runnable runnable) {
         EXECUTOR_SERVICE.execute(runnable);
     }
 
@@ -53,7 +55,7 @@ public interface AutumnTaskExecutor {
      *
      * @since 1.0.0
      */
-    static void staticAsynchronous(Runnable runnable) {
+    static void staticAsynchronous(@NotNull Runnable runnable) {
         EXECUTOR_SERVICE.execute(runnable);
     }
 }

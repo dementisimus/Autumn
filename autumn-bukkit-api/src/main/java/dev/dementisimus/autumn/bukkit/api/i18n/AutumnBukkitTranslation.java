@@ -10,6 +10,7 @@ package dev.dementisimus.autumn.bukkit.api.i18n;
 
 import dev.dementisimus.autumn.common.api.i18n.AutumnTranslation;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Allows the generation of message translations for players
@@ -27,5 +28,5 @@ public interface AutumnBukkitTranslation extends AutumnTranslation {
      *
      * @since 1.0.0
      */
-    String get(Player player);
+    @NotNull String get(@NotNull Player player);
 }

@@ -9,6 +9,7 @@
 package dev.dementisimus.autumn.bukkit.api.language;
 
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Used for custom user language selection
@@ -24,5 +25,5 @@ public interface LanguageSelection {
      *
      * @since 1.0.0
      */
-    void open(Player player);
+    void open(@NotNull Player player);
 }

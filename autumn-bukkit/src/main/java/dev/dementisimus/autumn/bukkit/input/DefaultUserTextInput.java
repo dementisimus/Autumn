@@ -14,6 +14,7 @@ import dev.dementisimus.autumn.bukkit.i18n.DefaultAutumnBukkitTranslation;
 import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,22 +28,22 @@ public class DefaultUserTextInput implements UserTextInput {
     private Player player;
 
     @Override
-    public void prefix(String prefix) {
+    public void prefix(@NotNull String prefix) {
         this.prefix = prefix;
     }
 
     @Override
-    public void translationProperty(String translationProperty) {
+    public void translationProperty(@NotNull String translationProperty) {
         this.translationProperty = translationProperty;
     }
 
     @Override
-    public void player(Player player) {
+    public void player(@NotNull Player player) {
         this.player = player;
     }
 
     @Override
-    public void fetch(AutumnCallback<String> stringCallback) {
+    public void fetch(@NotNull AutumnCallback<String> stringCallback) {
         this.player.closeInventory();
 
         AutumnBukkitTranslation autumnTranslation = new DefaultAutumnBukkitTranslation(this.translationProperty);

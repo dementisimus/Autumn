@@ -26,12 +26,12 @@ public class BukkitValidateCurrentExtraSetupStateEvent extends Event implements 
     private boolean validInput;
 
     @Override
-    public SetupState currentSetupState() {
+    public @NotNull SetupState currentSetupState() {
         return this.currentSetupState;
     }
 
     @Override
-    public String consoleInput() {
+    public @NotNull String consoleInput() {
         return this.consoleInput;
     }
 

@@ -12,6 +12,7 @@ import dev.dementisimus.autumn.bukkit.api.i18n.AutumnBukkitTranslation;
 import dev.dementisimus.autumn.common.i18n.DefaultAutumnTranslation;
 import dev.dementisimus.autumn.common.language.PlayerLanguage;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 public class DefaultAutumnBukkitTranslation extends DefaultAutumnTranslation implements AutumnBukkitTranslation {
 
@@ -19,7 +20,7 @@ public class DefaultAutumnBukkitTranslation extends DefaultAutumnTranslation imp
         super(translationProperty);
     }
 
-    public String get(Player player) {
+    public @NotNull String get(@NotNull Player player) {
         return super.getMessage(PlayerLanguage.get(player.getUniqueId()));
     }
 }

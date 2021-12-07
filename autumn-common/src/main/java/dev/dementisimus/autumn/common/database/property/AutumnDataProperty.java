@@ -12,6 +12,7 @@ import dev.dementisimus.autumn.common.api.database.property.DataProperty;
 import lombok.RequiredArgsConstructor;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import org.jetbrains.annotations.NotNull;
 
 @RequiredArgsConstructor
 public class AutumnDataProperty implements DataProperty {
@@ -20,22 +21,22 @@ public class AutumnDataProperty implements DataProperty {
     private final Object fieldValue;
 
     @Override
-    public String fieldName() {
+    public @NotNull String fieldName() {
         return this.fieldName;
     }
 
     @Override
-    public Object fieldValue() {
+    public @NotNull Object fieldValue() {
         return this.fieldValue;
     }
 
     @Override
-    public Bson filter() {
+    public @NotNull Bson filter() {
         return new Document(this.fieldName, this.fieldValue);
     }
 
     @Override
-    public String toString() {
+    public @NotNull String toString() {
         return "DataProperty{" + "fieldName='" + this.fieldName + '\'' + ", fieldValue=" + this.fieldValue + '}';
     }
 

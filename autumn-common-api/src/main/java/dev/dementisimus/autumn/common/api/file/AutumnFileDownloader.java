@@ -10,6 +10,8 @@ package dev.dementisimus.autumn.common.api.file;
 
 import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
 import dev.dementisimus.autumn.common.api.dependency.AutumnDependency;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 
@@ -28,7 +30,7 @@ public interface AutumnFileDownloader {
      *
      * @since 1.0.0
      */
-    void download(String url, AutumnCallback<File> fileCallback);
+    void download(@NotNull String url, @NotNull AutumnCallback<@Nullable File> fileCallback);
 
     /**
      * Downloads a file identified by an {@link AutumnDependency}
@@ -38,7 +40,7 @@ public interface AutumnFileDownloader {
      *
      * @since 1.0.0
      */
-    void download(AutumnDependency dependency, AutumnCallback<File> fileCallback);
+    void download(@NotNull AutumnDependency dependency, @NotNull AutumnCallback<@Nullable File> fileCallback);
 
     /**
      * Gets the location where the downloaded file will be saved to
@@ -47,7 +49,7 @@ public interface AutumnFileDownloader {
      *
      * @since 1.0.0
      */
-    File getDownloadTo();
+    @Nullable File getDownloadTo();
 
     /**
      * Sets the location where the downloaded file will be saved to
@@ -56,5 +58,5 @@ public interface AutumnFileDownloader {
      *
      * @since 1.0.0
      */
-    void setDownloadTo(File downloadTo);
+    void setDownloadTo(@NotNull File downloadTo);
 }

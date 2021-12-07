@@ -9,31 +9,31 @@
 package dev.dementisimus.autumn.common.dependency;
 
 import dev.dementisimus.autumn.common.api.dependency.AutumnRepository;
-import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-@RequiredArgsConstructor
 public class DefaultAutumnRepository implements AutumnRepository {
 
     private String name;
     private String url;
 
     @Override
-    public String getName() {
+    public @Nullable String getName() {
         return this.name;
     }
 
     @Override
-    public void setName(String name) {
+    public void setName(@NotNull String name) {
         this.name = name;
     }
 
     @Override
-    public String getURL() {
+    public @Nullable String getURL() {
         return this.url;
     }
 
     @Override
-    public void setURL(String url) {
+    public void setURL(@NotNull String url) {
         if(!url.endsWith("/")) url += "/";
 
         this.url = url;

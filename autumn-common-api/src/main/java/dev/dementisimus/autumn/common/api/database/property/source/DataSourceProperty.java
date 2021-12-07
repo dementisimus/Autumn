@@ -8,6 +8,8 @@
 
 package dev.dementisimus.autumn.common.api.database.property.source;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Map;
 
 /**
@@ -24,7 +26,7 @@ public interface DataSourceProperty {
      *
      * @since 1.0.0
      */
-    String name();
+    @NotNull String name();
 
     /**
      * The fields used by Autumn in the data source
@@ -35,5 +37,5 @@ public interface DataSourceProperty {
      *
      * @since 1.0.0
      */
-    Map<String, String> fields();
+    @NotNull Map<String, String> fields();
 }

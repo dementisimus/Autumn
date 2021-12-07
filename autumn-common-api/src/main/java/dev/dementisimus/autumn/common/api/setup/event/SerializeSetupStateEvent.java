@@ -9,6 +9,7 @@
 package dev.dementisimus.autumn.common.api.setup.event;
 
 import dev.dementisimus.autumn.common.api.setup.state.SetupState;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents an event called when a setup state gets serialized
@@ -24,7 +25,7 @@ public interface SerializeSetupStateEvent {
      *
      * @since 1.0.0
      */
-    SetupState setupState();
+    @NotNull SetupState setupState();
 
     /**
      * Gets the to-be-serialized setup state value
@@ -33,7 +34,7 @@ public interface SerializeSetupStateEvent {
      *
      * @since 1.0.0
      */
-    Object value();
+    @NotNull Object value();
 
     /**
      * Sets the to-be-serialized setup state value
@@ -42,5 +43,5 @@ public interface SerializeSetupStateEvent {
      *
      * @since 1.0.0
      */
-    void value(Object value);
+    void value(@NotNull Object value);
 }

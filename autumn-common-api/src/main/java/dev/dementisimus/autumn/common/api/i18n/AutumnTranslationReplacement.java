@@ -8,6 +8,9 @@
 
 package dev.dementisimus.autumn.common.api.i18n;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 /**
  * A replacement for a translation
  *
@@ -22,7 +25,7 @@ public interface AutumnTranslationReplacement {
      *
      * @since 1.0.0
      */
-    void target(String target);
+    void target(@NotNull String target);
 
     /**
      * Gets the replacement target
@@ -31,7 +34,7 @@ public interface AutumnTranslationReplacement {
      *
      * @since 1.0.0
      */
-    String target();
+    @Nullable String target();
 
     /**
      * Sets the replacement value
@@ -40,7 +43,7 @@ public interface AutumnTranslationReplacement {
      *
      * @since 1.0.0
      */
-    void replacement(String replacement);
+    void replacement(@NotNull String replacement);
 
     /**
      * Gets the replacement value
@@ -49,5 +52,5 @@ public interface AutumnTranslationReplacement {
      *
      * @since 1.0.0
      */
-    String replacement();
+    @Nullable String replacement();
 }

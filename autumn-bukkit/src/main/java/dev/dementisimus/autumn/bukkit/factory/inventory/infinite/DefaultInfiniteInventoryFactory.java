@@ -16,6 +16,7 @@ import dev.dementisimus.autumn.bukkit.factory.item.DefaultItemFactory;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -51,7 +52,7 @@ public class DefaultInfiniteInventoryFactory implements InfiniteInventoryFactory
     }
 
     @Override
-    public <T> void setItems(List<T> items, Class<T> clazz) {
+    public <T> void setItems(@NotNull List<T> items, @NotNull Class<T> clazz) {
         if(clazz.equals(Material.class)) {
             for(T item : items) this.items.add(new DefaultItemFactory((Material) item).create());
         }else if(clazz.equals(ItemStack.class)) {
@@ -65,7 +66,7 @@ public class DefaultInfiniteInventoryFactory implements InfiniteInventoryFactory
     }
 
     @Override
-    public void createFor(Player createFor) {
+    public void createFor(@NotNull Player createFor) {
         this.createFor = createFor;
     }
 

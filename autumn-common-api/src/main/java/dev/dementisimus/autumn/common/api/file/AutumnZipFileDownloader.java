@@ -9,6 +9,7 @@
 package dev.dementisimus.autumn.common.api.file;
 
 import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 
@@ -23,11 +24,11 @@ public interface AutumnZipFileDownloader {
      * Downloads a ZIP-File from an URL
      *
      * @param url ZIP-File URL
-     * @param booleanCallback the file, if it existed, null otherwise
+     * @param booleanCallback true, if the file was found and extracted, false otherwise
      *
      * @since 1.0.0
      */
-    void downloadZip(String url, AutumnCallback<Boolean> booleanCallback);
+    void downloadZip(@NotNull String url, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback);
 
     /**
      * Where the zip file will be extracted to
@@ -36,5 +37,5 @@ public interface AutumnZipFileDownloader {
      *
      * @since 1.0.0
      */
-    void extractTo(File extractTo);
+    void extractTo(@NotNull File extractTo);
 }

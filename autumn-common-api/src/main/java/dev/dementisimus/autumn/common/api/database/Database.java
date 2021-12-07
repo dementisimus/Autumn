@@ -13,6 +13,7 @@ import dev.dementisimus.autumn.common.api.database.property.DataProperty;
 import dev.dementisimus.autumn.common.api.database.property.UpdateDataProperty;
 import dev.dementisimus.autumn.common.api.database.property.source.DataSourceProperty;
 import org.bson.Document;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ public interface Database {
      *
      * @since 1.0.0
      */
-    void generateDataSourceProperty(DataSourceProperty dataSourceProperty);
+    void generateDataSourceProperty(@NotNull DataSourceProperty dataSourceProperty);
 
     /**
      * The {@link DataSourceProperty} used for executing operations in the storage
@@ -39,7 +40,7 @@ public interface Database {
      *
      * @since 1.0.0
      */
-    void dataSourceProperty(DataSourceProperty dataSourceProperty);
+    void dataSourceProperty(@NotNull DataSourceProperty dataSourceProperty);
 
     /**
      * Data which will be used by the storage operations
@@ -48,7 +49,7 @@ public interface Database {
      *
      * @since 1.0.0
      */
-    void dataProperty(DataProperty dataProperty);
+    void dataProperty(@NotNull DataProperty dataProperty);
 
     /**
      * Data which will be used by the update storage operation
@@ -57,7 +58,7 @@ public interface Database {
      *
      * @since 1.0.0
      */
-    void updateDataProperty(UpdateDataProperty updateDataProperty);
+    void updateDataProperty(@NotNull UpdateDataProperty updateDataProperty);
 
     /**
      * Document saved to storage
@@ -66,7 +67,7 @@ public interface Database {
      *
      * @since 1.0.0
      */
-    void document(Document document);
+    void document(@NotNull Document document);
 
     /**
      * Connects, if needed, to the storage type
@@ -75,7 +76,7 @@ public interface Database {
      *
      * @since 1.0.0
      */
-    void connect(AutumnCallback<Boolean> booleanCallback);
+    void connect(@NotNull AutumnCallback<@NotNull Boolean> booleanCallback);
 
     /**
      * Disables cache for <strong>any</strong> storage operation
@@ -91,7 +92,7 @@ public interface Database {
      *
      * @since 1.0.0
      */
-    void read(AutumnCallback<Document> documentCallback);
+    void read(@NotNull AutumnCallback<@NotNull Document> documentCallback);
 
     /**
      * Lists all storage entries
@@ -100,7 +101,7 @@ public interface Database {
      *
      * @since 1.0.0
      */
-    void list(AutumnCallback<List<Document>> listDocumentCallback);
+    void list(@NotNull AutumnCallback<@NotNull List<Document>> listDocumentCallback);
 
     /**
      * Writes to storage
@@ -109,7 +110,7 @@ public interface Database {
      *
      * @since 1.0.0
      */
-    void write(AutumnCallback<Boolean> booleanCallback);
+    void write(@NotNull AutumnCallback<@NotNull Boolean> booleanCallback);
 
     /**
      * Updates an already existing field in the storage
@@ -118,7 +119,7 @@ public interface Database {
      *
      * @since 1.0.0
      */
-    void update(AutumnCallback<Boolean> booleanCallback);
+    void update(@NotNull AutumnCallback<@NotNull Boolean> booleanCallback);
 
     /**
      * Deletes from storage
@@ -127,7 +128,7 @@ public interface Database {
      *
      * @since 1.0.0
      */
-    void delete(AutumnCallback<Boolean> booleanCallback);
+    void delete(@NotNull AutumnCallback<@NotNull Boolean> booleanCallback);
 
     /**
      * Checks the availability of a {@link DataProperty} in storage
@@ -138,7 +139,7 @@ public interface Database {
      *
      * @since 1.0.0
      */
-    void isPresent(DataSourceProperty dataSourceProperty, DataProperty dataProperty, AutumnCallback<Boolean> booleanCallback);
+    void isPresent(@NotNull DataSourceProperty dataSourceProperty, @NotNull DataProperty dataProperty, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback);
 
     /**
      * Writes, if field does not exist in storage, to storage, else updates field in storage
@@ -147,7 +148,7 @@ public interface Database {
      *
      * @since 1.0.0
      */
-    void writeOrUpdate(AutumnCallback<Boolean> booleanCallback);
+    void writeOrUpdate(@NotNull AutumnCallback<@NotNull Boolean> booleanCallback);
 
     /**
      * Closes the storage connection

@@ -20,6 +20,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
@@ -39,7 +41,7 @@ public interface ItemFactory {
      *
      * @since 1.0.0
      */
-    ItemFactory material(Material material);
+    @NotNull ItemFactory material(@NotNull Material material);
 
     /**
      * Sets the itemMeta
@@ -50,7 +52,7 @@ public interface ItemFactory {
      *
      * @since 1.0.0
      */
-    ItemFactory itemMeta(ItemMeta itemMeta);
+    @NotNull ItemFactory itemMeta(@NotNull ItemMeta itemMeta);
 
     /**
      * Sets the item amount
@@ -61,7 +63,7 @@ public interface ItemFactory {
      *
      * @since 1.0.0
      */
-    ItemFactory amount(int amount);
+    @NotNull ItemFactory amount(int amount);
 
     /**
      * Sets the item display name
@@ -72,7 +74,7 @@ public interface ItemFactory {
      *
      * @since 1.0.0
      */
-    ItemFactory displayName(String displayName);
+    @NotNull ItemFactory displayName(@NotNull String displayName);
 
     /**
      * Sets the item display name by a translation property
@@ -85,7 +87,7 @@ public interface ItemFactory {
      *
      * @since 1.0.0
      */
-    ItemFactory displayName(Player player, String translationProperty, AutumnTranslationReplacement... translationReplacements);
+    @NotNull ItemFactory displayName(@NotNull Player player, @NotNull String translationProperty, @NotNull AutumnTranslationReplacement... translationReplacements);
 
     /**
      * Sets item flags
@@ -96,7 +98,7 @@ public interface ItemFactory {
      *
      * @since 1.0.0
      */
-    ItemFactory itemFlags(ItemFlag... itemFlags);
+    @NotNull ItemFactory itemFlags(@NotNull ItemFlag... itemFlags);
 
     /**
      * Removes an item flag
@@ -107,7 +109,7 @@ public interface ItemFactory {
      *
      * @since 1.0.0
      */
-    ItemFactory removeItemFlag(ItemFlag itemFlag);
+    @NotNull ItemFactory removeItemFlag(@NotNull ItemFlag itemFlag);
 
     /**
      * Removes all item flags
@@ -116,7 +118,7 @@ public interface ItemFactory {
      *
      * @since 1.0.0
      */
-    ItemFactory clearItemFlags();
+    @NotNull ItemFactory clearItemFlags();
 
     /**
      * Adds all item flags
@@ -125,7 +127,7 @@ public interface ItemFactory {
      *
      * @since 1.0.0
      */
-    ItemFactory allItemFlags();
+    @NotNull ItemFactory allItemFlags();
 
     /**
      * Create an empty lore
@@ -134,7 +136,7 @@ public interface ItemFactory {
      *
      * @since 1.0.0
      */
-    ItemFactory emptyLore();
+    @NotNull ItemFactory emptyLore();
 
     /**
      * Create a lore
@@ -145,7 +147,7 @@ public interface ItemFactory {
      *
      * @since 1.0.0
      */
-    ItemFactory lore(String lore);
+    @NotNull ItemFactory lore(@NotNull String lore);
 
     /**
      * Create a lore by a translation property
@@ -158,7 +160,7 @@ public interface ItemFactory {
      *
      * @since 1.0.0
      */
-    ItemFactory lore(Player player, String translationProperty, AutumnTranslationReplacement... translationReplacements);
+    @NotNull ItemFactory lore(@NotNull Player player, @NotNull String translationProperty, @NotNull AutumnTranslationReplacement... translationReplacements);
 
     /**
      * Sets the lore at a specific index
@@ -170,7 +172,7 @@ public interface ItemFactory {
      *
      * @since 1.0.0
      */
-    ItemFactory lore(int index, String lore);
+    @NotNull ItemFactory lore(int index, @NotNull String lore);
 
     /**
      * Adds lores
@@ -181,7 +183,7 @@ public interface ItemFactory {
      *
      * @since 1.0.0
      */
-    ItemFactory lores(String... lores);
+    @NotNull ItemFactory lores(String... lores);
 
     /**
      * Removes a lore at an specific index
@@ -192,7 +194,7 @@ public interface ItemFactory {
      *
      * @since 1.0.0
      */
-    ItemFactory removeLore(int index);
+    @NotNull ItemFactory removeLore(int index);
 
     /**
      * Removes a lore
@@ -203,7 +205,7 @@ public interface ItemFactory {
      *
      * @since 1.0.0
      */
-    ItemFactory removeLore(String lore);
+    @NotNull ItemFactory removeLore(@NotNull String lore);
 
     /**
      * Removes all lore entries
@@ -212,7 +214,7 @@ public interface ItemFactory {
      *
      * @since 1.0.0
      */
-    ItemFactory clearLore();
+    @NotNull ItemFactory clearLore();
 
     /**
      * Sets the item damage
@@ -223,7 +225,7 @@ public interface ItemFactory {
      *
      * @since 1.0.0
      */
-    ItemFactory damage(int damage);
+    @NotNull ItemFactory damage(int damage);
 
     /**
      * Adds an enchantment
@@ -235,7 +237,7 @@ public interface ItemFactory {
      *
      * @since 1.0.0
      */
-    ItemFactory enchantment(Enchantment enchantment, int level);
+    @NotNull ItemFactory enchantment(@NotNull Enchantment enchantment, int level);
 
     /**
      * Adds multiple enchantments
@@ -247,7 +249,7 @@ public interface ItemFactory {
      *
      * @since 1.0.0
      */
-    ItemFactory enchantments(Enchantment[] enchantments, int[] levels);
+    @NotNull ItemFactory enchantments(@NotNull Enchantment[] enchantments, int[] levels);
 
     /**
      * Enchants the item for appearance only - {@link #allItemFlags()} will be executed to hide the enchantment
@@ -256,7 +258,7 @@ public interface ItemFactory {
      *
      * @since 1.0.0
      */
-    ItemFactory enchantItemForAppearance();
+    @NotNull ItemFactory enchantItemForAppearance();
 
     /**
      * Adds a custom potion effect
@@ -268,7 +270,7 @@ public interface ItemFactory {
      *
      * @since 1.0.0
      */
-    ItemFactory customPotionEffect(PotionEffect potionEffect, boolean overwrite);
+    @NotNull ItemFactory customPotionEffect(@NotNull PotionEffect potionEffect, boolean overwrite);
 
     /**
      * Sets the potion color
@@ -279,7 +281,7 @@ public interface ItemFactory {
      *
      * @since 1.0.0
      */
-    ItemFactory potionColor(Color potionColor);
+    @NotNull ItemFactory potionColor(@NotNull Color potionColor);
 
     /**
      * Sets the owning player (for skulls, etc)
@@ -290,7 +292,7 @@ public interface ItemFactory {
      *
      * @since 1.0.0
      */
-    ItemFactory owningPlayer(UUID uuid);
+    @NotNull ItemFactory owningPlayer(@NotNull UUID uuid);
 
     /**
      * Sets the leather color
@@ -301,7 +303,7 @@ public interface ItemFactory {
      *
      * @since 1.0.0
      */
-    ItemFactory leatherColor(Color color);
+    @NotNull ItemFactory leatherColor(@NotNull Color color);
 
     /**
      * Stores a PersistentDataType in this item
@@ -315,7 +317,7 @@ public interface ItemFactory {
      *
      * @since 1.0.0
      */
-    <T> ItemFactory store(String namespace, String key, PersistentDataType<T, T> persistentDataType, T data);
+    @NotNull <T> ItemFactory store(@NotNull String namespace, @NotNull String key, @NotNull PersistentDataType<T, T> persistentDataType, @NotNull T data);
 
     /**
      * Retrieves stored data
@@ -328,7 +330,7 @@ public interface ItemFactory {
      *
      * @since 1.0.0
      */
-    <T> T retrieve(String namespace, String key, PersistentDataType<T, T> persistentDataType);
+    <T> @Nullable T retrieve(@NotNull String namespace, @NotNull String key, @NotNull PersistentDataType<T, T> persistentDataType);
 
     /**
      * Listens for clicks on this item
@@ -337,7 +339,7 @@ public interface ItemFactory {
      *
      * @since 1.0.0
      */
-    void onClick(AutumnCallback<ItemFactoryClickInteraction> clickInteractionCallback);
+    void onClick(@NotNull AutumnCallback<ItemFactoryClickInteraction> clickInteractionCallback);
 
     /**
      * Creates the item
@@ -346,5 +348,5 @@ public interface ItemFactory {
      *
      * @since 1.0.0
      */
-    ItemStack create();
+    @NotNull ItemStack create();
 }

@@ -25,6 +25,7 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataType;
+import org.jetbrains.annotations.NotNull;
 
 @RequiredArgsConstructor
 public class DefaultLanguageSelection implements LanguageSelection {
@@ -35,7 +36,7 @@ public class DefaultLanguageSelection implements LanguageSelection {
     private final BukkitAutumn autumn;
 
     @Override
-    public void open(Player player) {
+    public void open(@NotNull Player player) {
         InventoryFactory inventoryFactory = new DefaultInventoryFactory(3, player, "autumn.bukkit.player.language.selection");
 
         Database database = this.autumn.getDatabase();

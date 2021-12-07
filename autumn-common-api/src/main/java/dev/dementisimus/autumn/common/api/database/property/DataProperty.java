@@ -9,6 +9,7 @@
 package dev.dementisimus.autumn.common.api.database.property;
 
 import org.bson.conversions.Bson;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents data (key and value) for storage operations
@@ -24,7 +25,7 @@ public interface DataProperty {
      *
      * @since 1.0.0
      */
-    String fieldName();
+    @NotNull String fieldName();
 
     /**
      * Gets the data property field value
@@ -33,7 +34,7 @@ public interface DataProperty {
      *
      * @since 1.0.0
      */
-    Object fieldValue();
+    @NotNull Object fieldValue();
 
     /**
      * Transforms {@link #fieldName()} and {@link #fieldValue()} into a bson filter
@@ -42,7 +43,7 @@ public interface DataProperty {
      *
      * @since 1.0.0
      */
-    Bson filter();
+    @NotNull Bson filter();
 
     /**
      * Transforms the data property into a string
@@ -51,5 +52,5 @@ public interface DataProperty {
      *
      * @since 1.0.0
      */
-    String toString();
+    @NotNull String toString();
 }

@@ -16,6 +16,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 public class DefaultItemFactoryClickInteraction implements ItemFactoryClickInteraction {
 
@@ -30,32 +31,32 @@ public class DefaultItemFactoryClickInteraction implements ItemFactoryClickInter
     }
 
     @Override
-    public ValidInventoryClickEvent event() {
+    public @NotNull ValidInventoryClickEvent event() {
         return this.validInventoryClickEvent;
     }
 
     @Override
-    public InventoryView inventoryView() {
+    public @NotNull InventoryView inventoryView() {
         return this.inventoryClickEvent.getView();
     }
 
     @Override
-    public Inventory clickedInventory() {
+    public @NotNull Inventory clickedInventory() {
         return this.inventoryClickEvent.getClickedInventory();
     }
 
     @Override
-    public Player player() {
+    public @NotNull Player player() {
         return (Player) this.inventoryClickEvent.getWhoClicked();
     }
 
     @Override
-    public ItemStack item() {
+    public @NotNull ItemStack item() {
         return this.inventoryClickEvent.getCurrentItem();
     }
 
     @Override
-    public ItemFactory itemFactory() {
+    public @NotNull ItemFactory itemFactory() {
         return this.itemFactory;
     }
 

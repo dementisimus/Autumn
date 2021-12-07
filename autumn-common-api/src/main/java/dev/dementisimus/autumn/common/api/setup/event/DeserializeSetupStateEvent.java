@@ -10,6 +10,7 @@ package dev.dementisimus.autumn.common.api.setup.event;
 
 import com.github.derrop.documents.Document;
 import dev.dementisimus.autumn.common.api.setup.state.SetupState;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents an event called when a setup state gets deserialized
@@ -25,7 +26,7 @@ public interface DeserializeSetupStateEvent {
      *
      * @since 1.0.0
      */
-    SetupState setupState();
+    @NotNull SetupState setupState();
 
     /**
      * Gets the document the to-be-deserialized setup state will be deserialized from
@@ -34,7 +35,7 @@ public interface DeserializeSetupStateEvent {
      *
      * @since 1.0.0
      */
-    Document configuration();
+    @NotNull Document configuration();
 
     /**
      * Gets the to-be-deserialized setup state name
@@ -43,7 +44,7 @@ public interface DeserializeSetupStateEvent {
      *
      * @since 1.0.0
      */
-    String name();
+    @NotNull String name();
 
     /**
      * Gets the to-be-deserialized setup state value
@@ -52,7 +53,7 @@ public interface DeserializeSetupStateEvent {
      *
      * @since 1.0.0
      */
-    Object value();
+    @NotNull Object value();
 
     /**
      * Sets the to-be-deserialized setup state value
@@ -61,5 +62,5 @@ public interface DeserializeSetupStateEvent {
      *
      * @since 1.0.0
      */
-    void value(Object value);
+    void value(@NotNull Object value);
 }

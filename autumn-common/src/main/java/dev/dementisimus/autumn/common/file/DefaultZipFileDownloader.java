@@ -13,6 +13,7 @@ import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
 import dev.dementisimus.autumn.common.api.file.AutumnZipFileDownloader;
 import net.lingala.zip4j.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 
@@ -25,7 +26,7 @@ public class DefaultZipFileDownloader extends DefaultFileDownloader implements A
     }
 
     @Override
-    public void downloadZip(String url, AutumnCallback<Boolean> booleanCallback) {
+    public void downloadZip(@NotNull String url, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
         super.download(url, file -> {
             if(!file.exists()) {
                 booleanCallback.done(false);
@@ -49,7 +50,7 @@ public class DefaultZipFileDownloader extends DefaultFileDownloader implements A
     }
 
     @Override
-    public void extractTo(File extractTo) {
+    public void extractTo(@NotNull File extractTo) {
         this.extractTo = extractTo;
     }
 }

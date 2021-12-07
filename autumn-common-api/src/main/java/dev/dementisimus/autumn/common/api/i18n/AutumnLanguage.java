@@ -12,6 +12,8 @@ import dev.dementisimus.autumn.common.api.database.property.source.DataSourcePro
 import dev.dementisimus.autumn.common.api.database.sql.SQLTypes;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Locale;
 import java.util.Map;
@@ -74,12 +76,12 @@ public enum AutumnLanguage {
         public static final String LANGUAGE = "language";
 
         @Override
-        public String name() {
+        public @NotNull String name() {
             return "languages";
         }
 
         @Override
-        public Map<String, String> fields() {
+        public @NotNull Map<String, String> fields() {
             return Map.ofEntries(Map.entry(USER, SQLTypes.LONGTEXT), Map.entry(LANGUAGE, SQLTypes.LONGTEXT));
         }
     }
@@ -93,7 +95,7 @@ public enum AutumnLanguage {
      *
      * @since 1.0.0
      */
-    public static AutumnLanguage fromLocale(Locale locale) {
+    public static @Nullable AutumnLanguage fromLocale(@NotNull Locale locale) {
         AutumnLanguage language = null;
 
         for(AutumnLanguage autumnLanguage : AutumnLanguage.values()) {

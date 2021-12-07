@@ -9,6 +9,7 @@
 package dev.dementisimus.autumn.common.api.setup.event;
 
 import dev.dementisimus.autumn.common.api.setup.state.SetupState;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents an event to validate console input for a setup state
@@ -24,7 +25,7 @@ public interface ValidateCurrentExtraSetupStateEvent {
      *
      * @since 1.0.0
      */
-    SetupState currentSetupState();
+    @NotNull SetupState currentSetupState();
 
     /**
      * Gets the console input
@@ -33,7 +34,7 @@ public interface ValidateCurrentExtraSetupStateEvent {
      *
      * @since 1.0.0
      */
-    String consoleInput();
+    @NotNull String consoleInput();
 
     /**
      * Gets the validity of {@link #consoleInput()}

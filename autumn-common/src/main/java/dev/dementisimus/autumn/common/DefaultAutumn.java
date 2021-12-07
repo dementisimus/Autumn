@@ -44,6 +44,8 @@ import dev.dementisimus.autumn.common.setup.value.SetupValueManager;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 
@@ -116,14 +118,14 @@ public abstract class DefaultAutumn implements Autumn {
     }
 
     @Override
-    public void extraSetupStates(SetupState... setupStates) {
+    public void extraSetupStates(@NotNull SetupState... setupStates) {
         for(SetupState setupState : setupStates) {
             this.setupManager.extraSetupState(setupState);
         }
     }
 
     @Override
-    public void initialize(AutumnCallback<AutumnInjector> initializationCallback) {
+    public void initialize(@NotNull AutumnCallback<@NotNull AutumnInjector> initializationCallback) {
         this.initializationCallback = initializationCallback;
 
         this.downloadDependencies(() -> {
@@ -158,7 +160,7 @@ public abstract class DefaultAutumn implements Autumn {
     }
 
     @Override
-    public void enableDatabase(DataSourceProperty... dataSourceProperties) {
+    public void enableDatabase(@NotNull DataSourceProperty... dataSourceProperties) {
         this.database = new DefaultDatabase(this);
 
         for(DataSourceProperty dataSourceProperty : dataSourceProperties) {
@@ -189,32 +191,32 @@ public abstract class DefaultAutumn implements Autumn {
     }
 
     @Override
-    public AutumnTaskExecutor taskExecutor() {
+    public @NotNull AutumnTaskExecutor taskExecutor() {
         return this.taskExecutor;
     }
 
     @Override
-    public AutumnLogging logging() {
+    public @NotNull AutumnLogging logging() {
         return this.logging;
     }
 
     @Override
-    public AutumnInjector injector() {
+    public @NotNull AutumnInjector injector() {
         return this.injector;
     }
 
     @Override
-    public AutumnLanguage defaultLanguage() {
+    public @NotNull AutumnLanguage defaultLanguage() {
         return this.defaultLanguage;
     }
 
     @Override
-    public SetupManager setupManager() {
+    public @NotNull SetupManager setupManager() {
         return this.setupManager;
     }
 
     @Override
-    public Database database() {
+    public @Nullable Database database() {
         return this.database;
     }
 

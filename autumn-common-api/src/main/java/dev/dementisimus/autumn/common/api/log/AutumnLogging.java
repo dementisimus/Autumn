@@ -8,6 +8,8 @@
 
 package dev.dementisimus.autumn.common.api.log;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Console message Logging
  *
@@ -22,7 +24,7 @@ public interface AutumnLogging {
      *
      * @since 1.0.0
      */
-    void info(String info);
+    void info(@NotNull String info);
 
     /**
      * Prints a warning to the console
@@ -31,7 +33,7 @@ public interface AutumnLogging {
      *
      * @since 1.0.0
      */
-    void warning(String warning);
+    void warning(@NotNull String warning);
 
     /**
      * Prints an error to the console
@@ -40,5 +42,5 @@ public interface AutumnLogging {
      *
      * @since 1.0.0
      */
-    void error(String error);
+    void error(@NotNull String error);
 }

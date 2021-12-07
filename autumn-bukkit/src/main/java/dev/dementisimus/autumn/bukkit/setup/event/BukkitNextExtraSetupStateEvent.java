@@ -29,12 +29,12 @@ public class BukkitNextExtraSetupStateEvent extends Event implements NextExtraSe
     private boolean cancelled;
 
     @Override
-    public SetupManager setupManager() {
+    public @NotNull SetupManager setupManager() {
         return this.setupManager;
     }
 
     @Override
-    public SetupState currentSetupState() {
+    public @NotNull SetupState currentSetupState() {
         return this.currentSetupState;
     }
 
@@ -44,12 +44,12 @@ public class BukkitNextExtraSetupStateEvent extends Event implements NextExtraSe
     }
 
     @Override
-    public SetupState nextSetupState() {
+    public @NotNull SetupState nextSetupState() {
         return this.nextSetupState;
     }
 
     @Override
-    public void nextSetupState(SetupState nextSetupState) {
+    public void nextSetupState(@NotNull SetupState nextSetupState) {
         this.nextSetupState = nextSetupState;
     }
 

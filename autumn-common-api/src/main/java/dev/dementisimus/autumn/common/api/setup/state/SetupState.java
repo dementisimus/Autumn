@@ -9,6 +9,8 @@
 package dev.dementisimus.autumn.common.api.setup.state;
 
 import dev.dementisimus.autumn.common.api.setup.SetupManager;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 
@@ -26,19 +28,19 @@ public interface SetupState {
      *
      * @since 1.0.0
      */
-    Object value();
+    @Nullable Object value();
 
     /**
      * Gets the setup state value
      *
-     * @param clazz setup state value class type
      * @param <T> setup state value
+     * @param clazz setup state value class type
      *
      * @return the setup state value as class type
      *
      * @since 1.0.0
      */
-    <T> T value(Class<T> clazz);
+    <T> @Nullable T value(@NotNull Class<T> clazz);
 
     /**
      * Sets the setup state value
@@ -47,7 +49,7 @@ public interface SetupState {
      *
      * @since 1.0.0
      */
-    void value(Object value);
+    void value(@NotNull Object value);
 
     /**
      * Gets the message translation property shown to the user on setup
@@ -56,7 +58,7 @@ public interface SetupState {
      *
      * @since 1.0.0
      */
-    String messageTranslationProperty();
+    @NotNull String messageTranslationProperty();
 
     /**
      * Gets the {@link #value()} as a String
@@ -65,7 +67,7 @@ public interface SetupState {
      *
      * @since 1.0.0
      */
-    String asString();
+    @Nullable String asString();
 
     /**
      * Gets the {@link #value()} as an Integer
@@ -92,7 +94,7 @@ public interface SetupState {
      *
      * @since 1.0.0
      */
-    File asFile();
+    @Nullable File asFile();
 
     /**
      * Checks if the setup state is present in the config file
@@ -103,7 +105,7 @@ public interface SetupState {
      *
      * @since 1.0.0
      */
-    boolean isPresentInConfigFile(File configFile);
+    boolean isPresentInConfigFile(@NotNull File configFile);
 
     /**
      * Checks if the setup state is considered an extra state
@@ -114,7 +116,7 @@ public interface SetupState {
      *
      * @since 1.0.0
      */
-    boolean isExtraState(SetupManager setupManager);
+    boolean isExtraState(@NotNull SetupManager setupManager);
 
     /**
      * Gets the name of the setup state
@@ -123,5 +125,5 @@ public interface SetupState {
      *
      * @since 1.0.0
      */
-    String name();
+    @NotNull String name();
 }

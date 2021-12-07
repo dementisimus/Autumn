@@ -15,6 +15,8 @@ import com.github.derrop.documents.storage.JsonDocumentStorage;
 import com.github.derrop.documents.storage.YamlDocumentStorage;
 import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
 import dev.dementisimus.autumn.common.api.configuration.AutumnConfiguration;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.net.URI;
@@ -54,49 +56,49 @@ public class DefaultAutumnConfiguration implements AutumnConfiguration {
     }
 
     @Override
-    public DefaultAutumnConfiguration enableYaml() {
+    public @NotNull DefaultAutumnConfiguration enableYaml() {
         this.setDocumentStorage(Documents.yamlStorage());
         return this;
     }
 
     @Override
-    public DefaultAutumnConfiguration set(String key, Object object) {
+    public @NotNull AutumnConfiguration set(@NotNull String key, @NotNull Object object) {
         this.document.append(key, object);
         return this;
     }
 
     @Override
-    public DefaultAutumnConfiguration set(String key, Number number) {
+    public @NotNull AutumnConfiguration set(@NotNull String key, @NotNull Number number) {
         this.document.append(key, number);
         return this;
     }
 
     @Override
-    public DefaultAutumnConfiguration set(String key, Boolean bool) {
+    public @NotNull AutumnConfiguration set(@NotNull String key, @NotNull Boolean bool) {
         this.document.append(key, bool);
         return this;
     }
 
     @Override
-    public DefaultAutumnConfiguration set(String key, String string) {
+    public @NotNull AutumnConfiguration set(@NotNull String key, @NotNull String string) {
         this.document.append(key, string);
         return this;
     }
 
     @Override
-    public DefaultAutumnConfiguration set(String key, Character character) {
+    public @NotNull AutumnConfiguration set(@NotNull String key, @NotNull Character character) {
         this.document.append(key, character);
         return this;
     }
 
     @Override
-    public DefaultAutumnConfiguration set(String key, Properties properties) {
+    public @NotNull AutumnConfiguration set(@NotNull String key, @NotNull Properties properties) {
         this.document.append(key, properties);
         return this;
     }
 
     @Override
-    public DefaultAutumnConfiguration set(String key, byte[] bytes) {
+    public @NotNull AutumnConfiguration set(@NotNull String key, byte[] bytes) {
         this.document.append(key, bytes);
         return this;
     }
@@ -107,12 +109,12 @@ public class DefaultAutumnConfiguration implements AutumnConfiguration {
     }
 
     @Override
-    public Document read() {
+    public @Nullable Document read() {
         return this.document;
     }
 
     @Override
-    public void read(AutumnCallback<Document> callback) {
+    public void read(@NotNull AutumnCallback<@Nullable Document> callback) {
         callback.done(this.read());
     }
 

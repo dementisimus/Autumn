@@ -9,6 +9,8 @@
 package dev.dementisimus.autumn.common.api.setup;
 
 import dev.dementisimus.autumn.common.api.setup.state.SetupState;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * The setup manager for Autumn
@@ -24,7 +26,7 @@ public interface SetupManager {
      *
      * @since 1.0.0
      */
-    void mainSetupState(SetupState setupState);
+    void mainSetupState(@NotNull SetupState setupState);
 
     /**
      * Adds an extra setup state to be used for setup
@@ -33,7 +35,7 @@ public interface SetupManager {
      *
      * @since 1.0.0
      */
-    void extraSetupState(SetupState setupState);
+    void extraSetupState(@NotNull SetupState setupState);
 
     /**
      * Gets the current setup state
@@ -42,7 +44,7 @@ public interface SetupManager {
      *
      * @since 1.0.0
      */
-    SetupState currentSetupState();
+    @Nullable SetupState currentSetupState();
 
     /**
      * Sets the current setup state
@@ -51,7 +53,7 @@ public interface SetupManager {
      *
      * @since 1.0.0
      */
-    void currentSetupState(SetupState setupState);
+    void currentSetupState(@NotNull SetupState setupState);
 
     /**
      * Prints the setup state instructions
@@ -60,7 +62,7 @@ public interface SetupManager {
      *
      * @since 1.0.0
      */
-    void printSetupStateInstructions(SetupState setupState);
+    void printSetupStateInstructions(@NotNull SetupState setupState);
 
     /**
      * Updates the current setup state's value
@@ -69,7 +71,7 @@ public interface SetupManager {
      *
      * @since 1.0.0
      */
-    void updateCurrentSetupState(Object value);
+    void updateCurrentSetupState(@NotNull Object value);
 
     /**
      * Begins the setup
@@ -105,5 +107,5 @@ public interface SetupManager {
      *
      * @since 1.0.0
      */
-    boolean isExtraState(SetupState setupState);
+    boolean isExtraState(@NotNull SetupState setupState);
 }

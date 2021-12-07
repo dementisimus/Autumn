@@ -12,6 +12,7 @@ import dev.dementisimus.autumn.bungee.api.i18n.AutumnBungeeTranslation;
 import dev.dementisimus.autumn.common.i18n.DefaultAutumnTranslation;
 import dev.dementisimus.autumn.common.language.PlayerLanguage;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
+import org.jetbrains.annotations.NotNull;
 
 public class DefaultAutumnBungeeTranslation extends DefaultAutumnTranslation implements AutumnBungeeTranslation {
 
@@ -20,7 +21,7 @@ public class DefaultAutumnBungeeTranslation extends DefaultAutumnTranslation imp
     }
 
     @Override
-    public String get(ProxiedPlayer player) {
+    public @NotNull String get(@NotNull ProxiedPlayer player) {
         return super.getMessage(PlayerLanguage.get(player.getUniqueId()));
     }
 }

@@ -8,6 +8,9 @@
 
 package dev.dementisimus.autumn.common.api.dependency;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 /**
  * Represents a dependency
  *
@@ -22,7 +25,7 @@ public interface AutumnDependency {
      *
      * @since 1.0.0
      */
-    AutumnRepository getRepository();
+    @Nullable AutumnRepository getRepository();
 
     /**
      * Sets the {@link AutumnRepository} for the dependency
@@ -31,7 +34,7 @@ public interface AutumnDependency {
      *
      * @since 1.0.0
      */
-    void setRepository(AutumnRepository repository);
+    void setRepository(@NotNull AutumnRepository repository);
 
     /**
      * Gets the dependency group id
@@ -40,7 +43,7 @@ public interface AutumnDependency {
      *
      * @since 1.0.0
      */
-    String getGroupId();
+    @Nullable String getGroupId();
 
     /**
      * Sets the dependency group id
@@ -49,7 +52,7 @@ public interface AutumnDependency {
      *
      * @since 1.0.0
      */
-    void setGroupId(String groupId);
+    void setGroupId(@NotNull String groupId);
 
     /**
      * Gets the dependency artifact id
@@ -58,7 +61,7 @@ public interface AutumnDependency {
      *
      * @since 1.0.0
      */
-    String getArtifactId();
+    @Nullable String getArtifactId();
 
     /**
      * Sets the dependency artifact id
@@ -67,7 +70,7 @@ public interface AutumnDependency {
      *
      * @since 1.0.0
      */
-    void setArtifactId(String artifactId);
+    void setArtifactId(@NotNull String artifactId);
 
     /**
      * Gets the dependency version
@@ -76,7 +79,7 @@ public interface AutumnDependency {
      *
      * @since 1.0.0
      */
-    String getVersion();
+    @Nullable String getVersion();
 
     /**
      * Sets the dependency version
@@ -85,7 +88,7 @@ public interface AutumnDependency {
      *
      * @since 1.0.0
      */
-    void setVersion(String version);
+    void setVersion(@NotNull String version);
 
     /**
      * Transforms {@link #getArtifactId()} + {@link #getVersion()} into a readable file name
@@ -95,7 +98,7 @@ public interface AutumnDependency {
      *
      * @since 1.0.0
      */
-    String getFileName();
+    @Nullable String getFileName();
 
     /**
      * Transforms the dependency and its repository into an URL
@@ -104,5 +107,5 @@ public interface AutumnDependency {
      *
      * @since 1.0.0
      */
-    String toURL();
+    @NotNull String toURL();
 }

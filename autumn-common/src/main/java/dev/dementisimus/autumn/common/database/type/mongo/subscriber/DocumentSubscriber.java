@@ -17,7 +17,7 @@ public class DocumentSubscriber implements Subscriber<Document> {
 
     private final AutumnCallback<Document> documentCallback;
 
-    private Document document;
+    private Document document = new Document();
 
     public DocumentSubscriber(AutumnCallback<Document> documentCallback) {
         this.documentCallback = documentCallback;

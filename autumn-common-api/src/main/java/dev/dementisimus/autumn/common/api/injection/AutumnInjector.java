@@ -8,6 +8,9 @@
 
 package dev.dementisimus.autumn.common.api.injection;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.lang.annotation.Annotation;
 
 /**
@@ -26,7 +29,7 @@ public interface AutumnInjector {
      *
      * @since 1.0.0
      */
-    AutumnInjector classLoaders(ClassLoader... classLoaders);
+    @NotNull AutumnInjector classLoaders(@NotNull ClassLoader... classLoaders);
 
     /**
      * Adds annotations to the injector
@@ -37,7 +40,7 @@ public interface AutumnInjector {
      *
      * @since 1.0.0
      */
-    AutumnInjector annotation(Class<? extends Annotation>... annotations);
+    @NotNull AutumnInjector annotation(@NotNull Class<? extends Annotation>... annotations);
 
     /**
      * Injects the provided class loaders with the registered modules
@@ -49,11 +52,11 @@ public interface AutumnInjector {
     /**
      * Generates a generic injection module
      *
+     * @param <T> module class type
      * @param clazz module class type
      * @param value module value
-     * @param <T> module class type
      *
      * @since 1.0.0
      */
-    <T> void registerModule(Class<T> clazz, T value);
+    <T> void registerModule(@NotNull Class<T> clazz, @Nullable T value);
 }

@@ -14,6 +14,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * A factory for inventories
@@ -22,8 +24,8 @@ import org.bukkit.inventory.meta.ItemMeta;
  */
 public interface InventoryFactory {
 
-    String PLACEHOLDER = " ";
-    ItemStack AIR = new ItemStack(Material.AIR);
+    @NotNull String PLACEHOLDER = " ";
+    @NotNull ItemStack AIR = new ItemStack(Material.AIR);
 
     /**
      * Sets the inventory contents
@@ -34,7 +36,7 @@ public interface InventoryFactory {
      *
      * @since 1.0.0
      */
-    InventoryFactory setContents(ItemStack[] itemStacks);
+    @NotNull InventoryFactory setContents(@NotNull ItemStack[] itemStacks);
 
     /**
      * Sets an item (from an {@link ItemFactory} at a specific slot
@@ -46,7 +48,7 @@ public interface InventoryFactory {
      *
      * @since 1.0.0
      */
-    InventoryFactory setItem(int slot, ItemFactory itemFactory);
+    @NotNull InventoryFactory setItem(int slot, @NotNull ItemFactory itemFactory);
 
     /**
      * Sets an item at the specific slot
@@ -58,7 +60,7 @@ public interface InventoryFactory {
      *
      * @since 1.0.0
      */
-    InventoryFactory setItem(int slot, ItemStack itemStack);
+    @NotNull InventoryFactory setItem(int slot, @NotNull ItemStack itemStack);
 
     /**
      * Adds items to the inventory
@@ -69,7 +71,7 @@ public interface InventoryFactory {
      *
      * @since 1.0.0
      */
-    InventoryFactory addItems(ItemStack... itemStacks);
+    @NotNull InventoryFactory addItems(ItemStack... itemStacks);
 
     /**
      * Places Material placeholders
@@ -80,7 +82,7 @@ public interface InventoryFactory {
      *
      * @since 1.0.0
      */
-    InventoryFactory setPlaceholders(Material placeholder);
+    @NotNull InventoryFactory setPlaceholders(@NotNull Material placeholder);
 
     /**
      * Places Material placeholders at specific slots
@@ -92,7 +94,7 @@ public interface InventoryFactory {
      *
      * @since 1.0.0
      */
-    InventoryFactory setPlaceholders(Material placeholder, int... slots);
+    @NotNull InventoryFactory setPlaceholders(@NotNull Material placeholder, int... slots);
 
     /**
      * Sets air at specific slots
@@ -103,7 +105,7 @@ public interface InventoryFactory {
      *
      * @since 1.0.0
      */
-    InventoryFactory setAir(int... slots);
+    @NotNull InventoryFactory setAir(int... slots);
 
     /**
      * Sets air from a slot to a slot
@@ -115,7 +117,7 @@ public interface InventoryFactory {
      *
      * @since 1.0.0
      */
-    InventoryFactory setAir(int from, int to);
+    @NotNull InventoryFactory setAir(int from, int to);
 
     /**
      * Sets the max stack size of the inventory
@@ -126,7 +128,7 @@ public interface InventoryFactory {
      *
      * @since 1.0.0
      */
-    InventoryFactory setMaxStackSize(int maxStackSize);
+    @NotNull InventoryFactory setMaxStackSize(int maxStackSize);
 
     /**
      * Sets the storage contents of the inventory
@@ -137,7 +139,7 @@ public interface InventoryFactory {
      *
      * @since 1.0.0
      */
-    InventoryFactory setStorageContents(ItemStack[] itemStacks);
+    @NotNull InventoryFactory setStorageContents(ItemStack[] itemStacks);
 
     /**
      * Sets an item or a placeholder, if item is null
@@ -150,7 +152,7 @@ public interface InventoryFactory {
      *
      * @since 1.0.0
      */
-    InventoryFactory setItemOrPlaceholder(int slot, ItemStack itemStack, Material placeholder);
+    @NotNull InventoryFactory setItemOrPlaceholder(int slot, @Nullable ItemStack itemStack, @NotNull Material placeholder);
 
     /**
      * Gets an item at a specific slot
@@ -161,7 +163,7 @@ public interface InventoryFactory {
      *
      * @since 1.0.0
      */
-    ItemStack getItemAt(int slot);
+    @Nullable ItemStack getItemAt(int slot);
 
     /**
      * Creates the inventory
@@ -170,7 +172,7 @@ public interface InventoryFactory {
      *
      * @since 1.0.0
      */
-    Inventory create();
+    @NotNull Inventory create();
 
     /**
      * Creates the inventory for a player
@@ -179,7 +181,7 @@ public interface InventoryFactory {
      *
      * @since 1.0.0
      */
-    void createFor(Player player);
+    void createFor(@NotNull Player player);
 
     /**
      * Checks if the item stack is a placeholder
@@ -190,7 +192,7 @@ public interface InventoryFactory {
      *
      * @since 1.0.0
      */
-    static boolean isPlaceholder(ItemStack itemStack) {
+    static boolean isPlaceholder(@NotNull ItemStack itemStack) {
         ItemMeta itemMeta = itemStack.getItemMeta();
 
         if(itemMeta != null) {

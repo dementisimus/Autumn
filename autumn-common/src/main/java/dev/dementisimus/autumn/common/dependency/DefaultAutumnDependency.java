@@ -10,9 +10,9 @@ package dev.dementisimus.autumn.common.dependency;
 
 import dev.dementisimus.autumn.common.api.dependency.AutumnDependency;
 import dev.dementisimus.autumn.common.api.dependency.AutumnRepository;
-import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-@RequiredArgsConstructor
 public class DefaultAutumnDependency implements AutumnDependency {
 
     private AutumnRepository repository;
@@ -21,54 +21,54 @@ public class DefaultAutumnDependency implements AutumnDependency {
     private String version;
 
     @Override
-    public AutumnRepository getRepository() {
+    public @Nullable AutumnRepository getRepository() {
         return this.repository;
     }
 
     @Override
-    public void setRepository(AutumnRepository repository) {
+    public void setRepository(@NotNull AutumnRepository repository) {
         this.repository = repository;
     }
 
     @Override
-    public String getGroupId() {
+    public @Nullable String getGroupId() {
         return this.groupId;
     }
 
     @Override
-    public void setGroupId(String groupId) {
+    public void setGroupId(@NotNull String groupId) {
         if(groupId.contains(".")) groupId = groupId.replaceAll("\\.", "/");
 
         this.groupId = groupId;
     }
 
     @Override
-    public String getArtifactId() {
+    public @Nullable String getArtifactId() {
         return this.artifactId;
     }
 
     @Override
-    public void setArtifactId(String artifactId) {
+    public void setArtifactId(@NotNull String artifactId) {
         this.artifactId = artifactId;
     }
 
     @Override
-    public String getVersion() {
+    public @Nullable String getVersion() {
         return this.version;
     }
 
     @Override
-    public void setVersion(String version) {
+    public void setVersion(@NotNull String version) {
         this.version = version;
     }
 
     @Override
-    public String getFileName() {
+    public @Nullable String getFileName() {
         return this.artifactId + "-" + this.version + ".jar";
     }
 
     @Override
-    public String toURL() {
+    public @NotNull String toURL() {
         StringBuilder urlBuilder = new StringBuilder(this.repository.getURL());
 
         urlBuilder.append(this.groupId);

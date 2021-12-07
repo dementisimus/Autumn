@@ -26,11 +26,11 @@ public class ValidInventoryClickEvent extends Event {
 
     private static final HandlerList HANDLERS = new HandlerList();
 
-    @Getter @Setter private InventoryClickEvent inventoryClickEvent;
-    @Getter @Setter private Player player;
-    @Getter @Setter private String title;
-    @Getter @Setter private ItemStack currentItem;
-    @Getter @Setter private String currentItemDisplayName;
+    @Getter @Setter @NotNull private InventoryClickEvent inventoryClickEvent;
+    @Getter @Setter @NotNull private Player player;
+    @Getter @Setter @NotNull private String title;
+    @Getter @Setter @NotNull private ItemStack currentItem;
+    @Getter @Setter @NotNull private String currentItemDisplayName;
 
     public @NotNull HandlerList getHandlers() {
         return HANDLERS;

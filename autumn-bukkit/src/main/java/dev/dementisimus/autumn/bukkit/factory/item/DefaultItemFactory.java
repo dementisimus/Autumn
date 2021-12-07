@@ -36,6 +36,8 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,31 +68,31 @@ public class DefaultItemFactory implements ItemFactory {
     }
 
     @Override
-    public ItemFactory material(Material material) {
+    public @NotNull ItemFactory material(@NotNull Material material) {
         this.itemStack.setType(material);
         return this.apply();
     }
 
     @Override
-    public ItemFactory itemMeta(ItemMeta itemMeta) {
+    public @NotNull ItemFactory itemMeta(@NotNull ItemMeta itemMeta) {
         this.itemStack.setItemMeta(itemMeta);
         return this.apply();
     }
 
     @Override
-    public ItemFactory amount(int amount) {
+    public @NotNull ItemFactory amount(int amount) {
         this.itemStack.setAmount(amount);
         return this.apply();
     }
 
     @Override
-    public ItemFactory displayName(String displayName) {
+    public @NotNull ItemFactory displayName(@NotNull String displayName) {
         this.itemMeta.setDisplayName(displayName);
         return this.apply();
     }
 
     @Override
-    public ItemFactory displayName(Player player, String translationProperty, AutumnTranslationReplacement... translationReplacements) {
+    public @NotNull ItemFactory displayName(@NotNull Player player, @NotNull String translationProperty, @NotNull AutumnTranslationReplacement... translationReplacements) {
         AutumnBukkitTranslation translation = new DefaultAutumnBukkitTranslation(translationProperty);
         translation.replacement(translationReplacements);
 
@@ -98,43 +100,43 @@ public class DefaultItemFactory implements ItemFactory {
     }
 
     @Override
-    public ItemFactory itemFlags(ItemFlag... itemFlags) {
+    public @NotNull ItemFactory itemFlags(@NotNull ItemFlag... itemFlags) {
         this.itemMeta.addItemFlags(itemFlags);
         return this.apply();
     }
 
     @Override
-    public ItemFactory removeItemFlag(ItemFlag itemFlag) {
+    public @NotNull ItemFactory removeItemFlag(@NotNull ItemFlag itemFlag) {
         this.itemMeta.removeItemFlags(itemFlag);
         return this.apply();
     }
 
     @Override
-    public ItemFactory clearItemFlags() {
+    public @NotNull ItemFactory clearItemFlags() {
         this.itemMeta.removeItemFlags(ItemFlag.values());
         return this.apply();
     }
 
     @Override
-    public ItemFactory allItemFlags() {
+    public @NotNull ItemFactory allItemFlags() {
         this.itemMeta.addItemFlags(ItemFlag.values());
         return this.apply();
     }
 
     @Override
-    public ItemFactory emptyLore() {
+    public @NotNull ItemFactory emptyLore() {
         this.getLore().add(" ");
         return this.apply();
     }
 
     @Override
-    public ItemFactory lore(String lore) {
+    public @NotNull ItemFactory lore(@NotNull String lore) {
         this.getLore().add(lore);
         return this.apply();
     }
 
     @Override
-    public ItemFactory lore(Player player, String translationProperty, AutumnTranslationReplacement... translationReplacements) {
+    public @NotNull ItemFactory lore(@NotNull Player player, @NotNull String translationProperty, @NotNull AutumnTranslationReplacement... translationReplacements) {
         AutumnBukkitTranslation translation = new DefaultAutumnBukkitTranslation(translationProperty);
         translation.replacement(translationReplacements);
 
@@ -142,37 +144,37 @@ public class DefaultItemFactory implements ItemFactory {
     }
 
     @Override
-    public ItemFactory lore(int index, String lore) {
+    public @NotNull ItemFactory lore(int index, @NotNull String lore) {
         this.getLore().set(index, lore);
         return this.apply();
     }
 
     @Override
-    public ItemFactory lores(String... lores) {
+    public @NotNull ItemFactory lores(@NotNull String... lores) {
         this.getLore().addAll(List.of(lores));
         return this.apply();
     }
 
     @Override
-    public ItemFactory removeLore(int index) {
+    public @NotNull ItemFactory removeLore(int index) {
         this.getLore().remove(index);
         return this.apply();
     }
 
     @Override
-    public ItemFactory removeLore(String lore) {
+    public @NotNull ItemFactory removeLore(@NotNull String lore) {
         this.getLore().remove(lore);
         return this.apply();
     }
 
     @Override
-    public ItemFactory clearLore() {
+    public @NotNull ItemFactory clearLore() {
         this.getLore().clear();
         return this.apply();
     }
 
     @Override
-    public ItemFactory damage(int damage) {
+    public @NotNull ItemFactory damage(int damage) {
         if(this.itemMeta instanceof Damageable damageable) {
             damageable.setDamage(damage);
         }
@@ -180,7 +182,7 @@ public class DefaultItemFactory implements ItemFactory {
     }
 
     @Override
-    public ItemFactory enchantment(Enchantment enchantment, int level) {
+    public @NotNull ItemFactory enchantment(@NotNull Enchantment enchantment, int level) {
         Preconditions.checkNotNull(enchantment, "Enchantment may not be null!");
 
         this.itemMeta.addEnchant(enchantment, level, true);
@@ -188,19 +190,19 @@ public class DefaultItemFactory implements ItemFactory {
     }
 
     @Override
-    public ItemFactory enchantments(Enchantment[] enchantments, int[] levels) {
+    public @NotNull ItemFactory enchantments(@NotNull Enchantment[] enchantments, int[] levels) {
         for(int i = 0; i < enchantments.length; i++) this.enchantment(enchantments[i], levels[i]);
         return this.apply();
     }
 
     @Override
-    public ItemFactory enchantItemForAppearance() {
+    public @NotNull ItemFactory enchantItemForAppearance() {
         this.enchantment(Enchantment.DAMAGE_ALL, 1);
         return this.allItemFlags();
     }
 
     @Override
-    public ItemFactory customPotionEffect(PotionEffect potionEffect, boolean overwrite) {
+    public @NotNull ItemFactory customPotionEffect(@NotNull PotionEffect potionEffect, boolean overwrite) {
         if(this.itemMeta instanceof PotionMeta potionMeta) {
             potionMeta.addCustomEffect(potionEffect, overwrite);
         }
@@ -208,7 +210,7 @@ public class DefaultItemFactory implements ItemFactory {
     }
 
     @Override
-    public ItemFactory potionColor(Color potionColor) {
+    public @NotNull ItemFactory potionColor(@NotNull Color potionColor) {
         if(this.itemMeta instanceof PotionMeta potionMeta) {
             potionMeta.setColor(potionColor);
         }
@@ -216,7 +218,7 @@ public class DefaultItemFactory implements ItemFactory {
     }
 
     @Override
-    public ItemFactory owningPlayer(UUID uuid) {
+    public @NotNull ItemFactory owningPlayer(@NotNull UUID uuid) {
         if(this.itemMeta instanceof SkullMeta skullMeta) {
             skullMeta.setOwningPlayer(Bukkit.getOfflinePlayer(uuid));
         }
@@ -224,7 +226,7 @@ public class DefaultItemFactory implements ItemFactory {
     }
 
     @Override
-    public ItemFactory leatherColor(Color color) {
+    public @NotNull ItemFactory leatherColor(@NotNull Color color) {
         if(this.itemMeta instanceof LeatherArmorMeta leatherArmorMeta) {
             leatherArmorMeta.setColor(color);
         }
@@ -232,7 +234,7 @@ public class DefaultItemFactory implements ItemFactory {
     }
 
     @Override
-    public <T> ItemFactory store(String namespace, String key, PersistentDataType<T, T> persistentDataType, T data) {
+    public @NotNull <T> ItemFactory store(@NotNull String namespace, @NotNull String key, @NotNull PersistentDataType<T, T> persistentDataType, @NotNull T data) {
         if(this.retrieve(namespace, key, persistentDataType) == null) {
             NamespacedKey namespacedKey = this.namespacedKey(namespace, key);
 
@@ -242,19 +244,19 @@ public class DefaultItemFactory implements ItemFactory {
     }
 
     @Override
-    public <T> T retrieve(String namespace, String key, PersistentDataType<T, T> persistentDataType) {
+    public <T> @Nullable T retrieve(@NotNull String namespace, @NotNull String key, @NotNull PersistentDataType<T, T> persistentDataType) {
         NamespacedKey namespacedKey = this.namespacedKey(namespace, key);
 
         return this.persistentDataContainer().get(namespacedKey, persistentDataType);
     }
 
     @Override
-    public void onClick(AutumnCallback<ItemFactoryClickInteraction> clickInteractionCallback) {
+    public void onClick(@NotNull AutumnCallback<ItemFactoryClickInteraction> clickInteractionCallback) {
         ItemFactoryClickInteractionListener.REQUESTED_INTERACTIONS.put(this.itemId, clickInteractionCallback);
     }
 
     @Override
-    public ItemStack create() {
+    public @NotNull ItemStack create() {
         return this.itemStack;
     }
 
