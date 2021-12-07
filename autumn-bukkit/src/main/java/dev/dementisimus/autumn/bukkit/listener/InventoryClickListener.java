@@ -41,11 +41,11 @@ public class InventoryClickListener implements Listener {
 
                 ValidInventoryClickEvent validInventoryClickEvent = new ValidInventoryClickEvent();
 
-                validInventoryClickEvent.setInventoryClickEvent(event);
-                validInventoryClickEvent.setPlayer(player);
-                validInventoryClickEvent.setTitle(title);
-                validInventoryClickEvent.setCurrentItem(currentItem);
-                validInventoryClickEvent.setCurrentItemDisplayName(currentItemDisplayName);
+                validInventoryClickEvent.inventoryClickEvent(event);
+                validInventoryClickEvent.player(player);
+                validInventoryClickEvent.title(title);
+                validInventoryClickEvent.currentItem(currentItem);
+                validInventoryClickEvent.currentItemDisplayName(currentItemDisplayName);
 
                 Bukkit.getPluginManager().callEvent(validInventoryClickEvent);
             }

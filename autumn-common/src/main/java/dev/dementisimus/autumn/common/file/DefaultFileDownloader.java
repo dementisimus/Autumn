@@ -84,22 +84,22 @@ public class DefaultFileDownloader implements AutumnFileDownloader {
     @Override
     public void download(@NotNull AutumnDependency dependency, @NotNull AutumnCallback<@Nullable File> fileCallback) {
         Preconditions.checkNotNull(dependency, "Dependency may not be null!");
-        Preconditions.checkNotNull(dependency.getRepository(), "Dependency-Repository may not be null!");
+        Preconditions.checkNotNull(dependency.repository(), "Dependency-Repository may not be null!");
 
-        if(!this.downloadTo.getAbsolutePath().endsWith(dependency.getFileName())) {
-            this.downloadTo = new File(this.downloadTo, dependency.getFileName());
+        if(!this.downloadTo.getAbsolutePath().endsWith(dependency.fileName())) {
+            this.downloadTo = new File(this.downloadTo, dependency.fileName());
         }
 
         this.download(dependency.toURL(), fileCallback);
     }
 
     @Override
-    public @Nullable File getDownloadTo() {
+    public @Nullable File downloadTo() {
         return this.downloadTo;
     }
 
     @Override
-    public void setDownloadTo(@NotNull File downloadTo) {
+    public void downloadTo(@NotNull File downloadTo) {
         this.downloadTo = downloadTo;
     }
 }

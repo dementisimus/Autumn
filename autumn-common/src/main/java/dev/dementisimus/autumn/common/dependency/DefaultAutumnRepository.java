@@ -18,22 +18,22 @@ public class DefaultAutumnRepository implements AutumnRepository {
     private String url;
 
     @Override
-    public @Nullable String getName() {
+    public @Nullable String name() {
         return this.name;
     }
 
     @Override
-    public void setName(@NotNull String name) {
+    public void name(@NotNull String name) {
         this.name = name;
     }
 
     @Override
-    public @Nullable String getURL() {
+    public @Nullable String url() {
         return this.url;
     }
 
     @Override
-    public void setURL(@NotNull String url) {
+    public void url(@NotNull String url) {
         if(!url.endsWith("/")) url += "/";
 
         this.url = url;

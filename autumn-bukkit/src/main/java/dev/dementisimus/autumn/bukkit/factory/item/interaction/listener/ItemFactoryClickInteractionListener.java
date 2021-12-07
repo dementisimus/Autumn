@@ -31,9 +31,9 @@ public class ItemFactoryClickInteractionListener implements Listener {
 
     @EventHandler
     public void on(ValidInventoryClickEvent event) {
-        if(InventoryFactory.isPlaceholder(event.getCurrentItem())) return;
+        if(InventoryFactory.isPlaceholder(event.currentItem())) return;
 
-        ItemFactory itemFactory = new DefaultItemFactory(event.getCurrentItem());
+        ItemFactory itemFactory = new DefaultItemFactory(event.currentItem());
         String itemId = itemFactory.retrieve(ItemFactoryNamespace.NAMESPACE, ItemFactoryNamespace.ITEM_ID, PersistentDataType.STRING);
         AutumnCallback<ItemFactoryClickInteraction> clickInteractionCallback = REQUESTED_INTERACTIONS.get(itemId);
 

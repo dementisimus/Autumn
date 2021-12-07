@@ -25,7 +25,7 @@ public interface AutumnDependency {
      *
      * @since 1.0.0
      */
-    @Nullable AutumnRepository getRepository();
+    @Nullable AutumnRepository repository();
 
     /**
      * Sets the {@link AutumnRepository} for the dependency
@@ -34,7 +34,7 @@ public interface AutumnDependency {
      *
      * @since 1.0.0
      */
-    void setRepository(@NotNull AutumnRepository repository);
+    void repository(@NotNull AutumnRepository repository);
 
     /**
      * Gets the dependency group id
@@ -43,7 +43,7 @@ public interface AutumnDependency {
      *
      * @since 1.0.0
      */
-    @Nullable String getGroupId();
+    @Nullable String groupId();
 
     /**
      * Sets the dependency group id
@@ -52,7 +52,7 @@ public interface AutumnDependency {
      *
      * @since 1.0.0
      */
-    void setGroupId(@NotNull String groupId);
+    void groupId(@NotNull String groupId);
 
     /**
      * Gets the dependency artifact id
@@ -61,7 +61,7 @@ public interface AutumnDependency {
      *
      * @since 1.0.0
      */
-    @Nullable String getArtifactId();
+    @Nullable String artifactId();
 
     /**
      * Sets the dependency artifact id
@@ -70,7 +70,7 @@ public interface AutumnDependency {
      *
      * @since 1.0.0
      */
-    void setArtifactId(@NotNull String artifactId);
+    void artifactId(@NotNull String artifactId);
 
     /**
      * Gets the dependency version
@@ -79,7 +79,7 @@ public interface AutumnDependency {
      *
      * @since 1.0.0
      */
-    @Nullable String getVersion();
+    @Nullable String version();
 
     /**
      * Sets the dependency version
@@ -88,17 +88,17 @@ public interface AutumnDependency {
      *
      * @since 1.0.0
      */
-    void setVersion(@NotNull String version);
+    void version(@NotNull String version);
 
     /**
-     * Transforms {@link #getArtifactId()} + {@link #getVersion()} into a readable file name
+     * Transforms {@link #artifactId()} + {@link #version()} into a readable file name
      * Example: Autumn-1.0.0
      *
      * @return readable file name (ArtifactID-Version)
      *
      * @since 1.0.0
      */
-    @Nullable String getFileName();
+    @Nullable String fileName();
 
     /**
      * Transforms the dependency and its repository into an URL

@@ -36,7 +36,7 @@ public interface InventoryFactory {
      *
      * @since 1.0.0
      */
-    @NotNull InventoryFactory setContents(@NotNull ItemStack[] itemStacks);
+    @NotNull InventoryFactory contents(@NotNull ItemStack[] itemStacks);
 
     /**
      * Sets an item (from an {@link ItemFactory} at a specific slot
@@ -48,7 +48,7 @@ public interface InventoryFactory {
      *
      * @since 1.0.0
      */
-    @NotNull InventoryFactory setItem(int slot, @NotNull ItemFactory itemFactory);
+    @NotNull InventoryFactory item(int slot, @NotNull ItemFactory itemFactory);
 
     /**
      * Sets an item at the specific slot
@@ -60,7 +60,7 @@ public interface InventoryFactory {
      *
      * @since 1.0.0
      */
-    @NotNull InventoryFactory setItem(int slot, @NotNull ItemStack itemStack);
+    @NotNull InventoryFactory item(int slot, @NotNull ItemStack itemStack);
 
     /**
      * Adds items to the inventory
@@ -71,7 +71,7 @@ public interface InventoryFactory {
      *
      * @since 1.0.0
      */
-    @NotNull InventoryFactory addItems(ItemStack... itemStacks);
+    @NotNull InventoryFactory items(@NotNull ItemStack... itemStacks);
 
     /**
      * Places Material placeholders
@@ -82,7 +82,7 @@ public interface InventoryFactory {
      *
      * @since 1.0.0
      */
-    @NotNull InventoryFactory setPlaceholders(@NotNull Material placeholder);
+    @NotNull InventoryFactory placeholder(@NotNull Material placeholder);
 
     /**
      * Places Material placeholders at specific slots
@@ -94,7 +94,7 @@ public interface InventoryFactory {
      *
      * @since 1.0.0
      */
-    @NotNull InventoryFactory setPlaceholders(@NotNull Material placeholder, int... slots);
+    @NotNull InventoryFactory placeholder(@NotNull Material placeholder, int... slots);
 
     /**
      * Sets air at specific slots
@@ -105,7 +105,7 @@ public interface InventoryFactory {
      *
      * @since 1.0.0
      */
-    @NotNull InventoryFactory setAir(int... slots);
+    @NotNull InventoryFactory air(int... slots);
 
     /**
      * Sets air from a slot to a slot
@@ -117,7 +117,7 @@ public interface InventoryFactory {
      *
      * @since 1.0.0
      */
-    @NotNull InventoryFactory setAir(int from, int to);
+    @NotNull InventoryFactory air(int from, int to);
 
     /**
      * Sets the max stack size of the inventory
@@ -128,7 +128,7 @@ public interface InventoryFactory {
      *
      * @since 1.0.0
      */
-    @NotNull InventoryFactory setMaxStackSize(int maxStackSize);
+    @NotNull InventoryFactory maxStackSize(int maxStackSize);
 
     /**
      * Sets the storage contents of the inventory
@@ -139,7 +139,7 @@ public interface InventoryFactory {
      *
      * @since 1.0.0
      */
-    @NotNull InventoryFactory setStorageContents(ItemStack[] itemStacks);
+    @NotNull InventoryFactory storageContents(@NotNull ItemStack[] itemStacks);
 
     /**
      * Sets an item or a placeholder, if item is null
@@ -152,7 +152,7 @@ public interface InventoryFactory {
      *
      * @since 1.0.0
      */
-    @NotNull InventoryFactory setItemOrPlaceholder(int slot, @Nullable ItemStack itemStack, @NotNull Material placeholder);
+    @NotNull InventoryFactory itemOrPlaceholder(int slot, @Nullable ItemStack itemStack, @NotNull Material placeholder);
 
     /**
      * Gets an item at a specific slot
@@ -163,7 +163,7 @@ public interface InventoryFactory {
      *
      * @since 1.0.0
      */
-    @Nullable ItemStack getItemAt(int slot);
+    @Nullable ItemStack itemAt(int slot);
 
     /**
      * Creates the inventory

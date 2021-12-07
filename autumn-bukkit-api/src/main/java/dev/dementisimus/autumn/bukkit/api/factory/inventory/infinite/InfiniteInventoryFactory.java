@@ -28,7 +28,7 @@ public interface InfiniteInventoryFactory {
      *
      * @since 1.0.0
      */
-    <T> void setItems(@NotNull List<T> items, @NotNull Class<T> clazz);
+    <T> void items(@NotNull List<T> items, @NotNull Class<T> clazz);
 
     /**
      * Creates the infinite inventory for a player and opens it when {@link #create()} has been called

@@ -25,7 +25,7 @@ public interface AutumnRepository {
      *
      * @since 1.0.0
      */
-    @Nullable String getName();
+    @Nullable String name();
 
     /**
      * Sets the repository name
@@ -34,7 +34,7 @@ public interface AutumnRepository {
      *
      * @since 1.0.0
      */
-    void setName(@NotNull String name);
+    void name(@NotNull String name);
 
     /**
      * Gets the repository URL
@@ -43,7 +43,7 @@ public interface AutumnRepository {
      *
      * @since 1.0.0
      */
-    @Nullable String getURL();
+    @Nullable String url();
 
     /**
      * Sets the repository URL
@@ -52,5 +52,5 @@ public interface AutumnRepository {
      *
      * @since 1.0.0
      */
-    void setURL(@NotNull String url);
+    void url(@NotNull String url);
 }

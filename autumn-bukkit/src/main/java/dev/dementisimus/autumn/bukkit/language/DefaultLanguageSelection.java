@@ -41,12 +41,12 @@ public class DefaultLanguageSelection implements LanguageSelection {
 
         Database database = this.autumn.getDatabase();
 
-        inventoryFactory.setPlaceholders(Material.WHITE_STAINED_GLASS_PANE);
+        inventoryFactory.placeholder(Material.WHITE_STAINED_GLASS_PANE);
         for(AutumnLanguage language : AutumnLanguage.values()) {
             new DefaultItemFactory(language.getTextureId(), itemFactory -> {
                 itemFactory.store(NAMESPACE, KEY, PersistentDataType.STRING, language.name());
 
-                inventoryFactory.setItem(language.getSelectionInventorySlot(), itemFactory.displayName(player, language.getTranslationProperty()));
+                inventoryFactory.item(language.getSelectionInventorySlot(), itemFactory.displayName(player, language.getTranslationProperty()));
 
                 itemFactory.onClick(itemFactoryClickInteraction -> {
                     ItemFactory clickedItemFactory = itemFactoryClickInteraction.itemFactory();

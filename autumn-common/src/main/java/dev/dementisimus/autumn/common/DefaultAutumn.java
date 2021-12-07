@@ -266,20 +266,20 @@ public abstract class DefaultAutumn implements Autumn {
 
     private void downloadDependencies(AutumnEmptyCallback emptyCallback) {
         AutumnRepository autumnRepository = new DefaultAutumnRepository();
-        autumnRepository.setName("dementisimus.dev");
-        autumnRepository.setURL("https://repo.dementisimus.dev/release/");
+        autumnRepository.name("dementisimus.dev");
+        autumnRepository.url("https://repo.dementisimus.dev/release/");
 
         AutumnDependency autumnDependency = new DefaultAutumnDependency();
 
-        autumnDependency.setRepository(autumnRepository);
-        autumnDependency.setGroupId("dev.dementisimus.autumn");
-        autumnDependency.setArtifactId("autumn-dependencies");
-        autumnDependency.setVersion("1.0.0");
+        autumnDependency.repository(autumnRepository);
+        autumnDependency.groupId("dev.dementisimus.autumn");
+        autumnDependency.artifactId("autumn-dependencies");
+        autumnDependency.version("1.0.0");
 
-        File dependenciesPluginFile = new File("plugins/" + autumnDependency.getFileName());
+        File dependenciesPluginFile = new File("plugins/" + autumnDependency.fileName());
         if(!this.isLoadedPlugin("Autumn-Dependencies")) {
             if(!dependenciesPluginFile.exists()) {
-                this.fileDownloader.setDownloadTo(new File("plugins/"));
+                this.fileDownloader.downloadTo(new File("plugins/"));
                 this.fileDownloader.download(autumnDependency, file -> {
                     this.loadPlugin(file);
                     emptyCallback.done();

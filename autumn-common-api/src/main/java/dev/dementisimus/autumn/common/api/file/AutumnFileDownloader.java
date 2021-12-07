@@ -49,7 +49,7 @@ public interface AutumnFileDownloader {
      *
      * @since 1.0.0
      */
-    @Nullable File getDownloadTo();
+    @Nullable File downloadTo();
 
     /**
      * Sets the location where the downloaded file will be saved to
@@ -58,5 +58,5 @@ public interface AutumnFileDownloader {
      *
      * @since 1.0.0
      */
-    void setDownloadTo(@NotNull File downloadTo);
+    void downloadTo(@NotNull File downloadTo);
 }

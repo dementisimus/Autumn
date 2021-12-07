@@ -21,55 +21,55 @@ public class DefaultAutumnDependency implements AutumnDependency {
     private String version;
 
     @Override
-    public @Nullable AutumnRepository getRepository() {
+    public @Nullable AutumnRepository repository() {
         return this.repository;
     }
 
     @Override
-    public void setRepository(@NotNull AutumnRepository repository) {
+    public void repository(@NotNull AutumnRepository repository) {
         this.repository = repository;
     }
 
     @Override
-    public @Nullable String getGroupId() {
+    public @Nullable String groupId() {
         return this.groupId;
     }
 
     @Override
-    public void setGroupId(@NotNull String groupId) {
+    public void groupId(@NotNull String groupId) {
         if(groupId.contains(".")) groupId = groupId.replaceAll("\\.", "/");
 
         this.groupId = groupId;
     }
 
     @Override
-    public @Nullable String getArtifactId() {
+    public @Nullable String artifactId() {
         return this.artifactId;
     }
 
     @Override
-    public void setArtifactId(@NotNull String artifactId) {
+    public void artifactId(@NotNull String artifactId) {
         this.artifactId = artifactId;
     }
 
     @Override
-    public @Nullable String getVersion() {
+    public @Nullable String version() {
         return this.version;
     }
 
     @Override
-    public void setVersion(@NotNull String version) {
+    public void version(@NotNull String version) {
         this.version = version;
     }
 
     @Override
-    public @Nullable String getFileName() {
+    public @Nullable String fileName() {
         return this.artifactId + "-" + this.version + ".jar";
     }
 
     @Override
     public @NotNull String toURL() {
-        StringBuilder urlBuilder = new StringBuilder(this.repository.getURL());
+        StringBuilder urlBuilder = new StringBuilder(this.repository.url());
 
         urlBuilder.append(this.groupId);
         urlBuilder.append("/");
@@ -77,7 +77,7 @@ public class DefaultAutumnDependency implements AutumnDependency {
         urlBuilder.append("/");
         urlBuilder.append(this.version);
         urlBuilder.append("/");
-        urlBuilder.append(this.getFileName());
+        urlBuilder.append(this.fileName());
 
         return urlBuilder.toString();
     }
