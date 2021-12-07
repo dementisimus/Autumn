@@ -1,3 +1,11 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.common.setup;
 
 import com.github.derrop.documents.Document;
@@ -15,14 +23,11 @@ import dev.dementisimus.autumn.common.api.setup.state.SetupState;
 import dev.dementisimus.autumn.common.configuration.DefaultAutumnConfiguration;
 import dev.dementisimus.autumn.common.executor.DefaultAutumnExecutor;
 import dev.dementisimus.autumn.common.i18n.DefaultAutumnTranslation;
-import dev.dementisimus.autumn.common.setup.state.type.SetupStateBoolean;
-import dev.dementisimus.autumn.common.setup.state.type.SetupStateDatabaseType;
-import dev.dementisimus.autumn.common.setup.state.type.SetupStateFile;
-import dev.dementisimus.autumn.common.setup.state.type.SetupStateInteger;
-import dev.dementisimus.autumn.common.setup.state.type.SetupStateLanguageType;
-import dev.dementisimus.autumn.common.setup.state.type.SetupStateString;
+import dev.dementisimus.autumn.common.setup.state.type.*;
 import lombok.Getter;
 import lombok.SneakyThrows;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -30,15 +35,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static dev.dementisimus.autumn.common.setup.state.MainSetupStates.*;
-/**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
- *
- * Class DefaultSetupManager @ Autumn
- *
- * @author dementisimus
- * @since 30.11.2021:22:39
- */
+
 public abstract class DefaultSetupManager implements SetupManager {
 
     private final List<SetupState> mainSetupStates = new ArrayList<>();
@@ -61,23 +58,23 @@ public abstract class DefaultSetupManager implements SetupManager {
     protected abstract SerializeSetupStateEvent callSerializeSetupStateEvent(SetupState setupState, Object value);
 
     @Override
-    public void mainSetupState(SetupState setupState) {
+    public void mainSetupState(@NotNull SetupState setupState) {
         this.mainSetupStates.add(setupState);
     }
 
     @Override
-    public void extraSetupState(SetupState setupState) {
+    public void extraSetupState(@NotNull SetupState setupState) {
         this.extraSetupStates.add(setupState);
     }
 
     @Override
-    public SetupState currentSetupState() {
+    public @Nullable SetupState currentSetupState() {
         return this.currentSetupState;
     }
 
     @SneakyThrows
     @Override
-    public void currentSetupState(SetupState setupState) {
+    public void currentSetupState(@NotNull SetupState setupState) {
         if(!this.completed) {
             this.currentSetupState = setupState;
 
@@ -86,7 +83,7 @@ public abstract class DefaultSetupManager implements SetupManager {
     }
 
     @Override
-    public void printSetupStateInstructions(SetupState setupState) {
+    public void printSetupStateInstructions(@NotNull SetupState setupState) {
         AutumnTranslation translation = new DefaultAutumnTranslation(setupState.messageTranslationProperty());
         translation.replacement("plugin", this.autumn.getPluginName());
 
@@ -94,7 +91,7 @@ public abstract class DefaultSetupManager implements SetupManager {
     }
 
     @Override
-    public void updateCurrentSetupState(Object value) {
+    public void updateCurrentSetupState(@NotNull Object value) {
         this.currentSetupState.value(value);
 
         if(!this.isExtraState(this.currentSetupState)) {
@@ -270,7 +267,7 @@ public abstract class DefaultSetupManager implements SetupManager {
     }
 
     @Override
-    public boolean isExtraState(SetupState setupState) {
+    public boolean isExtraState(@NotNull SetupState setupState) {
         return this.extraSetupStates.contains(setupState);
     }
 

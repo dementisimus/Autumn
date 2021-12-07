@@ -1,3 +1,11 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.bukkit.factory.item.interaction;
 
 import dev.dementisimus.autumn.bukkit.api.event.inventory.ValidInventoryClickEvent;
@@ -8,15 +16,8 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
-/**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
- *
- * Class DefaultItemFactoryClickInteraction @ BukkitAutumn
- *
- * @author dementisimus
- * @since 27.11.2021:23:06
- */
+import org.jetbrains.annotations.NotNull;
+
 public class DefaultItemFactoryClickInteraction implements ItemFactoryClickInteraction {
 
     private final ValidInventoryClickEvent validInventoryClickEvent;
@@ -26,36 +27,36 @@ public class DefaultItemFactoryClickInteraction implements ItemFactoryClickInter
     public DefaultItemFactoryClickInteraction(ValidInventoryClickEvent validInventoryClickEvent, ItemFactory itemFactory) {
         this.validInventoryClickEvent = validInventoryClickEvent;
         this.itemFactory = itemFactory;
-        this.inventoryClickEvent = this.validInventoryClickEvent.getInventoryClickEvent();
+        this.inventoryClickEvent = this.validInventoryClickEvent.inventoryClickEvent();
     }
 
     @Override
-    public ValidInventoryClickEvent event() {
+    public @NotNull ValidInventoryClickEvent event() {
         return this.validInventoryClickEvent;
     }
 
     @Override
-    public InventoryView inventoryView() {
+    public @NotNull InventoryView inventoryView() {
         return this.inventoryClickEvent.getView();
     }
 
     @Override
-    public Inventory clickedInventory() {
+    public @NotNull Inventory clickedInventory() {
         return this.inventoryClickEvent.getClickedInventory();
     }
 
     @Override
-    public Player player() {
+    public @NotNull Player player() {
         return (Player) this.inventoryClickEvent.getWhoClicked();
     }
 
     @Override
-    public ItemStack item() {
+    public @NotNull ItemStack item() {
         return this.inventoryClickEvent.getCurrentItem();
     }
 
     @Override
-    public ItemFactory itemFactory() {
+    public @NotNull ItemFactory itemFactory() {
         return this.itemFactory;
     }
 

@@ -1,3 +1,11 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.bukkit.language.command;
 
 import com.google.inject.Inject;
@@ -8,15 +16,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-/**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
- *
- * Class LanguageCommand @ Autumn
- *
- * @author dementisimus
- * @since 05.12.2021:14:01
- */
+
 @AutumnCommand(name = "language", nameAliases = {"lang"})
 public class LanguageCommand implements CommandExecutor {
 

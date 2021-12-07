@@ -1,3 +1,11 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.bukkit.listener;
 
 import dev.dementisimus.autumn.bukkit.input.DefaultUserTextInput;
@@ -8,15 +16,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-/**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
- *
- * Class AsyncPlayerChatListener @ Autumn
- *
- * @author dementisimus
- * @since 30.11.2021:14:41
- */
+
 @AutumnListener
 public class AsyncPlayerChatListener implements Listener {
 

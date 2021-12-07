@@ -1,3 +1,11 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.common.database.type.mongo;
 
 import com.mongodb.reactivestreams.client.MongoClient;
@@ -15,18 +23,11 @@ import dev.dementisimus.autumn.common.database.type.mongo.subscriber.InsertSubsc
 import dev.dementisimus.autumn.common.database.type.mongo.subscriber.UpdateSubscriber;
 import dev.dementisimus.autumn.common.setup.state.MainSetupStates;
 import org.bson.Document;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-/**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
- *
- * Class MongoDatabase @ Autumn
- *
- * @author dementisimus
- * @since 30.11.2021:15:10
- */
+
 public class MongoDatabase implements DatabaseType {
 
     private final com.mongodb.reactivestreams.client.MongoDatabase mongoDatabase;
@@ -41,42 +42,42 @@ public class MongoDatabase implements DatabaseType {
     }
 
     @Override
-    public void read(DataSourceProperty dataSourceProperty, DataProperty dataProperty, AutumnCallback<Document> documentCallback) {
+    public void read(@NotNull DataSourceProperty dataSourceProperty, @NotNull DataProperty dataProperty, @NotNull AutumnCallback<@NotNull Document> documentCallback) {
         MongoCollection<Document> mongoCollection = this.getMongoCollection(dataSourceProperty);
 
         mongoCollection.find(dataProperty.filter()).first().subscribe(new DocumentSubscriber(documentCallback));
     }
 
     @Override
-    public void list(DataSourceProperty dataSourceProperty, AutumnCallback<List<Document>> listDocumentCallback) {
+    public void list(@NotNull DataSourceProperty dataSourceProperty, @NotNull AutumnCallback<@NotNull List<Document>> listDocumentCallback) {
         MongoCollection<Document> mongoCollection = this.getMongoCollection(dataSourceProperty);
 
         mongoCollection.find().subscribe(new DocumentListSubscriber(new ArrayList<>(), listDocumentCallback));
     }
 
     @Override
-    public void write(DataSourceProperty dataSourceProperty, Document document, AutumnCallback<Boolean> booleanCallback) {
+    public void write(@NotNull DataSourceProperty dataSourceProperty, @NotNull Document document, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
         MongoCollection<Document> mongoCollection = this.getMongoCollection(dataSourceProperty);
 
         mongoCollection.insertOne(document).subscribe(new InsertSubscriber(booleanCallback));
     }
 
     @Override
-    public void update(DataSourceProperty dataSourceProperty, UpdateDataProperty updateDataProperty, AutumnCallback<Boolean> booleanCallback) {
+    public void update(@NotNull DataSourceProperty dataSourceProperty, @NotNull UpdateDataProperty updateDataProperty, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
         MongoCollection<Document> mongoCollection = this.getMongoCollection(dataSourceProperty);
 
         mongoCollection.updateOne(updateDataProperty.filter(), updateDataProperty.document()).subscribe(new UpdateSubscriber(booleanCallback));
     }
 
     @Override
-    public void delete(DataSourceProperty dataSourceProperty, DataProperty dataProperty, AutumnCallback<Boolean> booleanCallback) {
+    public void delete(@NotNull DataSourceProperty dataSourceProperty, @NotNull DataProperty dataProperty, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
         MongoCollection<Document> mongoCollection = this.getMongoCollection(dataSourceProperty);
 
         mongoCollection.deleteOne(dataProperty.filter()).subscribe(new DeleteResultSubscriber(booleanCallback));
     }
 
     @Override
-    public void isPresent(DataSourceProperty dataSourceProperty, DataProperty dataProperty, AutumnCallback<Boolean> booleanCallback) {
+    public void isPresent(@NotNull DataSourceProperty dataSourceProperty, @NotNull DataProperty dataProperty, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
         this.read(dataSourceProperty, dataProperty, document -> {
             booleanCallback.done(document != null && !document.isEmpty());
         });
@@ -88,7 +89,7 @@ public class MongoDatabase implements DatabaseType {
     }
 
     @Override
-    public String readyTranslationProperty() {
+    public @NotNull String readyTranslationProperty() {
         return "autumn.database.mongo.ready";
     }
 

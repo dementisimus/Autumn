@@ -1,3 +1,11 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.bukkit.setup.event;
 
 import dev.dementisimus.autumn.common.api.setup.SetupManager;
@@ -7,15 +15,7 @@ import lombok.AllArgsConstructor;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
-/**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
- *
- * Class BukkitNextExtraSetupStateEvent @ Autumn
- *
- * @author dementisimus
- * @since 03.12.2021:20:07
- */
+
 @AllArgsConstructor
 public class BukkitNextExtraSetupStateEvent extends Event implements NextExtraSetupStateEvent {
 
@@ -29,12 +29,12 @@ public class BukkitNextExtraSetupStateEvent extends Event implements NextExtraSe
     private boolean cancelled;
 
     @Override
-    public SetupManager setupManager() {
+    public @NotNull SetupManager setupManager() {
         return this.setupManager;
     }
 
     @Override
-    public SetupState currentSetupState() {
+    public @NotNull SetupState currentSetupState() {
         return this.currentSetupState;
     }
 
@@ -44,12 +44,12 @@ public class BukkitNextExtraSetupStateEvent extends Event implements NextExtraSe
     }
 
     @Override
-    public SetupState nextSetupState() {
+    public @NotNull SetupState nextSetupState() {
         return this.nextSetupState;
     }
 
     @Override
-    public void nextSetupState(SetupState nextSetupState) {
+    public void nextSetupState(@NotNull SetupState nextSetupState) {
         this.nextSetupState = nextSetupState;
     }
 

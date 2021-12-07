@@ -1,3 +1,11 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.common.database;
 
 import com.google.common.base.Preconditions;
@@ -15,18 +23,11 @@ import dev.dementisimus.autumn.common.database.type.mongo.MongoDatabase;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.Document;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-/**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
- *
- * Class DefaultDatabase @ Autumn
- *
- * @author dementisimus
- * @since 30.11.2021:15:15
- */
+
 public class DefaultDatabase implements Database {
 
     @Getter private final List<DataSourceProperty> dataSourceProperties = new ArrayList<>();
@@ -47,32 +48,32 @@ public class DefaultDatabase implements Database {
     }
 
     @Override
-    public void generateDataSourceProperty(DataSourceProperty dataSourceProperty) {
+    public void generateDataSourceProperty(@NotNull DataSourceProperty dataSourceProperty) {
         this.dataSourceProperties.add(dataSourceProperty);
     }
 
     @Override
-    public void dataSourceProperty(DataSourceProperty dataSourceProperty) {
+    public void dataSourceProperty(@NotNull DataSourceProperty dataSourceProperty) {
         this.dataSourceProperty = dataSourceProperty;
     }
 
     @Override
-    public void dataProperty(DataProperty dataProperty) {
+    public void dataProperty(@NotNull DataProperty dataProperty) {
         this.dataProperty = dataProperty;
     }
 
     @Override
-    public void updateDataProperty(UpdateDataProperty updateDataProperty) {
+    public void updateDataProperty(@NotNull UpdateDataProperty updateDataProperty) {
         this.updateDataProperty = updateDataProperty;
     }
 
     @Override
-    public void document(Document document) {
+    public void document(@NotNull Document document) {
         this.document = document;
     }
 
     @Override
-    public void connect(AutumnCallback<Boolean> booleanCallback) {
+    public void connect(@NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
         this.taskExecutor.asynchronous(() -> {
             switch(this.type) {
                 case MONGODB -> this.databaseType = new MongoDatabase();
@@ -88,7 +89,7 @@ public class DefaultDatabase implements Database {
     }
 
     @Override
-    public void read(AutumnCallback<Document> documentCallback) {
+    public void read(@NotNull AutumnCallback<@NotNull Document> documentCallback) {
         this.dataSourcePropertyNotNull();
         this.dataPropertyNotNull();
 
@@ -111,7 +112,7 @@ public class DefaultDatabase implements Database {
     }
 
     @Override
-    public void list(AutumnCallback<List<Document>> listDocumentCallback) {
+    public void list(@NotNull AutumnCallback<@NotNull List<Document>> listDocumentCallback) {
         this.dataSourcePropertyNotNull();
 
         if(this.useCache) {
@@ -133,7 +134,7 @@ public class DefaultDatabase implements Database {
     }
 
     @Override
-    public void write(AutumnCallback<Boolean> booleanCallback) {
+    public void write(@NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
         this.dataSourcePropertyNotNull();
         this.documentNotNull();
 
@@ -148,7 +149,7 @@ public class DefaultDatabase implements Database {
     }
 
     @Override
-    public void update(AutumnCallback<Boolean> booleanCallback) {
+    public void update(@NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
         this.dataSourcePropertyNotNull();
         this.updateDataPropertyNotNull();
 
@@ -163,7 +164,7 @@ public class DefaultDatabase implements Database {
     }
 
     @Override
-    public void delete(AutumnCallback<Boolean> booleanCallback) {
+    public void delete(@NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
         this.dataSourcePropertyNotNull();
         this.dataPropertyNotNull();
 
@@ -178,12 +179,12 @@ public class DefaultDatabase implements Database {
     }
 
     @Override
-    public void isPresent(DataSourceProperty dataSourceProperty, DataProperty dataProperty, AutumnCallback<Boolean> booleanCallback) {
+    public void isPresent(@NotNull DataSourceProperty dataSourceProperty, @NotNull DataProperty dataProperty, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
         this.taskExecutor.asynchronous(() -> this.databaseType.isPresent(dataSourceProperty, dataProperty, booleanCallback));
     }
 
     @Override
-    public void writeOrUpdate(AutumnCallback<Boolean> booleanCallback) {
+    public void writeOrUpdate(@NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
         this.documentNotNull();
         this.updateDataPropertyNotNull();
 

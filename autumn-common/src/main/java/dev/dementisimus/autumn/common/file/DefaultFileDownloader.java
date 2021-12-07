@@ -1,3 +1,11 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.common.file;
 
 import com.google.common.base.Preconditions;
@@ -7,6 +15,8 @@ import dev.dementisimus.autumn.common.api.dependency.AutumnDependency;
 import dev.dementisimus.autumn.common.api.file.AutumnFileDownloader;
 import dev.dementisimus.autumn.common.api.i18n.AutumnTranslation;
 import dev.dementisimus.autumn.common.i18n.DefaultAutumnTranslation;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,15 +24,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.file.Files;
-/**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
- *
- * Class AutumnFileDownloader @ AutumnCommon
- *
- * @author dementisimus
- * @since 24.11.2021:18:34
- */
+
 public class DefaultFileDownloader implements AutumnFileDownloader {
 
     private final DefaultAutumn autumn;
@@ -36,7 +38,7 @@ public class DefaultFileDownloader implements AutumnFileDownloader {
     }
 
     @Override
-    public void download(String url, AutumnCallback<File> fileCallback) {
+    public void download(@NotNull String url, @NotNull AutumnCallback<@Nullable File> fileCallback) {
         Preconditions.checkNotNull(url, "URL may not be null!");
         Preconditions.checkNotNull(this.downloadTo, "Destination for downloaded file may not be null!");
 
@@ -80,24 +82,24 @@ public class DefaultFileDownloader implements AutumnFileDownloader {
     }
 
     @Override
-    public void download(AutumnDependency dependency, AutumnCallback<File> fileCallback) {
+    public void download(@NotNull AutumnDependency dependency, @NotNull AutumnCallback<@Nullable File> fileCallback) {
         Preconditions.checkNotNull(dependency, "Dependency may not be null!");
-        Preconditions.checkNotNull(dependency.getRepository(), "Dependency-Repository may not be null!");
+        Preconditions.checkNotNull(dependency.repository(), "Dependency-Repository may not be null!");
 
-        if(!this.downloadTo.getAbsolutePath().endsWith(dependency.getFileName())) {
-            this.downloadTo = new File(this.downloadTo, dependency.getFileName());
+        if(!this.downloadTo.getAbsolutePath().endsWith(dependency.fileName())) {
+            this.downloadTo = new File(this.downloadTo, dependency.fileName());
         }
 
         this.download(dependency.toURL(), fileCallback);
     }
 
     @Override
-    public File getDownloadTo() {
+    public @Nullable File downloadTo() {
         return this.downloadTo;
     }
 
     @Override
-    public void setDownloadTo(File downloadTo) {
+    public void downloadTo(@NotNull File downloadTo) {
         this.downloadTo = downloadTo;
     }
 }

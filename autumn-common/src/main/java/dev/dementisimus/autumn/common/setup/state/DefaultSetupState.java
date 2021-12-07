@@ -1,3 +1,11 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.common.setup.state;
 
 import com.github.derrop.documents.Document;
@@ -6,17 +14,11 @@ import dev.dementisimus.autumn.common.api.setup.SetupManager;
 import dev.dementisimus.autumn.common.api.setup.state.SetupState;
 import dev.dementisimus.autumn.common.configuration.DefaultAutumnConfiguration;
 import dev.dementisimus.autumn.common.helper.NumberHelper;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
-/**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
- *
- * Class DefaultSetupState @ Autumn
- *
- * @author dementisimus
- * @since 30.11.2021:22:07
- */
+
 public class DefaultSetupState implements SetupState {
 
     private final String name;
@@ -31,27 +33,27 @@ public class DefaultSetupState implements SetupState {
     }
 
     @Override
-    public Object value() {
+    public @Nullable Object value() {
         return this.value;
     }
 
     @Override
-    public <T> T value(Class<T> clazz) {
+    public <T> @Nullable T value(@NotNull Class<T> clazz) {
         return (T) this.value();
     }
 
     @Override
-    public void value(Object value) {
+    public void value(@NotNull Object value) {
         this.value = value;
     }
 
     @Override
-    public String messageTranslationProperty() {
+    public @NotNull String messageTranslationProperty() {
         return this.messageTranslationProperty;
     }
 
     @Override
-    public String asString() {
+    public @Nullable String asString() {
         return this.value == null ? null : this.value.toString();
     }
 
@@ -66,12 +68,12 @@ public class DefaultSetupState implements SetupState {
     }
 
     @Override
-    public File asFile() {
-        return new File(this.asString());
+    public @Nullable File asFile() {
+        return this.asString() == null ? null : new File(this.asString());
     }
 
     @Override
-    public boolean isPresentInConfigFile(File configFile) {
+    public boolean isPresentInConfigFile(@NotNull File configFile) {
         AutumnConfiguration configuration = new DefaultAutumnConfiguration(configFile);
         Document document = configuration.read();
 
@@ -79,12 +81,12 @@ public class DefaultSetupState implements SetupState {
     }
 
     @Override
-    public boolean isExtraState(SetupManager setupManager) {
+    public boolean isExtraState(@NotNull SetupManager setupManager) {
         return setupManager.isExtraState(this);
     }
 
     @Override
-    public String name() {
+    public @NotNull String name() {
         return this.name;
     }
 }

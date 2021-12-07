@@ -1,33 +1,111 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.common.api.dependency;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 /**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
+ * Represents a dependency
  *
- * Class AutumnDependency @ AutumnCommon
- *
- * @author dementisimus
- * @since 24.11.2021:18:58
+ * @since 1.0.0
  */
 public interface AutumnDependency {
 
-    AutumnRepository getRepository();
+    /**
+     * Gets the {@link AutumnRepository} for the dependency
+     *
+     * @return the {@link AutumnRepository} for the dependency
+     *
+     * @since 1.0.0
+     */
+    @Nullable AutumnRepository repository();
 
-    void setRepository(AutumnRepository repository);
+    /**
+     * Sets the {@link AutumnRepository} for the dependency
+     *
+     * @param repository the {@link AutumnRepository} for the dependency
+     *
+     * @since 1.0.0
+     */
+    void repository(@NotNull AutumnRepository repository);
 
-    String getGroupId();
+    /**
+     * Gets the dependency group id
+     *
+     * @return dependency group id
+     *
+     * @since 1.0.0
+     */
+    @Nullable String groupId();
 
-    void setGroupId(String groupId);
+    /**
+     * Sets the dependency group id
+     *
+     * @param groupId the dependency group id
+     *
+     * @since 1.0.0
+     */
+    void groupId(@NotNull String groupId);
 
-    String getArtifactId();
+    /**
+     * Gets the dependency artifact id
+     *
+     * @return dependency artifact id
+     *
+     * @since 1.0.0
+     */
+    @Nullable String artifactId();
 
-    void setArtifactId(String artifactId);
+    /**
+     * Sets the dependency artifact id
+     *
+     * @param artifactId the dependency artifact id
+     *
+     * @since 1.0.0
+     */
+    void artifactId(@NotNull String artifactId);
 
-    String getVersion();
+    /**
+     * Gets the dependency version
+     *
+     * @return dependency version
+     *
+     * @since 1.0.0
+     */
+    @Nullable String version();
 
-    void setVersion(String version);
+    /**
+     * Sets the dependency version
+     *
+     * @param version dependency version
+     *
+     * @since 1.0.0
+     */
+    void version(@NotNull String version);
 
-    String getFileName();
+    /**
+     * Transforms {@link #artifactId()} + {@link #version()} into a readable file name
+     * Example: Autumn-1.0.0
+     *
+     * @return readable file name (ArtifactID-Version)
+     *
+     * @since 1.0.0
+     */
+    @Nullable String fileName();
 
-    String toURL();
+    /**
+     * Transforms the dependency and its repository into an URL
+     *
+     * @return thr URL for the dependency
+     *
+     * @since 1.0.0
+     */
+    @NotNull String toURL();
 }

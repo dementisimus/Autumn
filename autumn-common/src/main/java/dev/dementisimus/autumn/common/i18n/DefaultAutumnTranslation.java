@@ -1,3 +1,11 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.common.i18n;
 
 import dev.dementisimus.autumn.common.api.i18n.AutumnLanguage;
@@ -6,20 +14,13 @@ import dev.dementisimus.autumn.common.api.i18n.AutumnTranslationReplacement;
 import dev.dementisimus.autumn.common.console.ConsoleColor;
 import dev.dementisimus.autumn.common.i18n.property.AutumnTranslationProperty;
 import lombok.AllArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Pattern;
-/**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
- *
- * Class DefaultAutumnTranslation @ AutumnCommon
- *
- * @author dementisimus
- * @since 26.11.2021:16:25
- */
+
 @AllArgsConstructor
 public class DefaultAutumnTranslation implements AutumnTranslation {
 
@@ -30,18 +31,18 @@ public class DefaultAutumnTranslation implements AutumnTranslation {
     private String translationProperty;
 
     @Override
-    public void translationProperty(String translationProperty) {
+    public void translationProperty(@NotNull String translationProperty) {
         this.translationProperty = translationProperty;
     }
 
     @Override
-    public AutumnTranslation replacement(String target, String replacement) {
+    public @NotNull AutumnTranslation replacement(@NotNull String target, @NotNull String replacement) {
         this.replacement(DefaultTranslationReplacement.of(target, replacement));
         return this;
     }
 
     @Override
-    public AutumnTranslation replacement(AutumnTranslationReplacement... translationReplacements) {
+    public @NotNull AutumnTranslation replacement(@NotNull AutumnTranslationReplacement... translationReplacements) {
         for(AutumnTranslationReplacement translationReplacement : translationReplacements) {
             String target = translationReplacement.target();
             String replacement = translationReplacement.replacement();
@@ -56,17 +57,17 @@ public class DefaultAutumnTranslation implements AutumnTranslation {
     }
 
     @Override
-    public String get(Locale locale) {
+    public @NotNull String get(@NotNull Locale locale) {
         return ConsoleColor.toColoredString('§', this.getMessage(locale));
     }
 
     @Override
-    public String get(AutumnLanguage autumnLanguage) {
+    public @NotNull String get(@NotNull AutumnLanguage autumnLanguage) {
         return ConsoleColor.toColoredString('§', this.getMessage(autumnLanguage.getLocale()));
     }
 
     @Override
-    public boolean matches(String string) {
+    public boolean matches(@NotNull String string) {
         boolean matches = false;
 
         string = this.stripColor(string);

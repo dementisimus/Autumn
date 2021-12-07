@@ -1,16 +1,16 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.common.setup.state.type;
 
 import dev.dementisimus.autumn.common.helper.StringHelper;
 import dev.dementisimus.autumn.common.setup.state.DefaultSetupState;
-/**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
- *
- * Class SetupStateBoolean @ Autumn
- *
- * @author dementisimus
- * @since 30.11.2021:22:15
- */
+
 public class SetupStateBoolean extends DefaultSetupState {
 
     public SetupStateBoolean(String name, String messageTranslationProperty, boolean value) {

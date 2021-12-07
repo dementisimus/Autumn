@@ -1,3 +1,11 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.bukkit.factory.inventory.infinite;
 
 import dev.dementisimus.autumn.bukkit.api.factory.inventory.InventoryFactory;
@@ -8,19 +16,12 @@ import dev.dementisimus.autumn.bukkit.factory.item.DefaultItemFactory;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-/**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
- *
- * Class DefaultInfiniteInventoryFactory @ BukkitAutumn
- *
- * @author dementisimus
- * @since 25.11.2021:22:37
- */
+
 public class DefaultInfiniteInventoryFactory implements InfiniteInventoryFactory {
 
     private final int nextPageItemSlot = 53;
@@ -47,11 +48,11 @@ public class DefaultInfiniteInventoryFactory implements InfiniteInventoryFactory
         this.placeholder = placeholder;
 
         this.inventoryFactory = new DefaultInventoryFactory(this.inventoryRows, this.titleTranslationProperty);
-        this.inventoryFactory.setPlaceholders(this.placeholder);
+        this.inventoryFactory.placeholder(this.placeholder);
     }
 
     @Override
-    public <T> void setItems(List<T> items, Class<T> clazz) {
+    public <T> void items(@NotNull List<T> items, @NotNull Class<T> clazz) {
         if(clazz.equals(Material.class)) {
             for(T item : items) this.items.add(new DefaultItemFactory((Material) item).create());
         }else if(clazz.equals(ItemStack.class)) {
@@ -65,7 +66,7 @@ public class DefaultInfiniteInventoryFactory implements InfiniteInventoryFactory
     }
 
     @Override
-    public void createFor(Player createFor) {
+    public void createFor(@NotNull Player createFor) {
         this.createFor = createFor;
     }
 
@@ -76,34 +77,34 @@ public class DefaultInfiniteInventoryFactory implements InfiniteInventoryFactory
         int slot = 10;
         int stopAt = this.previousPageItemSlot - 1;
 
-        this.inventoryFactory.setAir(10, 16);
-        this.inventoryFactory.setAir(19, 25);
-        this.inventoryFactory.setAir(28, 34);
-        this.inventoryFactory.setAir(37, 43);
+        this.inventoryFactory.air(10, 16);
+        this.inventoryFactory.air(19, 25);
+        this.inventoryFactory.air(28, 34);
+        this.inventoryFactory.air(37, 43);
 
         for(ItemStack pageItem : pageItems) {
             if(slot == stopAt) break;
 
             slot = this.adjustSlot(slot);
-            this.inventoryFactory.setItem(slot, pageItem);
+            this.inventoryFactory.item(slot, pageItem);
             slot++;
         }
 
         if(slot == stopAt && pageItems.size() == this.pageSize) {
-            if(this.replacedNextPageItem == null) this.replacedNextPageItem = this.inventoryFactory.getItemAt(this.nextPageItemSlot);
+            if(this.replacedNextPageItem == null) this.replacedNextPageItem = this.inventoryFactory.itemAt(this.nextPageItemSlot);
 
             this.setPageMovementItem(Material.LIME_DYE, this.nextPageItemSlot, this.createFor, "autumn.infinite.inventory.next.page", this.lastItemIndexPlaced + pageItems.size());
         }else {
-            this.inventoryFactory.setItemOrPlaceholder(this.nextPageItemSlot, this.replacedNextPageItem, this.placeholder);
+            this.inventoryFactory.itemOrPlaceholder(this.nextPageItemSlot, this.replacedNextPageItem, this.placeholder);
             this.replacedNextPageItem = null;
         }
 
         if(this.lastItemIndexPlaced > 0) {
-            if(this.replacedPreviousPageItem == null) this.replacedPreviousPageItem = this.inventoryFactory.getItemAt(this.previousPageItemSlot);
+            if(this.replacedPreviousPageItem == null) this.replacedPreviousPageItem = this.inventoryFactory.itemAt(this.previousPageItemSlot);
 
             this.setPageMovementItem(Material.RED_DYE, this.previousPageItemSlot, this.createFor, "autumn.infinite.inventory.previous.page", this.lastItemIndexPlaced - this.pageSize);
         }else {
-            this.inventoryFactory.setItemOrPlaceholder(this.previousPageItemSlot, this.replacedPreviousPageItem, this.placeholder);
+            this.inventoryFactory.itemOrPlaceholder(this.previousPageItemSlot, this.replacedPreviousPageItem, this.placeholder);
             this.lastItemIndexPlaced = 0;
         }
 
@@ -142,7 +143,7 @@ public class DefaultInfiniteInventoryFactory implements InfiniteInventoryFactory
 
     private void setPageMovementItem(Material material, int slot, Player player, String translationProperty, int newLastItemIndexPlaced) {
         ItemFactory itemFactory = new DefaultItemFactory(material).displayName(player, translationProperty);
-        this.inventoryFactory.setItem(slot, itemFactory);
+        this.inventoryFactory.item(slot, itemFactory);
 
         itemFactory.onClick(itemFactoryClickInteraction -> {
             this.lastItemIndexPlaced = newLastItemIndexPlaced;

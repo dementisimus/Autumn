@@ -1,3 +1,11 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.bukkit.factory.inventory;
 
 import com.google.common.base.Preconditions;
@@ -13,15 +21,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-/**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
- *
- * Class DefaultInventoryFactory @ BukkitAutumn
- *
- * @author dementisimus
- * @since 25.11.2021:22:16
- */
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 public class DefaultInventoryFactory implements InventoryFactory {
 
     private final Inventory inventory;
@@ -50,101 +52,101 @@ public class DefaultInventoryFactory implements InventoryFactory {
     }
 
     @Override
-    public InventoryFactory setContents(ItemStack[] itemStacks) {
+    public @NotNull InventoryFactory contents(@NotNull ItemStack[] itemStacks) {
         this.inventory.setContents(itemStacks);
         return this;
     }
 
     @Override
-    public InventoryFactory setItem(int slot, ItemFactory itemFactory) {
-        return this.setItem(slot, itemFactory.create());
+    public @NotNull InventoryFactory item(int slot, @NotNull ItemFactory itemFactory) {
+        return this.item(slot, itemFactory.create());
     }
 
     @Override
-    public InventoryFactory setItem(int slot, ItemStack itemStack) {
+    public @NotNull InventoryFactory item(int slot, @NotNull ItemStack itemStack) {
         this.inventory.setItem(slot, itemStack);
         return this;
     }
 
     @Override
-    public InventoryFactory addItems(ItemStack... itemStacks) {
+    public @NotNull InventoryFactory items(@NotNull ItemStack... itemStacks) {
         this.inventory.addItem(itemStacks);
         return this;
     }
 
     @Override
-    public InventoryFactory setPlaceholders(Material placeholder) {
+    public @NotNull InventoryFactory placeholder(@NotNull Material placeholder) {
         ItemStack placeholderItemStack = new DefaultItemFactory(placeholder).displayName(PLACEHOLDER).create();
 
         for(int slot = 0; slot < this.inventory.getSize(); slot++) {
-            this.setItem(slot, placeholderItemStack);
+            this.item(slot, placeholderItemStack);
         }
 
         return this;
     }
 
     @Override
-    public InventoryFactory setPlaceholders(Material placeholder, int... slots) {
+    public @NotNull InventoryFactory placeholder(@NotNull Material placeholder, int... slots) {
         ItemStack placeholderItemStack = new DefaultItemFactory(placeholder).displayName(PLACEHOLDER).create();
 
         for(int slot : slots) {
-            this.setItem(slot, placeholderItemStack);
+            this.item(slot, placeholderItemStack);
         }
 
         return this;
     }
 
     @Override
-    public InventoryFactory setAir(int... slots) {
+    public @NotNull InventoryFactory air(int... slots) {
         for(int slot : slots) {
-            this.setItem(slot, AIR);
+            this.item(slot, AIR);
         }
         return this;
     }
 
     @Override
-    public InventoryFactory setAir(int from, int to) {
+    public @NotNull InventoryFactory air(int from, int to) {
         for(int slot = from; slot < to + 1; slot++) {
-            this.setItem(slot, AIR);
+            this.item(slot, AIR);
         }
         return this;
     }
 
     @Override
-    public InventoryFactory setMaxStackSize(int maxStackSize) {
+    public @NotNull InventoryFactory maxStackSize(int maxStackSize) {
         this.inventory.setMaxStackSize(maxStackSize);
         return this;
     }
 
     @Override
-    public InventoryFactory setStorageContents(ItemStack[] itemStacks) {
+    public @NotNull InventoryFactory storageContents(@NotNull ItemStack[] itemStacks) {
         this.inventory.setStorageContents(itemStacks);
         return this;
     }
 
     @Override
-    public InventoryFactory setItemOrPlaceholder(int slot, ItemStack itemStack, Material placeholder) {
+    public @NotNull InventoryFactory itemOrPlaceholder(int slot, @Nullable ItemStack itemStack, @NotNull Material placeholder) {
         if(itemStack == null) {
-            this.setPlaceholders(placeholder, slot);
+            this.placeholder(placeholder, slot);
         }else {
-            this.setItem(slot, itemStack);
+            this.item(slot, itemStack);
         }
 
         return this;
     }
 
     @Override
-    public ItemStack getItemAt(int slot) {
+    public @Nullable ItemStack itemAt(int slot) {
         return this.inventory.getItem(slot);
     }
 
     @Override
-    public Inventory create() {
+    public @NotNull Inventory create() {
         return this.inventory;
     }
 
     @Override
-    public void createFor(Player player) {
+    public void createFor(@NotNull Player player) {
         player.openInventory(this.inventory);
     }
 

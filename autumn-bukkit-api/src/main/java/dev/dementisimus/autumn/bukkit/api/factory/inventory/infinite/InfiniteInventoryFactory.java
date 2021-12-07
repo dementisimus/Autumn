@@ -1,22 +1,48 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.bukkit.api.factory.inventory.infinite;
 
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+
 /**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
+ * A factory for infinite inventories
  *
- * Class InfiniteInventoryFactory @ BukkitAutumn
- *
- * @author dementisimus
- * @since 25.11.2021:22:37
+ * @since 1.0.0
  */
 public interface InfiniteInventoryFactory {
 
-    <T> void setItems(List<T> items, Class<T> clazz);
+    /**
+     * Sets the items for the infinite inventory
+     *
+     * @param items the items
+     * @param clazz the item class type
+     *
+     * @since 1.0.0
+     */
+    <T> void items(@NotNull List<T> items, @NotNull Class<T> clazz);
 
-    void createFor(Player createFor);
+    /**
+     * Creates the infinite inventory for a player and opens it when {@link #create()} has been called
+     *
+     * @param createFor create for {@link Player}
+     *
+     * @since 1.0.0
+     */
+    void createFor(@NotNull Player createFor);
 
+    /**
+     * Creates the infinite inventory and opens it for {@link #createFor(Player)}
+     *
+     * @since 1.0.0
+     */
     void create();
 }

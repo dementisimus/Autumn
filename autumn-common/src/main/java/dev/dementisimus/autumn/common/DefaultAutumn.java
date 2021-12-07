@@ -1,3 +1,11 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.common;
 
 import com.github.derrop.documents.Document;
@@ -36,17 +44,11 @@ import dev.dementisimus.autumn.common.setup.value.SetupValueManager;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
-/**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
- *
- * Class DefaultAutumn @ AutumnCommon
- *
- * @author dementisimus
- * @since 22.11.2021:20:33
- */
+
 public abstract class DefaultAutumn implements Autumn {
 
     @Getter(AccessLevel.PROTECTED) private final Object plugin;
@@ -116,14 +118,14 @@ public abstract class DefaultAutumn implements Autumn {
     }
 
     @Override
-    public void extraSetupStates(SetupState... setupStates) {
+    public void extraSetupStates(@NotNull SetupState... setupStates) {
         for(SetupState setupState : setupStates) {
             this.setupManager.extraSetupState(setupState);
         }
     }
 
     @Override
-    public void initialize(AutumnCallback<AutumnInjector> initializationCallback) {
+    public void initialize(@NotNull AutumnCallback<@NotNull AutumnInjector> initializationCallback) {
         this.initializationCallback = initializationCallback;
 
         this.downloadDependencies(() -> {
@@ -158,7 +160,7 @@ public abstract class DefaultAutumn implements Autumn {
     }
 
     @Override
-    public void enableDatabase(DataSourceProperty... dataSourceProperties) {
+    public void enableDatabase(@NotNull DataSourceProperty... dataSourceProperties) {
         this.database = new DefaultDatabase(this);
 
         for(DataSourceProperty dataSourceProperty : dataSourceProperties) {
@@ -189,32 +191,32 @@ public abstract class DefaultAutumn implements Autumn {
     }
 
     @Override
-    public AutumnTaskExecutor taskExecutor() {
+    public @NotNull AutumnTaskExecutor taskExecutor() {
         return this.taskExecutor;
     }
 
     @Override
-    public AutumnLogging logging() {
+    public @NotNull AutumnLogging logging() {
         return this.logging;
     }
 
     @Override
-    public AutumnInjector injector() {
+    public @NotNull AutumnInjector injector() {
         return this.injector;
     }
 
     @Override
-    public AutumnLanguage defaultLanguage() {
+    public @NotNull AutumnLanguage defaultLanguage() {
         return this.defaultLanguage;
     }
 
     @Override
-    public SetupManager setupManager() {
+    public @NotNull SetupManager setupManager() {
         return this.setupManager;
     }
 
     @Override
-    public Database database() {
+    public @Nullable Database database() {
         return this.database;
     }
 
@@ -264,20 +266,20 @@ public abstract class DefaultAutumn implements Autumn {
 
     private void downloadDependencies(AutumnEmptyCallback emptyCallback) {
         AutumnRepository autumnRepository = new DefaultAutumnRepository();
-        autumnRepository.setName("dementisimus.dev");
-        autumnRepository.setURL("https://repo.dementisimus.dev/release/");
+        autumnRepository.name("dementisimus.dev");
+        autumnRepository.url("https://repo.dementisimus.dev/release/");
 
         AutumnDependency autumnDependency = new DefaultAutumnDependency();
 
-        autumnDependency.setRepository(autumnRepository);
-        autumnDependency.setGroupId("dev.dementisimus.autumn");
-        autumnDependency.setArtifactId("autumn-dependencies");
-        autumnDependency.setVersion("1.0.0");
+        autumnDependency.repository(autumnRepository);
+        autumnDependency.groupId("dev.dementisimus.autumn");
+        autumnDependency.artifactId("autumn-dependencies");
+        autumnDependency.version("1.0.0");
 
-        File dependenciesPluginFile = new File("plugins/" + autumnDependency.getFileName());
+        File dependenciesPluginFile = new File("plugins/" + autumnDependency.fileName());
         if(!this.isLoadedPlugin("Autumn-Dependencies")) {
             if(!dependenciesPluginFile.exists()) {
-                this.fileDownloader.setDownloadTo(new File("plugins/"));
+                this.fileDownloader.downloadTo(new File("plugins/"));
                 this.fileDownloader.download(autumnDependency, file -> {
                     this.loadPlugin(file);
                     emptyCallback.done();

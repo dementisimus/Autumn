@@ -1,25 +1,43 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.common.api.i18n;
 
 import dev.dementisimus.autumn.common.api.database.property.source.DataSourceProperty;
 import dev.dementisimus.autumn.common.api.database.sql.SQLTypes;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Locale;
 import java.util.Map;
+
 /**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
+ * All languages supported by Autumn
  *
- * Class AutumnLanguage @ AutumnCommon
- *
- * @author dementisimus
- * @since 26.11.2021:13:50
+ * @since 1.0.0
  */
 @RequiredArgsConstructor
 public enum AutumnLanguage {
 
+    /**
+     * English (United States)
+     *
+     * @since 1.0.0
+     */
     ENGLISH(Locale.ENGLISH, "en", "autumn.language.english", 12, "4cac9774da1217248532ce147f7831f67a12fdcca1cf0cb4b3848de6bc94b4"),
+
+    /**
+     * German (Germany)
+     *
+     * @since 1.0.0
+     */
     GERMAN(Locale.GERMAN, "de", "autumn.language.german", 14, "5e7899b4806858697e283f084d9173fe487886453774626b24bd8cfecc77b3f");
 
     @Getter private final Locale locale;
@@ -29,25 +47,55 @@ public enum AutumnLanguage {
     @Getter private final int selectionInventorySlot;
     @Getter private final String textureId;
 
+    /**
+     * The data source property used by Autumn for storing UserLanguages
+     *
+     * @since 1.0.0
+     */
     public static class DataSource implements DataSourceProperty {
 
+        /**
+         * The data source property
+         *
+         * @since 1.0.0
+         */
         public static final DataSource PROPERTY = new DataSource();
 
+        /**
+         * The user field
+         *
+         * @since 1.0.0
+         */
         public static final String USER = "user";
+
+        /**
+         * The language field
+         *
+         * @since 1.0.0
+         */
         public static final String LANGUAGE = "language";
 
         @Override
-        public String name() {
+        public @NotNull String name() {
             return "languages";
         }
 
         @Override
-        public Map<String, String> fields() {
+        public @NotNull Map<String, String> fields() {
             return Map.ofEntries(Map.entry(USER, SQLTypes.LONGTEXT), Map.entry(LANGUAGE, SQLTypes.LONGTEXT));
         }
     }
 
-    public static AutumnLanguage fromLocale(Locale locale) {
+    /**
+     * Parses a locale into a AutumnLanguage
+     *
+     * @param locale locale
+     *
+     * @return an autumn language, or null, if no one was found
+     *
+     * @since 1.0.0
+     */
+    public static @Nullable AutumnLanguage fromLocale(@NotNull Locale locale) {
         AutumnLanguage language = null;
 
         for(AutumnLanguage autumnLanguage : AutumnLanguage.values()) {

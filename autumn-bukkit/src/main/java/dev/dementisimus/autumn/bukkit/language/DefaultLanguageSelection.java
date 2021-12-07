@@ -1,3 +1,11 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.bukkit.language;
 
 import dev.dementisimus.autumn.bukkit.BukkitAutumn;
@@ -17,15 +25,8 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataType;
-/**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
- *
- * Class DefaultLanguageSelection @ Autumn
- *
- * @author dementisimus
- * @since 05.12.2021:13:51
- */
+import org.jetbrains.annotations.NotNull;
+
 @RequiredArgsConstructor
 public class DefaultLanguageSelection implements LanguageSelection {
 
@@ -35,17 +36,17 @@ public class DefaultLanguageSelection implements LanguageSelection {
     private final BukkitAutumn autumn;
 
     @Override
-    public void open(Player player) {
+    public void open(@NotNull Player player) {
         InventoryFactory inventoryFactory = new DefaultInventoryFactory(3, player, "autumn.bukkit.player.language.selection");
 
         Database database = this.autumn.getDatabase();
 
-        inventoryFactory.setPlaceholders(Material.WHITE_STAINED_GLASS_PANE);
+        inventoryFactory.placeholder(Material.WHITE_STAINED_GLASS_PANE);
         for(AutumnLanguage language : AutumnLanguage.values()) {
             new DefaultItemFactory(language.getTextureId(), itemFactory -> {
                 itemFactory.store(NAMESPACE, KEY, PersistentDataType.STRING, language.name());
 
-                inventoryFactory.setItem(language.getSelectionInventorySlot(), itemFactory.displayName(player, language.getTranslationProperty()));
+                inventoryFactory.item(language.getSelectionInventorySlot(), itemFactory.displayName(player, language.getTranslationProperty()));
 
                 itemFactory.onClick(itemFactoryClickInteraction -> {
                     ItemFactory clickedItemFactory = itemFactoryClickInteraction.itemFactory();

@@ -1,3 +1,11 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.common.injection;
 
 import com.google.common.reflect.ClassPath;
@@ -5,6 +13,8 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import dev.dementisimus.autumn.common.api.injection.AutumnInjector;
 import dev.dementisimus.autumn.common.api.injection.module.GenericInjectionModule;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
@@ -15,15 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-/**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
- *
- * Class DefaultAutumnInjector @ AutumnCommon
- *
- * @author dementisimus
- * @since 26.11.2021:21:13
- */
+
 public abstract class DefaultAutumnInjector implements AutumnInjector {
 
     private static final Map<ClassLoader, List<Class<?>>> CLASSLOADER_CLASSES = new HashMap<>();
@@ -37,14 +39,14 @@ public abstract class DefaultAutumnInjector implements AutumnInjector {
     public abstract void register(Class<? extends Annotation> annotation, Class<?> clazz, Injector injector);
 
     @Override
-    public AutumnInjector classLoaders(ClassLoader... classLoaders) {
+    public @NotNull AutumnInjector classLoaders(@NotNull ClassLoader... classLoaders) {
         CLASSLOADERS.addAll(List.of(classLoaders));
         return this;
     }
 
     @SafeVarargs
     @Override
-    public final AutumnInjector annotation(Class<? extends Annotation>... annotations) {
+    public final @NotNull AutumnInjector annotation(@NotNull Class<? extends Annotation>... annotations) {
         ANNOTATIONS.addAll(List.of(annotations));
         return this;
     }
@@ -96,7 +98,7 @@ public abstract class DefaultAutumnInjector implements AutumnInjector {
     }
 
     @Override
-    public <T> void registerModule(Class<T> clazz, T value) {
+    public <T> void registerModule(@NotNull Class<T> clazz, @Nullable T value) {
         GENERIC_INJECTION_MODULES.put(clazz, new GenericInjectionModule<>(clazz, value));
     }
 }

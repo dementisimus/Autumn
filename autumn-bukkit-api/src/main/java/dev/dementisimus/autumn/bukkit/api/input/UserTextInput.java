@@ -1,23 +1,57 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.bukkit.api.input;
 
 import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+
 /**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
+ * Used to retrieve text input from users via chat
  *
- * Class UserTextInput @ Autumn
- *
- * @author dementisimus
- * @since 30.11.2021:14:33
+ * @since 1.0.0
  */
 public interface UserTextInput {
 
-    void prefix(String prefix);
+    /**
+     * Sets the message prefix
+     *
+     * @param prefix prefix
+     *
+     * @since 1.0.0
+     */
+    void prefix(@NotNull String prefix);
 
-    void translationProperty(String translationProperty);
+    /**
+     * Sets the message translationProperty
+     *
+     * @param translationProperty translationProperty
+     *
+     * @since 1.0.0
+     */
+    void translationProperty(@NotNull String translationProperty);
 
-    void player(Player player);
+    /**
+     * Sets the player who will be prompted to enter text
+     *
+     * @param player player
+     *
+     * @since 1.0.0
+     */
+    void player(@NotNull Player player);
 
-    void fetch(AutumnCallback<String> stringCallback);
+    /**
+     * Fetches text from an user
+     *
+     * @param stringCallback the callback used to deliver the entered string
+     *
+     * @since 1.0.0
+     */
+    void fetch(@NotNull AutumnCallback<String> stringCallback);
 }

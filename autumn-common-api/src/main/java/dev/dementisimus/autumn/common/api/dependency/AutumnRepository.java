@@ -1,21 +1,56 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.common.api.dependency;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 /**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
+ * Represents a repository
  *
- * Class AutumnRepository @ AutumnCommon
- *
- * @author dementisimus
- * @since 24.11.2021:18:58
+ * @since 1.0.0
  */
 public interface AutumnRepository {
 
-    String getName();
+    /**
+     * Gets the repository name
+     *
+     * @return the repository name
+     *
+     * @since 1.0.0
+     */
+    @Nullable String name();
 
-    void setName(String name);
+    /**
+     * Sets the repository name
+     *
+     * @param name repository name
+     *
+     * @since 1.0.0
+     */
+    void name(@NotNull String name);
 
-    String getURL();
+    /**
+     * Gets the repository URL
+     *
+     * @return the repository URL
+     *
+     * @since 1.0.0
+     */
+    @Nullable String url();
 
-    void setURL(String url);
+    /**
+     * Sets the repository URL
+     *
+     * @param url repository URL
+     *
+     * @since 1.0.0
+     */
+    void url(@NotNull String url);
 }

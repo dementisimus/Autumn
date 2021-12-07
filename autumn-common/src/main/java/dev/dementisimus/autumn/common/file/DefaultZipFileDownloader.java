@@ -1,3 +1,11 @@
+/*
+ | Copyright 2021 dementisimus,
+ | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ |
+ | To view a copy of this license,
+ | visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ */
+
 package dev.dementisimus.autumn.common.file;
 
 import dev.dementisimus.autumn.common.DefaultAutumn;
@@ -5,17 +13,10 @@ import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
 import dev.dementisimus.autumn.common.api.file.AutumnZipFileDownloader;
 import net.lingala.zip4j.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-/**
- * Copyright (c) by dementisimus,
- * licensed under Attribution-NonCommercial-NoDerivatives 4.0 International
- *
- * Class DefaultZipFileDownloader @ Autumn
- *
- * @author dementisimus
- * @since 04.12.2021:21:18
- */
+
 public class DefaultZipFileDownloader extends DefaultFileDownloader implements AutumnZipFileDownloader {
 
     private File extractTo;
@@ -25,7 +26,7 @@ public class DefaultZipFileDownloader extends DefaultFileDownloader implements A
     }
 
     @Override
-    public void downloadZip(String url, AutumnCallback<Boolean> booleanCallback) {
+    public void downloadZip(@NotNull String url, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
         super.download(url, file -> {
             if(!file.exists()) {
                 booleanCallback.done(false);
@@ -49,7 +50,7 @@ public class DefaultZipFileDownloader extends DefaultFileDownloader implements A
     }
 
     @Override
-    public void extractTo(File extractTo) {
+    public void extractTo(@NotNull File extractTo) {
         this.extractTo = extractTo;
     }
 }
