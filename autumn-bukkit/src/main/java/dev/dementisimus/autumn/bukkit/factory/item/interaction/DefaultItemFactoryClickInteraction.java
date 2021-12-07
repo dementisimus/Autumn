@@ -27,7 +27,7 @@ public class DefaultItemFactoryClickInteraction implements ItemFactoryClickInter
     public DefaultItemFactoryClickInteraction(ValidInventoryClickEvent validInventoryClickEvent, ItemFactory itemFactory) {
         this.validInventoryClickEvent = validInventoryClickEvent;
         this.itemFactory = itemFactory;
-        this.inventoryClickEvent = this.validInventoryClickEvent.getInventoryClickEvent();
+        this.inventoryClickEvent = this.validInventoryClickEvent.inventoryClickEvent();
     }
 
     @Override
