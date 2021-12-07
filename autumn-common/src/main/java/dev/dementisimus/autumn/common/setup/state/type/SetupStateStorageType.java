@@ -10,9 +10,9 @@ package dev.dementisimus.autumn.common.setup.state.type;
 
 import dev.dementisimus.autumn.common.api.storage.Storage;
 import dev.dementisimus.autumn.common.helper.StringHelper;
-import dev.dementisimus.autumn.common.setup.state.DefaultSetupState;
+import dev.dementisimus.autumn.common.setup.state.CustomSetupState;
 
-public class SetupStateStorageType extends DefaultSetupState {
+public class SetupStateStorageType extends CustomSetupState {
 
     public SetupStateStorageType(String name, String messageTranslationProperty, Storage.Type value) {
         super(name, messageTranslationProperty, value);

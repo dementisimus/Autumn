@@ -11,11 +11,13 @@ package dev.dementisimus.autumn.bukkit.factory.item;
 import com.google.common.base.Preconditions;
 import dev.dementisimus.autumn.bukkit.api.factory.item.ItemFactory;
 import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryClickInteraction;
+import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryInteraction;
 import dev.dementisimus.autumn.bukkit.api.factory.item.namespace.ItemFactoryNamespace;
 import dev.dementisimus.autumn.bukkit.api.i18n.AutumnBukkitTranslation;
 import dev.dementisimus.autumn.bukkit.factory.item.interaction.listener.ItemFactoryClickInteractionListener;
+import dev.dementisimus.autumn.bukkit.factory.item.interaction.listener.ItemFactoryInteractionListener;
 import dev.dementisimus.autumn.bukkit.helper.BukkitHelper;
-import dev.dementisimus.autumn.bukkit.i18n.DefaultAutumnBukkitTranslation;
+import dev.dementisimus.autumn.bukkit.i18n.CustomBukkitTranslation;
 import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
 import dev.dementisimus.autumn.common.api.i18n.AutumnTranslationReplacement;
 import lombok.Getter;
@@ -26,6 +28,7 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.Action;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
@@ -44,22 +47,22 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-public class DefaultItemFactory implements ItemFactory {
+public class CustomItemFactory implements ItemFactory {
 
     @Getter private String itemId;
 
     private ItemStack itemStack;
     private ItemMeta itemMeta;
 
-    public DefaultItemFactory(ItemStack itemStack) {
+    public CustomItemFactory(ItemStack itemStack) {
         this.initialize(itemStack);
     }
 
-    public DefaultItemFactory(Material material) {
+    public CustomItemFactory(Material material) {
         this(new ItemStack(material));
     }
 
-    public DefaultItemFactory(String headID, AutumnCallback<ItemFactory> itemFactoryCallback) {
+    public CustomItemFactory(String headID, AutumnCallback<ItemFactory> itemFactoryCallback) {
         BukkitHelper.playerHeadByUrl(headID, playerHead -> {
             this.initialize(playerHead);
 
@@ -93,7 +96,7 @@ public class DefaultItemFactory implements ItemFactory {
 
     @Override
     public @NotNull ItemFactory displayName(@NotNull Player player, @NotNull String translationProperty, @NotNull AutumnTranslationReplacement... translationReplacements) {
-        AutumnBukkitTranslation translation = new DefaultAutumnBukkitTranslation(translationProperty);
+        AutumnBukkitTranslation translation = new CustomBukkitTranslation(translationProperty);
         translation.replacement(translationReplacements);
 
         return this.displayName(translation.get(player));
@@ -137,7 +140,7 @@ public class DefaultItemFactory implements ItemFactory {
 
     @Override
     public @NotNull ItemFactory lore(@NotNull Player player, @NotNull String translationProperty, @NotNull AutumnTranslationReplacement... translationReplacements) {
-        AutumnBukkitTranslation translation = new DefaultAutumnBukkitTranslation(translationProperty);
+        AutumnBukkitTranslation translation = new CustomBukkitTranslation(translationProperty);
         translation.replacement(translationReplacements);
 
         return this.lore(translation.get(player));
@@ -251,8 +254,19 @@ public class DefaultItemFactory implements ItemFactory {
     }
 
     @Override
-    public void onClick(@NotNull AutumnCallback<ItemFactoryClickInteraction> clickInteractionCallback) {
+    public void onClick(@NotNull AutumnCallback<@NotNull ItemFactoryClickInteraction> clickInteractionCallback) {
         ItemFactoryClickInteractionListener.REQUESTED_INTERACTIONS.put(this.itemId, clickInteractionCallback);
+    }
+
+    @Override
+    public void onInteract(@NotNull AutumnCallback<@NotNull ItemFactoryInteraction> interactionCallback) {
+        ItemFactoryInteractionListener.REQUESTED_INTERACTIONS.put(this.itemId, interactionCallback);
+    }
+
+    @Override
+    public void onInteract(@NotNull AutumnCallback<@NotNull ItemFactoryInteraction> interactionCallback, @NotNull Action... actions) {
+        this.onInteract(interactionCallback);
+        ItemFactoryInteractionListener.REQUESTED_INTERACTION_ACTIONS.put(this.itemId, actions);
     }
 
     @Override

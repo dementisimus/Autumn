@@ -29,18 +29,18 @@ import dev.dementisimus.autumn.common.api.setup.SetupManager;
 import dev.dementisimus.autumn.common.api.setup.state.SetupState;
 import dev.dementisimus.autumn.common.api.storage.Storage;
 import dev.dementisimus.autumn.common.api.storage.property.source.StorageSourceProperty;
-import dev.dementisimus.autumn.common.configuration.DefaultAutumnConfiguration;
-import dev.dementisimus.autumn.common.dependency.DefaultAutumnDependency;
-import dev.dementisimus.autumn.common.dependency.DefaultAutumnRepository;
-import dev.dementisimus.autumn.common.file.DefaultFileDownloader;
-import dev.dementisimus.autumn.common.file.DefaultZipFileDownloader;
-import dev.dementisimus.autumn.common.i18n.DefaultAutumnTranslation;
+import dev.dementisimus.autumn.common.configuration.CustomAutumnConfiguration;
+import dev.dementisimus.autumn.common.dependency.CustomAutumnDependency;
+import dev.dementisimus.autumn.common.dependency.CustomAutumnRepository;
+import dev.dementisimus.autumn.common.file.CustomFileDownloader;
+import dev.dementisimus.autumn.common.file.CustomZipFileDownloader;
+import dev.dementisimus.autumn.common.i18n.CustomAutumnTranslation;
 import dev.dementisimus.autumn.common.i18n.property.AutumnTranslationProperty;
-import dev.dementisimus.autumn.common.injection.DefaultAutumnInjector;
-import dev.dementisimus.autumn.common.setup.DefaultSetupManager;
+import dev.dementisimus.autumn.common.injection.CustomAutumnInjector;
+import dev.dementisimus.autumn.common.setup.CustomSetupManager;
 import dev.dementisimus.autumn.common.setup.state.MainSetupStates;
 import dev.dementisimus.autumn.common.setup.value.SetupValueManager;
-import dev.dementisimus.autumn.common.storage.DefaultStorage;
+import dev.dementisimus.autumn.common.storage.CustomStorage;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -49,19 +49,19 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 
-public abstract class DefaultAutumn implements Autumn {
+public abstract class CustomAutumn implements Autumn {
 
     @Getter(AccessLevel.PROTECTED) private final Object plugin;
     @Getter private final AutumnTaskExecutor taskExecutor;
     @Getter private final AutumnLogging logging;
-    @Getter private final DefaultFileDownloader fileDownloader;
+    @Getter private final CustomFileDownloader fileDownloader;
 
-    @Getter private DefaultAutumnInjector injector;
-    @Getter @Setter(AccessLevel.PROTECTED) private DefaultSetupManager setupManager;
-    @Getter private DefaultZipFileDownloader zipFileDownloader;
+    @Getter private CustomAutumnInjector injector;
+    @Getter @Setter(AccessLevel.PROTECTED) private CustomSetupManager setupManager;
+    @Getter private CustomZipFileDownloader zipFileDownloader;
 
     @Getter private Storage.Type storageType;
-    @Getter private DefaultStorage storage;
+    @Getter private CustomStorage storage;
     @Getter private AutumnLanguage defaultLanguage = AutumnLanguage.ENGLISH;
     @Getter(AccessLevel.PROTECTED) @Setter(AccessLevel.PROTECTED) private ClassLoader autumnClassLoader;
     @Getter(AccessLevel.PROTECTED) @Setter(AccessLevel.PROTECTED) private ClassLoader pluginClassLoader;
@@ -78,7 +78,7 @@ public abstract class DefaultAutumn implements Autumn {
     private boolean optionalCommands;
     private boolean optionalListeners;
 
-    public DefaultAutumn(Object plugin, AutumnTaskExecutor taskExecutor, AutumnLogging logging) {
+    public CustomAutumn(Object plugin, AutumnTaskExecutor taskExecutor, AutumnLogging logging) {
         Preconditions.checkNotNull(plugin, "Plugin may not be null!");
         Preconditions.checkNotNull(taskExecutor, "TaskExecutor may not be null!");
         Preconditions.checkNotNull(logging, "Logging may not be null!");
@@ -89,9 +89,9 @@ public abstract class DefaultAutumn implements Autumn {
 
         this.initializePluginDetails(plugin);
 
-        this.fileDownloader = new DefaultFileDownloader(this, this.pluginName);
+        this.fileDownloader = new CustomFileDownloader(this, this.pluginName);
 
-        AutumnTranslationProperty.scan(DefaultAutumn.class, "Autumn");
+        AutumnTranslationProperty.scan(CustomAutumn.class, "Autumn");
         AutumnTranslationProperty.scan(plugin.getClass(), this.pluginName);
     }
 
@@ -103,7 +103,7 @@ public abstract class DefaultAutumn implements Autumn {
 
     protected abstract boolean isLoadedPlugin(String plugin);
 
-    protected abstract DefaultAutumnInjector getAutumnInjector(Object pluginObject);
+    protected abstract CustomAutumnInjector getAutumnInjector(Object pluginObject);
 
     @Override
     public void defaultSetupStates() {
@@ -129,7 +129,7 @@ public abstract class DefaultAutumn implements Autumn {
         this.initializationCallback = initializationCallback;
 
         this.downloadDependencies(() -> {
-            this.zipFileDownloader = new DefaultZipFileDownloader(this, this.pluginName);
+            this.zipFileDownloader = new CustomZipFileDownloader(this, this.pluginName);
             this.injector = this.getAutumnInjector(this.plugin);
 
             this.injector.classLoaders(this.autumnClassLoader);
@@ -137,16 +137,16 @@ public abstract class DefaultAutumn implements Autumn {
 
             this.injector.registerModule(AutumnTaskExecutor.class, this.taskExecutor);
             this.injector.registerModule(AutumnLogging.class, this.logging);
-            this.injector.registerModule(DefaultAutumnInjector.class, this.injector);
+            this.injector.registerModule(CustomAutumnInjector.class, this.injector);
             this.injector.registerModule(AutumnLanguage.class, this.defaultLanguage);
-            this.injector.registerModule(DefaultSetupManager.class, this.setupManager);
+            this.injector.registerModule(CustomSetupManager.class, this.setupManager);
             this.injector.registerModule(Storage.class, this.storage);
 
             this.injector.annotation(AutumnSetupListener.class);
             this.injector.scan();
 
             if(this.configurationFile != null) {
-                AutumnConfiguration configuration = new DefaultAutumnConfiguration(this.configurationFile);
+                AutumnConfiguration configuration = new CustomAutumnConfiguration(this.configurationFile);
                 Document document = configuration.read();
 
                 if(document != null && document.keys() != null && !document.keys().isEmpty()) {
@@ -161,7 +161,7 @@ public abstract class DefaultAutumn implements Autumn {
 
     @Override
     public void useStorage(@NotNull StorageSourceProperty... storageSourceProperties) {
-        this.storage = new DefaultStorage(this);
+        this.storage = new CustomStorage(this);
 
         for(StorageSourceProperty storageSourceProperty : storageSourceProperties) {
             this.storage.generateStorageSourceProperty(storageSourceProperty);
@@ -227,14 +227,14 @@ public abstract class DefaultAutumn implements Autumn {
             this.storage.setType(this.storageType);
 
             this.storage.connect(connected -> {
-                AutumnTranslation translation = new DefaultAutumnTranslation(this.storage.getStorageType().readyTranslationProperty());
+                AutumnTranslation translation = new CustomAutumnTranslation(this.storage.getStorageType().readyTranslationProperty());
                 translation.replacement("plugin", this.pluginName);
 
                 this.logging.info(translation.get(this.getDefaultLanguage()));
             });
         }
 
-        AutumnTranslation translation = new DefaultAutumnTranslation("autumn.plugin.initialized");
+        AutumnTranslation translation = new CustomAutumnTranslation("autumn.plugin.initialized");
         translation.replacement("plugin", this.pluginName);
         translation.replacement("version", this.pluginVersion);
 
@@ -265,11 +265,11 @@ public abstract class DefaultAutumn implements Autumn {
     }
 
     private void downloadDependencies(AutumnEmptyCallback emptyCallback) {
-        AutumnRepository autumnRepository = new DefaultAutumnRepository();
+        AutumnRepository autumnRepository = new CustomAutumnRepository();
         autumnRepository.name("dementisimus.dev");
         autumnRepository.url("https://repo.dementisimus.dev/release/");
 
-        AutumnDependency autumnDependency = new DefaultAutumnDependency();
+        AutumnDependency autumnDependency = new CustomAutumnDependency();
 
         autumnDependency.repository(autumnRepository);
         autumnDependency.groupId("dev.dementisimus.autumn");

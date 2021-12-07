@@ -19,7 +19,7 @@ import dev.dementisimus.autumn.common.api.storage.property.StorageUpdateProperty
 import dev.dementisimus.autumn.common.api.storage.property.source.StorageSourceProperty;
 import dev.dementisimus.autumn.common.api.storage.type.StorageType;
 import dev.dementisimus.autumn.common.setup.state.MainSetupStates;
-import dev.dementisimus.autumn.common.storage.DefaultStorage;
+import dev.dementisimus.autumn.common.storage.CustomStorage;
 import lombok.SneakyThrows;
 import org.bson.Document;
 import org.jetbrains.annotations.NotNull;
@@ -36,7 +36,7 @@ public class MariaStorage implements StorageType {
     private final HikariDataSource hikariDataSource;
     private final Storage.Type storageType;
 
-    public MariaStorage(DefaultStorage storage) {
+    public MariaStorage(CustomStorage storage) {
         this.storageType = storage.getType();
 
         String driver = this.storageType.equals(Storage.Type.MARIADB) ? "com.mysql.cj.jdbc.Driver" : "org.sqlite.JDBC";

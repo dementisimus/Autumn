@@ -17,7 +17,7 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * The event fired when a click has been issued on an item factory item
+ * Represents an item factory item click interaction
  *
  * @since 1.0.0
  */

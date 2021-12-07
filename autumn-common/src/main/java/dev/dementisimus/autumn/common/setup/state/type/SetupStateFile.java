@@ -8,11 +8,11 @@
 
 package dev.dementisimus.autumn.common.setup.state.type;
 
-import dev.dementisimus.autumn.common.setup.state.DefaultSetupState;
+import dev.dementisimus.autumn.common.setup.state.CustomSetupState;
 
 import java.io.File;
 
-public class SetupStateFile extends DefaultSetupState {
+public class SetupStateFile extends CustomSetupState {
 
     public SetupStateFile(String name, String messageTranslationProperty, File value) {
         super(name, messageTranslationProperty, value);

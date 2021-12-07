@@ -17,7 +17,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-public class DefaultAutumnExecutor implements AutumnExecutor {
+public class CustomAutumnExecutor implements AutumnExecutor {
 
     private static final ScheduledExecutorService SCHEDULED_EXECUTOR_SERVICE = Executors.newScheduledThreadPool(3);
 
@@ -27,7 +27,7 @@ public class DefaultAutumnExecutor implements AutumnExecutor {
 
     private ScheduledFuture<?> scheduledFuture;
 
-    public DefaultAutumnExecutor(long delay, TimeUnit timeUnit, AutumnCallback<AutumnExecutor> executorCallback) {
+    public CustomAutumnExecutor(long delay, TimeUnit timeUnit, AutumnCallback<AutumnExecutor> executorCallback) {
         this.initialDelay = -1;
         this.delay = delay;
         this.timeUnit = timeUnit;
@@ -35,7 +35,7 @@ public class DefaultAutumnExecutor implements AutumnExecutor {
         executorCallback.done(this);
     }
 
-    public DefaultAutumnExecutor(long initialDelay, long delay, TimeUnit timeUnit, AutumnCallback<AutumnExecutor> executorCallback) {
+    public CustomAutumnExecutor(long initialDelay, long delay, TimeUnit timeUnit, AutumnCallback<AutumnExecutor> executorCallback) {
         this.initialDelay = initialDelay;
         this.delay = delay;
         this.timeUnit = timeUnit;

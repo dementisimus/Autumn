@@ -12,7 +12,7 @@ import dev.dementisimus.autumn.common.api.dependency.AutumnRepository;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class DefaultAutumnRepository implements AutumnRepository {
+public class CustomAutumnRepository implements AutumnRepository {
 
     private String name;
     private String url;

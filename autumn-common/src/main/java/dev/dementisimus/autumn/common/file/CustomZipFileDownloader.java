@@ -8,7 +8,7 @@
 
 package dev.dementisimus.autumn.common.file;
 
-import dev.dementisimus.autumn.common.DefaultAutumn;
+import dev.dementisimus.autumn.common.CustomAutumn;
 import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
 import dev.dementisimus.autumn.common.api.file.AutumnZipFileDownloader;
 import net.lingala.zip4j.ZipFile;
@@ -17,11 +17,11 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 
-public class DefaultZipFileDownloader extends DefaultFileDownloader implements AutumnZipFileDownloader {
+public class CustomZipFileDownloader extends CustomFileDownloader implements AutumnZipFileDownloader {
 
     private File extractTo;
 
-    public DefaultZipFileDownloader(DefaultAutumn autumn, String pluginName) {
+    public CustomZipFileDownloader(CustomAutumn autumn, String pluginName) {
         super(autumn, pluginName);
     }
 

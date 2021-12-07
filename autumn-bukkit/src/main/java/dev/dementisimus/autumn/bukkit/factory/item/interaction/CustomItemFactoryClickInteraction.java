@@ -18,13 +18,13 @@ import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-public class DefaultItemFactoryClickInteraction implements ItemFactoryClickInteraction {
+public class CustomItemFactoryClickInteraction implements ItemFactoryClickInteraction {
 
     private final ValidInventoryClickEvent validInventoryClickEvent;
     private final InventoryClickEvent inventoryClickEvent;
     private final ItemFactory itemFactory;
 
-    public DefaultItemFactoryClickInteraction(ValidInventoryClickEvent validInventoryClickEvent, ItemFactory itemFactory) {
+    public CustomItemFactoryClickInteraction(ValidInventoryClickEvent validInventoryClickEvent, ItemFactory itemFactory) {
         this.validInventoryClickEvent = validInventoryClickEvent;
         this.itemFactory = itemFactory;
         this.inventoryClickEvent = this.validInventoryClickEvent.inventoryClickEvent();

@@ -12,8 +12,8 @@ import com.google.common.base.Preconditions;
 import dev.dementisimus.autumn.bukkit.api.factory.inventory.InventoryFactory;
 import dev.dementisimus.autumn.bukkit.api.factory.item.ItemFactory;
 import dev.dementisimus.autumn.bukkit.api.i18n.AutumnBukkitTranslation;
-import dev.dementisimus.autumn.bukkit.factory.item.DefaultItemFactory;
-import dev.dementisimus.autumn.bukkit.i18n.DefaultAutumnBukkitTranslation;
+import dev.dementisimus.autumn.bukkit.factory.item.CustomItemFactory;
+import dev.dementisimus.autumn.bukkit.i18n.CustomBukkitTranslation;
 import dev.dementisimus.autumn.common.api.i18n.AutumnTranslationReplacement;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -24,30 +24,30 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class DefaultInventoryFactory implements InventoryFactory {
+public class CustomInventoryFactory implements InventoryFactory {
 
     private final Inventory inventory;
 
-    public DefaultInventoryFactory(int rows, String title) {
+    public CustomInventoryFactory(int rows, String title) {
         this.checkRowArgument(rows);
 
         this.inventory = Bukkit.createInventory(null, rows * 9, title);
     }
 
-    public DefaultInventoryFactory(int rows, Player player, String translationProperty, AutumnTranslationReplacement... replacements) {
+    public CustomInventoryFactory(int rows, Player player, String translationProperty, AutumnTranslationReplacement... replacements) {
         this.checkRowArgument(rows);
 
-        AutumnBukkitTranslation bukkitTranslation = new DefaultAutumnBukkitTranslation(translationProperty);
+        AutumnBukkitTranslation bukkitTranslation = new CustomBukkitTranslation(translationProperty);
         bukkitTranslation.replacement(replacements);
 
         this.inventory = Bukkit.createInventory(null, rows * 9, bukkitTranslation.get(player));
     }
 
-    public DefaultInventoryFactory(InventoryType inventoryType) {
+    public CustomInventoryFactory(InventoryType inventoryType) {
         this.inventory = Bukkit.createInventory(null, inventoryType);
     }
 
-    public DefaultInventoryFactory(InventoryType inventoryType, String title) {
+    public CustomInventoryFactory(InventoryType inventoryType, String title) {
         this.inventory = Bukkit.createInventory(null, inventoryType, title);
     }
 
@@ -76,7 +76,7 @@ public class DefaultInventoryFactory implements InventoryFactory {
 
     @Override
     public @NotNull InventoryFactory placeholder(@NotNull Material placeholder) {
-        ItemStack placeholderItemStack = new DefaultItemFactory(placeholder).displayName(PLACEHOLDER).create();
+        ItemStack placeholderItemStack = new CustomItemFactory(placeholder).displayName(PLACEHOLDER).create();
 
         for(int slot = 0; slot < this.inventory.getSize(); slot++) {
             this.item(slot, placeholderItemStack);
@@ -87,7 +87,7 @@ public class DefaultInventoryFactory implements InventoryFactory {
 
     @Override
     public @NotNull InventoryFactory placeholder(@NotNull Material placeholder, int... slots) {
-        ItemStack placeholderItemStack = new DefaultItemFactory(placeholder).displayName(PLACEHOLDER).create();
+        ItemStack placeholderItemStack = new CustomItemFactory(placeholder).displayName(PLACEHOLDER).create();
 
         for(int slot : slots) {
             this.item(slot, placeholderItemStack);

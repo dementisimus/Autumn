@@ -8,12 +8,12 @@
 
 package dev.dementisimus.autumn.common.setup.value;
 
-import dev.dementisimus.autumn.common.DefaultAutumn;
+import dev.dementisimus.autumn.common.CustomAutumn;
 import dev.dementisimus.autumn.common.api.i18n.AutumnLanguage;
 import dev.dementisimus.autumn.common.api.setup.event.ValidateCurrentExtraSetupStateEvent;
 import dev.dementisimus.autumn.common.api.setup.state.SetupState;
 import dev.dementisimus.autumn.common.api.storage.Storage;
-import dev.dementisimus.autumn.common.setup.DefaultSetupManager;
+import dev.dementisimus.autumn.common.setup.CustomSetupManager;
 import dev.dementisimus.autumn.common.setup.state.MainSetupStates;
 import dev.dementisimus.autumn.common.setup.state.type.SetupStateBoolean;
 import dev.dementisimus.autumn.common.setup.state.type.SetupStateFile;
@@ -23,10 +23,10 @@ import dev.dementisimus.autumn.common.setup.state.type.SetupStateStorageType;
 
 public abstract class SetupValueManager {
 
-    protected final DefaultAutumn autumn;
-    protected final DefaultSetupManager setupManager;
+    protected final CustomAutumn autumn;
+    protected final CustomSetupManager setupManager;
 
-    public SetupValueManager(DefaultAutumn autumn, DefaultSetupManager setupManager) {
+    public SetupValueManager(CustomAutumn autumn, CustomSetupManager setupManager) {
         this.autumn = autumn;
         this.setupManager = setupManager;
     }

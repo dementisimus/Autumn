@@ -10,7 +10,7 @@ package dev.dementisimus.autumn.bukkit.input;
 
 import dev.dementisimus.autumn.bukkit.api.i18n.AutumnBukkitTranslation;
 import dev.dementisimus.autumn.bukkit.api.input.UserTextInput;
-import dev.dementisimus.autumn.bukkit.i18n.DefaultAutumnBukkitTranslation;
+import dev.dementisimus.autumn.bukkit.i18n.CustomBukkitTranslation;
 import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DefaultUserTextInput implements UserTextInput {
+public class CustomUserTextInput implements UserTextInput {
 
     public static final Map<Player, AutumnCallback<String>> TEXT_INPUT_REQUESTS = new HashMap<>();
 
@@ -46,7 +46,7 @@ public class DefaultUserTextInput implements UserTextInput {
     public void fetch(@NotNull AutumnCallback<String> stringCallback) {
         this.player.closeInventory();
 
-        AutumnBukkitTranslation autumnTranslation = new DefaultAutumnBukkitTranslation(this.translationProperty);
+        AutumnBukkitTranslation autumnTranslation = new CustomBukkitTranslation(this.translationProperty);
         autumnTranslation.replacement("prefix", this.prefix);
 
         this.player.sendMessage(autumnTranslation.get(this.player));

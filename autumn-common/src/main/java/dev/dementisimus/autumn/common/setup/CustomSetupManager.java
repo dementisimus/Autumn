@@ -9,7 +9,7 @@
 package dev.dementisimus.autumn.common.setup;
 
 import com.github.derrop.documents.Document;
-import dev.dementisimus.autumn.common.DefaultAutumn;
+import dev.dementisimus.autumn.common.CustomAutumn;
 import dev.dementisimus.autumn.common.api.configuration.AutumnConfiguration;
 import dev.dementisimus.autumn.common.api.i18n.AutumnLanguage;
 import dev.dementisimus.autumn.common.api.i18n.AutumnTranslation;
@@ -20,9 +20,9 @@ import dev.dementisimus.autumn.common.api.setup.event.SerializeSetupStateEvent;
 import dev.dementisimus.autumn.common.api.setup.event.ValidateCurrentExtraSetupStateEvent;
 import dev.dementisimus.autumn.common.api.setup.state.SetupState;
 import dev.dementisimus.autumn.common.api.storage.Storage;
-import dev.dementisimus.autumn.common.configuration.DefaultAutumnConfiguration;
-import dev.dementisimus.autumn.common.executor.DefaultAutumnExecutor;
-import dev.dementisimus.autumn.common.i18n.DefaultAutumnTranslation;
+import dev.dementisimus.autumn.common.configuration.CustomAutumnConfiguration;
+import dev.dementisimus.autumn.common.executor.CustomAutumnExecutor;
+import dev.dementisimus.autumn.common.i18n.CustomAutumnTranslation;
 import dev.dementisimus.autumn.common.setup.state.type.*;
 import lombok.Getter;
 import lombok.SneakyThrows;
@@ -36,16 +36,16 @@ import java.util.concurrent.TimeUnit;
 
 import static dev.dementisimus.autumn.common.setup.state.MainSetupStates.*;
 
-public abstract class DefaultSetupManager implements SetupManager {
+public abstract class CustomSetupManager implements SetupManager {
 
     private final List<SetupState> mainSetupStates = new ArrayList<>();
     private final List<SetupState> extraSetupStates = new ArrayList<>();
-    private final DefaultAutumn autumn;
+    private final CustomAutumn autumn;
 
     @Getter boolean completed;
     @Getter private SetupState currentSetupState;
 
-    public DefaultSetupManager(DefaultAutumn autumn) {
+    public CustomSetupManager(CustomAutumn autumn) {
         this.autumn = autumn;
     }
 
@@ -84,7 +84,7 @@ public abstract class DefaultSetupManager implements SetupManager {
 
     @Override
     public void printSetupStateInstructions(@NotNull SetupState setupState) {
-        AutumnTranslation translation = new DefaultAutumnTranslation(setupState.messageTranslationProperty());
+        AutumnTranslation translation = new CustomAutumnTranslation(setupState.messageTranslationProperty());
         translation.replacement("plugin", this.autumn.getPluginName());
 
         this.autumn.getLogging().info(translation.get(this.autumn.getDefaultLanguage()));
@@ -153,7 +153,7 @@ public abstract class DefaultSetupManager implements SetupManager {
 
         this.completed = false;
 
-        new DefaultAutumnExecutor(1500, 1500, TimeUnit.MILLISECONDS, executor -> executor.scheduleWithFixedDelay(() -> {
+        new CustomAutumnExecutor(1500, 1500, TimeUnit.MILLISECONDS, executor -> executor.scheduleWithFixedDelay(() -> {
             if(!this.mainSetupStates.get(0).equals(CONSOLE_LANGUAGE)) {
                 this.mainSetupStates.set(0, CONSOLE_LANGUAGE);
             }
@@ -175,7 +175,7 @@ public abstract class DefaultSetupManager implements SetupManager {
         List<SetupState> setupStates = new ArrayList<>(this.mainSetupStates);
         setupStates.addAll(this.extraSetupStates);
 
-        AutumnConfiguration configuration = new DefaultAutumnConfiguration(configFile);
+        AutumnConfiguration configuration = new CustomAutumnConfiguration(configFile);
 
         if(postSetup) {
             AutumnTranslation translation = this.getSetupTranslation("autumn.setup.complete");
@@ -245,7 +245,7 @@ public abstract class DefaultSetupManager implements SetupManager {
 
                             setupState.value(value);
                         }else {
-                            AutumnTranslation translation = new DefaultAutumnTranslation("autumn.setup.config.not.complete");
+                            AutumnTranslation translation = new CustomAutumnTranslation("autumn.setup.config.not.complete");
 
                             this.autumn.getLogging().warning(translation.get(this.autumn.getDefaultLanguage()));
                             this.autumn.getConfigurationFile().delete();
@@ -272,7 +272,7 @@ public abstract class DefaultSetupManager implements SetupManager {
     }
 
     private AutumnTranslation getSetupTranslation(String translationProperty) {
-        AutumnTranslation translation = new DefaultAutumnTranslation(translationProperty);
+        AutumnTranslation translation = new CustomAutumnTranslation(translationProperty);
         translation.replacement("plugin", this.autumn.getPluginName());
 
         return translation;

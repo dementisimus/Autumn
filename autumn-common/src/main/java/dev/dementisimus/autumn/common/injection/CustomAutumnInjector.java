@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public abstract class DefaultAutumnInjector implements AutumnInjector {
+public abstract class CustomAutumnInjector implements AutumnInjector {
 
     private static final Map<ClassLoader, List<Class<?>>> CLASSLOADER_CLASSES = new HashMap<>();
     private static final Map<Class<?>, GenericInjectionModule<?>> GENERIC_INJECTION_MODULES = new HashMap<>();

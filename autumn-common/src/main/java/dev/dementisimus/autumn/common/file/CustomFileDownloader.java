@@ -9,12 +9,12 @@
 package dev.dementisimus.autumn.common.file;
 
 import com.google.common.base.Preconditions;
-import dev.dementisimus.autumn.common.DefaultAutumn;
+import dev.dementisimus.autumn.common.CustomAutumn;
 import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
 import dev.dementisimus.autumn.common.api.dependency.AutumnDependency;
 import dev.dementisimus.autumn.common.api.file.AutumnFileDownloader;
 import dev.dementisimus.autumn.common.api.i18n.AutumnTranslation;
-import dev.dementisimus.autumn.common.i18n.DefaultAutumnTranslation;
+import dev.dementisimus.autumn.common.i18n.CustomAutumnTranslation;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -25,14 +25,14 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.file.Files;
 
-public class DefaultFileDownloader implements AutumnFileDownloader {
+public class CustomFileDownloader implements AutumnFileDownloader {
 
-    private final DefaultAutumn autumn;
+    private final CustomAutumn autumn;
     private final String pluginName;
 
     private File downloadTo;
 
-    public DefaultFileDownloader(DefaultAutumn autumn, String pluginName) {
+    public CustomFileDownloader(CustomAutumn autumn, String pluginName) {
         this.autumn = autumn;
         this.pluginName = pluginName;
     }
@@ -49,7 +49,7 @@ public class DefaultFileDownloader implements AutumnFileDownloader {
                 this.downloadTo.mkdir();
             }
 
-            AutumnTranslation translation = new DefaultAutumnTranslation("autumn.file.download.begin");
+            AutumnTranslation translation = new CustomAutumnTranslation("autumn.file.download.begin");
             translation.replacement("plugin", this.pluginName);
             translation.replacement("file", url.substring(url.lastIndexOf("/") + 1));
 

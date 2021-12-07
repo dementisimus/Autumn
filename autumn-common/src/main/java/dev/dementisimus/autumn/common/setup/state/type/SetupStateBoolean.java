@@ -9,9 +9,9 @@
 package dev.dementisimus.autumn.common.setup.state.type;
 
 import dev.dementisimus.autumn.common.helper.StringHelper;
-import dev.dementisimus.autumn.common.setup.state.DefaultSetupState;
+import dev.dementisimus.autumn.common.setup.state.CustomSetupState;
 
-public class SetupStateBoolean extends DefaultSetupState {
+public class SetupStateBoolean extends CustomSetupState {
 
     public SetupStateBoolean(String name, String messageTranslationProperty, boolean value) {
         super(name, messageTranslationProperty, value);

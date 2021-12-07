@@ -12,21 +12,21 @@ import com.github.derrop.documents.Document;
 import dev.dementisimus.autumn.common.api.configuration.AutumnConfiguration;
 import dev.dementisimus.autumn.common.api.setup.SetupManager;
 import dev.dementisimus.autumn.common.api.setup.state.SetupState;
-import dev.dementisimus.autumn.common.configuration.DefaultAutumnConfiguration;
+import dev.dementisimus.autumn.common.configuration.CustomAutumnConfiguration;
 import dev.dementisimus.autumn.common.helper.NumberHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 
-public class DefaultSetupState implements SetupState {
+public class CustomSetupState implements SetupState {
 
     private final String name;
     private final String messageTranslationProperty;
 
     private Object value;
 
-    public DefaultSetupState(String name, String messageTranslationProperty, Object value) {
+    public CustomSetupState(String name, String messageTranslationProperty, Object value) {
         this.name = name;
         this.messageTranslationProperty = messageTranslationProperty;
         this.value = value;
@@ -74,7 +74,7 @@ public class DefaultSetupState implements SetupState {
 
     @Override
     public boolean isPresentInConfigFile(@NotNull File configFile) {
-        AutumnConfiguration configuration = new DefaultAutumnConfiguration(configFile);
+        AutumnConfiguration configuration = new CustomAutumnConfiguration(configFile);
         Document document = configuration.read();
 
         return document != null && document.keys() != null && document.contains(this.name);
