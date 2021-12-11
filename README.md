@@ -1,15 +1,17 @@
 # Autumn [![main build status](https://github.com/dementisimus/Autumn/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/dementisimus/Autumn) [![develop build status](https://github.com/dementisimus/Autumn/actions/workflows/build.yml/badge.svg?branch=develop)](https://github.com/dementisimus/Autumn/tree/develop)
+
 ## _The Core._
 
 **Autumn** is the **core** of all **dev.dementisimus projects**!
 
 ## **Requirements**
 
-1. **Java 16**
+1. **Java 17**
 2. **Spigot 1.17.1** **([PaperMC] recommended)**
 3. **Access** to the **server console** (for the **automated setup**)
 
 ##### Maven
+
 ```xml
 <repository>
     <id>dementisimus-dev-release</id>
@@ -25,6 +27,7 @@
 ```
 
 ##### Gradle
+
 ```
 maven {
     name 'dementisimus-dev-release'
@@ -45,6 +48,7 @@ compileOnly group: 'dev.dementisimus', name: 'autumn-(module)-api', version: 'IN
 # **Happy app creating!**
 
 [planned features]: <https://github.com/dementisimus/Autumn/issues>
+
 [Discord-Server]: <https://discord.gg/sTRg8A7>
 
 [PaperMC]: <https://papermc.io/downloads>
