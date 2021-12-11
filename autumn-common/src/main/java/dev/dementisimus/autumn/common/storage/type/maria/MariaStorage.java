@@ -23,6 +23,7 @@ import dev.dementisimus.autumn.common.storage.CustomStorage;
 import lombok.SneakyThrows;
 import org.bson.Document;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -87,7 +88,7 @@ public class MariaStorage implements StorageType {
     }
 
     @Override
-    public void read(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageProperty storageProperty, @NotNull AutumnCallback<@NotNull Document> documentCallback) {
+    public void read(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageProperty storageProperty, @NotNull AutumnCallback<@Nullable Document> documentCallback) {
         Document document = new Document();
         List<String> fieldKeys = new ArrayList<>(storageSourceProperty.fields().keySet());
 

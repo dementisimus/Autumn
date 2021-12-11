@@ -8,12 +8,12 @@
 
 package dev.dementisimus.autumn.common.setup.state;
 
-import com.github.derrop.documents.Document;
 import dev.dementisimus.autumn.common.api.configuration.AutumnConfiguration;
 import dev.dementisimus.autumn.common.api.setup.SetupManager;
 import dev.dementisimus.autumn.common.api.setup.state.SetupState;
 import dev.dementisimus.autumn.common.configuration.CustomAutumnConfiguration;
 import dev.dementisimus.autumn.common.helper.NumberHelper;
+import org.bson.Document;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -77,7 +77,7 @@ public class CustomSetupState implements SetupState {
         AutumnConfiguration configuration = new CustomAutumnConfiguration(configFile);
         Document document = configuration.read();
 
-        return document != null && document.keys() != null && document.contains(this.name);
+        return document != null && !document.isEmpty() && document.containsKey(this.name);
     }
 
     @Override

@@ -91,7 +91,8 @@ public class CustomInfiniteInventoryFactory implements InfiniteInventoryFactory 
         }
 
         if(slot == stopAt && pageItems.size() == this.pageSize) {
-            if(this.replacedNextPageItem == null) this.replacedNextPageItem = this.inventoryFactory.itemAt(this.nextPageItemSlot);
+            if(this.replacedNextPageItem == null)
+                this.replacedNextPageItem = this.inventoryFactory.itemAt(this.nextPageItemSlot);
 
             this.setPageMovementItem(Material.LIME_DYE, this.nextPageItemSlot, this.createFor, "autumn.infinite.inventory.next.page", this.lastItemIndexPlaced + pageItems.size());
         }else {
@@ -100,7 +101,8 @@ public class CustomInfiniteInventoryFactory implements InfiniteInventoryFactory 
         }
 
         if(this.lastItemIndexPlaced > 0) {
-            if(this.replacedPreviousPageItem == null) this.replacedPreviousPageItem = this.inventoryFactory.itemAt(this.previousPageItemSlot);
+            if(this.replacedPreviousPageItem == null)
+                this.replacedPreviousPageItem = this.inventoryFactory.itemAt(this.previousPageItemSlot);
 
             this.setPageMovementItem(Material.RED_DYE, this.previousPageItemSlot, this.createFor, "autumn.infinite.inventory.previous.page", this.lastItemIndexPlaced - this.pageSize);
         }else {

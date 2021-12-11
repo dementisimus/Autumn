@@ -30,12 +30,6 @@
             <version>${mongodb.version}</version>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>com.github.derrop</groupId>
-            <artifactId>documents</artifactId>
-            <version>${documents.version}</version>
-            <scope>compile</scope>
-        </dependency>
 
         <dependency>
             <groupId>org.fusesource.jansi</groupId>
@@ -89,6 +83,12 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${commons-lang3.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-databind.version}</version>
             <scope>compile</scope>
         </dependency>
 

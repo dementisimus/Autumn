@@ -29,7 +29,6 @@
         <guice.version>5.0.1</guice.version>
         <lombok.version>1.18.22</lombok.version>
         <mongodb.version>4.4.0</mongodb.version>
-        <documents.version>1.1-RELEASE</documents.version>
 
         <!-- common/dependencies -->
         <jansi.version>2.4.0</jansi.version>
@@ -40,6 +39,7 @@
         <guava.version>31.0.1-jre</guava.version>
         <zip4j.version>2.9.1</zip4j.version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
+        <jackson-databind.version>2.13.0</jackson-databind.version>
 
         <!-- bukkit -->
         <spigot-api.version>1.17.1-R0.1-SNAPSHOT</spigot-api.version>
@@ -75,15 +75,15 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.derrop</groupId>
-            <artifactId>documents</artifactId>
-            <version>${documents.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${commons-lang3.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-databind.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

@@ -24,6 +24,7 @@ import dev.dementisimus.autumn.common.storage.type.mongo.subscriber.InsertSubscr
 import dev.dementisimus.autumn.common.storage.type.mongo.subscriber.UpdateSubscriber;
 import org.bson.Document;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +43,7 @@ public class MongoStorage implements StorageType {
     }
 
     @Override
-    public void read(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageProperty storageProperty, @NotNull AutumnCallback<@NotNull Document> documentCallback) {
+    public void read(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageProperty storageProperty, @NotNull AutumnCallback<@Nullable Document> documentCallback) {
         MongoCollection<Document> mongoCollection = this.getMongoCollection(storageSourceProperty);
 
         mongoCollection.find(storageProperty.filter()).first().subscribe(new DocumentSubscriber(documentCallback));

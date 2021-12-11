@@ -8,7 +8,6 @@
 
 package dev.dementisimus.autumn.common;
 
-import com.github.derrop.documents.Document;
 import com.google.common.base.Preconditions;
 import dev.dementisimus.autumn.common.api.Autumn;
 import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
@@ -44,6 +43,7 @@ import dev.dementisimus.autumn.common.storage.CustomStorage;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import org.bson.Document;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -149,7 +149,7 @@ public abstract class CustomAutumn implements Autumn {
                 AutumnConfiguration configuration = new CustomAutumnConfiguration(this.configurationFile);
                 Document document = configuration.read();
 
-                if(document != null && document.keys() != null && !document.keys().isEmpty()) {
+                if(document != null && !document.isEmpty()) {
                     this.setupManager.complete(false);
                     return;
                 }
@@ -164,10 +164,10 @@ public abstract class CustomAutumn implements Autumn {
         this.storage = new CustomStorage(this);
 
         for(StorageSourceProperty storageSourceProperty : storageSourceProperties) {
-            this.storage.generateStorageSourceProperty(storageSourceProperty);
+            this.storage.generateSourceProperty(storageSourceProperty);
         }
 
-        this.storage.generateStorageSourceProperty(AutumnLanguage.StorageSource.PROPERTY);
+        this.storage.generateSourceProperty(AutumnLanguage.StorageSource.PROPERTY);
     }
 
     @Override
@@ -274,7 +274,7 @@ public abstract class CustomAutumn implements Autumn {
         autumnDependency.repository(autumnRepository);
         autumnDependency.groupId("dev.dementisimus.autumn");
         autumnDependency.artifactId("autumn-dependencies");
-        autumnDependency.version("1.0.0");
+        autumnDependency.version("1.1.0");
 
         File dependenciesPluginFile = new File("plugins/" + autumnDependency.fileName());
         if(!this.isLoadedPlugin("Autumn-Dependencies")) {
