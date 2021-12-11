@@ -108,6 +108,8 @@ public class CustomStorage implements Storage {
                 if(this.useCache && !document.isEmpty()) {
                     StorageCache.set(this.getCacheKey(), document);
                 }
+
+                this.useCache = true;
                 documentCallback.done(document);
             });
         });
@@ -131,6 +133,8 @@ public class CustomStorage implements Storage {
                 if(this.useCache && !documents.isEmpty()) {
                     StorageCache.setList(listCacheKey, documents);
                 }
+
+                this.useCache = true;
                 listDocumentCallback.done(documents);
             });
         });
@@ -146,6 +150,8 @@ public class CustomStorage implements Storage {
                 if(this.useCache) {
                     StorageCache.invalidate(this.getCacheKey());
                 }
+
+                this.useCache = true;
                 booleanCallback.done(success);
             });
         });
@@ -161,6 +167,8 @@ public class CustomStorage implements Storage {
                 if(this.useCache) {
                     StorageCache.invalidate(this.getCacheKey());
                 }
+
+                this.useCache = true;
                 booleanCallback.done(success);
             });
         });
@@ -176,6 +184,8 @@ public class CustomStorage implements Storage {
                 if(this.useCache) {
                     StorageCache.invalidate(this.getCacheKey());
                 }
+
+                this.useCache = true;
                 booleanCallback.done(success);
             });
         });
