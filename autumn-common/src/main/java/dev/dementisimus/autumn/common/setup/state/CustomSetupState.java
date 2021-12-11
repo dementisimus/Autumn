@@ -33,7 +33,7 @@ public class CustomSetupState implements SetupState {
     }
 
     @Override
-    public @Nullable Object value() {
+    public Object value() {
         return this.value;
     }
 
@@ -77,7 +77,7 @@ public class CustomSetupState implements SetupState {
         AutumnConfiguration configuration = new CustomAutumnConfiguration(configFile);
         Document document = configuration.read();
 
-        return document != null && !document.isEmpty() && document.containsKey(this.name);
+        return !document.isEmpty() && document.containsKey(this.name);
     }
 
     @Override

@@ -12,7 +12,6 @@ import dev.dementisimus.autumn.common.api.i18n.AutumnTranslationReplacement;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,7 +26,7 @@ public class CustomTranslationReplacement implements AutumnTranslationReplacemen
     }
 
     @Override
-    public @Nullable String target() {
+    public String target() {
         return this.target;
     }
 
@@ -37,7 +36,7 @@ public class CustomTranslationReplacement implements AutumnTranslationReplacemen
     }
 
     @Override
-    public @Nullable String replacement() {
+    public String replacement() {
         return this.replacement;
     }
 

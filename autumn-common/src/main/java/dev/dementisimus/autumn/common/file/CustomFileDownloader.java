@@ -94,7 +94,7 @@ public class CustomFileDownloader implements AutumnFileDownloader {
     }
 
     @Override
-    public @Nullable File downloadTo() {
+    public File downloadTo() {
         return this.downloadTo;
     }
 

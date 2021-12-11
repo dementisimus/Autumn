@@ -9,7 +9,6 @@
 package dev.dementisimus.autumn.common.api.dependency;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents a dependency
@@ -25,7 +24,7 @@ public interface AutumnDependency {
      *
      * @since 1.0.0
      */
-    @Nullable AutumnRepository repository();
+    AutumnRepository repository();
 
     /**
      * Sets the {@link AutumnRepository} for the dependency
@@ -43,7 +42,7 @@ public interface AutumnDependency {
      *
      * @since 1.0.0
      */
-    @Nullable String groupId();
+    String groupId();
 
     /**
      * Sets the dependency group id
@@ -61,7 +60,7 @@ public interface AutumnDependency {
      *
      * @since 1.0.0
      */
-    @Nullable String artifactId();
+    String artifactId();
 
     /**
      * Sets the dependency artifact id
@@ -79,7 +78,7 @@ public interface AutumnDependency {
      *
      * @since 1.0.0
      */
-    @Nullable String version();
+    String version();
 
     /**
      * Sets the dependency version
@@ -98,7 +97,7 @@ public interface AutumnDependency {
      *
      * @since 1.0.0
      */
-    @Nullable String fileName();
+    String fileName();
 
     /**
      * Transforms the dependency and its repository into an URL

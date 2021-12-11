@@ -49,7 +49,7 @@ public interface AutumnFileDownloader {
      *
      * @since 1.0.0
      */
-    @Nullable File downloadTo();
+    File downloadTo();
 
     /**
      * Sets the location where the downloaded file will be saved to
