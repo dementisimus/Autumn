@@ -37,8 +37,8 @@ public class PlayerLanguage {
 
     public static void set(Storage storage, UUID uuid, Locale locale) {
         if(storage != null) {
-            storage.storageSourceProperty(AutumnLanguage.StorageSource.PROPERTY);
-            storage.storageProperty(AutumnStorageProperty.of(AutumnLanguage.StorageSource.USER, uuid.toString()));
+            storage.sourceProperty(AutumnLanguage.StorageSource.PROPERTY);
+            storage.property(AutumnStorageProperty.of(AutumnLanguage.StorageSource.USER, uuid.toString()));
 
             storage.read(document -> {
                 if(document != null) {

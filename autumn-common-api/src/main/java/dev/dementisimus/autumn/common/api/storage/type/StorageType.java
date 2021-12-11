@@ -14,6 +14,7 @@ import dev.dementisimus.autumn.common.api.storage.property.StorageUpdateProperty
 import dev.dementisimus.autumn.common.api.storage.property.source.StorageSourceProperty;
 import org.bson.Document;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -33,7 +34,7 @@ public interface StorageType {
      *
      * @since 1.0.0
      */
-    void read(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageProperty storageProperty, @NotNull AutumnCallback<@NotNull Document> documentCallback);
+    void read(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageProperty storageProperty, @NotNull AutumnCallback<@Nullable Document> documentCallback);
 
     /**
      * Lists all storage entries
@@ -60,7 +61,8 @@ public interface StorageType {
      * Updates an already existing field in the storage
      *
      * @param storageSourceProperty storage source property
-     * @param storageUpdateProperty {@link StorageUpdateProperty} used for holding the keys + values for finding the to be updated field
+     * @param storageUpdateProperty {@link StorageUpdateProperty} used for holding the keys + values for finding the to
+     * be updated field
      * and a fieldName + fieldValue
      * @param booleanCallback A callback with value=true if the update operation was successful, false otherwise
      *
@@ -84,7 +86,8 @@ public interface StorageType {
      *
      * @param storageSourceProperty storage source property
      * @param storageProperty fieldName + fieldValue as {@link StorageProperty}
-     * @param booleanCallback A callback with value=true if an entry with fieldName + fieldValue as {@link StorageProperty} exists, false otherwise
+     * @param booleanCallback A callback with value=true if an entry with fieldName + fieldValue as {@link
+     * StorageProperty} exists, false otherwise
      *
      * @since 1.0.0
      */

@@ -8,13 +8,12 @@
 
 package dev.dementisimus.autumn.common.configuration;
 
-import com.github.derrop.documents.Document;
-import com.github.derrop.documents.Documents;
-import com.github.derrop.documents.storage.DocumentStorage;
-import com.github.derrop.documents.storage.JsonDocumentStorage;
-import com.github.derrop.documents.storage.YamlDocumentStorage;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
 import dev.dementisimus.autumn.common.api.configuration.AutumnConfiguration;
+import lombok.SneakyThrows;
+import org.bson.Document;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -25,45 +24,47 @@ import java.util.Properties;
 public class CustomAutumnConfiguration implements AutumnConfiguration {
 
     private final File file;
+    private final ObjectMapper objectMapper;
 
-    private DocumentStorage documentStorage;
-    private Document document;
+    private Document document = new Document();
 
-    private CustomAutumnConfiguration(File file, DocumentStorage documentStorage) {
+    @SneakyThrows
+    public CustomAutumnConfiguration(File file) {
         this.file = file;
+        this.objectMapper = new ObjectMapper();
 
-        this.setDocumentStorage(documentStorage);
+        if(this.file.exists()) {
+            this.document = this.objectMapper.readValue(this.file, Document.class);
+        }
     }
 
     public CustomAutumnConfiguration(String pathname) {
-        this(new File(pathname), Documents.jsonStorage());
+        this(new File(pathname));
     }
 
     public CustomAutumnConfiguration(String parent, String child) {
-        this(new File(parent, child), Documents.jsonStorage());
-    }
-
-    public CustomAutumnConfiguration(File file) {
-        this(file, Documents.jsonStorage());
+        this(new File(parent, child));
     }
 
     public CustomAutumnConfiguration(File parent, String child) {
-        this(new File(parent, child), Documents.jsonStorage());
+        this(new File(parent, child));
     }
 
     public CustomAutumnConfiguration(URI uri) {
-        this(new File(uri), Documents.jsonStorage());
-    }
-
-    @Override
-    public @NotNull CustomAutumnConfiguration enableYaml() {
-        this.setDocumentStorage(Documents.yamlStorage());
-        return this;
+        this(new File(uri));
     }
 
     @Override
     public @NotNull AutumnConfiguration set(@NotNull String key, @NotNull Object object) {
         this.document.append(key, object);
+        return this;
+    }
+
+    @Override
+    public @NotNull AutumnConfiguration set(@NotNull Document document) {
+        for(String key : document.keySet()) {
+            this.document.append(key, document.get(key));
+        }
         return this;
     }
 
@@ -103,9 +104,11 @@ public class CustomAutumnConfiguration implements AutumnConfiguration {
         return this;
     }
 
+    @SneakyThrows
     @Override
     public void write() {
-        this.documentStorage.write(this.document, this.file);
+        ObjectWriter objectWriter = this.objectMapper.writerWithDefaultPrettyPrinter();
+        objectWriter.writeValue(this.file, this.document);
     }
 
     @Override
@@ -116,21 +119,5 @@ public class CustomAutumnConfiguration implements AutumnConfiguration {
     @Override
     public void read(@NotNull AutumnCallback<@Nullable Document> callback) {
         callback.done(this.read());
-    }
-
-    private void setDocumentStorage(DocumentStorage documentStorage) {
-        this.documentStorage = documentStorage;
-
-        if(this.file.exists()) {
-            if(this.documentStorage instanceof JsonDocumentStorage jsonDocumentStorage) {
-                this.document = jsonDocumentStorage.read(this.file);
-                return;
-            }else if(this.documentStorage instanceof YamlDocumentStorage yamlDocumentStorage) {
-                this.document = yamlDocumentStorage.read(this.file);
-                return;
-            }
-        }
-
-        this.document = Documents.newDocument();
     }
 }

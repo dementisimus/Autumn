@@ -75,19 +75,27 @@ public class QuadrupleMap<A, B, C, D> {
         if(this.a != null) {
             if(p.getFirst() == null) return false;
             if(!this.a.equals(p.getFirst())) return false;
-        }else {if(p.getFirst() != null) return false;}
+        }else {
+            if(p.getFirst() != null) return false;
+        }
         if(this.b != null) {
             if(p.getSecond() == null) return false;
             if(!this.b.equals(p.getSecond())) return false;
-        }else {if(p.getSecond() != null) return false;}
+        }else {
+            if(p.getSecond() != null) return false;
+        }
         if(this.c != null) {
             if(p.getThird() == null) return false;
             if(!this.c.equals(p.getThird())) return false;
-        }else {if(p.getThird() != null) return false;}
+        }else {
+            if(p.getThird() != null) return false;
+        }
         if(this.d != null) {
             if(p.getFourth() == null) return false;
             return this.d.equals(p.getFourth());
-        }else {return p.getFourth() == null;}
+        }else {
+            return p.getFourth() == null;
+        }
     }
 
     /**

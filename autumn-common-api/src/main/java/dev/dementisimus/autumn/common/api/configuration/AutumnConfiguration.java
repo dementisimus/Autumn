@@ -8,28 +8,19 @@
 
 package dev.dementisimus.autumn.common.api.configuration;
 
-import com.github.derrop.documents.Document;
 import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
+import org.bson.Document;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Properties;
 
 /**
- * Used for JSON/YAML file storage
+ * Used for JSON file storage
  *
  * @since 1.0.0
  */
 public interface AutumnConfiguration {
-
-    /**
-     * Enables YAML file-storage mode
-     *
-     * @return configuration object
-     *
-     * @since 1.0.0
-     */
-    @NotNull AutumnConfiguration enableYaml();
 
     /**
      * Sets key and its Object value
@@ -42,6 +33,17 @@ public interface AutumnConfiguration {
      * @since 1.0.0
      */
     @NotNull AutumnConfiguration set(@NotNull String key, @NotNull Object object);
+
+    /**
+     * Sets {@link Document}
+     *
+     * @param document {@link Document} with all keys & values
+     *
+     * @return configuration object
+     *
+     * @since 1.1.0
+     */
+    @NotNull AutumnConfiguration set(@NotNull Document document);
 
     /**
      * Sets key and its Number value

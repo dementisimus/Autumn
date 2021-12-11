@@ -19,7 +19,7 @@ public class SetupStateStorageType extends CustomSetupState {
     }
 
     public SetupStateStorageType(String name, String messageTranslationProperty) {
-        super(name, messageTranslationProperty, Storage.Type.MONGODB);
+        super(name, messageTranslationProperty, Storage.Type.FILESYSTEM);
     }
 
     public static Storage.Type transform(String string) {

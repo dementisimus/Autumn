@@ -8,7 +8,6 @@
 
 package dev.dementisimus.autumn.common.setup;
 
-import com.github.derrop.documents.Document;
 import dev.dementisimus.autumn.common.CustomAutumn;
 import dev.dementisimus.autumn.common.api.configuration.AutumnConfiguration;
 import dev.dementisimus.autumn.common.api.i18n.AutumnLanguage;
@@ -26,6 +25,7 @@ import dev.dementisimus.autumn.common.i18n.CustomAutumnTranslation;
 import dev.dementisimus.autumn.common.setup.state.type.*;
 import lombok.Getter;
 import lombok.SneakyThrows;
+import org.bson.Document;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -113,10 +113,11 @@ public abstract class CustomSetupManager implements SetupManager {
                         case MONGODB -> nextSetupState = MONGODB_URI;
                         case MARIADB -> nextSetupState = MARIADB_HOST;
                         case SQLITE -> nextSetupState = SQLITE_FILE_PATH;
+                        case FILESYSTEM -> nextSetupState = FILE_SYSTEM_STORAGE_DIRECTORY;
                     }
                 }else if(this.currentSetupState.equals(MONGODB_URI)) {
                     nextSetupState = DATABASE;
-                }else if(this.currentSetupState.equals(DATABASE) || this.currentSetupState.equals(SQLITE_FILE_PATH)) {
+                }else if(this.currentSetupState.equals(DATABASE) || this.currentSetupState.equals(SQLITE_FILE_PATH) || this.currentSetupState.equals(FILE_SYSTEM_STORAGE_DIRECTORY)) {
                     if(!this.extraSetupStates.isEmpty()) {
                         nextSetupState = this.extraSetupStates.get(0);
                     }else {
@@ -214,9 +215,9 @@ public abstract class CustomSetupManager implements SetupManager {
             if(configFile.exists()) {
                 Document document = configuration.read();
 
-                if(document != null && document.keys() != null && !document.keys().isEmpty()) {
+                if(document != null && !document.isEmpty()) {
                     for(SetupState setupState : setupStates) {
-                        if(document.contains(setupState.name())) {
+                        if(document.containsKey(setupState.name())) {
 
                             Object value = document.get(setupState.name(), Object.class);
 

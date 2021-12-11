@@ -8,8 +8,8 @@
 
 package dev.dementisimus.autumn.common.api.setup.event;
 
-import com.github.derrop.documents.Document;
 import dev.dementisimus.autumn.common.api.setup.state.SetupState;
+import org.bson.Document;
 import org.jetbrains.annotations.NotNull;
 
 /**

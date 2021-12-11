@@ -11,6 +11,7 @@ package dev.dementisimus.autumn.common.api.storage.property;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents data (key and value + their name and value) for storage operations
@@ -29,7 +30,7 @@ public interface StorageUpdateProperty extends StorageProperty {
      *
      * @since 1.0.0
      */
-    @NotNull StorageUpdateProperty value(@NotNull String name, @NotNull Object value);
+    @NotNull StorageUpdateProperty value(@Nullable String name, @Nullable Object value);
 
     /**
      * Gets the storage update property name
@@ -38,7 +39,7 @@ public interface StorageUpdateProperty extends StorageProperty {
      *
      * @since 1.0.0
      */
-    @NotNull String name();
+    @Nullable String name();
 
     /**
      * Gets the storage update property value
@@ -47,7 +48,7 @@ public interface StorageUpdateProperty extends StorageProperty {
      *
      * @since 1.0.0
      */
-    @NotNull Object value();
+    @Nullable Object value();
 
     /**
      * Transforms {@link #name()} and {@link #value()} into a bson document
@@ -59,7 +60,8 @@ public interface StorageUpdateProperty extends StorageProperty {
     @NotNull Document document();
 
     /**
-     * Transforms {@link #fieldName()} + {@link #fieldValue()} and {@link #name()} + {@link #value()} into a bson document
+     * Transforms {@link #fieldName()} + {@link #fieldValue()} and {@link #name()} + {@link #value()} into a bson
+     * document
      *
      * @return {@link Bson} document
      *

@@ -46,6 +46,8 @@ public abstract class SetupValueManager {
             value = storageType;
         }else if(setupState.equals(MainSetupStates.SQLITE_FILE_PATH)) {
             value = SetupStateFile.transform(consoleInput, false);
+        }else if(setupState.equals(MainSetupStates.FILE_SYSTEM_STORAGE_DIRECTORY)) {
+            value = SetupStateFile.transform(consoleInput, true);
         }else if(setupState instanceof SetupStateInteger) {
             value = SetupStateInteger.transform(consoleInput);
         }else if(setupState instanceof SetupStateLanguageType) {

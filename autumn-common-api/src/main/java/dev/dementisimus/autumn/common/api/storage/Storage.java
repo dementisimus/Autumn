@@ -31,7 +31,7 @@ public interface Storage {
      *
      * @since 1.0.0
      */
-    void generateStorageSourceProperty(@NotNull StorageSourceProperty storageSourceProperty);
+    void generateSourceProperty(@NotNull StorageSourceProperty storageSourceProperty);
 
     /**
      * The {@link StorageSourceProperty} used for executing operations in the storage
@@ -40,7 +40,7 @@ public interface Storage {
      *
      * @since 1.0.0
      */
-    void storageSourceProperty(@NotNull StorageSourceProperty storageSourceProperty);
+    void sourceProperty(@NotNull StorageSourceProperty storageSourceProperty);
 
     /**
      * Data which will be used by the storage operations
@@ -49,7 +49,7 @@ public interface Storage {
      *
      * @since 1.0.0
      */
-    void storageProperty(@NotNull StorageProperty storageProperty);
+    void property(@NotNull StorageProperty storageProperty);
 
     /**
      * Data which will be used by the update storage operation
@@ -58,7 +58,7 @@ public interface Storage {
      *
      * @since 1.0.0
      */
-    void storageUpdateProperty(@NotNull StorageUpdateProperty storageUpdateProperty);
+    void updateProperty(@NotNull StorageUpdateProperty storageUpdateProperty);
 
     /**
      * Document saved to storage
@@ -133,13 +133,11 @@ public interface Storage {
     /**
      * Checks the availability of a {@link StorageProperty} in storage
      *
-     * @param storageSourceProperty storage source property
-     * @param storageProperty fieldName + fieldValue as {@link StorageProperty}
      * @param booleanCallback A callback with value=true if an entry with fieldName + fieldValue as {@link StorageProperty} exists, false otherwise
      *
      * @since 1.0.0
      */
-    void isPresent(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageProperty storageProperty, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback);
+    void isPresent(@NotNull AutumnCallback<@NotNull Boolean> booleanCallback);
 
     /**
      * Writes, if field does not exist, to storage, else updates the provided field
@@ -158,25 +156,35 @@ public interface Storage {
     void close();
 
     enum Type {
+
         /**
          * MongoDB Storage
          *
          * @since 1.0.0
          */
         MONGODB,
+
         /**
          * MariaDB Storage
          *
          * @since 1.0.0
          */
         MARIADB,
+
         /**
          * SQLite Storage
          *
          * @since 1.0.0
          */
-        SQLITE;
+        SQLITE,
 
-        public static final String[] TYPES = {MONGODB.name(), MARIADB.name(), SQLITE.name()};
+        /**
+         * File system Storage
+         *
+         * @since 1.1.0
+         */
+        FILESYSTEM;
+
+        public static final String[] TYPES = {MONGODB.name(), MARIADB.name(), SQLITE.name(), FILESYSTEM.name()};
     }
 }

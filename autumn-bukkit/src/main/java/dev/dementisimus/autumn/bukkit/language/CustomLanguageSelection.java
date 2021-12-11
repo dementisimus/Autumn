@@ -54,13 +54,13 @@ public class CustomLanguageSelection implements LanguageSelection {
                     AutumnLanguage newLanguage = AutumnLanguage.valueOf(clickedItemFactory.retrieve(NAMESPACE, KEY, PersistentDataType.STRING));
 
                     if(storage != null) {
-                        storage.storageSourceProperty(AutumnLanguage.StorageSource.PROPERTY);
+                        storage.sourceProperty(AutumnLanguage.StorageSource.PROPERTY);
 
                         StorageUpdateProperty storageUpdateProperty = AutumnStorageUpdateProperty.of(AutumnLanguage.StorageSource.USER, player.getUniqueId().toString());
                         storageUpdateProperty.value(AutumnLanguage.StorageSource.LANGUAGE, newLanguage.name());
 
                         storage.document(storageUpdateProperty.fullDocument());
-                        storage.storageUpdateProperty(storageUpdateProperty);
+                        storage.updateProperty(storageUpdateProperty);
                         storage.writeOrUpdate(success -> {
                             this.apply(player, newLanguage);
                         });

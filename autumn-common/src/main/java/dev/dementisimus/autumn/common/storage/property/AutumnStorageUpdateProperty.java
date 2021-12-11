@@ -11,6 +11,7 @@ package dev.dementisimus.autumn.common.storage.property;
 import dev.dementisimus.autumn.common.api.storage.property.StorageUpdateProperty;
 import org.bson.Document;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class AutumnStorageUpdateProperty extends AutumnStorageProperty implements StorageUpdateProperty {
 
@@ -22,7 +23,7 @@ public class AutumnStorageUpdateProperty extends AutumnStorageProperty implement
     }
 
     @Override
-    public @NotNull StorageUpdateProperty value(@NotNull String name, @NotNull Object value) {
+    public @NotNull StorageUpdateProperty value(@Nullable String name, @Nullable Object value) {
         this.name = name;
         this.value = value;
 
@@ -30,12 +31,12 @@ public class AutumnStorageUpdateProperty extends AutumnStorageProperty implement
     }
 
     @Override
-    public @NotNull String name() {
+    public @Nullable String name() {
         return this.name;
     }
 
     @Override
-    public @NotNull Object value() {
+    public @Nullable Object value() {
         return this.value;
     }
 

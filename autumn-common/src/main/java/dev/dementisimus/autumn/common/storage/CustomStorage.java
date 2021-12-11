@@ -18,6 +18,7 @@ import dev.dementisimus.autumn.common.api.storage.property.StorageUpdateProperty
 import dev.dementisimus.autumn.common.api.storage.property.source.StorageSourceProperty;
 import dev.dementisimus.autumn.common.api.storage.type.StorageType;
 import dev.dementisimus.autumn.common.storage.cache.StorageCache;
+import dev.dementisimus.autumn.common.storage.type.file.FileStorage;
 import dev.dementisimus.autumn.common.storage.type.maria.MariaStorage;
 import dev.dementisimus.autumn.common.storage.type.mongo.MongoStorage;
 import lombok.Getter;
@@ -48,22 +49,22 @@ public class CustomStorage implements Storage {
     }
 
     @Override
-    public void generateStorageSourceProperty(@NotNull StorageSourceProperty storageSourceProperty) {
+    public void generateSourceProperty(@NotNull StorageSourceProperty storageSourceProperty) {
         this.storageSourceProperties.add(storageSourceProperty);
     }
 
     @Override
-    public void storageSourceProperty(@NotNull StorageSourceProperty storageSourceProperty) {
+    public void sourceProperty(@NotNull StorageSourceProperty storageSourceProperty) {
         this.storageSourceProperty = storageSourceProperty;
     }
 
     @Override
-    public void storageProperty(@NotNull StorageProperty storageProperty) {
+    public void property(@NotNull StorageProperty storageProperty) {
         this.storageProperty = storageProperty;
     }
 
     @Override
-    public void storageUpdateProperty(@NotNull StorageUpdateProperty storageUpdateProperty) {
+    public void updateProperty(@NotNull StorageUpdateProperty storageUpdateProperty) {
         this.storageUpdateProperty = storageUpdateProperty;
     }
 
@@ -77,6 +78,7 @@ public class CustomStorage implements Storage {
         this.taskExecutor.asynchronous(() -> {
             switch(this.type) {
                 case MONGODB -> this.storageType = new MongoStorage();
+                case FILESYSTEM -> this.storageType = new FileStorage();
                 default -> this.storageType = new MariaStorage(this);
             }
             booleanCallback.done(true);
@@ -103,7 +105,7 @@ public class CustomStorage implements Storage {
 
         this.taskExecutor.asynchronous(() -> {
             this.storageType.read(this.storageSourceProperty, this.storageProperty, document -> {
-                if(this.useCache && document != null && !document.isEmpty()) {
+                if(this.useCache && !document.isEmpty()) {
                     StorageCache.set(this.getCacheKey(), document);
                 }
                 documentCallback.done(document);
@@ -115,8 +117,9 @@ public class CustomStorage implements Storage {
     public void list(@NotNull AutumnCallback<@NotNull List<Document>> listDocumentCallback) {
         this.storageSourcePropertyNotNull();
 
+        String listCacheKey = this.storageSourceProperty.name() + "_list";
         if(this.useCache) {
-            List<Document> documents = StorageCache.getList(this.getCacheKey());
+            List<Document> documents = StorageCache.getList(listCacheKey);
             if(documents != null) {
                 listDocumentCallback.done(documents);
                 return;
@@ -125,8 +128,8 @@ public class CustomStorage implements Storage {
 
         this.taskExecutor.asynchronous(() -> {
             this.storageType.list(this.storageSourceProperty, documents -> {
-                if(this.useCache && documents != null && !documents.isEmpty()) {
-                    StorageCache.setList(this.getCacheKey(), documents);
+                if(this.useCache && !documents.isEmpty()) {
+                    StorageCache.setList(listCacheKey, documents);
                 }
                 listDocumentCallback.done(documents);
             });
@@ -179,8 +182,8 @@ public class CustomStorage implements Storage {
     }
 
     @Override
-    public void isPresent(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageProperty storageProperty, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
-        this.taskExecutor.asynchronous(() -> this.storageType.isPresent(storageSourceProperty, storageProperty, booleanCallback));
+    public void isPresent(@NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
+        this.taskExecutor.asynchronous(() -> this.storageType.isPresent(this.storageSourceProperty, this.storageProperty, booleanCallback));
     }
 
     @Override
@@ -188,7 +191,7 @@ public class CustomStorage implements Storage {
         this.documentNotNull();
         this.storageUpdatePropertyNotNull();
 
-        this.isPresent(this.storageSourceProperty, this.storageUpdateProperty, isPresent -> {
+        this.isPresent(isPresent -> {
             if(isPresent) {
                 this.update(booleanCallback);
             }else {
