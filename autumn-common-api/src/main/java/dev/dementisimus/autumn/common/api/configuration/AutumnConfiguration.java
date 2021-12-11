@@ -37,7 +37,7 @@ public interface AutumnConfiguration {
     /**
      * Sets {@link Document}
      *
-     * @param document {@link Document} with all keys & values
+     * @param document {@link Document} with all keys and values
      *
      * @return configuration object
      *
