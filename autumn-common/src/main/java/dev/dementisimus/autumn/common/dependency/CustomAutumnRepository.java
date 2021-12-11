@@ -10,7 +10,6 @@ package dev.dementisimus.autumn.common.dependency;
 
 import dev.dementisimus.autumn.common.api.dependency.AutumnRepository;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class CustomAutumnRepository implements AutumnRepository {
 
@@ -18,7 +17,7 @@ public class CustomAutumnRepository implements AutumnRepository {
     private String url;
 
     @Override
-    public @Nullable String name() {
+    public String name() {
         return this.name;
     }
 
@@ -28,7 +27,7 @@ public class CustomAutumnRepository implements AutumnRepository {
     }
 
     @Override
-    public @Nullable String url() {
+    public String url() {
         return this.url;
     }
 

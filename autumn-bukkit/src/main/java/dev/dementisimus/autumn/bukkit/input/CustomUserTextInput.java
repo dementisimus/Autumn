@@ -43,7 +43,7 @@ public class CustomUserTextInput implements UserTextInput {
     }
 
     @Override
-    public void fetch(@NotNull AutumnCallback<String> stringCallback) {
+    public void fetch(@NotNull AutumnCallback<@NotNull String> stringCallback) {
         this.player.closeInventory();
 
         AutumnBukkitTranslation autumnTranslation = new CustomBukkitTranslation(this.translationProperty);

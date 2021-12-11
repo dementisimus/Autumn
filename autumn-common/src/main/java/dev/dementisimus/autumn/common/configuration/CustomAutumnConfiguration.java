@@ -15,7 +15,6 @@ import dev.dementisimus.autumn.common.api.configuration.AutumnConfiguration;
 import lombok.SneakyThrows;
 import org.bson.Document;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.net.URI;
@@ -112,12 +111,12 @@ public class CustomAutumnConfiguration implements AutumnConfiguration {
     }
 
     @Override
-    public @Nullable Document read() {
+    public @NotNull Document read() {
         return this.document;
     }
 
     @Override
-    public void read(@NotNull AutumnCallback<@Nullable Document> callback) {
+    public void read(@NotNull AutumnCallback<@NotNull Document> callback) {
         callback.done(this.read());
     }
 }

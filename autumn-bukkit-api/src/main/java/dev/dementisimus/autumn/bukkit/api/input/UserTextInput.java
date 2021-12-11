@@ -53,5 +53,5 @@ public interface UserTextInput {
      *
      * @since 1.0.0
      */
-    void fetch(@NotNull AutumnCallback<String> stringCallback);
+    void fetch(@NotNull AutumnCallback<@NotNull String> stringCallback);
 }

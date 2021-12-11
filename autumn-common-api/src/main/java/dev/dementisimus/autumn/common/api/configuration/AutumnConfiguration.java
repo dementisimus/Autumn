@@ -11,7 +11,6 @@ package dev.dementisimus.autumn.common.api.configuration;
 import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
 import org.bson.Document;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Properties;
 
@@ -131,7 +130,7 @@ public interface AutumnConfiguration {
      *
      * @since 1.0.0
      */
-    @Nullable Document read();
+    @NotNull Document read();
 
     /**
      * Reads the file
@@ -140,5 +139,5 @@ public interface AutumnConfiguration {
      *
      * @since 1.0.0
      */
-    void read(@NotNull AutumnCallback<@Nullable Document> callback);
+    void read(@NotNull AutumnCallback<@NotNull Document> callback);
 }

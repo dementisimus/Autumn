@@ -45,7 +45,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bson.Document;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 
@@ -149,7 +148,7 @@ public abstract class CustomAutumn implements Autumn {
                 AutumnConfiguration configuration = new CustomAutumnConfiguration(this.configurationFile);
                 Document document = configuration.read();
 
-                if(document != null && !document.isEmpty()) {
+                if(!document.isEmpty()) {
                     this.setupManager.complete(false);
                     return;
                 }
@@ -191,32 +190,32 @@ public abstract class CustomAutumn implements Autumn {
     }
 
     @Override
-    public @NotNull AutumnTaskExecutor taskExecutor() {
+    public AutumnTaskExecutor taskExecutor() {
         return this.taskExecutor;
     }
 
     @Override
-    public @NotNull AutumnLogging logging() {
+    public AutumnLogging logging() {
         return this.logging;
     }
 
     @Override
-    public @NotNull AutumnInjector injector() {
+    public AutumnInjector injector() {
         return this.injector;
     }
 
     @Override
-    public @NotNull AutumnLanguage defaultLanguage() {
+    public AutumnLanguage defaultLanguage() {
         return this.defaultLanguage;
     }
 
     @Override
-    public @NotNull SetupManager setupManager() {
+    public SetupManager setupManager() {
         return this.setupManager;
     }
 
     @Override
-    public @Nullable Storage storage() {
+    public Storage storage() {
         return this.storage;
     }
 

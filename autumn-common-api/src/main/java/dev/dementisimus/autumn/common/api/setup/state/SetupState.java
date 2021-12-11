@@ -28,7 +28,7 @@ public interface SetupState {
      *
      * @since 1.0.0
      */
-    @Nullable Object value();
+    Object value();
 
     /**
      * Gets the setup state value
@@ -40,7 +40,7 @@ public interface SetupState {
      *
      * @since 1.0.0
      */
-    <T> @Nullable T value(@NotNull Class<T> clazz);
+    <T> T value(@NotNull Class<T> clazz);
 
     /**
      * Sets the setup state value

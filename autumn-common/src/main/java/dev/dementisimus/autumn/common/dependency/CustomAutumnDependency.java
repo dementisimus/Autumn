@@ -11,7 +11,6 @@ package dev.dementisimus.autumn.common.dependency;
 import dev.dementisimus.autumn.common.api.dependency.AutumnDependency;
 import dev.dementisimus.autumn.common.api.dependency.AutumnRepository;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class CustomAutumnDependency implements AutumnDependency {
 
@@ -21,7 +20,7 @@ public class CustomAutumnDependency implements AutumnDependency {
     private String version;
 
     @Override
-    public @Nullable AutumnRepository repository() {
+    public AutumnRepository repository() {
         return this.repository;
     }
 
@@ -31,7 +30,7 @@ public class CustomAutumnDependency implements AutumnDependency {
     }
 
     @Override
-    public @Nullable String groupId() {
+    public String groupId() {
         return this.groupId;
     }
 
@@ -43,7 +42,7 @@ public class CustomAutumnDependency implements AutumnDependency {
     }
 
     @Override
-    public @Nullable String artifactId() {
+    public String artifactId() {
         return this.artifactId;
     }
 
@@ -53,7 +52,7 @@ public class CustomAutumnDependency implements AutumnDependency {
     }
 
     @Override
-    public @Nullable String version() {
+    public String version() {
         return this.version;
     }
 
@@ -63,7 +62,7 @@ public class CustomAutumnDependency implements AutumnDependency {
     }
 
     @Override
-    public @Nullable String fileName() {
+    public String fileName() {
         return this.artifactId + "-" + this.version + ".jar";
     }
 

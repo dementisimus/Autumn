@@ -18,7 +18,6 @@ import dev.dementisimus.autumn.common.api.setup.state.SetupState;
 import dev.dementisimus.autumn.common.api.storage.Storage;
 import dev.dementisimus.autumn.common.api.storage.property.source.StorageSourceProperty;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * Autumn's main class
@@ -111,7 +110,7 @@ public interface Autumn {
      *
      * @since 1.0.0
      */
-    @NotNull AutumnTaskExecutor taskExecutor();
+    AutumnTaskExecutor taskExecutor();
 
     /**
      * Gets the {@link AutumnLogging}
@@ -120,7 +119,7 @@ public interface Autumn {
      *
      * @since 1.0.0
      */
-    @NotNull AutumnLogging logging();
+    AutumnLogging logging();
 
     /**
      * Gets the {@link AutumnInjector}
@@ -129,7 +128,7 @@ public interface Autumn {
      *
      * @since 1.0.0
      */
-    @NotNull AutumnInjector injector();
+    AutumnInjector injector();
 
     /**
      * Gets the default {@link AutumnLanguage}
@@ -138,7 +137,7 @@ public interface Autumn {
      *
      * @since 1.0.0
      */
-    @NotNull AutumnLanguage defaultLanguage();
+    AutumnLanguage defaultLanguage();
 
     /**
      * Gets the {@link SetupManager}
@@ -147,7 +146,7 @@ public interface Autumn {
      *
      * @since 1.0.0
      */
-    @NotNull SetupManager setupManager();
+    SetupManager setupManager();
 
     /**
      * Gets the {@link Storage}, if enabled by {@link #useStorage(StorageSourceProperty...)}
@@ -156,5 +155,5 @@ public interface Autumn {
      *
      * @since 1.0.0
      */
-    @Nullable Storage storage();
+    Storage storage();
 }
