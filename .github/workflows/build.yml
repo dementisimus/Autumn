@@ -66,6 +66,16 @@ jobs:
           done
 
           for module in "${javadocModules[@]}"; do
+            fullModule=$module-${{ env.version }}
+            package=dev/dementisimus/$module/${{ env.version }}
+            artifactsTarget=./artifacts/$package
+
+            mkdir -p $artifactsTarget
+
+            cp ./$module/target/$fullModule-sources.jar $artifactsTarget/$fullModule-sources.jar
+          done
+
+          for module in "${javadocModules[@]}"; do
             package=dev/dementisimus/$module/${{ env.version }}
             javadocsTarget=./javadocs/$package
 
