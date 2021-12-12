@@ -72,7 +72,7 @@ jobs:
 
             mkdir -p $artifactsTarget
 
-            cp ./$module/target/$fullModule-sources.jar $artifactsTarget/$fullModule-sources.jar
+            cp ./$module/target/$fullModule-sources.jar $artifactsTarget/$fullModule.jar
           done
 
           for module in "${javadocModules[@]}"; do
