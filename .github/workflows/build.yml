@@ -3,7 +3,6 @@ on: [ push, workflow_dispatch ]
 
 env:
   name: Autumn
-  id: autumn
 
 jobs:
   build:
@@ -47,9 +46,17 @@ jobs:
           declare -a modules=("autumn-dependencies" "autumn-common-api" "autumn-common" "autumn-bukkit-api" "autumn-bukkit" "autumn-bungee-api" "autumn-bungee")
           declare -a javadocModules=("autumn-common-api" "autumn-bukkit-api" "autumn-bungee-api")
 
+          fullModule=autumn-${{ env.version }}
+          package=dev/dementisimus/autumn/${{ env.version }}
+          artifactsTarget=./artifacts/$package
+
+          mkdir -p $artifactsTarget
+
+          cp ./target/pom.xml $artifactsTarget/$fullModule.pom
+
           for module in "${modules[@]}"; do
             fullModule=$module-${{ env.version }}
-            package=dev/dementisimus/${{ env.id }}/$module/${{ env.version }}
+            package=dev/dementisimus/$module/${{ env.version }}
             artifactsTarget=./artifacts/$package
 
             mkdir -p $artifactsTarget
@@ -59,7 +66,7 @@ jobs:
           done
 
           for module in "${javadocModules[@]}"; do
-            package=dev/dementisimus/${{ env.id }}/$module/${{ env.version }}
+            package=dev/dementisimus/$module/${{ env.version }}
             javadocsTarget=./javadocs/$package
 
             mkdir -p $javadocsTarget
@@ -70,8 +77,8 @@ jobs:
         if: endsWith(github.ref, '/main')
         uses: garygrossgarten/github-action-scp@v0.7.3
         with:
-          local: ./artifacts/dev/dementisimus/${{ env.id }}
-          remote: /home/repo-deployment/repository/repositories/release/dev/dementisimus/${{ env.id }}/
+          local: ./artifacts/dev/dementisimus
+          remote: /home/repo-deployment/repository/repositories/release/dev/dementisimus/
           concurrency: 10
           host: ${{ secrets.SSH_HOST }}
           port: ${{ secrets.SSH_PORT }}
@@ -84,8 +91,8 @@ jobs:
         if: endsWith(github.ref, '/develop')
         uses: garygrossgarten/github-action-scp@v0.7.3
         with:
-          local: ./artifacts/dev/dementisimus/${{ env.id }}
-          remote: /home/repo-deployment/repository/repositories/development/dev/dementisimus/${{ env.id }}/
+          local: ./artifacts/dev/dementisimus
+          remote: /home/repo-deployment/repository/repositories/development/dev/dementisimus/
           concurrency: 10
           host: ${{ secrets.SSH_HOST }}
           port: ${{ secrets.SSH_PORT }}
