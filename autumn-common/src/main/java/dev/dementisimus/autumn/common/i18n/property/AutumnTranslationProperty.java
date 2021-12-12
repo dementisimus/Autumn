@@ -45,7 +45,7 @@ public class AutumnTranslationProperty {
         if(PROPERTY_SOURCES.contains(sourceName)) return;
 
         for(AutumnLanguage autumnLanguage : AutumnLanguage.values()) {
-            String resourceName = "lang/" + sourceName + "_" + autumnLanguage.getLocale().getLanguage() + ".properties";
+            String resourceName = "i18n/" + sourceName + "_" + autumnLanguage.getLocale().getLanguage() + ".properties";
             InputStream inputStream = source.getClassLoader().getResourceAsStream(resourceName);
 
             if(inputStream != null) {
