@@ -52,7 +52,7 @@ jobs:
 
           mkdir -p $artifactsTarget
 
-          cp ./target/pom.xml $artifactsTarget/$fullModule.pom
+          cp ./pom.xml $artifactsTarget/$fullModule.pom
 
           for module in "${modules[@]}"; do
             fullModule=$module-${{ env.version }}
