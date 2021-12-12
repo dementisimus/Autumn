@@ -47,6 +47,16 @@ jobs:
             package=dev/dementisimus/$module/${{ env.version }}
             artifactsTarget=./artifacts/$package
 
+            ls -R ./$module/target/
+            echo ./$module/target/$fullModule-sources.jar
+            echo ./$module/target/$fullModule.jar
+            ls -R ./$module/target/
+            echo --
+            ls -R /home/runner/.m2/repository/$package/
+            echo /home/runner/.m2/repository/$package/$fullModule-sources.jar
+            echo /home/runner/.m2/repository/$package/$fullModule.jar
+            ls -R /home/runner/.m2/repository/$package/
+
             mv -f ./$module/target/$fullModule-sources.jar ./$module/target/$fullModule.jar
             mv -f /home/runner/.m2/repository/$package/$fullModule-sources.jar /home/runner/.m2/repository/$package/$fullModule.jar
           done
