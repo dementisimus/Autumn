@@ -271,7 +271,7 @@ public abstract class CustomAutumn implements Autumn {
         AutumnDependency autumnDependency = new CustomAutumnDependency();
 
         autumnDependency.repository(autumnRepository);
-        autumnDependency.groupId("dev.dementisimus.autumn");
+        autumnDependency.groupId("dev.dementisimus");
         autumnDependency.artifactId("autumn-dependencies");
         autumnDependency.version("1.1.0");
 

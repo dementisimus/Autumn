@@ -33,10 +33,23 @@ jobs:
         run: echo "version=$(mvn org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
 
       - name: build dependencies
-        run: mvn -U clean install javadoc:javadoc -pl :autumn,:autumn-dependencies
+        run: mvn -U clean install -pl :autumn,:autumn-dependencies
 
       - name: build api
         run: mvn -U clean install javadoc:javadoc -pl :autumn,:autumn-common-api,:autumn-bukkit-api,:autumn-bungee-api
+
+      - name: rename api source artifacts
+        run: |
+          declare -a javadocModules=("autumn-common-api" "autumn-bukkit-api" "autumn-bungee-api")
+
+          for module in "${javadocModules[@]}"; do
+            fullModule=$module-${{ env.version }}
+            package=dev/dementisimus/$module/${{ env.version }}
+            artifactsTarget=./artifacts/$package
+
+            mv -f ./$module/target/$fullModule-sources.jar ./$module/target/$fullModule.jar
+            mv -f /home/runner/.m2/repository/$package/$fullModule-sources.jar /home/runner/.m2/repository/$package/$fullModule.jar
+          done
 
       - name: build implementation
         run: mvn -U clean install -pl :autumn,:autumn-bukkit,:autumn-bungee,:autumn-common -file pom.xml
@@ -63,16 +76,6 @@ jobs:
 
             cp ./$module/target/$fullModule.jar $artifactsTarget/
             cp ./$module/pom.xml $artifactsTarget/$fullModule.pom
-          done
-
-          for module in "${javadocModules[@]}"; do
-            fullModule=$module-${{ env.version }}
-            package=dev/dementisimus/$module/${{ env.version }}
-            artifactsTarget=./artifacts/$package
-
-            mkdir -p $artifactsTarget
-
-            cp ./$module/target/$fullModule-sources.jar $artifactsTarget/$fullModule.jar
           done
 
           for module in "${javadocModules[@]}"; do
