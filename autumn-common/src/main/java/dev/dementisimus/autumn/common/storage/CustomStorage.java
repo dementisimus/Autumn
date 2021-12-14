@@ -45,7 +45,7 @@ public class CustomStorage implements Storage {
     private boolean useCache = true;
 
     public CustomStorage(CustomAutumn autumn) {
-        this.taskExecutor = autumn.getTaskExecutor();
+        this.taskExecutor = autumn.taskExecutor();
     }
 
     @Override

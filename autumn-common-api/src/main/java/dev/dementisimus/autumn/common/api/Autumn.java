@@ -10,6 +10,7 @@ package dev.dementisimus.autumn.common.api;
 
 import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
 import dev.dementisimus.autumn.common.api.executor.AutumnTaskExecutor;
+import dev.dementisimus.autumn.common.api.file.AutumnFileDownloader;
 import dev.dementisimus.autumn.common.api.i18n.AutumnLanguage;
 import dev.dementisimus.autumn.common.api.injection.AutumnInjector;
 import dev.dementisimus.autumn.common.api.log.AutumnLogging;
@@ -48,6 +49,15 @@ public interface Autumn {
      * @since 1.0.0
      */
     void extraSetupStates(@NotNull SetupState... setupStates);
+
+    /**
+     * Enables an extra setup state
+     *
+     * @param setupState extra setup state
+     *
+     * @since 1.1.0
+     */
+    void extraSetupState(@NotNull SetupState setupState);
 
     /**
      * Initializes Autumn and its plugin
@@ -156,4 +166,11 @@ public interface Autumn {
      * @since 1.0.0
      */
     Storage storage();
+
+    /**
+     * Gets the {@link AutumnFileDownloader}
+     *
+     * @return the {@link AutumnFileDownloader}
+     */
+    AutumnFileDownloader fileDownloader();
 }

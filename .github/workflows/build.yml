@@ -76,8 +76,7 @@ jobs:
           done
 
           for module in "${javadocModules[@]}"; do
-            package=dev/dementisimus/$module/${{ env.version }}
-            javadocsTarget=./javadocs/$package
+            javadocsTarget=./javadocs/$module/${{ env.version }}
 
             mkdir -p $javadocsTarget
             cp -r ./$module/target/site/apidocs/. $javadocsTarget/
@@ -116,7 +115,7 @@ jobs:
         uses: garygrossgarten/github-action-scp@v0.7.3
         with:
           local: ./javadocs
-          remote: /var/www/dementisimus.dev/html/docs/release/${{ env.name }}/${{ env.version }}/
+          remote: /var/www/dementisimus.dev/html/docs/release/${{ env.name }}/
           concurrency: 10
           host: ${{ secrets.SSH_HOST }}
           port: ${{ secrets.SSH_PORT }}
@@ -130,7 +129,7 @@ jobs:
         uses: garygrossgarten/github-action-scp@v0.7.3
         with:
           local: ./javadocs
-          remote: /var/www/dementisimus.dev/html/docs/development/${{ env.name }}/${{ env.version }}/
+          remote: /var/www/dementisimus.dev/html/docs/development/${{ env.name }}/
           concurrency: 10
           host: ${{ secrets.SSH_HOST }}
           port: ${{ secrets.SSH_PORT }}

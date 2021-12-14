@@ -39,7 +39,7 @@ public class CustomLanguageSelection implements LanguageSelection {
     public void open(@NotNull Player player) {
         InventoryFactory inventoryFactory = new CustomInventoryFactory(3, player, "autumn.bukkit.player.language.selection");
 
-        Storage storage = this.autumn.getStorage();
+        Storage storage = this.autumn.storage();
 
         inventoryFactory.placeholder(Material.WHITE_STAINED_GLASS_PANE);
         for(AutumnLanguage language : AutumnLanguage.values()) {
@@ -77,7 +77,7 @@ public class CustomLanguageSelection implements LanguageSelection {
     private void apply(Player player, AutumnLanguage newLanguage) {
         PlayerLanguage.overwrite(player.getUniqueId(), newLanguage.getLocale());
 
-        this.autumn.getTaskExecutor().synchronous(() -> {
+        this.autumn.taskExecutor().synchronous(() -> {
             BukkitHelper.playSound(player, Sound.ENTITY_VILLAGER_YES);
 
             player.closeInventory();

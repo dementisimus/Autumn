@@ -16,6 +16,7 @@ import dev.dementisimus.autumn.common.api.configuration.AutumnConfiguration;
 import dev.dementisimus.autumn.common.api.dependency.AutumnDependency;
 import dev.dementisimus.autumn.common.api.dependency.AutumnRepository;
 import dev.dementisimus.autumn.common.api.executor.AutumnTaskExecutor;
+import dev.dementisimus.autumn.common.api.file.AutumnFileDownloader;
 import dev.dementisimus.autumn.common.api.i18n.AutumnLanguage;
 import dev.dementisimus.autumn.common.api.i18n.AutumnTranslation;
 import dev.dementisimus.autumn.common.api.injection.AutumnInjector;
@@ -51,16 +52,17 @@ import java.io.File;
 public abstract class CustomAutumn implements Autumn {
 
     @Getter(AccessLevel.PROTECTED) private final Object plugin;
-    @Getter private final AutumnTaskExecutor taskExecutor;
-    @Getter private final AutumnLogging logging;
-    @Getter private final CustomFileDownloader fileDownloader;
+
+    private final AutumnTaskExecutor taskExecutor;
+    private final AutumnLogging logging;
+    private final CustomFileDownloader fileDownloader;
 
     @Getter private CustomAutumnInjector injector;
     @Getter @Setter(AccessLevel.PROTECTED) private CustomSetupManager setupManager;
     @Getter private CustomZipFileDownloader zipFileDownloader;
 
     @Getter private Storage.Type storageType;
-    @Getter private CustomStorage storage;
+    private CustomStorage storage;
     @Getter private AutumnLanguage defaultLanguage = AutumnLanguage.ENGLISH;
     @Getter(AccessLevel.PROTECTED) @Setter(AccessLevel.PROTECTED) private ClassLoader autumnClassLoader;
     @Getter(AccessLevel.PROTECTED) @Setter(AccessLevel.PROTECTED) private ClassLoader pluginClassLoader;
@@ -119,8 +121,13 @@ public abstract class CustomAutumn implements Autumn {
     @Override
     public void extraSetupStates(@NotNull SetupState... setupStates) {
         for(SetupState setupState : setupStates) {
-            this.setupManager.extraSetupState(setupState);
+            this.extraSetupState(setupState);
         }
+    }
+
+    @Override
+    public void extraSetupState(@NotNull SetupState setupState) {
+        this.setupManager.extraSetupState(setupState);
     }
 
     @Override
@@ -217,6 +224,11 @@ public abstract class CustomAutumn implements Autumn {
     @Override
     public Storage storage() {
         return this.storage;
+    }
+
+    @Override
+    public AutumnFileDownloader fileDownloader() {
+        return this.fileDownloader;
     }
 
     public void postSetupInitialization() {

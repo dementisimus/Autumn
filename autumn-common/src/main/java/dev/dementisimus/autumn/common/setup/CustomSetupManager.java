@@ -87,7 +87,7 @@ public abstract class CustomSetupManager implements SetupManager {
         AutumnTranslation translation = new CustomAutumnTranslation(setupState.messageTranslationProperty());
         translation.replacement("plugin", this.autumn.getPluginName());
 
-        this.autumn.getLogging().info(translation.get(this.autumn.getDefaultLanguage()));
+        this.autumn.logging().info(translation.get(this.autumn.getDefaultLanguage()));
     }
 
     @Override
@@ -160,7 +160,7 @@ public abstract class CustomSetupManager implements SetupManager {
             }
 
             AutumnTranslation translation = this.getSetupTranslation("autumn.setup.begin");
-            this.autumn.getLogging().info(translation.get(this.autumn.getDefaultLanguage()));
+            this.autumn.logging().info(translation.get(this.autumn.getDefaultLanguage()));
 
             this.currentSetupState(CONSOLE_LANGUAGE);
             executor.cancel();
@@ -180,7 +180,7 @@ public abstract class CustomSetupManager implements SetupManager {
 
         if(postSetup) {
             AutumnTranslation translation = this.getSetupTranslation("autumn.setup.complete");
-            this.autumn.getLogging().info(translation.get(this.autumn.getDefaultLanguage()));
+            this.autumn.logging().info(translation.get(this.autumn.getDefaultLanguage()));
 
             configFile.getParentFile().mkdirs();
             configFile.createNewFile();
@@ -248,7 +248,7 @@ public abstract class CustomSetupManager implements SetupManager {
                         }else {
                             AutumnTranslation translation = new CustomAutumnTranslation("autumn.setup.config.not.complete");
 
-                            this.autumn.getLogging().warning(translation.get(this.autumn.getDefaultLanguage()));
+                            this.autumn.logging().warning(translation.get(this.autumn.getDefaultLanguage()));
                             this.autumn.getConfigurationFile().delete();
                             this.begin();
                             break;

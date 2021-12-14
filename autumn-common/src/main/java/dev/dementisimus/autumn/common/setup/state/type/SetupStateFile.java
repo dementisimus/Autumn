@@ -19,7 +19,7 @@ public class SetupStateFile extends CustomSetupState {
     }
 
     public SetupStateFile(String name, String messageTranslationProperty) {
-        super(name, messageTranslationProperty, null);
+        super(name, messageTranslationProperty, new File("plugins/Autumn/configuration/"));
     }
 
     public static File transform(String string, boolean isDirectory) {

@@ -53,9 +53,9 @@ public class CustomFileDownloader implements AutumnFileDownloader {
             translation.replacement("plugin", this.pluginName);
             translation.replacement("file", url.substring(url.lastIndexOf("/") + 1));
 
-            this.autumn.getLogging().info(translation.get(this.autumn.getDefaultLanguage()));
+            this.autumn.logging().info(translation.get(this.autumn.getDefaultLanguage()));
 
-            this.autumn.getTaskExecutor().asynchronous(() -> {
+            this.autumn.taskExecutor().asynchronous(() -> {
                 try {
                     HttpURLConnection httpURLConnection = (HttpURLConnection) new URL(url).openConnection();
 
@@ -70,7 +70,7 @@ public class CustomFileDownloader implements AutumnFileDownloader {
                     }
 
                     translation.translationProperty("autumn.file.download.done");
-                    this.autumn.getLogging().info(translation.get(this.autumn.getDefaultLanguage()));
+                    this.autumn.logging().info(translation.get(this.autumn.getDefaultLanguage()));
                     fileCallback.done(this.downloadTo);
                 }catch(IOException e) {
                     e.printStackTrace();

@@ -36,7 +36,7 @@ public class AutumnBukkitInjector extends CustomAutumnInjector {
 
     public AutumnBukkitInjector(BukkitAutumn autumn, Plugin plugin) {
         this.autumn = autumn;
-        this.logging = this.autumn.getLogging();
+        this.logging = this.autumn.logging();
         this.plugin = plugin;
     }
 
