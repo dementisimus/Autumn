@@ -8,23 +8,23 @@
 
 package dev.dementisimus.autumn.bukkit.setup;
 
-import com.github.derrop.documents.Document;
 import dev.dementisimus.autumn.bukkit.setup.event.BukkitDeserializeSetupStateEvent;
 import dev.dementisimus.autumn.bukkit.setup.event.BukkitNextExtraSetupStateEvent;
 import dev.dementisimus.autumn.bukkit.setup.event.BukkitSerializeSetupStateEvent;
 import dev.dementisimus.autumn.bukkit.setup.event.BukkitValidateCurrentExtraSetupStateEvent;
-import dev.dementisimus.autumn.common.DefaultAutumn;
+import dev.dementisimus.autumn.common.CustomAutumn;
 import dev.dementisimus.autumn.common.api.setup.event.DeserializeSetupStateEvent;
 import dev.dementisimus.autumn.common.api.setup.event.NextExtraSetupStateEvent;
 import dev.dementisimus.autumn.common.api.setup.event.SerializeSetupStateEvent;
 import dev.dementisimus.autumn.common.api.setup.event.ValidateCurrentExtraSetupStateEvent;
 import dev.dementisimus.autumn.common.api.setup.state.SetupState;
-import dev.dementisimus.autumn.common.setup.DefaultSetupManager;
+import dev.dementisimus.autumn.common.setup.CustomSetupManager;
+import org.bson.Document;
 import org.bukkit.Bukkit;
 
-public class BukkitSetupManager extends DefaultSetupManager {
+public class BukkitSetupManager extends CustomSetupManager {
 
-    public BukkitSetupManager(DefaultAutumn autumn) {
+    public BukkitSetupManager(CustomAutumn autumn) {
         super(autumn);
     }
 

@@ -8,10 +8,10 @@
 
 package dev.dementisimus.autumn.bukkit.setup.event;
 
-import com.github.derrop.documents.Document;
 import dev.dementisimus.autumn.common.api.setup.event.DeserializeSetupStateEvent;
 import dev.dementisimus.autumn.common.api.setup.state.SetupState;
 import lombok.AllArgsConstructor;
+import org.bson.Document;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;

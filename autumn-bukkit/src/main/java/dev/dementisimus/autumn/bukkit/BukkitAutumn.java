@@ -11,14 +11,14 @@ package dev.dementisimus.autumn.bukkit;
 import dev.dementisimus.autumn.bukkit.api.language.LanguageSelection;
 import dev.dementisimus.autumn.bukkit.executor.AutumnBukkitTaskExecutor;
 import dev.dementisimus.autumn.bukkit.injection.AutumnBukkitInjector;
-import dev.dementisimus.autumn.bukkit.language.DefaultLanguageSelection;
+import dev.dementisimus.autumn.bukkit.language.CustomLanguageSelection;
 import dev.dementisimus.autumn.bukkit.listener.ServerCommandListener;
 import dev.dementisimus.autumn.bukkit.log.AutumnBukkitLogging;
 import dev.dementisimus.autumn.bukkit.setup.BukkitSetupManager;
-import dev.dementisimus.autumn.common.DefaultAutumn;
+import dev.dementisimus.autumn.common.CustomAutumn;
 import dev.dementisimus.autumn.common.api.server.ServerType;
 import dev.dementisimus.autumn.common.api.setup.SetupManager;
-import dev.dementisimus.autumn.common.injection.DefaultAutumnInjector;
+import dev.dementisimus.autumn.common.injection.CustomAutumnInjector;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import org.bukkit.Bukkit;
@@ -26,7 +26,7 @@ import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 
-public class BukkitAutumn extends DefaultAutumn {
+public class BukkitAutumn extends CustomAutumn {
 
     @Getter private LanguageSelection languageSelection;
 
@@ -61,12 +61,12 @@ public class BukkitAutumn extends DefaultAutumn {
     @Override
     protected void initializePlugin(Object pluginObject) {
         Plugin plugin = (Plugin) pluginObject;
-        DefaultAutumnInjector injector = this.getInjector();
+        CustomAutumnInjector injector = this.getInjector();
 
         injector.registerModule(BukkitAutumn.class, this);
         injector.registerModule(Plugin.class, plugin);
 
-        this.languageSelection = new DefaultLanguageSelection(this);
+        this.languageSelection = new CustomLanguageSelection(this);
     }
 
     @SneakyThrows
@@ -85,7 +85,7 @@ public class BukkitAutumn extends DefaultAutumn {
     }
 
     @Override
-    protected DefaultAutumnInjector getAutumnInjector(Object pluginObject) {
+    protected CustomAutumnInjector getAutumnInjector(Object pluginObject) {
         return new AutumnBukkitInjector(this, (Plugin) pluginObject);
     }
 

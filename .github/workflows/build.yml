@@ -3,7 +3,6 @@ on: [ push, workflow_dispatch ]
 
 env:
   name: Autumn
-  id: autumn
 
 jobs:
   build:
@@ -18,11 +17,11 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
 
-      - name: setup-jdk-16
+      - name: setup-jdk-17
         uses: actions/setup-java@v2
         with:
-          distribution: 'adopt'
-          java-version: '16'
+          distribution: 'temurin'
+          java-version: '17'
 
       - name: cache
         uses: actions/cache@v2
@@ -34,7 +33,7 @@ jobs:
         run: echo "version=$(mvn org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
 
       - name: build dependencies
-        run: mvn -U clean install javadoc:javadoc -pl :autumn,:autumn-dependencies
+        run: mvn -U clean install -pl :autumn,:autumn-dependencies
 
       - name: build api
         run: mvn -U clean install javadoc:javadoc -pl :autumn,:autumn-common-api,:autumn-bukkit-api,:autumn-bungee-api
@@ -47,9 +46,17 @@ jobs:
           declare -a modules=("autumn-dependencies" "autumn-common-api" "autumn-common" "autumn-bukkit-api" "autumn-bukkit" "autumn-bungee-api" "autumn-bungee")
           declare -a javadocModules=("autumn-common-api" "autumn-bukkit-api" "autumn-bungee-api")
 
+          fullModule=autumn-${{ env.version }}
+          package=dev/dementisimus/autumn/${{ env.version }}
+          artifactsTarget=./artifacts/$package
+
+          mkdir -p $artifactsTarget
+
+          cp ./pom.xml $artifactsTarget/$fullModule.pom
+
           for module in "${modules[@]}"; do
             fullModule=$module-${{ env.version }}
-            package=dev/dementisimus/${{ env.id }}/$module/${{ env.version }}
+            package=dev/dementisimus/$module/${{ env.version }}
             artifactsTarget=./artifacts/$package
 
             mkdir -p $artifactsTarget
@@ -59,8 +66,17 @@ jobs:
           done
 
           for module in "${javadocModules[@]}"; do
-            package=dev/dementisimus/${{ env.id }}/$module/${{ env.version }}
-            javadocsTarget=./javadocs/$package
+            fullModule=$module-${{ env.version }}
+            package=dev/dementisimus/$module/${{ env.version }}
+            artifactsTarget=./artifacts/$package
+
+            mkdir -p $artifactsTarget
+
+            cp ./$module/target/$fullModule-sources.jar $artifactsTarget/
+          done
+
+          for module in "${javadocModules[@]}"; do
+            javadocsTarget=./javadocs/$module/${{ env.version }}
 
             mkdir -p $javadocsTarget
             cp -r ./$module/target/site/apidocs/. $javadocsTarget/
@@ -70,8 +86,8 @@ jobs:
         if: endsWith(github.ref, '/main')
         uses: garygrossgarten/github-action-scp@v0.7.3
         with:
-          local: ./artifacts/dev/dementisimus/${{ env.id }}
-          remote: /home/repo-deployment/repository/repositories/release/dev/dementisimus/${{ env.id }}/
+          local: ./artifacts/dev/dementisimus
+          remote: /home/repo-deployment/repository/repositories/release/dev/dementisimus/
           concurrency: 10
           host: ${{ secrets.SSH_HOST }}
           port: ${{ secrets.SSH_PORT }}
@@ -84,8 +100,8 @@ jobs:
         if: endsWith(github.ref, '/develop')
         uses: garygrossgarten/github-action-scp@v0.7.3
         with:
-          local: ./artifacts/dev/dementisimus/${{ env.id }}
-          remote: /home/repo-deployment/repository/repositories/development/dev/dementisimus/${{ env.id }}/
+          local: ./artifacts/dev/dementisimus
+          remote: /home/repo-deployment/repository/repositories/development/dev/dementisimus/
           concurrency: 10
           host: ${{ secrets.SSH_HOST }}
           port: ${{ secrets.SSH_PORT }}
@@ -99,7 +115,7 @@ jobs:
         uses: garygrossgarten/github-action-scp@v0.7.3
         with:
           local: ./javadocs
-          remote: /var/www/dementisimus.dev/html/docs/release/${{ env.name }}/${{ env.version }}/
+          remote: /var/www/dementisimus.dev/html/docs/release/${{ env.name }}/
           concurrency: 10
           host: ${{ secrets.SSH_HOST }}
           port: ${{ secrets.SSH_PORT }}
@@ -113,7 +129,7 @@ jobs:
         uses: garygrossgarten/github-action-scp@v0.7.3
         with:
           local: ./javadocs
-          remote: /var/www/dementisimus.dev/html/docs/development/${{ env.name }}/${{ env.version }}/
+          remote: /var/www/dementisimus.dev/html/docs/development/${{ env.name }}/
           concurrency: 10
           host: ${{ secrets.SSH_HOST }}
           port: ${{ secrets.SSH_PORT }}

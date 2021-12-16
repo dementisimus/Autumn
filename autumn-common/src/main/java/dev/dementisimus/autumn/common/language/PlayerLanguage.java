@@ -8,9 +8,9 @@
 
 package dev.dementisimus.autumn.common.language;
 
-import dev.dementisimus.autumn.common.api.database.Database;
 import dev.dementisimus.autumn.common.api.i18n.AutumnLanguage;
-import dev.dementisimus.autumn.common.database.property.AutumnDataProperty;
+import dev.dementisimus.autumn.common.api.storage.Storage;
+import dev.dementisimus.autumn.common.storage.property.AutumnStorageProperty;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -21,7 +21,7 @@ public class PlayerLanguage {
 
     private static final Map<UUID, Locale> PLAYER_LOCALES = new HashMap<>();
 
-    public static void set(Database database, UUID uuid, String locale) {
+    public static void set(Storage storage, UUID uuid, String locale) {
         String language = "en";
         String country = "US";
 
@@ -32,17 +32,17 @@ public class PlayerLanguage {
             country = splittedLocaleString[1].toUpperCase();
         }
 
-        set(database, uuid, new Locale(language, country));
+        set(storage, uuid, new Locale(language, country));
     }
 
-    public static void set(Database database, UUID uuid, Locale locale) {
-        if(database != null) {
-            database.dataSourceProperty(AutumnLanguage.DataSource.PROPERTY);
-            database.dataProperty(AutumnDataProperty.of(AutumnLanguage.DataSource.USER, uuid.toString()));
+    public static void set(Storage storage, UUID uuid, Locale locale) {
+        if(storage != null) {
+            storage.sourceProperty(AutumnLanguage.StorageSource.PROPERTY);
+            storage.property(AutumnStorageProperty.of(AutumnLanguage.StorageSource.USER, uuid.toString()));
 
-            database.read(document -> {
+            storage.read(document -> {
                 if(document != null) {
-                    AutumnLanguage language = AutumnLanguage.valueOf(document.getString(AutumnLanguage.DataSource.LANGUAGE));
+                    AutumnLanguage language = AutumnLanguage.valueOf(document.getString(AutumnLanguage.StorageSource.LANGUAGE));
 
                     PLAYER_LOCALES.put(uuid, language.getLocale());
                 }

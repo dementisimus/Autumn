@@ -9,7 +9,6 @@
 package dev.dementisimus.autumn.common.api.dependency;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents a repository
@@ -25,7 +24,7 @@ public interface AutumnRepository {
      *
      * @since 1.0.0
      */
-    @Nullable String name();
+    String name();
 
     /**
      * Sets the repository name
@@ -43,7 +42,7 @@ public interface AutumnRepository {
      *
      * @since 1.0.0
      */
-    @Nullable String url();
+    String url();
 
     /**
      * Sets the repository URL

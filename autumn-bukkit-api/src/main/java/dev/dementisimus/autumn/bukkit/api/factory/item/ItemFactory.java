@@ -9,12 +9,14 @@
 package dev.dementisimus.autumn.bukkit.api.factory.item;
 
 import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryClickInteraction;
+import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryInteraction;
 import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
 import dev.dementisimus.autumn.common.api.i18n.AutumnTranslationReplacement;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.Action;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -339,7 +341,26 @@ public interface ItemFactory {
      *
      * @since 1.0.0
      */
-    void onClick(@NotNull AutumnCallback<ItemFactoryClickInteraction> clickInteractionCallback);
+    void onClick(@NotNull AutumnCallback<@NotNull ItemFactoryClickInteraction> clickInteractionCallback);
+
+    /**
+     * Listens for an interaction with this item
+     *
+     * @param interactionCallback the Callback used to deliver the interaction
+     *
+     * @since 1.1.0
+     */
+    void onInteract(@NotNull AutumnCallback<@NotNull ItemFactoryInteraction> interactionCallback);
+
+    /**
+     * Listens for an interaction with this item, triggered by specific {@link Action}s
+     *
+     * @param interactionCallback the Callback used to deliver the interaction
+     * @param actions actions necessary for an interaction
+     *
+     * @since 1.1.0
+     */
+    void onInteract(@NotNull AutumnCallback<@NotNull ItemFactoryInteraction> interactionCallback, @NotNull Action... actions);
 
     /**
      * Creates the item

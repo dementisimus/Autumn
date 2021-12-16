@@ -9,11 +9,11 @@
 package dev.dementisimus.autumn.common.setup.state.type;
 
 import dev.dementisimus.autumn.common.api.i18n.AutumnLanguage;
-import dev.dementisimus.autumn.common.setup.state.DefaultSetupState;
+import dev.dementisimus.autumn.common.setup.state.CustomSetupState;
 
 import java.util.Locale;
 
-public class SetupStateLanguageType extends DefaultSetupState {
+public class SetupStateLanguageType extends CustomSetupState {
 
     public SetupStateLanguageType(String name, String messageTranslationProperty, AutumnLanguage value) {
         super(name, messageTranslationProperty, value);

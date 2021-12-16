@@ -9,16 +9,16 @@
 package dev.dementisimus.autumn.common.api;
 
 import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
-import dev.dementisimus.autumn.common.api.database.Database;
-import dev.dementisimus.autumn.common.api.database.property.source.DataSourceProperty;
 import dev.dementisimus.autumn.common.api.executor.AutumnTaskExecutor;
+import dev.dementisimus.autumn.common.api.file.AutumnFileDownloader;
 import dev.dementisimus.autumn.common.api.i18n.AutumnLanguage;
 import dev.dementisimus.autumn.common.api.injection.AutumnInjector;
 import dev.dementisimus.autumn.common.api.log.AutumnLogging;
 import dev.dementisimus.autumn.common.api.setup.SetupManager;
 import dev.dementisimus.autumn.common.api.setup.state.SetupState;
+import dev.dementisimus.autumn.common.api.storage.Storage;
+import dev.dementisimus.autumn.common.api.storage.property.source.StorageSourceProperty;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * Autumn's main class
@@ -35,11 +35,11 @@ public interface Autumn {
     void defaultSetupStates();
 
     /**
-     * Enables all setup states needed for database connections
+     * Enables all setup states needed for storage connections
      *
      * @since 1.0.0
      */
-    void databaseSetupStates();
+    void storageSetupStates();
 
     /**
      * Enables extra setup states
@@ -51,6 +51,15 @@ public interface Autumn {
     void extraSetupStates(@NotNull SetupState... setupStates);
 
     /**
+     * Enables an extra setup state
+     *
+     * @param setupState extra setup state
+     *
+     * @since 1.1.0
+     */
+    void extraSetupState(@NotNull SetupState setupState);
+
+    /**
      * Initializes Autumn and its plugin
      *
      * @param initializationCallback the injector for adding plugin modules when the initialization has been completed
@@ -60,13 +69,13 @@ public interface Autumn {
     void initialize(@NotNull AutumnCallback<@NotNull AutumnInjector> initializationCallback);
 
     /**
-     * Enables the database (needs at least {@link #databaseSetupStates()}
+     * Provides the storage functionality (needs at least {@link #storageSetupStates()}
      *
-     * @param dataSourceProperties data source properties
+     * @param storageSourceProperties storage source properties
      *
      * @since 1.0.0
      */
-    void enableDatabase(@NotNull DataSourceProperty... dataSourceProperties);
+    void useStorage(@NotNull StorageSourceProperty... storageSourceProperties);
 
     /**
      * Checks if optional commands will be registered
@@ -111,7 +120,7 @@ public interface Autumn {
      *
      * @since 1.0.0
      */
-    @NotNull AutumnTaskExecutor taskExecutor();
+    AutumnTaskExecutor taskExecutor();
 
     /**
      * Gets the {@link AutumnLogging}
@@ -120,7 +129,7 @@ public interface Autumn {
      *
      * @since 1.0.0
      */
-    @NotNull AutumnLogging logging();
+    AutumnLogging logging();
 
     /**
      * Gets the {@link AutumnInjector}
@@ -129,7 +138,7 @@ public interface Autumn {
      *
      * @since 1.0.0
      */
-    @NotNull AutumnInjector injector();
+    AutumnInjector injector();
 
     /**
      * Gets the default {@link AutumnLanguage}
@@ -138,7 +147,7 @@ public interface Autumn {
      *
      * @since 1.0.0
      */
-    @NotNull AutumnLanguage defaultLanguage();
+    AutumnLanguage defaultLanguage();
 
     /**
      * Gets the {@link SetupManager}
@@ -147,14 +156,21 @@ public interface Autumn {
      *
      * @since 1.0.0
      */
-    @NotNull SetupManager setupManager();
+    SetupManager setupManager();
 
     /**
-     * Gets the {@link Database}, if enabled by {@link #enableDatabase(DataSourceProperty...)}
+     * Gets the {@link Storage}, if enabled by {@link #useStorage(StorageSourceProperty...)}
      *
-     * @return the {@link Database}, if enabled, else null
+     * @return the {@link Storage}, if enabled, else null
      *
      * @since 1.0.0
      */
-    @Nullable Database database();
+    Storage storage();
+
+    /**
+     * Gets the {@link AutumnFileDownloader}
+     *
+     * @return the {@link AutumnFileDownloader}
+     */
+    AutumnFileDownloader fileDownloader();
 }
