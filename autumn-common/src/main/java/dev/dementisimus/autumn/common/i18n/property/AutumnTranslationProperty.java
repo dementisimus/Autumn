@@ -30,7 +30,7 @@ public class AutumnTranslationProperty {
         for(String propertySource : PROPERTY_SOURCES) {
             String propertySourceMessage = getPropertySourceMessage(translationProperty, propertySource, locale);
 
-            if(propertySource != null) {
+            if(propertySourceMessage != null) {
                 message = propertySourceMessage;
                 break;
             }else {
