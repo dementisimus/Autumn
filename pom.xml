@@ -34,7 +34,7 @@
         <annotations.version>23.0.0</annotations.version>
         <guice.version>5.0.1</guice.version>
         <lombok.version>1.18.22</lombok.version>
-        <mongodb.version>4.4.0</mongodb.version>
+        <mongodb.version>4.4.1</mongodb.version>
 
         <!-- common/dependencies -->
         <jansi.version>2.4.0</jansi.version>
