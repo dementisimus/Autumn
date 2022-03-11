@@ -1,0 +1,10 @@
+{
+  "id": "autumn-dependencies",
+  "name": "Autumn-Dependencies",
+  "version": "${project.version}",
+  "authors": [
+    "dementisimus"
+  ],
+  "dependencies": [],
+  "main": "dev.dementisimus.autumn.dependencies.plugin.velocity.AutumnDependenciesPlugin"
+}

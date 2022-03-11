@@ -16,6 +16,7 @@ import dev.dementisimus.autumn.bukkit.listener.ServerCommandListener;
 import dev.dementisimus.autumn.bukkit.log.AutumnBukkitLogging;
 import dev.dementisimus.autumn.bukkit.setup.BukkitSetupManager;
 import dev.dementisimus.autumn.common.CustomAutumn;
+import dev.dementisimus.autumn.common.api.injection.AutumnInjector;
 import dev.dementisimus.autumn.common.api.server.ServerType;
 import dev.dementisimus.autumn.common.api.setup.SetupManager;
 import dev.dementisimus.autumn.common.injection.CustomAutumnInjector;
@@ -61,7 +62,7 @@ public class BukkitAutumn extends CustomAutumn {
     @Override
     protected void initializePlugin(Object pluginObject) {
         Plugin plugin = (Plugin) pluginObject;
-        CustomAutumnInjector injector = this.getInjector();
+        AutumnInjector injector = this.getInjector();
 
         injector.registerModule(BukkitAutumn.class, this);
         injector.registerModule(Plugin.class, plugin);

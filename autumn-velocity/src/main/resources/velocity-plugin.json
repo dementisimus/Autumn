@@ -1,0 +1,15 @@
+{
+  "id": "autumn-velocity",
+  "name": "AutumnVelocity",
+  "version": "${project.version}",
+  "authors": [
+    "dementisimus"
+  ],
+  "dependencies": [
+    {
+      "id": "autumn-dependencies",
+      "optional": true
+    }
+  ],
+  "main": "dev.dementisimus.autumn.velocity.plugin.AutumnPlugin"
+}

@@ -41,5 +41,12 @@ public enum ServerType {
      *
      * @since 1.0.0
      */
-    WATERFALL
+    WATERFALL,
+
+    /**
+     * Velocity by PaperMC
+     *
+     * @since 1.1.1
+     */
+    VELOCITY
 }
