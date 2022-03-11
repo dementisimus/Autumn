@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Allows the generation of message translations for velocity players
  *
- * @since 1.1.2
+ * @since 1.1.1
  */
 public interface AutumnVelocityTranslation extends AutumnTranslation {
 
@@ -26,7 +26,7 @@ public interface AutumnVelocityTranslation extends AutumnTranslation {
      *
      * @return translation in given player locale
      *
-     * @since 1.1.2
+     * @since 1.1.1
      */
     @NotNull String get(@NotNull Player player);
 
@@ -35,7 +35,7 @@ public interface AutumnVelocityTranslation extends AutumnTranslation {
      *
      * @param player player
      *
-     * @since 1.1.2
+     * @since 1.1.1
      */
     void send(@NotNull Player player);
 }
