@@ -28,13 +28,6 @@ public class InventoryClickListener implements Listener {
         ItemStack currentItem = event.getCurrentItem();
 
         if(clickedInventory != null) {
-            if(clickedInventory.equals(player.getInventory())) {
-                event.setCancelled(false);
-                return;
-            }
-
-            event.setCancelled(true);
-
             if(currentItem != null && currentItem.getItemMeta() != null) {
                 String title = event.getView().getTitle();
                 String currentItemDisplayName = currentItem.getItemMeta().getDisplayName();
@@ -46,6 +39,10 @@ public class InventoryClickListener implements Listener {
                 validInventoryClickEvent.title(title);
                 validInventoryClickEvent.currentItem(currentItem);
                 validInventoryClickEvent.currentItemDisplayName(currentItemDisplayName);
+                validInventoryClickEvent.slot(event.getSlot());
+                validInventoryClickEvent.slotType(event.getSlotType());
+
+                event.setCancelled(true);
 
                 Bukkit.getPluginManager().callEvent(validInventoryClickEvent);
             }

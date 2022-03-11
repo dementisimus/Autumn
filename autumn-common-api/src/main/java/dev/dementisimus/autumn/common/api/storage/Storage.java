@@ -106,6 +106,13 @@ public interface Storage {
     /**
      * Writes to storage
      *
+     * @since 1.1.1
+     */
+    void write();
+
+    /**
+     * Writes to storage
+     *
      * @param booleanCallback A callback with value=true if the write operation was successful, false otherwise
      *
      * @since 1.0.0
@@ -115,11 +122,25 @@ public interface Storage {
     /**
      * Updates an already existing field in the storage
      *
+     * @since 1.1.1
+     */
+    void update();
+
+    /**
+     * Updates an already existing field in the storage
+     *
      * @param booleanCallback A callback with value=true if the update operation was successful, false otherwise
      *
      * @since 1.0.0
      */
     void update(@NotNull AutumnCallback<@NotNull Boolean> booleanCallback);
+
+    /**
+     * Deletes from storage
+     *
+     * @since 1.1.1
+     */
+    void delete();
 
     /**
      * Deletes from storage
@@ -138,6 +159,13 @@ public interface Storage {
      * @since 1.0.0
      */
     void isPresent(@NotNull AutumnCallback<@NotNull Boolean> booleanCallback);
+
+    /**
+     * Writes, if field does not exist, to storage, else updates the provided field
+     *
+     * @since 1.1.1
+     */
+    void writeOrUpdate();
 
     /**
      * Writes, if field does not exist, to storage, else updates the provided field

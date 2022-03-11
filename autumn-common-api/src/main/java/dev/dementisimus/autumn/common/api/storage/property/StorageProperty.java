@@ -19,6 +19,15 @@ import org.jetbrains.annotations.NotNull;
 public interface StorageProperty {
 
     /**
+     * Transforms the storage property into a string
+     *
+     * @return storage property as string
+     *
+     * @since 1.1.1
+     */
+    @NotNull String toString();
+
+    /**
      * Gets the storage property field name
      *
      * @return storage property field name
@@ -44,13 +53,4 @@ public interface StorageProperty {
      * @since 1.0.0
      */
     @NotNull Bson filter();
-
-    /**
-     * Transforms the storage property into a string
-     *
-     * @return storage property as string
-     *
-     * @since 1.0.0
-     */
-    @NotNull String toString();
 }

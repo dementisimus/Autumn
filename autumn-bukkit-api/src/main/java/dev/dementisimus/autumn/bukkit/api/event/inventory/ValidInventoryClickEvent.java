@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -29,6 +30,9 @@ public class ValidInventoryClickEvent extends Event {
     private String title;
     private ItemStack currentItem;
     private String currentItemDisplayName;
+    private int slot;
+    private InventoryType.SlotType slotType;
+    private boolean allowPlayerInventoryClick;
 
     public @NotNull HandlerList getHandlers() {
         return HANDLERS;
@@ -142,6 +146,50 @@ public class ValidInventoryClickEvent extends Event {
      */
     public void currentItemDisplayName(@NotNull String currentItemDisplayName) {
         this.currentItemDisplayName = currentItemDisplayName;
+    }
+
+    /**
+     * Returns the slot the clicked item is in
+     *
+     * @return clicked slot
+     *
+     * @since 1.1.1
+     */
+    public int slot() {
+        return this.slot;
+    }
+
+    /**
+     * Sets the slot the clicked item is in
+     *
+     * @param slot clicked slot
+     *
+     * @since 1.1.1
+     */
+    public void slot(int slot) {
+        this.slot = slot;
+    }
+
+    /**
+     * Returns the slot type the clicked item is in
+     *
+     * @return clicked slot type
+     *
+     * @since 1.1.1
+     */
+    public InventoryType.SlotType slotType() {
+        return this.slotType;
+    }
+
+    /**
+     * Sets the slot type the clicked item is in
+     *
+     * @param slotType clicked slot type
+     *
+     * @since 1.1.1
+     */
+    public void slotType(@NotNull InventoryType.SlotType slotType) {
+        this.slotType = slotType;
     }
 
     public static HandlerList getHandlerList() {

@@ -29,4 +29,13 @@ public interface AutumnBukkitTranslation extends AutumnTranslation {
      * @since 1.0.0
      */
     @NotNull String get(@NotNull Player player);
+
+    /**
+     * Sends the translation to a {@link Player}
+     *
+     * @param player player
+     *
+     * @since 1.1.1
+     */
+    void send(@NotNull Player player);
 }

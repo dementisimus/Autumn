@@ -11,6 +11,7 @@ package dev.dementisimus.autumn.bukkit.api.factory.item.interaction;
 import dev.dementisimus.autumn.bukkit.api.event.inventory.ValidInventoryClickEvent;
 import dev.dementisimus.autumn.bukkit.api.factory.item.ItemFactory;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
@@ -103,4 +104,40 @@ public interface ItemFactoryClickInteraction {
      * @since 1.0.0
      */
     boolean shiftClick();
+
+    /**
+     * Returns the slot the clicked item is in
+     *
+     * @return clicked slot
+     *
+     * @since 1.1.1
+     */
+    int slot();
+
+    /**
+     * Returns the slot type the clicked item is in
+     *
+     * @return clicked slot type
+     *
+     * @since 1.1.1
+     */
+    @NotNull InventoryType.SlotType slotType();
+
+    /**
+     * Returns true if the click interaction is cancelled, false otherwise
+     *
+     * @return true if the click interaction is cancelled, false otherwise
+     *
+     * @since 1.1.1
+     */
+    boolean cancelled();
+
+    /**
+     * Sets the cancellation state of the click interaction
+     *
+     * @param cancelled true if cancelled, false otherwise
+     *
+     * @since 1.1.1
+     */
+    void cancelled(boolean cancelled);
 }

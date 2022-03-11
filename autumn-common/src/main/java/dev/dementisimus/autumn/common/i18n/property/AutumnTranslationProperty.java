@@ -22,6 +22,20 @@ public class AutumnTranslationProperty {
     private static final List<String> PROPERTY_SOURCES = new ArrayList<>();
     private static final Map<String, Properties> PROPERTIES = new HashMap<>();
 
+    private static String getPropertySourceMessage(String translationProperty, String source, Locale locale) {
+        Properties properties = PROPERTIES.get(getPropertyKey(source, locale));
+
+        if(properties != null) {
+            return properties.getProperty(translationProperty);
+        }
+
+        return null;
+    }
+
+    private static String getPropertyKey(String source, Locale locale) {
+        return source + "_" + locale.getLanguage();
+    }
+
     public static String getMessage(String translationProperty, Locale locale) {
         if(locale == null) locale = Locale.ENGLISH;
 
@@ -64,19 +78,5 @@ public class AutumnTranslationProperty {
                 }
             }
         }
-    }
-
-    private static String getPropertySourceMessage(String translationProperty, String source, Locale locale) {
-        Properties properties = PROPERTIES.get(getPropertyKey(source, locale));
-
-        if(properties != null) {
-            return properties.getProperty(translationProperty);
-        }
-
-        return null;
-    }
-
-    private static String getPropertyKey(String source, Locale locale) {
-        return source + "_" + locale.getLanguage();
     }
 }

@@ -18,7 +18,7 @@ import java.io.File;
  *
  * @since 1.0.0
  */
-public interface AutumnZipFileDownloader {
+public interface AutumnZipFileDownloader extends AutumnFileDownloader {
 
     /**
      * Downloads a ZIP-File from an URL

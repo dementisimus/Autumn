@@ -14,6 +14,7 @@ import dev.dementisimus.autumn.bukkit.api.factory.item.ItemFactory;
 import dev.dementisimus.autumn.bukkit.api.i18n.AutumnBukkitTranslation;
 import dev.dementisimus.autumn.bukkit.factory.item.CustomItemFactory;
 import dev.dementisimus.autumn.bukkit.i18n.CustomBukkitTranslation;
+import dev.dementisimus.autumn.common.api.executor.AutumnTaskExecutor;
 import dev.dementisimus.autumn.common.api.i18n.AutumnTranslationReplacement;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -24,9 +25,15 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CustomInventoryFactory implements InventoryFactory {
 
     private final Inventory inventory;
+
+    private Player player;
+    private String placeholderTranslationProperty;
 
     public CustomInventoryFactory(int rows, String title) {
         this.checkRowArgument(rows);
@@ -36,6 +43,8 @@ public class CustomInventoryFactory implements InventoryFactory {
 
     public CustomInventoryFactory(int rows, Player player, String translationProperty, AutumnTranslationReplacement... replacements) {
         this.checkRowArgument(rows);
+
+        this.player = player;
 
         AutumnBukkitTranslation bukkitTranslation = new CustomBukkitTranslation(translationProperty);
         bukkitTranslation.replacement(replacements);
@@ -63,8 +72,25 @@ public class CustomInventoryFactory implements InventoryFactory {
     }
 
     @Override
+    public @NotNull InventoryFactory item(@NotNull ItemFactory itemFactory, int... slots) {
+        for(int slot : slots) {
+            this.item(slot, itemFactory);
+        }
+        return this;
+    }
+
+    @Override
     public @NotNull InventoryFactory item(int slot, @NotNull ItemStack itemStack) {
         this.inventory.setItem(slot, itemStack);
+        return this;
+    }
+
+    @Override
+    public @NotNull InventoryFactory item(@NotNull ItemStack itemStack, int... slots) {
+        for(int slot : slots) {
+            this.item(slot, itemStack);
+        }
+
         return this;
     }
 
@@ -75,10 +101,35 @@ public class CustomInventoryFactory implements InventoryFactory {
     }
 
     @Override
+    public @NotNull InventoryFactory placeholderTranslationProperty(String placeholderTranslationProperty) {
+        this.placeholderTranslationProperty = placeholderTranslationProperty;
+        return this;
+    }
+
+    @Override
     public @NotNull InventoryFactory placeholder(@NotNull Material placeholder) {
-        ItemStack placeholderItemStack = new CustomItemFactory(placeholder).displayName(PLACEHOLDER).create();
+        List<Integer> slots = new ArrayList<>();
 
         for(int slot = 0; slot < this.inventory.getSize(); slot++) {
+            slots.add(slot);
+        }
+
+        return this.placeholder(placeholder, slots.stream().mapToInt(Integer::intValue).toArray());
+    }
+
+    @Override
+    public @NotNull InventoryFactory placeholder(@NotNull Material placeholder, int... slots) {
+        ItemFactory itemFactory = new CustomItemFactory(placeholder);
+
+        if(this.placeholderTranslationProperty != null && this.player != null) {
+            itemFactory.displayName(this.player, this.placeholderTranslationProperty);
+        }else {
+            itemFactory.displayName(PLACEHOLDER);
+        }
+
+        ItemStack placeholderItemStack = itemFactory.create();
+
+        for(int slot : slots) {
             this.item(slot, placeholderItemStack);
         }
 
@@ -86,12 +137,9 @@ public class CustomInventoryFactory implements InventoryFactory {
     }
 
     @Override
-    public @NotNull InventoryFactory placeholder(@NotNull Material placeholder, int... slots) {
-        ItemStack placeholderItemStack = new CustomItemFactory(placeholder).displayName(PLACEHOLDER).create();
-
-        for(int slot : slots) {
-            this.item(slot, placeholderItemStack);
-        }
+    public @NotNull InventoryFactory placeholderBorder(@NotNull Material placeholder) {
+        this.placeholder(placeholder);
+        this.clearInnerItems();
 
         return this;
     }
@@ -136,6 +184,32 @@ public class CustomInventoryFactory implements InventoryFactory {
     }
 
     @Override
+    public @NotNull InventoryFactory clearInnerItems() {
+        switch(this.inventory.getSize()) {
+            case 27 -> {
+                this.air(10, 16);
+            }
+            case 36 -> {
+                this.air(10, 16);
+                this.air(19, 25);
+            }
+            case 45 -> {
+                this.air(10, 16);
+                this.air(19, 25);
+                this.air(28, 34);
+            }
+            case 54 -> {
+                this.air(10, 16);
+                this.air(19, 25);
+                this.air(28, 34);
+                this.air(37, 43);
+            }
+        }
+
+        return this;
+    }
+
+    @Override
     public @Nullable ItemStack itemAt(int slot) {
         return this.inventory.getItem(slot);
     }
@@ -148,6 +222,11 @@ public class CustomInventoryFactory implements InventoryFactory {
     @Override
     public void createFor(@NotNull Player player) {
         player.openInventory(this.inventory);
+    }
+
+    @Override
+    public void createFor(@NotNull AutumnTaskExecutor taskExecutor, @NotNull Player player) {
+        taskExecutor.synchronous(() -> player.openInventory(this.inventory));
     }
 
     private void checkRowArgument(int rows) {

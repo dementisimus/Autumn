@@ -67,7 +67,7 @@ public interface SetupState {
      *
      * @since 1.0.0
      */
-    @Nullable String asString();
+    String asString();
 
     /**
      * Gets the {@link #value()} as an Integer

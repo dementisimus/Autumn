@@ -7,7 +7,7 @@
     <groupId>dev.dementisimus</groupId>
     <artifactId>autumn</artifactId>
     <packaging>pom</packaging>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
     <modules>
         <module>autumn-bukkit</module>
         <module>autumn-bungee</module>
@@ -26,26 +26,26 @@
 
         <!-- maven plugins -->
         <maven-shade-plugin.version>3.3.0-SNAPSHOT</maven-shade-plugin.version>
-        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <maven-compiler-plugin.version>3.10.0</maven-compiler-plugin.version>
         <maven-javadoc-plugin.version>3.3.1</maven-javadoc-plugin.version>
         <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
 
         <!-- autumn -->
         <annotations.version>23.0.0</annotations.version>
-        <guice.version>5.0.1</guice.version>
+        <guice.version>5.1.0</guice.version>
         <lombok.version>1.18.22</lombok.version>
-        <mongodb.version>4.4.0</mongodb.version>
+        <mongodb.version>4.4.1</mongodb.version>
 
         <!-- common/dependencies -->
         <jansi.version>2.4.0</jansi.version>
-        <HikariCP.version>5.0.0</HikariCP.version>
-        <mysql-connector-java.version>8.0.27</mysql-connector-java.version>
+        <HikariCP.version>5.0.1</HikariCP.version>
+        <mysql-connector-java.version>8.0.28</mysql-connector-java.version>
         <sqlite-jdbc.version>3.36.0.3</sqlite-jdbc.version>
         <gson.version>2.8.9</gson.version>
         <guava.version>31.0.1-jre</guava.version>
         <zip4j.version>2.9.1</zip4j.version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
-        <jackson-databind.version>2.13.0</jackson-databind.version>
+        <jackson-databind.version>2.13.2</jackson-databind.version>
 
         <!-- bukkit -->
         <spigot-api.version>1.17.1-R0.1-SNAPSHOT</spigot-api.version>
@@ -57,39 +57,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.jetbrains</groupId>
-            <artifactId>annotations</artifactId>
-            <version>${annotations.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.google.inject</groupId>
-            <artifactId>guice</artifactId>
-            <version>${guice.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mongodb</groupId>
-            <artifactId>bson</artifactId>
-            <version>${mongodb.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>${commons-lang3.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${jackson-databind.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

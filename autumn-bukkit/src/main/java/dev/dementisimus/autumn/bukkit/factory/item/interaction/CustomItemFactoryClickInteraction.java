@@ -13,6 +13,7 @@ import dev.dementisimus.autumn.bukkit.api.factory.item.ItemFactory;
 import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryClickInteraction;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
@@ -73,5 +74,25 @@ public class CustomItemFactoryClickInteraction implements ItemFactoryClickIntera
     @Override
     public boolean shiftClick() {
         return this.inventoryClickEvent.isShiftClick();
+    }
+
+    @Override
+    public int slot() {
+        return this.validInventoryClickEvent.slot();
+    }
+
+    @Override
+    public @NotNull InventoryType.SlotType slotType() {
+        return this.validInventoryClickEvent.slotType();
+    }
+
+    @Override
+    public boolean cancelled() {
+        return this.inventoryClickEvent.isCancelled();
+    }
+
+    @Override
+    public void cancelled(boolean cancelled) {
+        this.inventoryClickEvent.setCancelled(cancelled);
     }
 }

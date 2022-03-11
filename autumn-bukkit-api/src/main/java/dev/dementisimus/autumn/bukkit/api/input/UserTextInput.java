@@ -29,9 +29,9 @@ public interface UserTextInput {
     void prefix(@NotNull String prefix);
 
     /**
-     * Sets the message translationProperty
+     * Sets the message property
      *
-     * @param translationProperty translationProperty
+     * @param translationProperty property
      *
      * @since 1.0.0
      */

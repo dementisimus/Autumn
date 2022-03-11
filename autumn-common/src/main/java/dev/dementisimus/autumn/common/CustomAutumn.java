@@ -17,8 +17,8 @@ import dev.dementisimus.autumn.common.api.dependency.AutumnDependency;
 import dev.dementisimus.autumn.common.api.dependency.AutumnRepository;
 import dev.dementisimus.autumn.common.api.executor.AutumnTaskExecutor;
 import dev.dementisimus.autumn.common.api.file.AutumnFileDownloader;
+import dev.dementisimus.autumn.common.api.file.AutumnZipFileDownloader;
 import dev.dementisimus.autumn.common.api.i18n.AutumnLanguage;
-import dev.dementisimus.autumn.common.api.i18n.AutumnTranslation;
 import dev.dementisimus.autumn.common.api.injection.AutumnInjector;
 import dev.dementisimus.autumn.common.api.injection.annotation.AutumnCommand;
 import dev.dementisimus.autumn.common.api.injection.annotation.AutumnListener;
@@ -51,36 +51,36 @@ import java.io.File;
 
 public abstract class CustomAutumn implements Autumn {
 
-    @Getter(AccessLevel.PROTECTED) private final Object plugin;
-
+    private final Object plugin;
     private final AutumnTaskExecutor taskExecutor;
     private final AutumnLogging logging;
     private final CustomFileDownloader fileDownloader;
-
-    @Getter private CustomAutumnInjector injector;
-    @Getter @Setter(AccessLevel.PROTECTED) private CustomSetupManager setupManager;
-    @Getter private CustomZipFileDownloader zipFileDownloader;
-
-    @Getter private Storage.Type storageType;
+    @Getter(AccessLevel.PROTECTED) private CustomAutumnInjector injector;
+    @Getter(AccessLevel.PROTECTED) @Setter(AccessLevel.PROTECTED) private CustomSetupManager setupManager;
+    private CustomZipFileDownloader zipFileDownloader;
+    private Storage.Type storageType;
     private CustomStorage storage;
-    @Getter private AutumnLanguage defaultLanguage = AutumnLanguage.ENGLISH;
-    @Getter(AccessLevel.PROTECTED) @Setter(AccessLevel.PROTECTED) private ClassLoader autumnClassLoader;
-    @Getter(AccessLevel.PROTECTED) @Setter(AccessLevel.PROTECTED) private ClassLoader pluginClassLoader;
-    @Getter(AccessLevel.PROTECTED) @Setter(AccessLevel.PROTECTED) private SetupValueManager setupValueManager;
+    private AutumnLanguage defaultLanguage;
 
-    @Getter @Setter(AccessLevel.PROTECTED) private String pluginName;
-    @Getter(AccessLevel.PROTECTED) @Setter(AccessLevel.PROTECTED) private String pluginVersion;
-    @Getter(AccessLevel.PROTECTED) @Setter(AccessLevel.PROTECTED) private ServerType servertype;
-    @Getter(AccessLevel.PROTECTED) @Setter(AccessLevel.PROTECTED) private String serverVersion;
+    @Setter(AccessLevel.PROTECTED) private ClassLoader autumnClassLoader;
+    @Setter(AccessLevel.PROTECTED) private ClassLoader pluginClassLoader;
+    @Setter(AccessLevel.PROTECTED) private SetupValueManager setupValueManager;
 
-    @Getter private File pluginFolder;
-    @Getter private File configurationFile;
+    @Setter(AccessLevel.PROTECTED) private String pluginName;
+    @Setter(AccessLevel.PROTECTED) private String pluginVersion;
+    @Setter(AccessLevel.PROTECTED) private ServerType servertype;
+    @Setter(AccessLevel.PROTECTED) private String serverVersion;
+
+    private File pluginFolder;
+    private File configurationFile;
     private AutumnCallback<AutumnInjector> initializationCallback;
     private boolean optionalCommands;
     private boolean optionalListeners;
+    private boolean skipInjection;
 
-    public CustomAutumn(Object plugin, AutumnTaskExecutor taskExecutor, AutumnLogging logging) {
+    public CustomAutumn(Object plugin, String pluginPrefix, AutumnTaskExecutor taskExecutor, AutumnLogging logging) {
         Preconditions.checkNotNull(plugin, "Plugin may not be null!");
+        Preconditions.checkNotNull(pluginPrefix, "PluginPrefix may not be null!");
         Preconditions.checkNotNull(taskExecutor, "TaskExecutor may not be null!");
         Preconditions.checkNotNull(logging, "Logging may not be null!");
 
@@ -88,23 +88,20 @@ public abstract class CustomAutumn implements Autumn {
         this.taskExecutor = taskExecutor;
         this.logging = logging;
 
+        this.setDefaultLanguage(AutumnLanguage.ENGLISH);
+
+        this.logging.pluginPrefix(pluginPrefix);
+
         this.initializePluginDetails(plugin);
+
+        this.logging.pluginName(this.pluginName);
+        this.logging.pluginVersion(this.pluginVersion);
 
         this.fileDownloader = new CustomFileDownloader(this, this.pluginName);
 
         AutumnTranslationProperty.scan(CustomAutumn.class, "Autumn");
         AutumnTranslationProperty.scan(plugin.getClass(), this.pluginName);
     }
-
-    protected abstract void initializePluginDetails(Object pluginObject);
-
-    protected abstract void initializePlugin(Object pluginObject);
-
-    protected abstract void loadPlugin(File pluginFile);
-
-    protected abstract boolean isLoadedPlugin(String plugin);
-
-    protected abstract CustomAutumnInjector getAutumnInjector(Object pluginObject);
 
     @Override
     public void defaultSetupStates() {
@@ -197,6 +194,16 @@ public abstract class CustomAutumn implements Autumn {
     }
 
     @Override
+    public boolean skipInjection() {
+        return this.skipInjection;
+    }
+
+    @Override
+    public void skipInjection(boolean skipInjection) {
+        this.skipInjection = skipInjection;
+    }
+
+    @Override
     public AutumnTaskExecutor taskExecutor() {
         return this.taskExecutor;
     }
@@ -231,6 +238,36 @@ public abstract class CustomAutumn implements Autumn {
         return this.fileDownloader;
     }
 
+    @Override
+    public AutumnZipFileDownloader zipfileDownloader() {
+        return this.zipFileDownloader;
+    }
+
+    @Override
+    public String pluginName() {
+        return this.pluginName;
+    }
+
+    @Override
+    public File configurationFile() {
+        return this.configurationFile;
+    }
+
+    @Override
+    public File pluginFolder() {
+        return this.pluginFolder;
+    }
+
+    protected abstract void initializePluginDetails(Object pluginObject);
+
+    protected abstract void initializePlugin(Object pluginObject);
+
+    protected abstract void loadPlugin(File pluginFile);
+
+    protected abstract boolean isLoadedPlugin(String plugin);
+
+    protected abstract CustomAutumnInjector getAutumnInjector(Object pluginObject);
+
     public void postSetupInitialization() {
         this.initializePlugin(this.plugin);
 
@@ -238,28 +275,27 @@ public abstract class CustomAutumn implements Autumn {
             this.storage.setType(this.storageType);
 
             this.storage.connect(connected -> {
-                AutumnTranslation translation = new CustomAutumnTranslation(this.storage.getStorageType().readyTranslationProperty());
-                translation.replacement("plugin", this.pluginName);
-
-                this.logging.info(translation.get(this.getDefaultLanguage()));
+                this.logging.info(new CustomAutumnTranslation(this.storage.getStorageType().readyTranslationProperty()));
             });
         }
 
-        AutumnTranslation translation = new CustomAutumnTranslation("autumn.plugin.initialized");
-        translation.replacement("plugin", this.pluginName);
-        translation.replacement("version", this.pluginVersion);
-
-        this.logging.info(translation.get(this.getDefaultLanguage()));
+        this.logging.info(new CustomAutumnTranslation("autumn.plugin.initialized"));
 
         this.initializationCallback.done(this.injector);
 
         this.injector.annotation(AutumnCommand.class);
         this.injector.annotation(AutumnListener.class);
-        this.injector.scan();
+
+        if(!this.skipInjection) {
+            this.injector.scan();
+        }
     }
 
     public void setDefaultLanguage(AutumnLanguage defaultLanguage) {
-        if(defaultLanguage != null) this.defaultLanguage = defaultLanguage;
+        if(defaultLanguage != null) {
+            this.defaultLanguage = defaultLanguage;
+            this.logging.consoleLanguage(defaultLanguage);
+        }
     }
 
     public void setStorageType(Storage.Type storageType) {

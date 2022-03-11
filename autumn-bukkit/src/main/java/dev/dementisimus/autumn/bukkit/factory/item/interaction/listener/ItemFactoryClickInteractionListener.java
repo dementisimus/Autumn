@@ -15,8 +15,9 @@ import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryCl
 import dev.dementisimus.autumn.bukkit.api.factory.item.namespace.ItemFactoryNamespace;
 import dev.dementisimus.autumn.bukkit.factory.item.CustomItemFactory;
 import dev.dementisimus.autumn.bukkit.factory.item.interaction.CustomItemFactoryClickInteraction;
-import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
+import dev.dementisimus.autumn.common.api.callback.AutumnBiCallback;
 import dev.dementisimus.autumn.common.api.injection.annotation.AutumnListener;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.persistence.PersistentDataType;
@@ -27,7 +28,7 @@ import java.util.Map;
 @AutumnListener
 public class ItemFactoryClickInteractionListener implements Listener {
 
-    public static final Map<String, AutumnCallback<ItemFactoryClickInteraction>> REQUESTED_INTERACTIONS = new HashMap<>();
+    public static final Map<String, AutumnBiCallback<Player, ItemFactoryClickInteraction>> REQUESTED_INTERACTIONS = new HashMap<>();
 
     @EventHandler
     public void on(ValidInventoryClickEvent event) {
@@ -37,10 +38,10 @@ public class ItemFactoryClickInteractionListener implements Listener {
         String itemId = itemFactory.retrieve(ItemFactoryNamespace.NAMESPACE, ItemFactoryNamespace.ITEM_ID, PersistentDataType.STRING);
 
         if(itemId != null) {
-            AutumnCallback<ItemFactoryClickInteraction> clickInteractionCallback = REQUESTED_INTERACTIONS.get(itemId);
+            AutumnBiCallback<Player, ItemFactoryClickInteraction> clickInteractionCallback = REQUESTED_INTERACTIONS.get(itemId);
 
             if(clickInteractionCallback != null) {
-                clickInteractionCallback.done(new CustomItemFactoryClickInteraction(event, itemFactory));
+                clickInteractionCallback.done(event.player(), new CustomItemFactoryClickInteraction(event, itemFactory));
             }
         }
     }

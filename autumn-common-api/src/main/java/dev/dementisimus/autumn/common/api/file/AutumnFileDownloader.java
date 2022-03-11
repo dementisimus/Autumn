@@ -59,4 +59,13 @@ public interface AutumnFileDownloader {
      * @since 1.0.0
      */
     void downloadTo(@NotNull File downloadTo);
+
+    /**
+     * Sets the location where the downloaded file will be saved to
+     *
+     * @param downloadTo the file path where the downloaded file will be stored at
+     *
+     * @since 1.1.1
+     */
+    void downloadTo(@NotNull String downloadTo);
 }

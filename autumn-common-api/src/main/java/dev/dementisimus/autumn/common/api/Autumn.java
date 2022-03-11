@@ -9,14 +9,9 @@
 package dev.dementisimus.autumn.common.api;
 
 import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
-import dev.dementisimus.autumn.common.api.executor.AutumnTaskExecutor;
-import dev.dementisimus.autumn.common.api.file.AutumnFileDownloader;
-import dev.dementisimus.autumn.common.api.i18n.AutumnLanguage;
 import dev.dementisimus.autumn.common.api.injection.AutumnInjector;
-import dev.dementisimus.autumn.common.api.log.AutumnLogging;
-import dev.dementisimus.autumn.common.api.setup.SetupManager;
+import dev.dementisimus.autumn.common.api.schematic.AutumnPluginSchematic;
 import dev.dementisimus.autumn.common.api.setup.state.SetupState;
-import dev.dementisimus.autumn.common.api.storage.Storage;
 import dev.dementisimus.autumn.common.api.storage.property.source.StorageSourceProperty;
 import org.jetbrains.annotations.NotNull;
 
@@ -25,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * @since 1.0.0
  */
-public interface Autumn {
+public interface Autumn extends AutumnPluginSchematic {
 
     /**
      * Enables all default setup states: CONSOLE_LANGUAGE
@@ -114,63 +109,20 @@ public interface Autumn {
     void optionalListeners(boolean optionalListeners);
 
     /**
-     * Gets the {@link AutumnTaskExecutor}
+     * Checks if the injection will be skipped
      *
-     * @return the {@link AutumnTaskExecutor}
+     * @return true if the injection will be skipped, false otherwise
      *
-     * @since 1.0.0
+     * @since 1.1.1
      */
-    AutumnTaskExecutor taskExecutor();
+    boolean skipInjection();
 
     /**
-     * Gets the {@link AutumnLogging}
+     * Enables/disables the injection done by Autumn
      *
-     * @return the {@link AutumnLogging}
+     * @param skipInjection skipInjection
      *
-     * @since 1.0.0
+     * @since 1.1.1
      */
-    AutumnLogging logging();
-
-    /**
-     * Gets the {@link AutumnInjector}
-     *
-     * @return the {@link AutumnInjector}
-     *
-     * @since 1.0.0
-     */
-    AutumnInjector injector();
-
-    /**
-     * Gets the default {@link AutumnLanguage}
-     *
-     * @return the default {@link AutumnLanguage}
-     *
-     * @since 1.0.0
-     */
-    AutumnLanguage defaultLanguage();
-
-    /**
-     * Gets the {@link SetupManager}
-     *
-     * @return the {@link SetupManager}
-     *
-     * @since 1.0.0
-     */
-    SetupManager setupManager();
-
-    /**
-     * Gets the {@link Storage}, if enabled by {@link #useStorage(StorageSourceProperty...)}
-     *
-     * @return the {@link Storage}, if enabled, else null
-     *
-     * @since 1.0.0
-     */
-    Storage storage();
-
-    /**
-     * Gets the {@link AutumnFileDownloader}
-     *
-     * @return the {@link AutumnFileDownloader}
-     */
-    AutumnFileDownloader fileDownloader();
+    void skipInjection(boolean skipInjection);
 }

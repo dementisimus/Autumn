@@ -53,7 +53,7 @@ public class CustomSetupState implements SetupState {
     }
 
     @Override
-    public @Nullable String asString() {
+    public String asString() {
         return this.value == null ? null : this.value.toString();
     }
 

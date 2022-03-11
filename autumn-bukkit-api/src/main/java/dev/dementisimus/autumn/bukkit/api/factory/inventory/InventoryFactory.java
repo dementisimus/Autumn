@@ -9,6 +9,7 @@
 package dev.dementisimus.autumn.bukkit.api.factory.inventory;
 
 import dev.dementisimus.autumn.bukkit.api.factory.item.ItemFactory;
+import dev.dementisimus.autumn.common.api.executor.AutumnTaskExecutor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -51,6 +52,18 @@ public interface InventoryFactory {
     @NotNull InventoryFactory item(int slot, @NotNull ItemFactory itemFactory);
 
     /**
+     * Sets an item (from an {@link ItemFactory} at specific slots
+     *
+     * @param itemFactory item factory
+     * @param slots slots
+     *
+     * @return the inventory factory instance
+     *
+     * @since 1.1.1
+     */
+    @NotNull InventoryFactory item(@NotNull ItemFactory itemFactory, int... slots);
+
+    /**
      * Sets an item at the specific slot
      *
      * @param slot slot
@@ -63,6 +76,18 @@ public interface InventoryFactory {
     @NotNull InventoryFactory item(int slot, @NotNull ItemStack itemStack);
 
     /**
+     * Sets an item at specific slots
+     *
+     * @param itemStack item stack
+     * @param slots slots
+     *
+     * @return the inventory factory instance
+     *
+     * @since 1.1.1
+     */
+    @NotNull InventoryFactory item(@NotNull ItemStack itemStack, int... slots);
+
+    /**
      * Adds items to the inventory
      *
      * @param itemStacks items
@@ -72,6 +97,17 @@ public interface InventoryFactory {
      * @since 1.0.0
      */
     @NotNull InventoryFactory items(@NotNull ItemStack... itemStacks);
+
+    /**
+     * Sets the translation property used for placeholders
+     *
+     * @param placeholderTranslationProperty translation property
+     *
+     * @return the inventory factory instance
+     *
+     * @since 1.1.1
+     */
+    @NotNull InventoryFactory placeholderTranslationProperty(String placeholderTranslationProperty);
 
     /**
      * Places Material placeholders
@@ -95,6 +131,17 @@ public interface InventoryFactory {
      * @since 1.0.0
      */
     @NotNull InventoryFactory placeholder(@NotNull Material placeholder, int... slots);
+
+    /**
+     * Places Material placeholders as a border around the inventory
+     *
+     * @param placeholder placeholder material
+     *
+     * @return the inventory factory instance
+     *
+     * @since 1.1.1
+     */
+    @NotNull InventoryFactory placeholderBorder(@NotNull Material placeholder);
 
     /**
      * Sets air at specific slots
@@ -155,6 +202,15 @@ public interface InventoryFactory {
     @NotNull InventoryFactory itemOrPlaceholder(int slot, @Nullable ItemStack itemStack, @NotNull Material placeholder);
 
     /**
+     * Clears all items in the inner inventory
+     *
+     * @return the inventory factory instance
+     *
+     * @since 1.1.1
+     */
+    @NotNull InventoryFactory clearInnerItems();
+
+    /**
      * Gets an item at a specific slot
      *
      * @param slot slot
@@ -182,6 +238,16 @@ public interface InventoryFactory {
      * @since 1.0.0
      */
     void createFor(@NotNull Player player);
+
+    /**
+     * Creates the inventory for a player
+     *
+     * @param taskExecutor {@link AutumnTaskExecutor}
+     * @param player {@link Player}
+     *
+     * @since 1.1.1
+     */
+    void createFor(@NotNull AutumnTaskExecutor taskExecutor, @NotNull Player player);
 
     /**
      * Checks if the item stack is a placeholder

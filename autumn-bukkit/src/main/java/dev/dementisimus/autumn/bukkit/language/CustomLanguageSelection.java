@@ -48,7 +48,7 @@ public class CustomLanguageSelection implements LanguageSelection {
 
                 inventoryFactory.item(language.getSelectionInventorySlot(), itemFactory.displayName(player, language.getTranslationProperty()));
 
-                itemFactory.onClick(itemFactoryClickInteraction -> {
+                itemFactory.onClick((interactionPlayer, itemFactoryClickInteraction) -> {
                     ItemFactory clickedItemFactory = itemFactoryClickInteraction.itemFactory();
 
                     AutumnLanguage newLanguage = AutumnLanguage.valueOf(clickedItemFactory.retrieve(NAMESPACE, KEY, PersistentDataType.STRING));
@@ -71,7 +71,7 @@ public class CustomLanguageSelection implements LanguageSelection {
             });
         }
 
-        inventoryFactory.createFor(player);
+        inventoryFactory.createFor(this.autumn.taskExecutor(), player);
     }
 
     private void apply(Player player, AutumnLanguage newLanguage) {

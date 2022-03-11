@@ -11,7 +11,6 @@ package dev.dementisimus.autumn.common.setup;
 import dev.dementisimus.autumn.common.CustomAutumn;
 import dev.dementisimus.autumn.common.api.configuration.AutumnConfiguration;
 import dev.dementisimus.autumn.common.api.i18n.AutumnLanguage;
-import dev.dementisimus.autumn.common.api.i18n.AutumnTranslation;
 import dev.dementisimus.autumn.common.api.setup.SetupManager;
 import dev.dementisimus.autumn.common.api.setup.event.DeserializeSetupStateEvent;
 import dev.dementisimus.autumn.common.api.setup.event.NextExtraSetupStateEvent;
@@ -49,14 +48,6 @@ public abstract class CustomSetupManager implements SetupManager {
         this.autumn = autumn;
     }
 
-    public abstract ValidateCurrentExtraSetupStateEvent callValidateCurrentSetupStateEvent(SetupState currentSetupState, String consoleInput, boolean validInput);
-
-    protected abstract DeserializeSetupStateEvent callDeserializeSetupStateEvent(SetupState setupState, Document configuration, String name, Object value);
-
-    protected abstract NextExtraSetupStateEvent callNextSetupStateEvent(SetupState currentSetupState, int currentStateListIndex, SetupState nextSetupState, boolean cancelled);
-
-    protected abstract SerializeSetupStateEvent callSerializeSetupStateEvent(SetupState setupState, Object value);
-
     @Override
     public void mainSetupState(@NotNull SetupState setupState) {
         this.mainSetupStates.add(setupState);
@@ -84,10 +75,7 @@ public abstract class CustomSetupManager implements SetupManager {
 
     @Override
     public void printSetupStateInstructions(@NotNull SetupState setupState) {
-        AutumnTranslation translation = new CustomAutumnTranslation(setupState.messageTranslationProperty());
-        translation.replacement("plugin", this.autumn.getPluginName());
-
-        this.autumn.logging().info(translation.get(this.autumn.getDefaultLanguage()));
+        this.autumn.logging().info(new CustomAutumnTranslation(setupState.messageTranslationProperty()));
     }
 
     @Override
@@ -159,8 +147,7 @@ public abstract class CustomSetupManager implements SetupManager {
                 this.mainSetupStates.set(0, CONSOLE_LANGUAGE);
             }
 
-            AutumnTranslation translation = this.getSetupTranslation("autumn.setup.begin");
-            this.autumn.logging().info(translation.get(this.autumn.getDefaultLanguage()));
+            this.autumn.logging().info(new CustomAutumnTranslation("autumn.setup.begin"));
 
             this.currentSetupState(CONSOLE_LANGUAGE);
             executor.cancel();
@@ -171,7 +158,7 @@ public abstract class CustomSetupManager implements SetupManager {
     @Override
     public void complete(boolean postSetup) {
         this.completed = true;
-        File configFile = this.autumn.getConfigurationFile();
+        File configFile = this.autumn.configurationFile();
 
         List<SetupState> setupStates = new ArrayList<>(this.mainSetupStates);
         setupStates.addAll(this.extraSetupStates);
@@ -179,8 +166,7 @@ public abstract class CustomSetupManager implements SetupManager {
         AutumnConfiguration configuration = new CustomAutumnConfiguration(configFile);
 
         if(postSetup) {
-            AutumnTranslation translation = this.getSetupTranslation("autumn.setup.complete");
-            this.autumn.logging().info(translation.get(this.autumn.getDefaultLanguage()));
+            this.autumn.logging().info(new CustomAutumnTranslation("autumn.setup.complete"));
 
             configFile.getParentFile().mkdirs();
             configFile.createNewFile();
@@ -215,7 +201,7 @@ public abstract class CustomSetupManager implements SetupManager {
             if(configFile.exists()) {
                 Document document = configuration.read();
 
-                if(document != null && !document.isEmpty()) {
+                if(!document.isEmpty()) {
                     for(SetupState setupState : setupStates) {
                         if(document.containsKey(setupState.name())) {
 
@@ -246,10 +232,9 @@ public abstract class CustomSetupManager implements SetupManager {
 
                             setupState.value(value);
                         }else {
-                            AutumnTranslation translation = new CustomAutumnTranslation("autumn.setup.config.not.complete");
+                            this.autumn.logging().warning(new CustomAutumnTranslation("autumn.setup.config.not.complete"));
 
-                            this.autumn.logging().warning(translation.get(this.autumn.getDefaultLanguage()));
-                            this.autumn.getConfigurationFile().delete();
+                            this.autumn.configurationFile().delete();
                             this.begin();
                             break;
                         }
@@ -272,10 +257,11 @@ public abstract class CustomSetupManager implements SetupManager {
         return this.extraSetupStates.contains(setupState);
     }
 
-    private AutumnTranslation getSetupTranslation(String translationProperty) {
-        AutumnTranslation translation = new CustomAutumnTranslation(translationProperty);
-        translation.replacement("plugin", this.autumn.getPluginName());
+    public abstract ValidateCurrentExtraSetupStateEvent callValidateCurrentSetupStateEvent(SetupState currentSetupState, String consoleInput, boolean validInput);
 
-        return translation;
-    }
+    protected abstract DeserializeSetupStateEvent callDeserializeSetupStateEvent(SetupState setupState, Document configuration, String name, Object value);
+
+    protected abstract NextExtraSetupStateEvent callNextSetupStateEvent(SetupState currentSetupState, int currentStateListIndex, SetupState nextSetupState, boolean cancelled);
+
+    protected abstract SerializeSetupStateEvent callSerializeSetupStateEvent(SetupState setupState, Object value);
 }
