@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>autumn-bungee</artifactId>
+    <artifactId>autumn-velocity</artifactId>
 
     <dependencies>
         <dependency>
@@ -20,7 +20,7 @@
         </dependency>
         <dependency>
             <groupId>dev.dementisimus</groupId>
-            <artifactId>autumn-bungee-api</artifactId>
+            <artifactId>autumn-velocity-api</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
@@ -32,9 +32,9 @@
         </dependency>
 
         <dependency>
-            <groupId>net.md-5</groupId>
-            <artifactId>bungeecord-api</artifactId>
-            <version>${bungeecord-api.version}</version>
+            <groupId>com.velocitypowered</groupId>
+            <artifactId>velocity-api</artifactId>
+            <version>${velocity-api.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

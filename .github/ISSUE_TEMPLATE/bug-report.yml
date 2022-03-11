@@ -20,6 +20,8 @@ body:
         - 'Bukkit-API'
         - 'Bungee'
         - 'Bungee-API'
+        - 'Velocity'
+        - 'Velocity-API'
         - 'Common'
         - 'Common-API'
         - 'Dependencies'

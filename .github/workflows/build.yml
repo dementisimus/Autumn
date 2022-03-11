@@ -36,15 +36,15 @@ jobs:
         run: mvn -U clean install -pl :autumn,:autumn-dependencies
 
       - name: build api
-        run: mvn -U clean install javadoc:javadoc -pl :autumn,:autumn-common-api,:autumn-bukkit-api,:autumn-bungee-api
+        run: mvn -U clean install javadoc:javadoc -pl :autumn,:autumn-common-api,:autumn-bukkit-api,:autumn-bungee-api,:autumn-velocity-api
 
       - name: build implementation
-        run: mvn -U clean install -pl :autumn,:autumn-bukkit,:autumn-bungee,:autumn-common -file pom.xml
+        run: mvn -U clean install -pl :autumn,:autumn-bukkit,:autumn-bungee,:autumn-velocity,:autumn-common -file pom.xml
 
       - name: pre-deploy
         run: |
-          declare -a modules=("autumn-dependencies" "autumn-common-api" "autumn-common" "autumn-bukkit-api" "autumn-bukkit" "autumn-bungee-api" "autumn-bungee")
-          declare -a javadocModules=("autumn-common-api" "autumn-bukkit-api" "autumn-bungee-api")
+          declare -a modules=("autumn-dependencies" "autumn-common-api" "autumn-common" "autumn-bukkit-api" "autumn-bukkit" "autumn-bungee-api" "autumn-bungee" "autumn-velocity-api" "autumn-velocity")
+          declare -a javadocModules=("autumn-common-api" "autumn-bukkit-api" "autumn-bungee-api" "autumn-velocity-api")
 
           fullModule=autumn-${{ env.version }}
           package=dev/dementisimus/autumn/${{ env.version }}
