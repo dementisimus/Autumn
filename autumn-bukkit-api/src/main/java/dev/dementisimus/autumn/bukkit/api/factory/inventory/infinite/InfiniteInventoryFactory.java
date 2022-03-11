@@ -8,6 +8,8 @@
 
 package dev.dementisimus.autumn.bukkit.api.factory.inventory.infinite;
 
+import dev.dementisimus.autumn.bukkit.api.factory.inventory.InventoryFactory;
+import dev.dementisimus.autumn.common.api.executor.AutumnTaskExecutor;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -31,7 +33,7 @@ public interface InfiniteInventoryFactory {
     <T> void items(@NotNull List<T> items, @NotNull Class<T> clazz);
 
     /**
-     * Creates the infinite inventory for a player and opens it when {@link #create()} has been called
+     * Creates the infinite inventory for a player and opens it when {@link #create(AutumnTaskExecutor)} ()} has been called
      *
      * @param createFor create for {@link Player}
      *
@@ -40,9 +42,30 @@ public interface InfiniteInventoryFactory {
     void createFor(@NotNull Player createFor);
 
     /**
+     * Gets the inventory factory object used for creating this infinite inventory
+     *
+     * @return the inventory factory object used for creating this infinite inventory
+     *
+     * @since 1.1.1
+     */
+    InventoryFactory inventoryFactory();
+
+    /**
      * Creates the infinite inventory and opens it for {@link #createFor(Player)}
+     *
+     * @param taskExecutor {@link AutumnTaskExecutor}
      *
      * @since 1.0.0
      */
-    void create();
+    void create(@NotNull AutumnTaskExecutor taskExecutor);
+
+    /**
+     * Creates an infinite inventory and opens it to the given player
+     *
+     * @param taskExecutor {@link AutumnTaskExecutor}
+     * @param openTo {@link Player} to open inventory to
+     *
+     * @since 1.1.1
+     */
+    void create(@NotNull AutumnTaskExecutor taskExecutor, @NotNull Player openTo);
 }

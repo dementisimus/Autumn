@@ -22,6 +22,10 @@ public class SetupStateBoolean extends CustomSetupState {
     }
 
     public static boolean transform(String string) {
-        return StringHelper.equalsTo(string, "y", "n", "yes", "no");
+        boolean correctInput = StringHelper.equalsTo(string, "y", "n", "yes", "no");
+
+        if(correctInput) correctInput = (string.equalsIgnoreCase("y") || string.equalsIgnoreCase("yes"));
+
+        return correctInput;
     }
 }

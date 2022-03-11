@@ -8,11 +8,13 @@
 
 package dev.dementisimus.autumn.bukkit.factory.inventory.infinite;
 
+import com.google.common.base.Preconditions;
 import dev.dementisimus.autumn.bukkit.api.factory.inventory.InventoryFactory;
 import dev.dementisimus.autumn.bukkit.api.factory.inventory.infinite.InfiniteInventoryFactory;
 import dev.dementisimus.autumn.bukkit.api.factory.item.ItemFactory;
 import dev.dementisimus.autumn.bukkit.factory.inventory.CustomInventoryFactory;
 import dev.dementisimus.autumn.bukkit.factory.item.CustomItemFactory;
+import dev.dementisimus.autumn.common.api.executor.AutumnTaskExecutor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -26,6 +28,7 @@ public class CustomInfiniteInventoryFactory implements InfiniteInventoryFactory 
 
     private final int nextPageItemSlot = 53;
     private final int previousPageItemSlot = 45;
+    private final int itemsInRow = 7;
 
     private final int inventoryRows;
     private final String titleTranslationProperty;
@@ -38,17 +41,19 @@ public class CustomInfiniteInventoryFactory implements InfiniteInventoryFactory 
     private int itemCount;
     private int lastItemIndexPlaced;
 
+    private AutumnTaskExecutor taskExecutor;
+
     private ItemStack replacedNextPageItem;
     private ItemStack replacedPreviousPageItem;
 
-    public CustomInfiniteInventoryFactory(int inventoryRows, String titleTranslationProperty, int pageSize, Material placeholder) {
+    public CustomInfiniteInventoryFactory(int inventoryRows, String titleTranslationProperty, Material placeholder) {
         this.inventoryRows = inventoryRows;
         this.titleTranslationProperty = titleTranslationProperty;
-        this.pageSize = pageSize;
         this.placeholder = placeholder;
 
+        this.pageSize = ((inventoryRows - 2) * this.itemsInRow);
+
         this.inventoryFactory = new CustomInventoryFactory(this.inventoryRows, this.titleTranslationProperty);
-        this.inventoryFactory.placeholder(this.placeholder);
     }
 
     @Override
@@ -61,8 +66,7 @@ public class CustomInfiniteInventoryFactory implements InfiniteInventoryFactory 
             throw new IllegalStateException("Only Material or ItemStack may be used!");
         }
 
-        this.itemCount = items.size();
-        this.lastItemIndexPlaced = 0;
+        this.itemCount = this.items.size();
     }
 
     @Override
@@ -71,16 +75,22 @@ public class CustomInfiniteInventoryFactory implements InfiniteInventoryFactory 
     }
 
     @Override
-    public void create() {
+    public InventoryFactory inventoryFactory() {
+        return this.inventoryFactory;
+    }
+
+    @Override
+    public void create(@NotNull AutumnTaskExecutor taskExecutor) {
+        Preconditions.checkNotNull(this.createFor, "No player found to create an infinite inventory for!");
+
+        this.taskExecutor = taskExecutor;
+
         List<ItemStack> pageItems = this.getPageItems();
 
         int slot = 10;
         int stopAt = this.previousPageItemSlot - 1;
 
-        this.inventoryFactory.air(10, 16);
-        this.inventoryFactory.air(19, 25);
-        this.inventoryFactory.air(28, 34);
-        this.inventoryFactory.air(37, 43);
+        this.inventoryFactory.placeholderBorder(this.placeholder);
 
         for(ItemStack pageItem : pageItems) {
             if(slot == stopAt) break;
@@ -110,7 +120,15 @@ public class CustomInfiniteInventoryFactory implements InfiniteInventoryFactory 
             this.lastItemIndexPlaced = 0;
         }
 
-        this.inventoryFactory.createFor(this.createFor);
+        this.inventoryFactory.createFor(this.taskExecutor, this.createFor);
+    }
+
+    @Override
+    public void create(@NotNull AutumnTaskExecutor taskExecutor, @NotNull Player openTo) {
+        this.taskExecutor = taskExecutor;
+
+        this.createFor(openTo);
+        this.create(this.taskExecutor);
     }
 
     private int adjustSlot(int slot) {
@@ -147,9 +165,9 @@ public class CustomInfiniteInventoryFactory implements InfiniteInventoryFactory 
         ItemFactory itemFactory = new CustomItemFactory(material).displayName(player, translationProperty);
         this.inventoryFactory.item(slot, itemFactory);
 
-        itemFactory.onClick(itemFactoryClickInteraction -> {
+        itemFactory.onClick((interactionPlayer, itemFactoryClickInteraction) -> {
             this.lastItemIndexPlaced = newLastItemIndexPlaced;
-            this.create();
+            this.create(this.taskExecutor);
         });
     }
 

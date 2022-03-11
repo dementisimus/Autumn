@@ -141,6 +141,11 @@ public class CustomStorage implements Storage {
     }
 
     @Override
+    public void write() {
+        this.write(success -> {});
+    }
+
+    @Override
     public void write(@NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
         this.storageSourcePropertyNotNull();
         this.documentNotNull();
@@ -158,6 +163,11 @@ public class CustomStorage implements Storage {
     }
 
     @Override
+    public void update() {
+        this.update(success -> {});
+    }
+
+    @Override
     public void update(@NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
         this.storageSourcePropertyNotNull();
         this.storageUpdatePropertyNotNull();
@@ -172,6 +182,11 @@ public class CustomStorage implements Storage {
                 booleanCallback.done(success);
             });
         });
+    }
+
+    @Override
+    public void delete() {
+        this.delete(success -> {});
     }
 
     @Override
@@ -194,6 +209,11 @@ public class CustomStorage implements Storage {
     @Override
     public void isPresent(@NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
         this.taskExecutor.asynchronous(() -> this.storageType.isPresent(this.storageSourceProperty, this.storageProperty, booleanCallback));
+    }
+
+    @Override
+    public void writeOrUpdate() {
+        this.writeOrUpdate(success -> {});
     }
 
     @Override

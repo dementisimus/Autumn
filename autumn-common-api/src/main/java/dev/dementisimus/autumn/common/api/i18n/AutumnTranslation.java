@@ -22,11 +22,20 @@ public interface AutumnTranslation {
     /**
      * Sets the property used for the translation
      *
-     * @param translationProperty translation property for the translation
+     * @param property translation property for the translation
      *
      * @since 1.0.0
      */
-    void translationProperty(@NotNull String translationProperty);
+    void property(@NotNull String property);
+
+    /**
+     * True, if the string should be parsed for console usage, false otherwise
+     *
+     * @param parseConsoleColorCodes parseConsoleColorCodes
+     *
+     * @since 1.1.1
+     */
+    void parseConsoleColorCodes(boolean parseConsoleColorCodes);
 
     /**
      * Replaces a target by the given replacement in the translation
@@ -38,7 +47,19 @@ public interface AutumnTranslation {
      *
      * @since 1.0.0
      */
-    @NotNull AutumnTranslation replacement(@NotNull String target, @NotNull String replacement);
+    @NotNull AutumnTranslation replacement(@NotNull String target, @NotNull Object replacement);
+
+    /**
+     * Replaces a target by the given replacement translation in the translation
+     *
+     * @param target A string which will be searched for in the translation
+     * @param replacement If the target was found, the replacement translation for the target
+     *
+     * @return the current {@link AutumnTranslation} object
+     *
+     * @since 1.1.1
+     */
+    @NotNull AutumnTranslation replacement(@NotNull String target, @NotNull AutumnTranslation replacement);
 
     /**
      * Replaces a target by the given replacement in the translation
@@ -50,6 +71,34 @@ public interface AutumnTranslation {
      * @since 1.0.0
      */
     @NotNull AutumnTranslation replacement(@NotNull AutumnTranslationReplacement... translationReplacements);
+
+    /**
+     * Replaces the target with a singular or plural form, matching the given number
+     *
+     * @param target target
+     * @param number number
+     * @param singularReplacement singular replacement
+     * @param pluralReplacement plural replacement
+     *
+     * @return the current {@link AutumnTranslation} object
+     *
+     * @since 1.1.1
+     */
+    @NotNull AutumnTranslation numericalReplacement(@NotNull String target, int number, @NotNull String singularReplacement, @NotNull String pluralReplacement);
+
+    /**
+     * Replaces the target with a singular or plural form, matching the given number
+     *
+     * @param target target
+     * @param number number
+     * @param singularReplacement singular replacement
+     * @param pluralReplacement plural replacement
+     *
+     * @return the current {@link AutumnTranslation} object
+     *
+     * @since 1.1.1
+     */
+    @NotNull AutumnTranslation numericalReplacement(@NotNull String target, int number, @NotNull AutumnTranslation singularReplacement, @NotNull AutumnTranslation pluralReplacement);
 
     /**
      * Gets the translation for a locale

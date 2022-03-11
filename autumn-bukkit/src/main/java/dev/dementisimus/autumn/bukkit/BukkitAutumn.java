@@ -30,8 +30,8 @@ public class BukkitAutumn extends CustomAutumn {
 
     @Getter private LanguageSelection languageSelection;
 
-    public BukkitAutumn(Plugin plugin) {
-        super(plugin, new AutumnBukkitTaskExecutor(plugin), new AutumnBukkitLogging());
+    public BukkitAutumn(Plugin plugin, String pluginPrefix) {
+        super(plugin, pluginPrefix, new AutumnBukkitTaskExecutor(plugin), new AutumnBukkitLogging());
 
         this.setAutumnClassLoader(this.getClass().getClassLoader());
 

@@ -41,7 +41,7 @@ public class PlayerLanguage {
             storage.property(AutumnStorageProperty.of(AutumnLanguage.StorageSource.USER, uuid.toString()));
 
             storage.read(document -> {
-                if(document != null) {
+                if(!document.isEmpty()) {
                     AutumnLanguage language = AutumnLanguage.valueOf(document.getString(AutumnLanguage.StorageSource.LANGUAGE));
 
                     PLAYER_LOCALES.put(uuid, language.getLocale());

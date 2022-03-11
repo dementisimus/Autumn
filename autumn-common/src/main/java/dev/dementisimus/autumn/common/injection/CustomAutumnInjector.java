@@ -36,8 +36,6 @@ public abstract class CustomAutumnInjector implements AutumnInjector {
     private static int LAST_MODULES_LIST_SIZE;
     private static Injector INJECTOR;
 
-    public abstract void register(Class<? extends Annotation> annotation, Class<?> clazz, Injector injector);
-
     @Override
     public @NotNull AutumnInjector classLoaders(@NotNull ClassLoader... classLoaders) {
         CLASSLOADERS.addAll(List.of(classLoaders));
@@ -101,4 +99,6 @@ public abstract class CustomAutumnInjector implements AutumnInjector {
     public <T> void registerModule(@NotNull Class<T> clazz, @Nullable T value) {
         GENERIC_INJECTION_MODULES.put(clazz, new GenericInjectionModule<>(clazz, value));
     }
+
+    public abstract void register(Class<? extends Annotation> annotation, Class<?> clazz, Injector injector);
 }

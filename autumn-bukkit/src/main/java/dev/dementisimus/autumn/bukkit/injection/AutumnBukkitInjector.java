@@ -56,10 +56,9 @@ public class AutumnBukkitInjector extends CustomAutumnInjector {
             Bukkit.getPluginManager().registerEvents(listener, this.plugin);
         }else {
             AutumnTranslation translation = new CustomAutumnTranslation("autumn.injection.class.not.a.listener");
-            translation.replacement("plugin", this.autumn.getPluginName());
             translation.replacement("class", listenerObject.getClass().getCanonicalName());
 
-            this.logging.error(translation.get(this.autumn.getDefaultLanguage()));
+            this.logging.error(translation);
         }
     }
 
@@ -87,19 +86,17 @@ public class AutumnBukkitInjector extends CustomAutumnInjector {
                         pluginCommand.setExecutor(commandExecutor);
                     }else {
                         AutumnTranslation translation = new CustomAutumnTranslation("autumn.injection.command.not.in.plugin.yml");
-                        translation.replacement("plugin", this.autumn.getPluginName());
                         translation.replacement("command", commandName);
 
-                        this.logging.error(translation.get(this.autumn.getDefaultLanguage()));
+                        this.logging.error(translation);
                     }
                 }
             }
         }else {
             AutumnTranslation translation = new CustomAutumnTranslation("autumn.injection.class.not.a.command");
-            translation.replacement("plugin", this.autumn.getPluginName());
             translation.replacement("class", commandObject.getClass().getCanonicalName());
 
-            this.logging.error(translation.get(this.autumn.getDefaultLanguage()));
+            this.logging.error(translation);
         }
     }
 }

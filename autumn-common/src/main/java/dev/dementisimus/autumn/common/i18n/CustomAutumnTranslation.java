@@ -13,7 +13,6 @@ import dev.dementisimus.autumn.common.api.i18n.AutumnTranslation;
 import dev.dementisimus.autumn.common.api.i18n.AutumnTranslationReplacement;
 import dev.dementisimus.autumn.common.console.ConsoleColor;
 import dev.dementisimus.autumn.common.i18n.property.AutumnTranslationProperty;
-import lombok.AllArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -21,34 +20,48 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-@AllArgsConstructor
 public class CustomAutumnTranslation implements AutumnTranslation {
 
     private static final Pattern STRIP_COLOR_PATTERN = Pattern.compile("(?i)" + "§" + "[0-9A-FK-ORX]");
 
     private final Map<String, String> replacements = new HashMap<>();
+    private final Map<String, AutumnTranslation> translationReplacements = new HashMap<>();
+
+    private boolean parseConsoleColorCodes = true;
 
     private String translationProperty;
 
-    @Override
-    public void translationProperty(@NotNull String translationProperty) {
+    public CustomAutumnTranslation(String translationProperty) {
         this.translationProperty = translationProperty;
     }
 
     @Override
-    public @NotNull AutumnTranslation replacement(@NotNull String target, @NotNull String replacement) {
-        this.replacement(CustomTranslationReplacement.of(target, replacement));
+    public void property(@NotNull String property) {
+        this.translationProperty = property;
+    }
+
+    @Override
+    public void parseConsoleColorCodes(boolean parseConsoleColorCodes) {
+        this.parseConsoleColorCodes = parseConsoleColorCodes;
+    }
+
+    @Override
+    public @NotNull AutumnTranslation replacement(@NotNull String target, @NotNull Object replacement) {
+        this.replacement(CustomTranslationReplacement.of(target, replacement.toString()));
+        return this;
+    }
+
+    @Override
+    public @NotNull AutumnTranslation replacement(@NotNull String target, @NotNull AutumnTranslation replacement) {
+        this.translationReplacements.put(this.ensureTargetSyntax(target), replacement);
         return this;
     }
 
     @Override
     public @NotNull AutumnTranslation replacement(@NotNull AutumnTranslationReplacement... translationReplacements) {
         for(AutumnTranslationReplacement translationReplacement : translationReplacements) {
-            String target = translationReplacement.target();
+            String target = this.ensureTargetSyntax(translationReplacement.target());
             String replacement = translationReplacement.replacement();
-
-            if(!target.startsWith("$")) target = "$" + target;
-            if(!target.endsWith("$")) target = target + "$";
 
             this.replacements.put(target, replacement);
         }
@@ -57,13 +70,26 @@ public class CustomAutumnTranslation implements AutumnTranslation {
     }
 
     @Override
+    public @NotNull AutumnTranslation numericalReplacement(@NotNull String target, int number, @NotNull String singularReplacement, @NotNull String pluralReplacement) {
+        return this.replacement(target, (number == 0 || number > 1) ? pluralReplacement : singularReplacement);
+    }
+
+    @Override
+    public @NotNull AutumnTranslation numericalReplacement(@NotNull String target, int number, @NotNull AutumnTranslation singularReplacement, @NotNull AutumnTranslation pluralReplacement) {
+        return this.replacement(target, (number == 0 || number > 1) ? pluralReplacement : singularReplacement);
+    }
+
+    @Override
     public @NotNull String get(@NotNull Locale locale) {
-        return ConsoleColor.toColoredString('§', this.getMessage(locale));
+        if(this.parseConsoleColorCodes) {
+            return ConsoleColor.toColoredString('§', this.getMessage(locale));
+        }
+        return this.getMessage(locale);
     }
 
     @Override
     public @NotNull String get(@NotNull AutumnLanguage autumnLanguage) {
-        return ConsoleColor.toColoredString('§', this.getMessage(autumnLanguage.getLocale()));
+        return this.get(autumnLanguage.getLocale());
     }
 
     @Override
@@ -93,10 +119,23 @@ public class CustomAutumnTranslation implements AutumnTranslation {
             message = message.replace(target, replacement);
         }
 
+        for(String target : this.translationReplacements.keySet()) {
+            AutumnTranslation translation = this.translationReplacements.get(target);
+
+            message = message.replace(target, translation.get(locale));
+        }
+
         return message;
     }
 
     protected String stripColor(String stripFrom) {
         return STRIP_COLOR_PATTERN.matcher(stripFrom).replaceAll("");
+    }
+
+    private String ensureTargetSyntax(String target) {
+        if(!target.startsWith("$")) target = "$" + target;
+        if(!target.endsWith("$")) target = target + "$";
+
+        return target;
     }
 }

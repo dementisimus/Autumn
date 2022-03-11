@@ -18,6 +18,7 @@ import dev.dementisimus.autumn.bukkit.factory.item.interaction.listener.ItemFact
 import dev.dementisimus.autumn.bukkit.factory.item.interaction.listener.ItemFactoryInteractionListener;
 import dev.dementisimus.autumn.bukkit.helper.BukkitHelper;
 import dev.dementisimus.autumn.bukkit.i18n.CustomBukkitTranslation;
+import dev.dementisimus.autumn.common.api.callback.AutumnBiCallback;
 import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
 import dev.dementisimus.autumn.common.api.i18n.AutumnTranslationReplacement;
 import lombok.Getter;
@@ -128,14 +129,27 @@ public class CustomItemFactory implements ItemFactory {
 
     @Override
     public @NotNull ItemFactory emptyLore() {
-        this.getLore().add(" ");
+        List<String> itemLore = this.getLore();
+
+        itemLore.add(" ");
+
+        this.itemMeta.setLore(itemLore);
         return this.apply();
     }
 
     @Override
-    public @NotNull ItemFactory lore(@NotNull String lore) {
-        this.getLore().add(lore);
+    public @NotNull ItemFactory lore(@NotNull String string) {
+        List<String> itemLore = this.getLore();
+
+        itemLore.add(string);
+
+        this.itemMeta.setLore(itemLore);
         return this.apply();
+    }
+
+    @Override
+    public @NotNull ItemFactory dataLore(String data) {
+        return this.lore("§7§l» §7" + data);
     }
 
     @Override
@@ -147,32 +161,60 @@ public class CustomItemFactory implements ItemFactory {
     }
 
     @Override
-    public @NotNull ItemFactory lore(int index, @NotNull String lore) {
-        this.getLore().set(index, lore);
+    public @NotNull ItemFactory dataLore(@NotNull Player player, @NotNull String translationProperty, @NotNull AutumnTranslationReplacement... translationReplacements) {
+        AutumnBukkitTranslation translation = new CustomBukkitTranslation(translationProperty);
+        translation.replacement(translationReplacements);
+
+        return this.dataLore(translation.get(player));
+    }
+
+    @Override
+    public @NotNull ItemFactory lore(int index, @NotNull String string) {
+        List<String> itemLore = this.getLore();
+
+        itemLore.set(index, string);
+
+        this.itemMeta.setLore(itemLore);
         return this.apply();
     }
 
     @Override
-    public @NotNull ItemFactory lores(@NotNull String... lores) {
-        this.getLore().addAll(List.of(lores));
+    public @NotNull ItemFactory lores(@NotNull String... strings) {
+        List<String> itemLore = this.getLore();
+
+        itemLore.addAll(List.of(strings));
+
+        this.itemMeta.setLore(itemLore);
         return this.apply();
     }
 
     @Override
     public @NotNull ItemFactory removeLore(int index) {
-        this.getLore().remove(index);
+        List<String> itemLore = this.getLore();
+
+        itemLore.remove(index);
+
+        this.itemMeta.setLore(itemLore);
         return this.apply();
     }
 
     @Override
-    public @NotNull ItemFactory removeLore(@NotNull String lore) {
-        this.getLore().remove(lore);
+    public @NotNull ItemFactory removeLore(@NotNull String string) {
+        List<String> itemLore = this.getLore();
+
+        itemLore.remove(string);
+
+        this.itemMeta.setLore(itemLore);
         return this.apply();
     }
 
     @Override
     public @NotNull ItemFactory clearLore() {
-        this.getLore().clear();
+        List<String> itemLore = this.getLore();
+
+        itemLore.clear();
+
+        this.itemMeta.setLore(itemLore);
         return this.apply();
     }
 
@@ -254,19 +296,25 @@ public class CustomItemFactory implements ItemFactory {
     }
 
     @Override
-    public void onClick(@NotNull AutumnCallback<@NotNull ItemFactoryClickInteraction> clickInteractionCallback) {
+    public @NotNull ItemFactory onClick(@NotNull AutumnBiCallback<@NotNull Player, @NotNull ItemFactoryClickInteraction> clickInteractionCallback) {
         ItemFactoryClickInteractionListener.REQUESTED_INTERACTIONS.put(this.itemId, clickInteractionCallback);
+
+        return this;
     }
 
     @Override
-    public void onInteract(@NotNull AutumnCallback<@NotNull ItemFactoryInteraction> interactionCallback) {
+    public @NotNull ItemFactory onInteract(@NotNull AutumnCallback<@NotNull ItemFactoryInteraction> interactionCallback) {
         ItemFactoryInteractionListener.REQUESTED_INTERACTIONS.put(this.itemId, interactionCallback);
+
+        return this;
     }
 
     @Override
-    public void onInteract(@NotNull AutumnCallback<@NotNull ItemFactoryInteraction> interactionCallback, @NotNull Action... actions) {
+    public @NotNull ItemFactory onInteract(@NotNull AutumnCallback<@NotNull ItemFactoryInteraction> interactionCallback, @NotNull Action... actions) {
         this.onInteract(interactionCallback);
         ItemFactoryInteractionListener.REQUESTED_INTERACTION_ACTIONS.put(this.itemId, actions);
+
+        return this;
     }
 
     @Override

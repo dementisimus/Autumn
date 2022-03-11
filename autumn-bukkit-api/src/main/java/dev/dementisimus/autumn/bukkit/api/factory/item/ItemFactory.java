@@ -10,6 +10,7 @@ package dev.dementisimus.autumn.bukkit.api.factory.item;
 
 import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryClickInteraction;
 import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryInteraction;
+import dev.dementisimus.autumn.common.api.callback.AutumnBiCallback;
 import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
 import dev.dementisimus.autumn.common.api.i18n.AutumnTranslationReplacement;
 import org.bukkit.Color;
@@ -82,7 +83,7 @@ public interface ItemFactory {
      * Sets the item display name by a translation property
      *
      * @param player player
-     * @param translationProperty translationProperty
+     * @param translationProperty property
      * @param translationReplacements translationReplacements
      *
      * @return the item factory object
@@ -141,21 +142,32 @@ public interface ItemFactory {
     @NotNull ItemFactory emptyLore();
 
     /**
-     * Create a lore
+     * Create a string
      *
-     * @param lore lore
+     * @param string string
      *
      * @return the item factory object
      *
      * @since 1.0.0
      */
-    @NotNull ItemFactory lore(@NotNull String lore);
+    @NotNull ItemFactory lore(@NotNull String string);
+
+    /**
+     * Creates a lore with a prefix
+     *
+     * @param data data
+     *
+     * @return the item factory object
+     *
+     * @since 1.1.1
+     */
+    @NotNull ItemFactory dataLore(String data);
 
     /**
      * Create a lore by a translation property
      *
      * @param player player
-     * @param translationProperty translationProperty
+     * @param translationProperty property
      * @param translationReplacements translationReplacements
      *
      * @return the item factory object
@@ -165,27 +177,40 @@ public interface ItemFactory {
     @NotNull ItemFactory lore(@NotNull Player player, @NotNull String translationProperty, @NotNull AutumnTranslationReplacement... translationReplacements);
 
     /**
-     * Sets the lore at a specific index
+     * Creates a lore by a translation property, with a prefix
      *
-     * @param index index
-     * @param lore lore
+     * @param player player
+     * @param translationProperty property
+     * @param translationReplacements translationReplacements
      *
      * @return the item factory object
      *
-     * @since 1.0.0
+     * @since 1.1.1
      */
-    @NotNull ItemFactory lore(int index, @NotNull String lore);
+    @NotNull ItemFactory dataLore(@NotNull Player player, @NotNull String translationProperty, @NotNull AutumnTranslationReplacement... translationReplacements);
 
     /**
-     * Adds lores
+     * Sets the string at a specific index
      *
-     * @param lores lores
+     * @param index index
+     * @param string string
      *
      * @return the item factory object
      *
      * @since 1.0.0
      */
-    @NotNull ItemFactory lores(String... lores);
+    @NotNull ItemFactory lore(int index, @NotNull String string);
+
+    /**
+     * Adds strings
+     *
+     * @param strings strings
+     *
+     * @return the item factory object
+     *
+     * @since 1.0.0
+     */
+    @NotNull ItemFactory lores(String... strings);
 
     /**
      * Removes a lore at an specific index
@@ -199,15 +224,15 @@ public interface ItemFactory {
     @NotNull ItemFactory removeLore(int index);
 
     /**
-     * Removes a lore
+     * Removes a string
      *
-     * @param lore lore
+     * @param string string
      *
      * @return the item factory object
      *
      * @since 1.0.0
      */
-    @NotNull ItemFactory removeLore(@NotNull String lore);
+    @NotNull ItemFactory removeLore(@NotNull String string);
 
     /**
      * Removes all lore entries
@@ -339,18 +364,22 @@ public interface ItemFactory {
      *
      * @param clickInteractionCallback the Callback used to deliver the clicked interaction
      *
+     * @return the item factory object
+     *
      * @since 1.0.0
      */
-    void onClick(@NotNull AutumnCallback<@NotNull ItemFactoryClickInteraction> clickInteractionCallback);
+    @NotNull ItemFactory onClick(@NotNull AutumnBiCallback<@NotNull Player, @NotNull ItemFactoryClickInteraction> clickInteractionCallback);
 
     /**
      * Listens for an interaction with this item
      *
      * @param interactionCallback the Callback used to deliver the interaction
      *
+     * @return the item factory object
+     *
      * @since 1.1.0
      */
-    void onInteract(@NotNull AutumnCallback<@NotNull ItemFactoryInteraction> interactionCallback);
+    @NotNull ItemFactory onInteract(@NotNull AutumnCallback<@NotNull ItemFactoryInteraction> interactionCallback);
 
     /**
      * Listens for an interaction with this item, triggered by specific {@link Action}s
@@ -358,9 +387,11 @@ public interface ItemFactory {
      * @param interactionCallback the Callback used to deliver the interaction
      * @param actions actions necessary for an interaction
      *
+     * @return the item factory object
+     *
      * @since 1.1.0
      */
-    void onInteract(@NotNull AutumnCallback<@NotNull ItemFactoryInteraction> interactionCallback, @NotNull Action... actions);
+    @NotNull ItemFactory onInteract(@NotNull AutumnCallback<@NotNull ItemFactoryInteraction> interactionCallback, @NotNull Action... actions);
 
     /**
      * Creates the item

@@ -47,9 +47,10 @@ public class CustomUserTextInput implements UserTextInput {
         this.player.closeInventory();
 
         AutumnBukkitTranslation autumnTranslation = new CustomBukkitTranslation(this.translationProperty);
-        autumnTranslation.replacement("prefix", this.prefix);
 
-        this.player.sendMessage(autumnTranslation.get(this.player));
+        autumnTranslation.replacement("prefix", this.prefix);
+        autumnTranslation.send(this.player);
+
         this.player.playSound(this.player.getLocation(), Sound.ENTITY_VILLAGER_TRADE, 10, 1);
 
         TEXT_INPUT_REQUESTS.put(this.player, stringCallback);

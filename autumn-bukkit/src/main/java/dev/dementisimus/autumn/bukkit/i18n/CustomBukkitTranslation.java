@@ -18,9 +18,15 @@ public class CustomBukkitTranslation extends CustomAutumnTranslation implements 
 
     public CustomBukkitTranslation(String translationProperty) {
         super(translationProperty);
+        super.parseConsoleColorCodes(false);
     }
 
     public @NotNull String get(@NotNull Player player) {
         return super.getMessage(PlayerLanguage.get(player.getUniqueId()));
+    }
+
+    @Override
+    public void send(@NotNull Player player) {
+        player.sendMessage(this.get(player));
     }
 }

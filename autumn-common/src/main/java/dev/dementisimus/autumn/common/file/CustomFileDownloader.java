@@ -50,10 +50,9 @@ public class CustomFileDownloader implements AutumnFileDownloader {
             }
 
             AutumnTranslation translation = new CustomAutumnTranslation("autumn.file.download.begin");
-            translation.replacement("plugin", this.pluginName);
             translation.replacement("file", url.substring(url.lastIndexOf("/") + 1));
 
-            this.autumn.logging().info(translation.get(this.autumn.getDefaultLanguage()));
+            this.autumn.logging().info(translation);
 
             this.autumn.taskExecutor().asynchronous(() -> {
                 try {
@@ -69,8 +68,8 @@ public class CustomFileDownloader implements AutumnFileDownloader {
                         Files.copy(inputStream, this.downloadTo.toPath());
                     }
 
-                    translation.translationProperty("autumn.file.download.done");
-                    this.autumn.logging().info(translation.get(this.autumn.getDefaultLanguage()));
+                    translation.property("autumn.file.download.done");
+                    this.autumn.logging().info(translation);
                     fileCallback.done(this.downloadTo);
                 }catch(IOException e) {
                     e.printStackTrace();
@@ -101,5 +100,10 @@ public class CustomFileDownloader implements AutumnFileDownloader {
     @Override
     public void downloadTo(@NotNull File downloadTo) {
         this.downloadTo = downloadTo;
+    }
+
+    @Override
+    public void downloadTo(@NotNull String downloadTo) {
+        this.downloadTo = new File(downloadTo);
     }
 }

@@ -29,4 +29,13 @@ public interface AutumnBungeeTranslation extends AutumnTranslation {
      * @since 1.0.0
      */
     @NotNull String get(@NotNull ProxiedPlayer player);
+
+    /**
+     * Sends the translation to a {@link ProxiedPlayer}
+     *
+     * @param player player
+     *
+     * @since 1.1.1
+     */
+    void send(@NotNull ProxiedPlayer player);
 }
