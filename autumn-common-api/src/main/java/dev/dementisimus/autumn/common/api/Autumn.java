@@ -23,6 +23,15 @@ import org.jetbrains.annotations.NotNull;
 public interface Autumn extends AutumnPluginSchematic {
 
     /**
+     * Returns the plugin
+     *
+     * @return the plugin
+     *
+     * @since 1.1.1
+     */
+    Object plugin();
+
+    /**
      * Enables all default setup states: CONSOLE_LANGUAGE
      *
      * @since 1.0.0

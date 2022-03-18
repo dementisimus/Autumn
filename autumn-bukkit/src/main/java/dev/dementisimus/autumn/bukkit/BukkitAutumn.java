@@ -34,6 +34,7 @@ public class BukkitAutumn extends CustomAutumn {
     public BukkitAutumn(Plugin plugin, String pluginPrefix) {
         super(plugin, pluginPrefix, new AutumnBukkitTaskExecutor(plugin), new AutumnBukkitLogging());
 
+        super.postConstructorInitialization();
         this.setAutumnClassLoader(this.getClass().getClassLoader());
 
         SetupManager setupManager = this.getSetupManager();

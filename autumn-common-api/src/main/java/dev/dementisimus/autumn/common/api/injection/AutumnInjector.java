@@ -8,6 +8,7 @@
 
 package dev.dementisimus.autumn.common.api.injection;
 
+import dev.dementisimus.autumn.common.api.Autumn;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -45,9 +46,11 @@ public interface AutumnInjector {
     /**
      * Injects the provided class loaders with the registered modules
      *
+     * @param autumn
+     *
      * @since 1.0.0
      */
-    void scan();
+    void scan(Autumn autumn);
 
     /**
      * Generates a generic injection module

@@ -11,7 +11,11 @@ package dev.dementisimus.autumn.common.injection;
 import com.google.common.reflect.ClassPath;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import dev.dementisimus.autumn.common.api.Autumn;
 import dev.dementisimus.autumn.common.api.injection.AutumnInjector;
+import dev.dementisimus.autumn.common.api.injection.annotation.AutumnCommand;
+import dev.dementisimus.autumn.common.api.injection.annotation.AutumnListener;
+import dev.dementisimus.autumn.common.api.injection.annotation.AutumnSetupListener;
 import dev.dementisimus.autumn.common.api.injection.module.GenericInjectionModule;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -50,7 +54,7 @@ public abstract class CustomAutumnInjector implements AutumnInjector {
     }
 
     @Override
-    public void scan() {
+    public void scan(Autumn autumn) {
         for(ClassLoader classLoader : CLASSLOADERS) {
             if(!CLASSLOADER_CLASSES.containsKey(classLoader)) {
                 try {
@@ -83,7 +87,18 @@ public abstract class CustomAutumnInjector implements AutumnInjector {
                     if(!Arrays.asList(clazz.getAnnotations()).isEmpty()) {
                         for(Class<? extends Annotation> annotation : ANNOTATIONS) {
                             if(clazz.isAnnotationPresent(annotation)) {
-                                this.register(annotation, clazz, INJECTOR);
+                                boolean isOptional = (annotation.equals(AutumnListener.class) || annotation.equals(AutumnCommand.class)) && (annotation.equals(AutumnListener.class) ? clazz.getAnnotation(AutumnListener.class).isOptional() : clazz.getAnnotation(AutumnCommand.class).isOptional());
+
+                                if(annotation.equals(AutumnListener.class) || annotation.equals(AutumnSetupListener.class)) {
+                                    if(!isOptional || autumn.optionalListeners()) {
+                                        this.registerListener(clazz, INJECTOR.getInstance(clazz));
+                                    }
+                                }else if(annotation.equals(AutumnCommand.class)) {
+                                    if(!isOptional || autumn.optionalCommands()) {
+                                        this.registerCommand(clazz, INJECTOR.getInstance(clazz));
+                                    }
+                                }
+
                                 INJECTED_CLASSES.add(className);
                             }
                         }
@@ -100,5 +115,7 @@ public abstract class CustomAutumnInjector implements AutumnInjector {
         GENERIC_INJECTION_MODULES.put(clazz, new GenericInjectionModule<>(clazz, value));
     }
 
-    public abstract void register(Class<? extends Annotation> annotation, Class<?> clazz, Injector injector);
+    public abstract void registerListener(Class<?> clazz, Object listenerObject);
+
+    public abstract void registerCommand(Class<?> clazz, Object commandObject);
 }

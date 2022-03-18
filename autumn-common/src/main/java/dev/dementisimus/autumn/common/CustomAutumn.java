@@ -54,7 +54,6 @@ public abstract class CustomAutumn implements Autumn {
     private final Object plugin;
     private final AutumnTaskExecutor taskExecutor;
     private final AutumnLogging logging;
-    private final CustomFileDownloader fileDownloader;
     @Getter(AccessLevel.PROTECTED) private CustomAutumnInjector injector;
     @Getter(AccessLevel.PROTECTED) @Setter(AccessLevel.PROTECTED) private CustomSetupManager setupManager;
     private CustomZipFileDownloader zipFileDownloader;
@@ -71,6 +70,7 @@ public abstract class CustomAutumn implements Autumn {
     @Setter(AccessLevel.PROTECTED) private ServerType servertype;
     @Setter(AccessLevel.PROTECTED) private String serverVersion;
 
+    private CustomFileDownloader fileDownloader;
     private File pluginFolder;
     private File configurationFile;
     private AutumnCallback<AutumnInjector> initializationCallback;
@@ -91,16 +91,11 @@ public abstract class CustomAutumn implements Autumn {
         this.setDefaultLanguage(AutumnLanguage.ENGLISH);
 
         this.logging.pluginPrefix(pluginPrefix);
+    }
 
-        this.initializePluginDetails(plugin);
-
-        this.logging.pluginName(this.pluginName);
-        this.logging.pluginVersion(this.pluginVersion);
-
-        this.fileDownloader = new CustomFileDownloader(this, this.pluginName);
-
-        AutumnTranslationProperty.scan(CustomAutumn.class, "Autumn");
-        AutumnTranslationProperty.scan(plugin.getClass(), this.pluginName);
+    @Override
+    public Object plugin() {
+        return this.plugin;
     }
 
     @Override
@@ -146,7 +141,7 @@ public abstract class CustomAutumn implements Autumn {
             this.injector.registerModule(Storage.class, this.storage);
 
             this.injector.annotation(AutumnSetupListener.class);
-            this.injector.scan();
+            this.injector.scan(this);
 
             if(this.configurationFile != null) {
                 AutumnConfiguration configuration = new CustomAutumnConfiguration(this.configurationFile);
@@ -258,6 +253,18 @@ public abstract class CustomAutumn implements Autumn {
         return this.pluginFolder;
     }
 
+    protected void postConstructorInitialization() {
+        this.initializePluginDetails(this.plugin);
+
+        this.logging.pluginName(this.pluginName);
+        this.logging.pluginVersion(this.pluginVersion);
+
+        this.fileDownloader = new CustomFileDownloader(this, this.pluginName);
+
+        AutumnTranslationProperty.scan(CustomAutumn.class, "Autumn");
+        AutumnTranslationProperty.scan(this.plugin.getClass(), this.pluginName);
+    }
+
     protected abstract void initializePluginDetails(Object pluginObject);
 
     protected abstract void initializePlugin(Object pluginObject);
@@ -287,7 +294,7 @@ public abstract class CustomAutumn implements Autumn {
         this.injector.annotation(AutumnListener.class);
 
         if(!this.skipInjection) {
-            this.injector.scan();
+            this.injector.scan(this);
         }
     }
 
@@ -321,18 +328,23 @@ public abstract class CustomAutumn implements Autumn {
         autumnDependency.repository(autumnRepository);
         autumnDependency.groupId("dev.dementisimus");
         autumnDependency.artifactId("autumn-dependencies");
-        autumnDependency.version("1.1.0");
+        autumnDependency.version("1.1.1");
 
         File dependenciesPluginFile = new File("plugins/" + autumnDependency.fileName());
-        if(!this.isLoadedPlugin("Autumn-Dependencies")) {
-            if(!dependenciesPluginFile.exists()) {
-                this.fileDownloader.downloadTo(new File("plugins/"));
-                this.fileDownloader.download(autumnDependency, file -> {
-                    this.loadPlugin(file);
-                    emptyCallback.done();
-                });
+        if(!dependenciesPluginFile.exists()) {
+            this.fileDownloader.downloadTo(new File("plugins/"));
+            this.fileDownloader.download(autumnDependency, file -> {
+                this.loadPlugin(file);
+                emptyCallback.done();
+            });
+            return;
+        }else {
+            if(this.servertype == ServerType.VELOCITY && this.isLoadedPlugin("autumn-dependencies")) {
+                emptyCallback.done();
                 return;
-            }else {
+            }
+
+            if(!this.isLoadedPlugin("Autumn-Dependencies")) {
                 this.loadPlugin(dependenciesPluginFile);
             }
         }
