@@ -9,12 +9,9 @@
 package dev.dementisimus.autumn.bukkit.api.factory.item.interaction;
 
 import dev.dementisimus.autumn.bukkit.api.event.inventory.ValidInventoryClickEvent;
-import dev.dementisimus.autumn.bukkit.api.factory.item.ItemFactory;
-import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
-import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -22,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * @since 1.0.0
  */
-public interface ItemFactoryClickInteraction {
+public interface ItemFactoryClickInteraction extends ItemFactoryPlayerInteraction, ItemFactoryItemInteraction, ItemFactoryCancellableInteraction {
 
     /**
      * Gets the {@link ValidInventoryClickEvent}
@@ -50,33 +47,6 @@ public interface ItemFactoryClickInteraction {
      * @since 1.0.0
      */
     @NotNull Inventory clickedInventory();
-
-    /**
-     * Gets the {@link Player} who clicked on the item
-     *
-     * @return the {@link Player} who clicked on the item
-     *
-     * @since 1.0.0
-     */
-    @NotNull Player player();
-
-    /**
-     * Gets the {@link ItemStack} on which has been clicked on
-     *
-     * @return the {@link ItemStack} on which has been clicked on
-     *
-     * @since 1.0.0
-     */
-    @NotNull ItemStack item();
-
-    /**
-     * Gets the {@link ItemFactory} from {@link #item()}
-     *
-     * @return the {@link ItemFactory} from {@link #item()}
-     *
-     * @since 1.0.0
-     */
-    @NotNull ItemFactory itemFactory();
 
     /**
      * Checks if the click was a right-click
@@ -122,22 +92,4 @@ public interface ItemFactoryClickInteraction {
      * @since 1.1.1
      */
     @NotNull InventoryType.SlotType slotType();
-
-    /**
-     * Returns true if the click interaction is cancelled, false otherwise
-     *
-     * @return true if the click interaction is cancelled, false otherwise
-     *
-     * @since 1.1.1
-     */
-    boolean cancelled();
-
-    /**
-     * Sets the cancellation state of the click interaction
-     *
-     * @param cancelled true if cancelled, false otherwise
-     *
-     * @since 1.1.1
-     */
-    void cancelled(boolean cancelled);
 }

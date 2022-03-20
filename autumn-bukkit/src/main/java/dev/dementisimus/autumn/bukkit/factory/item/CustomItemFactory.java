@@ -11,10 +11,12 @@ package dev.dementisimus.autumn.bukkit.factory.item;
 import com.google.common.base.Preconditions;
 import dev.dementisimus.autumn.bukkit.api.factory.item.ItemFactory;
 import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryClickInteraction;
+import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryDropInteraction;
 import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryInteraction;
 import dev.dementisimus.autumn.bukkit.api.factory.item.namespace.ItemFactoryNamespace;
 import dev.dementisimus.autumn.bukkit.api.i18n.AutumnBukkitTranslation;
 import dev.dementisimus.autumn.bukkit.factory.item.interaction.listener.ItemFactoryClickInteractionListener;
+import dev.dementisimus.autumn.bukkit.factory.item.interaction.listener.ItemFactoryDropInteractionListener;
 import dev.dementisimus.autumn.bukkit.factory.item.interaction.listener.ItemFactoryInteractionListener;
 import dev.dementisimus.autumn.bukkit.helper.BukkitHelper;
 import dev.dementisimus.autumn.bukkit.i18n.CustomBukkitTranslation;
@@ -321,6 +323,13 @@ public class CustomItemFactory implements ItemFactory {
     public @NotNull ItemFactory onInteract(@NotNull AutumnBiCallback<@NotNull Player, @NotNull ItemFactoryInteraction> interactionCallback, @NotNull Action... actions) {
         this.onInteract(interactionCallback);
         ItemFactoryInteractionListener.REQUESTED_INTERACTION_ACTIONS.put(this.itemId, actions);
+
+        return this;
+    }
+
+    @Override
+    public @NotNull ItemFactory onDrop(@NotNull AutumnBiCallback<@NotNull Player, @NotNull ItemFactoryDropInteraction> interactionCallback) {
+        ItemFactoryDropInteractionListener.REQUESTED_INTERACTIONS.put(this.itemId, interactionCallback);
 
         return this;
     }
