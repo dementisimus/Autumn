@@ -11,7 +11,6 @@ package dev.dementisimus.autumn.bukkit.api.factory.item;
 import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryClickInteraction;
 import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryInteraction;
 import dev.dementisimus.autumn.common.api.callback.AutumnBiCallback;
-import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
 import dev.dementisimus.autumn.common.api.i18n.AutumnTranslationReplacement;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -27,6 +26,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * A factory for items
@@ -360,6 +360,19 @@ public interface ItemFactory {
     <T> @Nullable T retrieve(@NotNull String namespace, @NotNull String key, @NotNull PersistentDataType<T, T> persistentDataType);
 
     /**
+     * material
+     * Sets a cooldown for the current
+     *
+     * @param time time
+     * @param timeUnit timeUnit
+     *
+     * @return the item factory object
+     *
+     * @since 1.1.2
+     */
+    @NotNull ItemFactory cooldown(int time, @NotNull TimeUnit timeUnit);
+
+    /**
      * Listens for clicks on this item
      *
      * @param clickInteractionCallback the Callback used to deliver the clicked interaction
@@ -379,7 +392,7 @@ public interface ItemFactory {
      *
      * @since 1.1.0
      */
-    @NotNull ItemFactory onInteract(@NotNull AutumnCallback<@NotNull ItemFactoryInteraction> interactionCallback);
+    @NotNull ItemFactory onInteract(@NotNull AutumnBiCallback<@NotNull Player, @NotNull ItemFactoryInteraction> interactionCallback);
 
     /**
      * Listens for an interaction with this item, triggered by specific {@link Action}s
@@ -391,7 +404,7 @@ public interface ItemFactory {
      *
      * @since 1.1.0
      */
-    @NotNull ItemFactory onInteract(@NotNull AutumnCallback<@NotNull ItemFactoryInteraction> interactionCallback, @NotNull Action... actions);
+    @NotNull ItemFactory onInteract(@NotNull AutumnBiCallback<@NotNull Player, @NotNull ItemFactoryInteraction> interactionCallback, @NotNull Action... actions);
 
     /**
      * Creates the item
