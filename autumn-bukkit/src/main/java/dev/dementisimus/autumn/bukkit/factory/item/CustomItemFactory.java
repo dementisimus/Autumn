@@ -43,17 +43,18 @@ import org.bukkit.potion.PotionEffect;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class CustomItemFactory implements ItemFactory {
+
+    private static final Map<String, CustomItemFactory> ITEM_FACTORIES = new HashMap<>();
 
     @Getter private String itemId;
 
     private ItemStack itemStack;
     private ItemMeta itemMeta;
+    private int cooldown;
 
     public CustomItemFactory(ItemStack itemStack) {
         this.initialize(itemStack);
@@ -281,7 +282,7 @@ public class CustomItemFactory implements ItemFactory {
     @Override
     public @NotNull <T> ItemFactory store(@NotNull String namespace, @NotNull String key, @NotNull PersistentDataType<T, T> persistentDataType, @NotNull T data) {
         if(this.retrieve(namespace, key, persistentDataType) == null) {
-            NamespacedKey namespacedKey = this.namespacedKey(namespace, key);
+            NamespacedKey namespacedKey = CustomItemFactory.namespacedKey(namespace, key);
 
             this.persistentDataContainer().set(namespacedKey, persistentDataType, data);
         }
@@ -290,9 +291,16 @@ public class CustomItemFactory implements ItemFactory {
 
     @Override
     public <T> @Nullable T retrieve(@NotNull String namespace, @NotNull String key, @NotNull PersistentDataType<T, T> persistentDataType) {
-        NamespacedKey namespacedKey = this.namespacedKey(namespace, key);
+        NamespacedKey namespacedKey = CustomItemFactory.namespacedKey(namespace, key);
 
         return this.persistentDataContainer().get(namespacedKey, persistentDataType);
+    }
+
+    @Override
+    public @NotNull ItemFactory cooldown(int time, @NotNull TimeUnit timeUnit) {
+        this.cooldown = (int) (timeUnit.toSeconds(time) * 20);
+
+        return this.storeCooldown();
     }
 
     @Override
@@ -303,14 +311,14 @@ public class CustomItemFactory implements ItemFactory {
     }
 
     @Override
-    public @NotNull ItemFactory onInteract(@NotNull AutumnCallback<@NotNull ItemFactoryInteraction> interactionCallback) {
+    public @NotNull ItemFactory onInteract(@NotNull AutumnBiCallback<@NotNull Player, @NotNull ItemFactoryInteraction> interactionCallback) {
         ItemFactoryInteractionListener.REQUESTED_INTERACTIONS.put(this.itemId, interactionCallback);
 
         return this;
     }
 
     @Override
-    public @NotNull ItemFactory onInteract(@NotNull AutumnCallback<@NotNull ItemFactoryInteraction> interactionCallback, @NotNull Action... actions) {
+    public @NotNull ItemFactory onInteract(@NotNull AutumnBiCallback<@NotNull Player, @NotNull ItemFactoryInteraction> interactionCallback, @NotNull Action... actions) {
         this.onInteract(interactionCallback);
         ItemFactoryInteractionListener.REQUESTED_INTERACTION_ACTIONS.put(this.itemId, actions);
 
@@ -322,17 +330,38 @@ public class CustomItemFactory implements ItemFactory {
         return this.itemStack;
     }
 
+    public String retrieveItemId() {
+        return this.retrieve(ItemFactoryNamespace.NAMESPACE, ItemFactoryNamespace.ITEM_ID, PersistentDataType.STRING);
+    }
+
+    public boolean hasCooldown(Player player) {
+        return player.hasCooldown(this.itemStack.getType());
+    }
+
+    public void enableCooldown(Player player) {
+        player.setCooldown(this.itemStack.getType(), this.cooldown);
+    }
+
     private void initialize(ItemStack itemStack) {
         this.itemStack = itemStack;
         this.itemMeta = itemStack.getItemMeta();
 
-        String itemId = this.retrieve(ItemFactoryNamespace.NAMESPACE, ItemFactoryNamespace.ITEM_ID, PersistentDataType.STRING);
+        String itemId = this.retrieveItemId();
+        Integer cooldown = this.retrieve(ItemFactoryNamespace.NAMESPACE, ItemFactoryNamespace.ITEM_COOLDOWN, PersistentDataType.INTEGER);
 
         this.itemId = Objects.requireNonNullElseGet(itemId, () -> RandomStringUtils.randomAlphanumeric(5));
+        this.cooldown = Objects.requireNonNullElse(cooldown, 0);
 
         if(this.itemMeta != null && itemId == null) {
             this.store(ItemFactoryNamespace.NAMESPACE, ItemFactoryNamespace.ITEM_ID, PersistentDataType.STRING, this.itemId);
+            this.storeCooldown();
         }
+
+        ITEM_FACTORIES.put(this.itemId, this);
+    }
+
+    private ItemFactory storeCooldown() {
+        return this.store(ItemFactoryNamespace.NAMESPACE, ItemFactoryNamespace.ITEM_COOLDOWN, PersistentDataType.INTEGER, this.cooldown);
     }
 
     private List<String> getLore() {
@@ -343,12 +372,42 @@ public class CustomItemFactory implements ItemFactory {
         return this.itemMeta.getPersistentDataContainer();
     }
 
-    private NamespacedKey namespacedKey(String namespace, String key) {
+    private static NamespacedKey namespacedKey(String namespace, String key) {
         return new NamespacedKey(namespace.toLowerCase(), key.toLowerCase());
     }
 
     private ItemFactory apply() {
         this.itemStack.setItemMeta(this.itemMeta);
         return this;
+    }
+
+    private static String retrieveItemId(ItemStack itemStack) {
+        NamespacedKey namespacedKey = CustomItemFactory.namespacedKey(ItemFactoryNamespace.NAMESPACE, ItemFactoryNamespace.ITEM_ID);
+
+        if(itemStack.getItemMeta() != null) {
+            return itemStack.getItemMeta().getPersistentDataContainer().get(namespacedKey, PersistentDataType.STRING);
+        }
+
+        return null;
+    }
+
+    public static @Nullable CustomItemFactory fromItemStack(ItemStack itemStack) {
+        CustomItemFactory itemFactory = ITEM_FACTORIES.get(CustomItemFactory.retrieveItemId(itemStack));
+
+        if(itemFactory != null) {
+            return itemFactory;
+        }
+
+        if(itemStack.getItemMeta() != null) {
+            PersistentDataContainer persistentDataContainer = itemStack.getItemMeta().getPersistentDataContainer();
+
+            for(NamespacedKey persistentDataContainerKey : persistentDataContainer.getKeys()) {
+                persistentDataContainer.remove(persistentDataContainerKey);
+            }
+
+            itemStack.setItemMeta(itemStack.getItemMeta());
+        }
+
+        return null;
     }
 }

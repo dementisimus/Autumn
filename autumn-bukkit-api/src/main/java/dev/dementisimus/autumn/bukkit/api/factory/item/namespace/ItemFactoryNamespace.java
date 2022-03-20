@@ -17,5 +17,6 @@ public class ItemFactoryNamespace {
 
     public static final String NAMESPACE = "itemfactory";
     public static final String ITEM_ID = "item_id";
+    public static final String ITEM_COOLDOWN = "item_cooldown";
 
 }
