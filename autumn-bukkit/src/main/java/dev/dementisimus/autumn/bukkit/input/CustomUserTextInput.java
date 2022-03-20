@@ -1,5 +1,5 @@
 /*
- | Copyright 2021 dementisimus,
+ | Copyright 2022 dementisimus,
  | licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
  |
  | To view a copy of this license,
