@@ -9,6 +9,7 @@
 package dev.dementisimus.autumn.bukkit.api.factory.item;
 
 import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryClickInteraction;
+import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryDropInteraction;
 import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryInteraction;
 import dev.dementisimus.autumn.common.api.callback.AutumnBiCallback;
 import dev.dementisimus.autumn.common.api.i18n.AutumnTranslationReplacement;
@@ -405,6 +406,17 @@ public interface ItemFactory {
      * @since 1.1.0
      */
     @NotNull ItemFactory onInteract(@NotNull AutumnBiCallback<@NotNull Player, @NotNull ItemFactoryInteraction> interactionCallback, @NotNull Action... actions);
+
+    /**
+     * Listens for a drop interaction with this item
+     *
+     * @param interactionCallback the Callback used to deliver the interaction
+     *
+     * @return the item factory object
+     *
+     * @since 1.1.2
+     */
+    @NotNull ItemFactory onDrop(@NotNull AutumnBiCallback<@NotNull Player, @NotNull ItemFactoryDropInteraction> interactionCallback);
 
     /**
      * Creates the item

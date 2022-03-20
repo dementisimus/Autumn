@@ -8,14 +8,11 @@
 
 package dev.dementisimus.autumn.bukkit.api.factory.item.interaction;
 
-import dev.dementisimus.autumn.bukkit.api.factory.item.ItemFactory;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
-import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -24,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
  *
  * @since 1.1.0
  */
-public interface ItemFactoryInteraction {
+public interface ItemFactoryInteraction extends ItemFactoryPlayerInteraction, ItemFactoryItemInteraction {
 
     /**
      * Gets the {@link PlayerInteractEvent}
@@ -34,33 +31,6 @@ public interface ItemFactoryInteraction {
      * @since 1.1.0
      */
     @NotNull PlayerInteractEvent event();
-
-    /**
-     * Gets the player
-     *
-     * @return the player
-     *
-     * @since 1.1.0
-     */
-    @NotNull Player player();
-
-    /**
-     * Gets the item
-     *
-     * @return the item
-     *
-     * @since 1.1.0
-     */
-    @NotNull ItemStack item();
-
-    /**
-     * Gets the {@link ItemFactory}
-     *
-     * @return the item factory
-     *
-     * @since 1.1.0
-     */
-    @NotNull ItemFactory itemFactory();
 
     /**
      * Gets the {@link Action} used in this interaction
