@@ -10,9 +10,7 @@ package dev.dementisimus.autumn.bukkit.factory.item.interaction.listener;
 
 import dev.dementisimus.autumn.bukkit.api.event.inventory.ValidInventoryClickEvent;
 import dev.dementisimus.autumn.bukkit.api.factory.inventory.InventoryFactory;
-import dev.dementisimus.autumn.bukkit.api.factory.item.ItemFactory;
 import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryClickInteraction;
-import dev.dementisimus.autumn.bukkit.api.factory.item.namespace.ItemFactoryNamespace;
 import dev.dementisimus.autumn.bukkit.factory.item.CustomItemFactory;
 import dev.dementisimus.autumn.bukkit.factory.item.interaction.CustomItemFactoryClickInteraction;
 import dev.dementisimus.autumn.common.api.callback.AutumnBiCallback;
@@ -20,7 +18,6 @@ import dev.dementisimus.autumn.common.api.injection.annotation.AutumnListener;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.persistence.PersistentDataType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,16 +29,21 @@ public class ItemFactoryClickInteractionListener implements Listener {
 
     @EventHandler
     public void on(ValidInventoryClickEvent event) {
-        if(InventoryFactory.isPlaceholder(event.currentItem())) return;
+        if(InventoryFactory.isPlaceholder(event.currentItem()) || REQUESTED_INTERACTIONS.isEmpty()) return;
 
-        ItemFactory itemFactory = new CustomItemFactory(event.currentItem());
-        String itemId = itemFactory.retrieve(ItemFactoryNamespace.NAMESPACE, ItemFactoryNamespace.ITEM_ID, PersistentDataType.STRING);
+        Player player = event.player();
+        CustomItemFactory itemFactory = CustomItemFactory.fromItemStack(event.currentItem());
 
-        if(itemId != null) {
+        if(itemFactory == null) return;
+
+        String itemId = itemFactory.retrieveItemId();
+
+        if(itemId != null && !itemFactory.hasCooldown(player)) {
             AutumnBiCallback<Player, ItemFactoryClickInteraction> clickInteractionCallback = REQUESTED_INTERACTIONS.get(itemId);
 
             if(clickInteractionCallback != null) {
-                clickInteractionCallback.done(event.player(), new CustomItemFactoryClickInteraction(event, itemFactory));
+                itemFactory.enableCooldown(player);
+                clickInteractionCallback.done(player, new CustomItemFactoryClickInteraction(event, itemFactory));
             }
         }
     }
