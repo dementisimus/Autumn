@@ -8,10 +8,14 @@
 
 package dev.dementisimus.autumn.bukkit.factory.item.interaction.listener;
 
+import dev.dementisimus.autumn.bukkit.api.factory.item.ItemFactory;
 import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryInteraction;
+import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryInteractionEntry;
 import dev.dementisimus.autumn.bukkit.factory.item.CustomItemFactory;
 import dev.dementisimus.autumn.bukkit.factory.item.interaction.CustomItemFactoryInteraction;
-import dev.dementisimus.autumn.common.api.callback.AutumnBiCallback;
+import dev.dementisimus.autumn.common.api.callback.AutumnDoubleCallback;
+import dev.dementisimus.autumn.common.api.callback.AutumnQuadrupleCallback;
+import dev.dementisimus.autumn.common.api.callback.AutumnTripleCallback;
 import dev.dementisimus.autumn.common.api.injection.annotation.AutumnListener;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -26,7 +30,7 @@ import java.util.Map;
 @AutumnListener
 public class ItemFactoryInteractionListener implements Listener {
 
-    public static final Map<String, AutumnBiCallback<Player, ItemFactoryInteraction>> REQUESTED_INTERACTIONS = new HashMap<>();
+    public static final Map<String, ItemFactoryInteractionEntry> INTERACTION_ENTRIES = new HashMap<>();
     public static final Map<String, Action[]> REQUESTED_INTERACTION_ACTIONS = new HashMap<>();
 
     @EventHandler
@@ -35,7 +39,7 @@ public class ItemFactoryInteractionListener implements Listener {
         Action action = event.getAction();
         Player player = event.getPlayer();
 
-        if(item != null && item.getItemMeta() != null && !REQUESTED_INTERACTIONS.isEmpty()) {
+        if(item != null && item.getItemMeta() != null && !INTERACTION_ENTRIES.isEmpty()) {
             CustomItemFactory itemFactory = CustomItemFactory.fromItemStack(item);
 
             if(itemFactory == null) return;
@@ -43,10 +47,10 @@ public class ItemFactoryInteractionListener implements Listener {
             String itemId = itemFactory.retrieveItemId();
 
             if(itemId != null && !itemFactory.hasCooldown(player)) {
-                AutumnBiCallback<Player, ItemFactoryInteraction> interactionCallback = REQUESTED_INTERACTIONS.get(itemId);
+                ItemFactoryInteractionEntry interactionEntry = INTERACTION_ENTRIES.get(itemId);
                 Action[] requestedActions = REQUESTED_INTERACTION_ACTIONS.get(itemId);
 
-                if(interactionCallback != null) {
+                if(interactionEntry != null) {
                     if(requestedActions != null) {
                         boolean meetsActionCriteria = false;
 
@@ -60,8 +64,20 @@ public class ItemFactoryInteractionListener implements Listener {
                         if(!meetsActionCriteria) return;
                     }
 
-                    itemFactory.enableCooldown(player);
-                    interactionCallback.done(player, new CustomItemFactoryInteraction(event, item, itemFactory));
+                    ItemFactoryInteraction interaction = new CustomItemFactoryInteraction(event, item, itemFactory);
+                    Object namespaceKeyEntry = interactionEntry.preCall(player, itemFactory);
+
+                    AutumnDoubleCallback<Player, ItemFactoryInteraction> interactionCallback = interactionEntry.interactionCallback();
+                    AutumnTripleCallback<Player, ItemFactoryInteraction, Object> retrieveOnInteractCallback = interactionEntry.retrieveOnInteractCallback();
+                    AutumnQuadrupleCallback<Player, ItemFactoryInteraction, ItemFactory, Object> retrieveOnInteractFactoryCallback = interactionEntry.retrieveOnInteractFactoryCallback();
+
+                    if(interactionCallback != null) {
+                        interactionCallback.done(player, interaction);
+                    }else if(retrieveOnInteractCallback != null) {
+                        retrieveOnInteractCallback.done(player, interaction, namespaceKeyEntry);
+                    }else if(retrieveOnInteractFactoryCallback != null) {
+                        retrieveOnInteractFactoryCallback.done(player, interaction, itemFactory, namespaceKeyEntry);
+                    }
                 }
             }
         }

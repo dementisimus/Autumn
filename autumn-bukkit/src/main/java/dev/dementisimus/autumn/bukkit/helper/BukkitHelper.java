@@ -10,7 +10,7 @@ package dev.dementisimus.autumn.bukkit.helper;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
+import dev.dementisimus.autumn.common.api.callback.AutumnSingleCallback;
 import dev.dementisimus.autumn.common.api.executor.AutumnTaskExecutor;
 import dev.dementisimus.autumn.common.cache.AutumnCache;
 import org.bukkit.Material;
@@ -25,7 +25,7 @@ import java.util.UUID;
 
 public class BukkitHelper {
 
-    public static void playerHeadByUrl(String headID, AutumnCallback<ItemStack> itemStackCallback) {
+    public static void playerHeadByUrl(String headID, AutumnSingleCallback<ItemStack> itemStackCallback) {
         ItemStack cachedItemStack = AutumnCache.get(headID, ItemStack.class);
 
         if(cachedItemStack != null) {

@@ -10,9 +10,9 @@ package dev.dementisimus.autumn.common.storage.type.maria;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import dev.dementisimus.autumn.common.api.callback.AutumnBiCallback;
-import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
-import dev.dementisimus.autumn.common.api.callback.AutumnTriCallback;
+import dev.dementisimus.autumn.common.api.callback.AutumnDoubleCallback;
+import dev.dementisimus.autumn.common.api.callback.AutumnSingleCallback;
+import dev.dementisimus.autumn.common.api.callback.AutumnTripleCallback;
 import dev.dementisimus.autumn.common.api.storage.Storage;
 import dev.dementisimus.autumn.common.api.storage.property.StorageProperty;
 import dev.dementisimus.autumn.common.api.storage.property.StorageUpdateProperty;
@@ -88,7 +88,7 @@ public class MariaStorage implements StorageType {
     }
 
     @Override
-    public void read(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageProperty storageProperty, @NotNull AutumnCallback<@Nullable Document> documentCallback) {
+    public void read(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageProperty storageProperty, @NotNull AutumnSingleCallback<@Nullable Document> documentCallback) {
         Document document = new Document();
         List<String> fieldKeys = new ArrayList<>(storageSourceProperty.fields().keySet());
 
@@ -112,7 +112,7 @@ public class MariaStorage implements StorageType {
     }
 
     @Override
-    public void list(@NotNull StorageSourceProperty storageSourceProperty, @NotNull AutumnCallback<@NotNull List<Document>> listDocumentCallback) {
+    public void list(@NotNull StorageSourceProperty storageSourceProperty, @NotNull AutumnSingleCallback<@NotNull List<Document>> listDocumentCallback) {
         List<Document> documents = new ArrayList<>();
 
         String sql = "SELECT * FROM " + storageSourceProperty.name() + ";";
@@ -139,7 +139,7 @@ public class MariaStorage implements StorageType {
     }
 
     @Override
-    public void write(@NotNull StorageSourceProperty storageSourceProperty, @NotNull Document document, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
+    public void write(@NotNull StorageSourceProperty storageSourceProperty, @NotNull Document document, @NotNull AutumnSingleCallback<@NotNull Boolean> booleanCallback) {
         StringBuilder keys = new StringBuilder();
         StringBuilder keyValues = new StringBuilder();
         Map<Integer, Object> parameters = new HashMap<>();
@@ -162,7 +162,7 @@ public class MariaStorage implements StorageType {
     }
 
     @Override
-    public void update(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageUpdateProperty storageUpdateProperty, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
+    public void update(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageUpdateProperty storageUpdateProperty, @NotNull AutumnSingleCallback<@NotNull Boolean> booleanCallback) {
         String sql = "UPDATE " + storageSourceProperty.name() + " SET " + storageUpdateProperty.name() + " = ? WHERE " + storageUpdateProperty.fieldName() + "=?;";
         Map<Integer, Object> parameters = new HashMap<>();
 
@@ -173,7 +173,7 @@ public class MariaStorage implements StorageType {
     }
 
     @Override
-    public void delete(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageProperty storageProperty, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
+    public void delete(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageProperty storageProperty, @NotNull AutumnSingleCallback<@NotNull Boolean> booleanCallback) {
         String sql = "DELETE FROM " + storageSourceProperty.name() + " WHERE " + storageProperty.fieldName() + " = ?;";
         Map<Integer, Object> parameters = new HashMap<>();
 
@@ -183,7 +183,7 @@ public class MariaStorage implements StorageType {
     }
 
     @Override
-    public void isPresent(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageProperty storageProperty, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
+    public void isPresent(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageProperty storageProperty, @NotNull AutumnSingleCallback<@NotNull Boolean> booleanCallback) {
         this.read(storageSourceProperty, storageProperty, document -> {
             booleanCallback.done(document != null && !document.isEmpty());
         });
@@ -200,7 +200,7 @@ public class MariaStorage implements StorageType {
     }
 
     @SneakyThrows
-    private void prepareStatement(String sql, ExecuteAction executeAction, AutumnTriCallback<Boolean, ResultSet, Integer> executionCallback) {
+    private void prepareStatement(String sql, ExecuteAction executeAction, AutumnTripleCallback<Boolean, ResultSet, Integer> executionCallback) {
         try(Connection connection = this.hikariDataSource.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
@@ -215,7 +215,7 @@ public class MariaStorage implements StorageType {
     }
 
     @SneakyThrows
-    private void prepareStatement(String sql, Map<Integer, Object> parameters, ExecuteAction executeAction, AutumnBiCallback<Boolean, ResultSet> booleanResultSetBiCallback) {
+    private void prepareStatement(String sql, Map<Integer, Object> parameters, ExecuteAction executeAction, AutumnDoubleCallback<Boolean, ResultSet> booleanResultSetBiCallback) {
         try(Connection connection = this.hikariDataSource.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 

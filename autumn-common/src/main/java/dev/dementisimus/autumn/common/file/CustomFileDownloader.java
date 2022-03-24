@@ -10,7 +10,7 @@ package dev.dementisimus.autumn.common.file;
 
 import com.google.common.base.Preconditions;
 import dev.dementisimus.autumn.common.CustomAutumn;
-import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
+import dev.dementisimus.autumn.common.api.callback.AutumnSingleCallback;
 import dev.dementisimus.autumn.common.api.dependency.AutumnDependency;
 import dev.dementisimus.autumn.common.api.file.AutumnFileDownloader;
 import dev.dementisimus.autumn.common.api.i18n.AutumnTranslation;
@@ -38,7 +38,7 @@ public class CustomFileDownloader implements AutumnFileDownloader {
     }
 
     @Override
-    public void download(@NotNull String url, @NotNull AutumnCallback<@Nullable File> fileCallback) {
+    public void download(@NotNull String url, @NotNull AutumnSingleCallback<@Nullable File> fileCallback) {
         Preconditions.checkNotNull(url, "URL may not be null!");
         Preconditions.checkNotNull(this.downloadTo, "Destination for downloaded file may not be null!");
 
@@ -81,7 +81,7 @@ public class CustomFileDownloader implements AutumnFileDownloader {
     }
 
     @Override
-    public void download(@NotNull AutumnDependency dependency, @NotNull AutumnCallback<@Nullable File> fileCallback) {
+    public void download(@NotNull AutumnDependency dependency, @NotNull AutumnSingleCallback<@Nullable File> fileCallback) {
         Preconditions.checkNotNull(dependency, "Dependency may not be null!");
         Preconditions.checkNotNull(dependency.repository(), "Dependency-Repository may not be null!");
 

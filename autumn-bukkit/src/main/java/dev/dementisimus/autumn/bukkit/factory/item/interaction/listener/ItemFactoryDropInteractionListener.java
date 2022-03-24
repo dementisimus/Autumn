@@ -11,7 +11,7 @@ package dev.dementisimus.autumn.bukkit.factory.item.interaction.listener;
 import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryDropInteraction;
 import dev.dementisimus.autumn.bukkit.factory.item.CustomItemFactory;
 import dev.dementisimus.autumn.bukkit.factory.item.interaction.CustomItemFactoryDropInteraction;
-import dev.dementisimus.autumn.common.api.callback.AutumnBiCallback;
+import dev.dementisimus.autumn.common.api.callback.AutumnDoubleCallback;
 import dev.dementisimus.autumn.common.api.injection.annotation.AutumnListener;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -25,7 +25,7 @@ import java.util.Map;
 @AutumnListener
 public class ItemFactoryDropInteractionListener implements Listener {
 
-    public static final Map<String, AutumnBiCallback<Player, ItemFactoryDropInteraction>> REQUESTED_INTERACTIONS = new HashMap<>();
+    public static final Map<String, AutumnDoubleCallback<Player, ItemFactoryDropInteraction>> REQUESTED_INTERACTIONS = new HashMap<>();
 
     @EventHandler
     public void on(PlayerDropItemEvent event) {
@@ -41,7 +41,7 @@ public class ItemFactoryDropInteractionListener implements Listener {
 
             if(itemId != null) {
                 if(!itemFactory.hasCooldown(player)) {
-                    AutumnBiCallback<Player, ItemFactoryDropInteraction> interactionCallback = REQUESTED_INTERACTIONS.get(itemId);
+                    AutumnDoubleCallback<Player, ItemFactoryDropInteraction> interactionCallback = REQUESTED_INTERACTIONS.get(itemId);
 
                     if(interactionCallback != null) {
                         itemFactory.enableCooldown(player);

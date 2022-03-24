@@ -11,7 +11,7 @@ package dev.dementisimus.autumn.bukkit.input;
 import dev.dementisimus.autumn.bukkit.api.i18n.AutumnBukkitTranslation;
 import dev.dementisimus.autumn.bukkit.api.input.UserTextInput;
 import dev.dementisimus.autumn.bukkit.i18n.CustomBukkitTranslation;
-import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
+import dev.dementisimus.autumn.common.api.callback.AutumnSingleCallback;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -21,7 +21,7 @@ import java.util.Map;
 
 public class CustomUserTextInput implements UserTextInput {
 
-    public static final Map<Player, AutumnCallback<String>> TEXT_INPUT_REQUESTS = new HashMap<>();
+    public static final Map<Player, AutumnSingleCallback<String>> TEXT_INPUT_REQUESTS = new HashMap<>();
 
     private String prefix;
     private String translationProperty;
@@ -43,7 +43,7 @@ public class CustomUserTextInput implements UserTextInput {
     }
 
     @Override
-    public void fetch(@NotNull AutumnCallback<@NotNull String> stringCallback) {
+    public void fetch(@NotNull AutumnSingleCallback<@NotNull String> stringCallback) {
         this.player.closeInventory();
 
         AutumnBukkitTranslation autumnTranslation = new CustomBukkitTranslation(this.translationProperty);

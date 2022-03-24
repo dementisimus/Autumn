@@ -11,7 +11,7 @@ package dev.dementisimus.autumn.common.storage.type.mongo;
 import com.mongodb.reactivestreams.client.MongoClient;
 import com.mongodb.reactivestreams.client.MongoClients;
 import com.mongodb.reactivestreams.client.MongoCollection;
-import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
+import dev.dementisimus.autumn.common.api.callback.AutumnSingleCallback;
 import dev.dementisimus.autumn.common.api.storage.property.StorageProperty;
 import dev.dementisimus.autumn.common.api.storage.property.StorageUpdateProperty;
 import dev.dementisimus.autumn.common.api.storage.property.source.StorageSourceProperty;
@@ -43,42 +43,42 @@ public class MongoStorage implements StorageType {
     }
 
     @Override
-    public void read(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageProperty storageProperty, @NotNull AutumnCallback<@Nullable Document> documentCallback) {
+    public void read(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageProperty storageProperty, @NotNull AutumnSingleCallback<@Nullable Document> documentCallback) {
         MongoCollection<Document> mongoCollection = this.getMongoCollection(storageSourceProperty);
 
         mongoCollection.find(storageProperty.filter()).first().subscribe(new DocumentSubscriber(documentCallback));
     }
 
     @Override
-    public void list(@NotNull StorageSourceProperty storageSourceProperty, @NotNull AutumnCallback<@NotNull List<Document>> listDocumentCallback) {
+    public void list(@NotNull StorageSourceProperty storageSourceProperty, @NotNull AutumnSingleCallback<@NotNull List<Document>> listDocumentCallback) {
         MongoCollection<Document> mongoCollection = this.getMongoCollection(storageSourceProperty);
 
         mongoCollection.find().subscribe(new DocumentListSubscriber(new ArrayList<>(), listDocumentCallback));
     }
 
     @Override
-    public void write(@NotNull StorageSourceProperty storageSourceProperty, @NotNull Document document, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
+    public void write(@NotNull StorageSourceProperty storageSourceProperty, @NotNull Document document, @NotNull AutumnSingleCallback<@NotNull Boolean> booleanCallback) {
         MongoCollection<Document> mongoCollection = this.getMongoCollection(storageSourceProperty);
 
         mongoCollection.insertOne(document).subscribe(new InsertSubscriber(booleanCallback));
     }
 
     @Override
-    public void update(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageUpdateProperty storageUpdateProperty, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
+    public void update(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageUpdateProperty storageUpdateProperty, @NotNull AutumnSingleCallback<@NotNull Boolean> booleanCallback) {
         MongoCollection<Document> mongoCollection = this.getMongoCollection(storageSourceProperty);
 
         mongoCollection.updateOne(storageUpdateProperty.filter(), storageUpdateProperty.document()).subscribe(new UpdateSubscriber(booleanCallback));
     }
 
     @Override
-    public void delete(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageProperty storageProperty, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
+    public void delete(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageProperty storageProperty, @NotNull AutumnSingleCallback<@NotNull Boolean> booleanCallback) {
         MongoCollection<Document> mongoCollection = this.getMongoCollection(storageSourceProperty);
 
         mongoCollection.deleteOne(storageProperty.filter()).subscribe(new DeleteResultSubscriber(booleanCallback));
     }
 
     @Override
-    public void isPresent(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageProperty storageProperty, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
+    public void isPresent(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageProperty storageProperty, @NotNull AutumnSingleCallback<@NotNull Boolean> booleanCallback) {
         this.read(storageSourceProperty, storageProperty, document -> {
             booleanCallback.done(document != null && !document.isEmpty());
         });

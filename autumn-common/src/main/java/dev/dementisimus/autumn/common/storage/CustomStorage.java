@@ -10,7 +10,7 @@ package dev.dementisimus.autumn.common.storage;
 
 import com.google.common.base.Preconditions;
 import dev.dementisimus.autumn.common.CustomAutumn;
-import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
+import dev.dementisimus.autumn.common.api.callback.AutumnSingleCallback;
 import dev.dementisimus.autumn.common.api.executor.AutumnTaskExecutor;
 import dev.dementisimus.autumn.common.api.storage.Storage;
 import dev.dementisimus.autumn.common.api.storage.property.StorageProperty;
@@ -74,7 +74,7 @@ public class CustomStorage implements Storage {
     }
 
     @Override
-    public void connect(@NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
+    public void connect(@NotNull AutumnSingleCallback<@NotNull Boolean> booleanCallback) {
         this.taskExecutor.asynchronous(() -> {
             switch(this.type) {
                 case MONGODB -> this.storageType = new MongoStorage();
@@ -91,7 +91,7 @@ public class CustomStorage implements Storage {
     }
 
     @Override
-    public void read(@NotNull AutumnCallback<@NotNull Document> documentCallback) {
+    public void read(@NotNull AutumnSingleCallback<@NotNull Document> documentCallback) {
         this.storageSourcePropertyNotNull();
         this.storagePropertyNotNull();
 
@@ -116,7 +116,7 @@ public class CustomStorage implements Storage {
     }
 
     @Override
-    public void list(@NotNull AutumnCallback<@NotNull List<Document>> listDocumentCallback) {
+    public void list(@NotNull AutumnSingleCallback<@NotNull List<Document>> listDocumentCallback) {
         this.storageSourcePropertyNotNull();
 
         String listCacheKey = this.storageSourceProperty.name() + "_list";
@@ -146,7 +146,7 @@ public class CustomStorage implements Storage {
     }
 
     @Override
-    public void write(@NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
+    public void write(@NotNull AutumnSingleCallback<@NotNull Boolean> booleanCallback) {
         this.storageSourcePropertyNotNull();
         this.documentNotNull();
 
@@ -168,7 +168,7 @@ public class CustomStorage implements Storage {
     }
 
     @Override
-    public void update(@NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
+    public void update(@NotNull AutumnSingleCallback<@NotNull Boolean> booleanCallback) {
         this.storageSourcePropertyNotNull();
         this.storageUpdatePropertyNotNull();
 
@@ -190,7 +190,7 @@ public class CustomStorage implements Storage {
     }
 
     @Override
-    public void delete(@NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
+    public void delete(@NotNull AutumnSingleCallback<@NotNull Boolean> booleanCallback) {
         this.storageSourcePropertyNotNull();
         this.storagePropertyNotNull();
 
@@ -207,7 +207,7 @@ public class CustomStorage implements Storage {
     }
 
     @Override
-    public void isPresent(@NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
+    public void isPresent(@NotNull AutumnSingleCallback<@NotNull Boolean> booleanCallback) {
         this.taskExecutor.asynchronous(() -> this.storageType.isPresent(this.storageSourceProperty, this.storageProperty, booleanCallback));
     }
 
@@ -217,7 +217,7 @@ public class CustomStorage implements Storage {
     }
 
     @Override
-    public void writeOrUpdate(@NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
+    public void writeOrUpdate(@NotNull AutumnSingleCallback<@NotNull Boolean> booleanCallback) {
         this.documentNotNull();
         this.storageUpdatePropertyNotNull();
 

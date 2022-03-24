@@ -9,14 +9,22 @@
 package dev.dementisimus.autumn.common.api.callback;
 
 /**
- * Represents an interface meant for sync/async execution
+ * Represents an interface for passing on data
+ *
+ * @param <A> class type for element a
+ * @param <B> class type for element b
+ * @param <C> class type for element c
  *
  * @since 1.0.0
  */
-public interface AutumnEmptyCallback {
+public interface AutumnTripleCallback<A, B, C> {
 
     /**
+     * @param a element a
+     * @param b element b
+     * @param c element c
+     *
      * @since 1.0.0
      */
-    void done();
+    void done(A a, B b, C c);
 }
