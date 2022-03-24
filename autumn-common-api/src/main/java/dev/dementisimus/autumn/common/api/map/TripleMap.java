@@ -1,6 +1,6 @@
 package dev.dementisimus.autumn.common.api.map;
 
-import dev.dementisimus.autumn.common.api.callback.AutumnTriCallback;
+import dev.dementisimus.autumn.common.api.callback.AutumnTripleCallback;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -167,7 +167,7 @@ public class TripleMap<A, B, C> {
      *
      * @since 1.0.0
      */
-    public void forEach(AutumnTriCallback<? super A, ? super B, ? super C> cb) {
+    public void forEach(AutumnTripleCallback<? super A, ? super B, ? super C> cb) {
         Map<A, Map<B, C>> finalMap = new HashMap<>(this.map);
         Map<A, Map<B, C>> finalMap1 = finalMap;
         finalMap.keySet().forEach(a -> finalMap1.get(a).keySet().forEach(b -> cb.done(a, b, finalMap1.get(a).get(b))));

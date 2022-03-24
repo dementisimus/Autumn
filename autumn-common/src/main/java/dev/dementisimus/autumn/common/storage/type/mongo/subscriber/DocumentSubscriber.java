@@ -8,18 +8,18 @@
 
 package dev.dementisimus.autumn.common.storage.type.mongo.subscriber;
 
-import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
+import dev.dementisimus.autumn.common.api.callback.AutumnSingleCallback;
 import org.bson.Document;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
 public class DocumentSubscriber implements Subscriber<Document> {
 
-    private final AutumnCallback<Document> documentCallback;
+    private final AutumnSingleCallback<Document> documentCallback;
 
     private Document document = new Document();
 
-    public DocumentSubscriber(AutumnCallback<Document> documentCallback) {
+    public DocumentSubscriber(AutumnSingleCallback<Document> documentCallback) {
         this.documentCallback = documentCallback;
     }
 

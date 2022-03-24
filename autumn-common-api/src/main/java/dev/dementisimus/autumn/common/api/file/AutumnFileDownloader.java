@@ -8,7 +8,7 @@
 
 package dev.dementisimus.autumn.common.api.file;
 
-import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
+import dev.dementisimus.autumn.common.api.callback.AutumnSingleCallback;
 import dev.dementisimus.autumn.common.api.dependency.AutumnDependency;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -30,7 +30,7 @@ public interface AutumnFileDownloader {
      *
      * @since 1.0.0
      */
-    void download(@NotNull String url, @NotNull AutumnCallback<@Nullable File> fileCallback);
+    void download(@NotNull String url, @NotNull AutumnSingleCallback<@Nullable File> fileCallback);
 
     /**
      * Downloads a file identified by an {@link AutumnDependency}
@@ -40,7 +40,7 @@ public interface AutumnFileDownloader {
      *
      * @since 1.0.0
      */
-    void download(@NotNull AutumnDependency dependency, @NotNull AutumnCallback<@Nullable File> fileCallback);
+    void download(@NotNull AutumnDependency dependency, @NotNull AutumnSingleCallback<@Nullable File> fileCallback);
 
     /**
      * Gets the location where the downloaded file will be saved to

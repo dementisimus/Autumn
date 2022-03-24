@@ -10,8 +10,8 @@ package dev.dementisimus.autumn.common;
 
 import com.google.common.base.Preconditions;
 import dev.dementisimus.autumn.common.api.Autumn;
-import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
 import dev.dementisimus.autumn.common.api.callback.AutumnEmptyCallback;
+import dev.dementisimus.autumn.common.api.callback.AutumnSingleCallback;
 import dev.dementisimus.autumn.common.api.configuration.AutumnConfiguration;
 import dev.dementisimus.autumn.common.api.dependency.AutumnDependency;
 import dev.dementisimus.autumn.common.api.dependency.AutumnRepository;
@@ -73,7 +73,7 @@ public abstract class CustomAutumn implements Autumn {
 
     private File pluginFolder;
     private File configurationFile;
-    private AutumnCallback<AutumnInjector> initializationCallback;
+    private AutumnSingleCallback<AutumnInjector> initializationCallback;
     private boolean optionalCommands;
     private boolean optionalListeners;
     private boolean skipInjection;
@@ -128,7 +128,7 @@ public abstract class CustomAutumn implements Autumn {
     }
 
     @Override
-    public void initialize(@NotNull AutumnCallback<@NotNull AutumnInjector> initializationCallback) {
+    public void initialize(@NotNull AutumnSingleCallback<@NotNull AutumnInjector> initializationCallback) {
         this.initializationCallback = initializationCallback;
 
         this.downloadDependencies(() -> {

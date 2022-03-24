@@ -8,7 +8,7 @@
 
 package dev.dementisimus.autumn.common.api.storage.type;
 
-import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
+import dev.dementisimus.autumn.common.api.callback.AutumnSingleCallback;
 import dev.dementisimus.autumn.common.api.storage.property.StorageProperty;
 import dev.dementisimus.autumn.common.api.storage.property.StorageUpdateProperty;
 import dev.dementisimus.autumn.common.api.storage.property.source.StorageSourceProperty;
@@ -34,7 +34,7 @@ public interface StorageType {
      *
      * @since 1.0.0
      */
-    void read(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageProperty storageProperty, @NotNull AutumnCallback<@Nullable Document> documentCallback);
+    void read(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageProperty storageProperty, @NotNull AutumnSingleCallback<@Nullable Document> documentCallback);
 
     /**
      * Lists all storage entries
@@ -44,7 +44,7 @@ public interface StorageType {
      *
      * @since 1.0.0
      */
-    void list(@NotNull StorageSourceProperty storageSourceProperty, @NotNull AutumnCallback<@NotNull List<Document>> listDocumentCallback);
+    void list(@NotNull StorageSourceProperty storageSourceProperty, @NotNull AutumnSingleCallback<@NotNull List<Document>> listDocumentCallback);
 
     /**
      * Writes to storage
@@ -55,7 +55,7 @@ public interface StorageType {
      *
      * @since 1.0.0
      */
-    void write(@NotNull StorageSourceProperty storageSourceProperty, @NotNull Document document, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback);
+    void write(@NotNull StorageSourceProperty storageSourceProperty, @NotNull Document document, @NotNull AutumnSingleCallback<@NotNull Boolean> booleanCallback);
 
     /**
      * Updates an already existing field in the storage
@@ -68,7 +68,7 @@ public interface StorageType {
      *
      * @since 1.0.0
      */
-    void update(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageUpdateProperty storageUpdateProperty, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback);
+    void update(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageUpdateProperty storageUpdateProperty, @NotNull AutumnSingleCallback<@NotNull Boolean> booleanCallback);
 
     /**
      * Deletes from storage
@@ -79,7 +79,7 @@ public interface StorageType {
      *
      * @since 1.0.0
      */
-    void delete(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageProperty storageProperty, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback);
+    void delete(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageProperty storageProperty, @NotNull AutumnSingleCallback<@NotNull Boolean> booleanCallback);
 
     /**
      * Checks the availability of a {@link StorageProperty} in storage
@@ -91,7 +91,7 @@ public interface StorageType {
      *
      * @since 1.0.0
      */
-    void isPresent(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageProperty storageProperty, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback);
+    void isPresent(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageProperty storageProperty, @NotNull AutumnSingleCallback<@NotNull Boolean> booleanCallback);
 
     /**
      * Closes the storage connection, if needed

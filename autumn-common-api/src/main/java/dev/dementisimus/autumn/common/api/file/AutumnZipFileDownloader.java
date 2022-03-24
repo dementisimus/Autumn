@@ -8,7 +8,7 @@
 
 package dev.dementisimus.autumn.common.api.file;
 
-import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
+import dev.dementisimus.autumn.common.api.callback.AutumnSingleCallback;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -28,7 +28,7 @@ public interface AutumnZipFileDownloader extends AutumnFileDownloader {
      *
      * @since 1.0.0
      */
-    void downloadZip(@NotNull String url, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback);
+    void downloadZip(@NotNull String url, @NotNull AutumnSingleCallback<@NotNull Boolean> booleanCallback);
 
     /**
      * Where the zip file will be extracted to

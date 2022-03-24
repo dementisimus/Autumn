@@ -9,7 +9,7 @@
 package dev.dementisimus.autumn.common.file;
 
 import dev.dementisimus.autumn.common.CustomAutumn;
-import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
+import dev.dementisimus.autumn.common.api.callback.AutumnSingleCallback;
 import dev.dementisimus.autumn.common.api.file.AutumnZipFileDownloader;
 import net.lingala.zip4j.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
@@ -26,7 +26,7 @@ public class CustomZipFileDownloader extends CustomFileDownloader implements Aut
     }
 
     @Override
-    public void downloadZip(@NotNull String url, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
+    public void downloadZip(@NotNull String url, @NotNull AutumnSingleCallback<@NotNull Boolean> booleanCallback) {
         super.download(url, file -> {
             if(!file.exists()) {
                 booleanCallback.done(false);

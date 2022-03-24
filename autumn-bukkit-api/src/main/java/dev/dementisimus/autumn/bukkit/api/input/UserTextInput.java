@@ -8,7 +8,7 @@
 
 package dev.dementisimus.autumn.bukkit.api.input;
 
-import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
+import dev.dementisimus.autumn.common.api.callback.AutumnSingleCallback;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -53,5 +53,5 @@ public interface UserTextInput {
      *
      * @since 1.0.0
      */
-    void fetch(@NotNull AutumnCallback<@NotNull String> stringCallback);
+    void fetch(@NotNull AutumnSingleCallback<@NotNull String> stringCallback);
 }

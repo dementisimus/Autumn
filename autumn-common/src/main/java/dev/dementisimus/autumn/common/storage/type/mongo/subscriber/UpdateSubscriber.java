@@ -9,11 +9,11 @@
 package dev.dementisimus.autumn.common.storage.type.mongo.subscriber;
 
 import com.mongodb.client.result.UpdateResult;
-import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
+import dev.dementisimus.autumn.common.api.callback.AutumnSingleCallback;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
-public record UpdateSubscriber(AutumnCallback<Boolean> booleanCallback) implements Subscriber<UpdateResult> {
+public record UpdateSubscriber(AutumnSingleCallback<Boolean> booleanCallback) implements Subscriber<UpdateResult> {
 
     @Override
     public void onSubscribe(Subscription subscription) {
