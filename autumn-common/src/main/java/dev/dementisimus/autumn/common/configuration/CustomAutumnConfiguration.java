@@ -10,7 +10,7 @@ package dev.dementisimus.autumn.common.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
+import dev.dementisimus.autumn.common.api.callback.AutumnSingleCallback;
 import dev.dementisimus.autumn.common.api.configuration.AutumnConfiguration;
 import lombok.SneakyThrows;
 import org.bson.Document;
@@ -116,7 +116,7 @@ public class CustomAutumnConfiguration implements AutumnConfiguration {
     }
 
     @Override
-    public void read(@NotNull AutumnCallback<@NotNull Document> callback) {
+    public void read(@NotNull AutumnSingleCallback<@NotNull Document> callback) {
         callback.done(this.read());
     }
 }

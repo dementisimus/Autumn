@@ -9,7 +9,7 @@
 package dev.dementisimus.autumn.common.storage.type.file;
 
 import com.google.common.base.Preconditions;
-import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
+import dev.dementisimus.autumn.common.api.callback.AutumnSingleCallback;
 import dev.dementisimus.autumn.common.api.configuration.AutumnConfiguration;
 import dev.dementisimus.autumn.common.api.storage.property.StorageProperty;
 import dev.dementisimus.autumn.common.api.storage.property.StorageUpdateProperty;
@@ -43,7 +43,7 @@ public class FileStorage implements StorageType {
     }
 
     @Override
-    public void read(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageProperty storageProperty, @NotNull AutumnCallback<@Nullable Document> documentCallback) {
+    public void read(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageProperty storageProperty, @NotNull AutumnSingleCallback<@Nullable Document> documentCallback) {
         this.list(storageSourceProperty, listDocuments -> {
             Document document = null;
 
@@ -64,7 +64,7 @@ public class FileStorage implements StorageType {
 
     @SneakyThrows
     @Override
-    public void list(@NotNull StorageSourceProperty storageSourceProperty, @NotNull AutumnCallback<@NotNull List<Document>> listDocumentCallback) {
+    public void list(@NotNull StorageSourceProperty storageSourceProperty, @NotNull AutumnSingleCallback<@NotNull List<Document>> listDocumentCallback) {
         AutumnConfiguration configuration = this.getConfiguration(storageSourceProperty);
 
         Document source = configuration.read();
@@ -82,7 +82,7 @@ public class FileStorage implements StorageType {
     }
 
     @Override
-    public void write(@NotNull StorageSourceProperty storageSourceProperty, @NotNull Document document, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
+    public void write(@NotNull StorageSourceProperty storageSourceProperty, @NotNull Document document, @NotNull AutumnSingleCallback<@NotNull Boolean> booleanCallback) {
         AutumnConfiguration configuration = this.getConfiguration(storageSourceProperty);
         this.list(storageSourceProperty, listDocuments -> {
             listDocuments.add(document);
@@ -95,7 +95,7 @@ public class FileStorage implements StorageType {
     }
 
     @Override
-    public void update(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageUpdateProperty storageUpdateProperty, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
+    public void update(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageUpdateProperty storageUpdateProperty, @NotNull AutumnSingleCallback<@NotNull Boolean> booleanCallback) {
         AutumnConfiguration configuration = this.getConfiguration(storageSourceProperty);
         this.list(storageSourceProperty, documents -> {
 
@@ -129,12 +129,12 @@ public class FileStorage implements StorageType {
     }
 
     @Override
-    public void delete(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageProperty storageProperty, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
+    public void delete(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageProperty storageProperty, @NotNull AutumnSingleCallback<@NotNull Boolean> booleanCallback) {
         this.update(storageSourceProperty, AutumnStorageUpdateProperty.of(storageProperty.fieldName(), storageProperty.fieldValue()).value(null, null), booleanCallback);
     }
 
     @Override
-    public void isPresent(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageProperty storageProperty, @NotNull AutumnCallback<@NotNull Boolean> booleanCallback) {
+    public void isPresent(@NotNull StorageSourceProperty storageSourceProperty, @NotNull StorageProperty storageProperty, @NotNull AutumnSingleCallback<@NotNull Boolean> booleanCallback) {
         this.read(storageSourceProperty, storageProperty, document -> booleanCallback.done(document != null));
     }
 

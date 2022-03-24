@@ -11,7 +11,9 @@ package dev.dementisimus.autumn.bukkit.api.factory.item;
 import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryClickInteraction;
 import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryDropInteraction;
 import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryInteraction;
-import dev.dementisimus.autumn.common.api.callback.AutumnBiCallback;
+import dev.dementisimus.autumn.common.api.callback.AutumnDoubleCallback;
+import dev.dementisimus.autumn.common.api.callback.AutumnQuadrupleCallback;
+import dev.dementisimus.autumn.common.api.callback.AutumnTripleCallback;
 import dev.dementisimus.autumn.common.api.i18n.AutumnTranslationReplacement;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -376,13 +378,41 @@ public interface ItemFactory {
     /**
      * Listens for clicks on this item
      *
-     * @param clickInteractionCallback the Callback used to deliver the clicked interaction
+     * @param clickInteractionCallback the Callback used to deliver the click interaction
      *
      * @return the item factory object
      *
      * @since 1.0.0
      */
-    @NotNull ItemFactory onClick(@NotNull AutumnBiCallback<@NotNull Player, @NotNull ItemFactoryClickInteraction> clickInteractionCallback);
+    @NotNull ItemFactory onClick(@NotNull AutumnDoubleCallback<@NotNull Player, @NotNull ItemFactoryClickInteraction> clickInteractionCallback);
+
+    /**
+     * Retrieves stored data and listens for clicks on this item
+     *
+     * @param namespace namespace
+     * @param key key
+     * @param persistentDataType persistentDataType
+     * @param retrieveOnClickInteractionCallback the Callback used to deliver the click interaction
+     *
+     * @return the item factory object
+     *
+     * @since 1.1.2
+     */
+    @NotNull <T> ItemFactory retrieveOnClick(@NotNull String namespace, @NotNull String key, @NotNull PersistentDataType<T, T> persistentDataType, @NotNull AutumnTripleCallback<@NotNull Player, @NotNull ItemFactoryClickInteraction, @Nullable T> retrieveOnClickInteractionCallback);
+
+    /**
+     * Retrieves stored data and listens for clicks on this item
+     *
+     * @param namespace namespace
+     * @param key key
+     * @param persistentDataType persistentDataType
+     * @param retrieveOnClickInteractionFactoryCallback the Callback used to deliver the click interaction
+     *
+     * @return the item factory object
+     *
+     * @since 1.1.2
+     */
+    @NotNull <T> ItemFactory retrieveOnClick(@NotNull String namespace, @NotNull String key, @NotNull PersistentDataType<T, T> persistentDataType, @NotNull AutumnQuadrupleCallback<@NotNull Player, @NotNull ItemFactoryClickInteraction, @NotNull ItemFactory, @Nullable T> retrieveOnClickInteractionFactoryCallback);
 
     /**
      * Listens for an interaction with this item
@@ -393,7 +423,35 @@ public interface ItemFactory {
      *
      * @since 1.1.0
      */
-    @NotNull ItemFactory onInteract(@NotNull AutumnBiCallback<@NotNull Player, @NotNull ItemFactoryInteraction> interactionCallback);
+    @NotNull ItemFactory onInteract(@NotNull AutumnDoubleCallback<@NotNull Player, @NotNull ItemFactoryInteraction> interactionCallback);
+
+    /**
+     * Retrieves stored data and listens for interactions with this item
+     *
+     * @param namespace namespace
+     * @param key key
+     * @param persistentDataType persistentDataType
+     * @param retrieveOnInteractCallback the Callback used to deliver the interaction
+     *
+     * @return the item factory object
+     *
+     * @since 1.1.2
+     */
+    @NotNull <T> ItemFactory retrieveOnInteract(@NotNull String namespace, @NotNull String key, @NotNull PersistentDataType<T, T> persistentDataType, @NotNull AutumnTripleCallback<@NotNull Player, @NotNull ItemFactoryInteraction, @Nullable T> retrieveOnInteractCallback);
+
+    /**
+     * Retrieves stored data and listens for interactions with this item
+     *
+     * @param namespace namespace
+     * @param key key
+     * @param persistentDataType persistentDataType
+     * @param retrieveOnInteractFactoryCallback the Callback used to deliver the interaction
+     *
+     * @return the item factory object
+     *
+     * @since 1.1.2
+     */
+    @NotNull <T> ItemFactory retrieveOnInteract(@NotNull String namespace, @NotNull String key, @NotNull PersistentDataType<T, T> persistentDataType, @NotNull AutumnQuadrupleCallback<@NotNull Player, @NotNull ItemFactoryInteraction, @NotNull ItemFactory, @Nullable T> retrieveOnInteractFactoryCallback);
 
     /**
      * Listens for an interaction with this item, triggered by specific {@link Action}s
@@ -405,7 +463,37 @@ public interface ItemFactory {
      *
      * @since 1.1.0
      */
-    @NotNull ItemFactory onInteract(@NotNull AutumnBiCallback<@NotNull Player, @NotNull ItemFactoryInteraction> interactionCallback, @NotNull Action... actions);
+    @NotNull ItemFactory onInteract(@NotNull AutumnDoubleCallback<@NotNull Player, @NotNull ItemFactoryInteraction> interactionCallback, @NotNull Action... actions);
+
+    /**
+     * Retrieves stored data and listens for interactions with this item, triggered by specific {@link Action}s
+     *
+     * @param namespace namespace
+     * @param key key
+     * @param persistentDataType persistentDataType
+     * @param retrieveOnInteractCallback the Callback used to deliver the interaction
+     * @param actions actions necessary for an interaction
+     *
+     * @return the item factory object
+     *
+     * @since 1.1.2
+     */
+    @NotNull <T> ItemFactory retrieveOnInteract(@NotNull String namespace, @NotNull String key, @NotNull PersistentDataType<T, T> persistentDataType, @NotNull AutumnTripleCallback<@NotNull Player, @NotNull ItemFactoryInteraction, @Nullable T> retrieveOnInteractCallback, @NotNull Action... actions);
+
+    /**
+     * Retrieves stored data and listens for interactions with this item, triggered by specific {@link Action}s
+     *
+     * @param namespace namespace
+     * @param key key
+     * @param persistentDataType persistentDataType
+     * @param retrieveOnInteractFactoryCallback the Callback used to deliver the interaction
+     * @param actions actions necessary for an interaction
+     *
+     * @return the item factory object
+     *
+     * @since 1.1.2
+     */
+    @NotNull <T> ItemFactory retrieveOnInteract(@NotNull String namespace, @NotNull String key, @NotNull PersistentDataType<T, T> persistentDataType, @NotNull AutumnQuadrupleCallback<@NotNull Player, @NotNull ItemFactoryInteraction, @NotNull ItemFactory, @Nullable T> retrieveOnInteractFactoryCallback, @NotNull Action... actions);
 
     /**
      * Listens for a drop interaction with this item
@@ -416,7 +504,7 @@ public interface ItemFactory {
      *
      * @since 1.1.2
      */
-    @NotNull ItemFactory onDrop(@NotNull AutumnBiCallback<@NotNull Player, @NotNull ItemFactoryDropInteraction> interactionCallback);
+    @NotNull ItemFactory onDrop(@NotNull AutumnDoubleCallback<@NotNull Player, @NotNull ItemFactoryDropInteraction> interactionCallback);
 
     /**
      * Creates the item

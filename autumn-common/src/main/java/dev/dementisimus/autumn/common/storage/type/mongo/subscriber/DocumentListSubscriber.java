@@ -8,14 +8,14 @@
 
 package dev.dementisimus.autumn.common.storage.type.mongo.subscriber;
 
-import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
+import dev.dementisimus.autumn.common.api.callback.AutumnSingleCallback;
 import org.bson.Document;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
 import java.util.List;
 
-public record DocumentListSubscriber(List<Document> documents, AutumnCallback<List<Document>> listCallback) implements Subscriber<Document> {
+public record DocumentListSubscriber(List<Document> documents, AutumnSingleCallback<List<Document>> listCallback) implements Subscriber<Document> {
 
     @Override
     public void onSubscribe(Subscription subscription) {

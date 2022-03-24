@@ -13,15 +13,19 @@ import dev.dementisimus.autumn.bukkit.api.factory.item.ItemFactory;
 import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryClickInteraction;
 import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryDropInteraction;
 import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryInteraction;
+import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryInteractionEntry;
 import dev.dementisimus.autumn.bukkit.api.factory.item.namespace.ItemFactoryNamespace;
 import dev.dementisimus.autumn.bukkit.api.i18n.AutumnBukkitTranslation;
+import dev.dementisimus.autumn.bukkit.factory.item.interaction.CustomItemFactoryInteractionEntry;
 import dev.dementisimus.autumn.bukkit.factory.item.interaction.listener.ItemFactoryClickInteractionListener;
 import dev.dementisimus.autumn.bukkit.factory.item.interaction.listener.ItemFactoryDropInteractionListener;
 import dev.dementisimus.autumn.bukkit.factory.item.interaction.listener.ItemFactoryInteractionListener;
 import dev.dementisimus.autumn.bukkit.helper.BukkitHelper;
 import dev.dementisimus.autumn.bukkit.i18n.CustomBukkitTranslation;
-import dev.dementisimus.autumn.common.api.callback.AutumnBiCallback;
-import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
+import dev.dementisimus.autumn.common.api.callback.AutumnDoubleCallback;
+import dev.dementisimus.autumn.common.api.callback.AutumnQuadrupleCallback;
+import dev.dementisimus.autumn.common.api.callback.AutumnSingleCallback;
+import dev.dementisimus.autumn.common.api.callback.AutumnTripleCallback;
 import dev.dementisimus.autumn.common.api.i18n.AutumnTranslationReplacement;
 import lombok.Getter;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -66,7 +70,7 @@ public class CustomItemFactory implements ItemFactory {
         this(new ItemStack(material));
     }
 
-    public CustomItemFactory(String headID, AutumnCallback<ItemFactory> itemFactoryCallback) {
+    public CustomItemFactory(String headID, AutumnSingleCallback<ItemFactory> itemFactoryCallback) {
         BukkitHelper.playerHeadByUrl(headID, playerHead -> {
             this.initialize(playerHead);
 
@@ -306,29 +310,73 @@ public class CustomItemFactory implements ItemFactory {
     }
 
     @Override
-    public @NotNull ItemFactory onClick(@NotNull AutumnBiCallback<@NotNull Player, @NotNull ItemFactoryClickInteraction> clickInteractionCallback) {
-        ItemFactoryClickInteractionListener.REQUESTED_INTERACTIONS.put(this.itemId, clickInteractionCallback);
+    public @NotNull ItemFactory onClick(@NotNull AutumnDoubleCallback<@NotNull Player, @NotNull ItemFactoryClickInteraction> clickInteractionCallback) {
+        this.newClickInteractionEntry(new CustomItemFactoryInteractionEntry<>(clickInteractionCallback, null));
 
         return this;
     }
 
     @Override
-    public @NotNull ItemFactory onInteract(@NotNull AutumnBiCallback<@NotNull Player, @NotNull ItemFactoryInteraction> interactionCallback) {
-        ItemFactoryInteractionListener.REQUESTED_INTERACTIONS.put(this.itemId, interactionCallback);
+    public @NotNull <T> ItemFactory retrieveOnClick(@NotNull String namespace, @NotNull String key, @NotNull PersistentDataType<T, T> persistentDataType, @NotNull AutumnTripleCallback<@NotNull Player, @NotNull ItemFactoryClickInteraction, @Nullable T> retrieveOnClickInteractionCallback) {
+        this.newClickInteractionEntry(new CustomItemFactoryInteractionEntry<>(namespace, key, persistentDataType).retrieveOnClickInteractionCallback(retrieveOnClickInteractionCallback));
 
         return this;
     }
 
     @Override
-    public @NotNull ItemFactory onInteract(@NotNull AutumnBiCallback<@NotNull Player, @NotNull ItemFactoryInteraction> interactionCallback, @NotNull Action... actions) {
+    public @NotNull <T> ItemFactory retrieveOnClick(@NotNull String namespace, @NotNull String key, @NotNull PersistentDataType<T, T> persistentDataType, @NotNull AutumnQuadrupleCallback<@NotNull Player, @NotNull ItemFactoryClickInteraction, @NotNull ItemFactory, @Nullable T> retrieveOnClickInteractionFactoryCallback) {
+        this.newClickInteractionEntry(new CustomItemFactoryInteractionEntry<>(namespace, key, persistentDataType).retrieveOnClickInteractionFactoryCallback(retrieveOnClickInteractionFactoryCallback));
+
+        return this;
+    }
+
+    @Override
+    public @NotNull ItemFactory onInteract(@NotNull AutumnDoubleCallback<@NotNull Player, @NotNull ItemFactoryInteraction> interactionCallback) {
+        this.newInteractionEntry(new CustomItemFactoryInteractionEntry<>(null, interactionCallback));
+
+        return this;
+    }
+
+    @Override
+    public @NotNull <T> ItemFactory retrieveOnInteract(@NotNull String namespace, @NotNull String key, @NotNull PersistentDataType<T, T> persistentDataType, @NotNull AutumnTripleCallback<@NotNull Player, @NotNull ItemFactoryInteraction, @Nullable T> retrieveOnInteractCallback) {
+        this.newInteractionEntry(new CustomItemFactoryInteractionEntry<>(namespace, key, persistentDataType).retrieveOnInteractCallback(retrieveOnInteractCallback));
+
+        return this;
+    }
+
+    @Override
+    public @NotNull <T> ItemFactory retrieveOnInteract(@NotNull String namespace, @NotNull String key, @NotNull PersistentDataType<T, T> persistentDataType, @NotNull AutumnQuadrupleCallback<@NotNull Player, @NotNull ItemFactoryInteraction, @NotNull ItemFactory, @Nullable T> retrieveOnInteractFactoryCallback) {
+        this.newInteractionEntry(new CustomItemFactoryInteractionEntry<>(namespace, key, persistentDataType).retrieveOnInteractFactoryCallback(retrieveOnInteractFactoryCallback));
+
+        return this;
+    }
+
+    @Override
+    public @NotNull ItemFactory onInteract(@NotNull AutumnDoubleCallback<@NotNull Player, @NotNull ItemFactoryInteraction> interactionCallback, @NotNull Action... actions) {
+        this.setActions(actions);
         this.onInteract(interactionCallback);
-        ItemFactoryInteractionListener.REQUESTED_INTERACTION_ACTIONS.put(this.itemId, actions);
 
         return this;
     }
 
     @Override
-    public @NotNull ItemFactory onDrop(@NotNull AutumnBiCallback<@NotNull Player, @NotNull ItemFactoryDropInteraction> interactionCallback) {
+    public @NotNull <T> ItemFactory retrieveOnInteract(@NotNull String namespace, @NotNull String key, @NotNull PersistentDataType<T, T> persistentDataType, @NotNull AutumnTripleCallback<@NotNull Player, @NotNull ItemFactoryInteraction, @Nullable T> retrieveOnInteractCallback, @NotNull Action... actions) {
+        this.setActions(actions);
+        this.newInteractionEntry(new CustomItemFactoryInteractionEntry<>(namespace, key, persistentDataType).retrieveOnInteractCallback(retrieveOnInteractCallback));
+
+        return this;
+    }
+
+    @Override
+    public @NotNull <T> ItemFactory retrieveOnInteract(@NotNull String namespace, @NotNull String key, @NotNull PersistentDataType<T, T> persistentDataType, @NotNull AutumnQuadrupleCallback<@NotNull Player, @NotNull ItemFactoryInteraction, @NotNull ItemFactory, @Nullable T> retrieveOnInteractFactoryCallback, @NotNull Action... actions) {
+        this.setActions(actions);
+        this.newInteractionEntry(new CustomItemFactoryInteractionEntry<>(namespace, key, persistentDataType).retrieveOnInteractFactoryCallback(retrieveOnInteractFactoryCallback));
+
+        return this;
+    }
+
+    @Override
+    public @NotNull ItemFactory onDrop(@NotNull AutumnDoubleCallback<@NotNull Player, @NotNull ItemFactoryDropInteraction> interactionCallback) {
         ItemFactoryDropInteractionListener.REQUESTED_INTERACTIONS.put(this.itemId, interactionCallback);
 
         return this;
@@ -349,6 +397,18 @@ public class CustomItemFactory implements ItemFactory {
 
     public void enableCooldown(Player player) {
         player.setCooldown(this.itemStack.getType(), this.cooldown);
+    }
+
+    private void newClickInteractionEntry(ItemFactoryInteractionEntry interactionEntry) {
+        ItemFactoryClickInteractionListener.CLICK_INTERACTION_ENTRIES.put(this.itemId, interactionEntry);
+    }
+
+    private void newInteractionEntry(ItemFactoryInteractionEntry interactionEntry) {
+        ItemFactoryInteractionListener.INTERACTION_ENTRIES.put(this.itemId, interactionEntry);
+    }
+
+    private void setActions(Action... actions) {
+        ItemFactoryInteractionListener.REQUESTED_INTERACTION_ACTIONS.put(this.itemId, actions);
     }
 
     private void initialize(ItemStack itemStack) {

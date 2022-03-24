@@ -8,7 +8,7 @@
 
 package dev.dementisimus.autumn.common.executor;
 
-import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
+import dev.dementisimus.autumn.common.api.callback.AutumnSingleCallback;
 import dev.dementisimus.autumn.common.api.executor.AutumnExecutor;
 import org.jetbrains.annotations.NotNull;
 
@@ -27,7 +27,7 @@ public class CustomAutumnExecutor implements AutumnExecutor {
 
     private ScheduledFuture<?> scheduledFuture;
 
-    public CustomAutumnExecutor(long delay, TimeUnit timeUnit, AutumnCallback<AutumnExecutor> executorCallback) {
+    public CustomAutumnExecutor(long delay, TimeUnit timeUnit, AutumnSingleCallback<AutumnExecutor> executorCallback) {
         this.initialDelay = -1;
         this.delay = delay;
         this.timeUnit = timeUnit;
@@ -35,7 +35,7 @@ public class CustomAutumnExecutor implements AutumnExecutor {
         executorCallback.done(this);
     }
 
-    public CustomAutumnExecutor(long initialDelay, long delay, TimeUnit timeUnit, AutumnCallback<AutumnExecutor> executorCallback) {
+    public CustomAutumnExecutor(long initialDelay, long delay, TimeUnit timeUnit, AutumnSingleCallback<AutumnExecutor> executorCallback) {
         this.initialDelay = initialDelay;
         this.delay = delay;
         this.timeUnit = timeUnit;

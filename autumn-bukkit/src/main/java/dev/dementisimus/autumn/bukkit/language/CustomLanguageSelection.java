@@ -10,7 +10,6 @@ package dev.dementisimus.autumn.bukkit.language;
 
 import dev.dementisimus.autumn.bukkit.BukkitAutumn;
 import dev.dementisimus.autumn.bukkit.api.factory.inventory.InventoryFactory;
-import dev.dementisimus.autumn.bukkit.api.factory.item.ItemFactory;
 import dev.dementisimus.autumn.bukkit.api.language.LanguageSelection;
 import dev.dementisimus.autumn.bukkit.factory.inventory.CustomInventoryFactory;
 import dev.dementisimus.autumn.bukkit.factory.item.CustomItemFactory;
@@ -48,10 +47,8 @@ public class CustomLanguageSelection implements LanguageSelection {
 
                 inventoryFactory.item(language.getSelectionInventorySlot(), itemFactory.displayName(player, language.getTranslationProperty()));
 
-                itemFactory.onClick((interactionPlayer, itemFactoryClickInteraction) -> {
-                    ItemFactory clickedItemFactory = itemFactoryClickInteraction.itemFactory();
-
-                    AutumnLanguage newLanguage = AutumnLanguage.valueOf(clickedItemFactory.retrieve(NAMESPACE, KEY, PersistentDataType.STRING));
+                itemFactory.retrieveOnClick(NAMESPACE, KEY, PersistentDataType.STRING, (interactionPlayer, itemFactoryClickInteraction, newLanguageString) -> {
+                    AutumnLanguage newLanguage = AutumnLanguage.valueOf(newLanguageString);
 
                     if(storage != null) {
                         storage.sourceProperty(AutumnLanguage.StorageSource.PROPERTY);

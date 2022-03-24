@@ -8,7 +8,7 @@
 
 package dev.dementisimus.autumn.common.api.configuration;
 
-import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
+import dev.dementisimus.autumn.common.api.callback.AutumnSingleCallback;
 import org.bson.Document;
 import org.jetbrains.annotations.NotNull;
 
@@ -139,5 +139,5 @@ public interface AutumnConfiguration {
      *
      * @since 1.0.0
      */
-    void read(@NotNull AutumnCallback<@NotNull Document> callback);
+    void read(@NotNull AutumnSingleCallback<@NotNull Document> callback);
 }

@@ -8,7 +8,7 @@
 
 package dev.dementisimus.autumn.common.api;
 
-import dev.dementisimus.autumn.common.api.callback.AutumnCallback;
+import dev.dementisimus.autumn.common.api.callback.AutumnSingleCallback;
 import dev.dementisimus.autumn.common.api.injection.AutumnInjector;
 import dev.dementisimus.autumn.common.api.schematic.AutumnPluginSchematic;
 import dev.dementisimus.autumn.common.api.setup.state.SetupState;
@@ -61,7 +61,7 @@ public interface Autumn extends AutumnPluginSchematic {
      *
      * @since 1.0.0
      */
-    void initialize(@NotNull AutumnCallback<@NotNull AutumnInjector> initializationCallback);
+    void initialize(@NotNull AutumnSingleCallback<@NotNull AutumnInjector> initializationCallback);
 
     /**
      * Provides the storage functionality (needs at least {@link #storageSetupStates()}
