@@ -36,8 +36,9 @@ public class CustomAutumnTranslation implements AutumnTranslation {
     }
 
     @Override
-    public void property(@NotNull String property) {
+    public AutumnTranslation property(@NotNull String property) {
         this.translationProperty = property;
+        return this;
     }
 
     @Override

@@ -10,6 +10,7 @@ package dev.dementisimus.autumn.common.setup.state.type;
 
 import dev.dementisimus.autumn.common.api.i18n.AutumnLanguage;
 import dev.dementisimus.autumn.common.setup.state.CustomSetupState;
+import org.apache.commons.lang3.LocaleUtils;
 
 import java.util.Locale;
 
@@ -23,7 +24,17 @@ public class SetupStateLanguageType extends CustomSetupState {
         super(name, messageTranslationProperty, AutumnLanguage.ENGLISH);
     }
 
-    public static AutumnLanguage transform(String string) {
-        return AutumnLanguage.fromLocale(Locale.forLanguageTag(string));
+    public static AutumnLanguage transform(String string, boolean skip) {
+        Locale locale = Locale.forLanguageTag(string);
+
+        if(skip && !LocaleUtils.isAvailableLocale(locale)) {
+            try {
+                return AutumnLanguage.valueOf(string);
+            }catch(IllegalArgumentException exception) {
+                return null;
+            }
+        }
+
+        return AutumnLanguage.fromLocale(locale);
     }
 }
