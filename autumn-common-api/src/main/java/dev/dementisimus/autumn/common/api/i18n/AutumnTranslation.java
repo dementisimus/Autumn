@@ -24,9 +24,11 @@ public interface AutumnTranslation {
      *
      * @param property translation property for the translation
      *
+     * @return the current {@link AutumnTranslation} object
+     *
      * @since 1.0.0
      */
-    void property(@NotNull String property);
+    AutumnTranslation property(@NotNull String property);
 
     /**
      * True, if the string should be parsed for console usage, false otherwise

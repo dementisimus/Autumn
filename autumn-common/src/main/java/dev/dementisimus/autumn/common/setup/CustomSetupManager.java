@@ -39,10 +39,12 @@ public abstract class CustomSetupManager implements SetupManager {
 
     private final List<SetupState> mainSetupStates = new ArrayList<>();
     private final List<SetupState> extraSetupStates = new ArrayList<>();
+
     private final CustomAutumn autumn;
 
     @Getter boolean completed;
     @Getter private SetupState currentSetupState;
+    private Document incompleteConfiguration;
 
     public CustomSetupManager(CustomAutumn autumn) {
         this.autumn = autumn;
@@ -214,12 +216,12 @@ public abstract class CustomSetupManager implements SetupManager {
                             }else if(setupState instanceof SetupStateInteger) {
                                 value = document.get(setupState.name(), Integer.class);
                             }else if(setupState instanceof SetupStateStorageType) {
-                                Storage.Type storageType = Storage.Type.valueOf(value.toString());
+                                Storage.Type storageType = SetupStateStorageType.transform(value.toString());
 
                                 this.autumn.setStorageType(storageType);
                                 value = storageType;
                             }else if(setupState instanceof SetupStateLanguageType) {
-                                AutumnLanguage language = AutumnLanguage.valueOf(value.toString());
+                                AutumnLanguage language = SetupStateLanguageType.transform(value.toString(), false);
 
                                 this.autumn.setDefaultLanguage(language);
                                 value = language;
@@ -233,6 +235,8 @@ public abstract class CustomSetupManager implements SetupManager {
                             setupState.value(value);
                         }else {
                             this.autumn.logging().warning(new CustomAutumnTranslation("autumn.setup.config.not.complete"));
+
+                            this.incompleteConfiguration = document;
 
                             this.autumn.configurationFile().delete();
                             this.begin();
@@ -264,4 +268,8 @@ public abstract class CustomSetupManager implements SetupManager {
     protected abstract NextExtraSetupStateEvent callNextSetupStateEvent(SetupState currentSetupState, int currentStateListIndex, SetupState nextSetupState, boolean cancelled);
 
     protected abstract SerializeSetupStateEvent callSerializeSetupStateEvent(SetupState setupState, Object value);
+
+    public Document incompleteConfiguration() {
+        return this.incompleteConfiguration;
+    }
 }
