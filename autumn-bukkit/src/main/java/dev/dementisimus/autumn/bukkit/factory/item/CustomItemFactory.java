@@ -441,23 +441,9 @@ public class CustomItemFactory implements ItemFactory {
         return this.itemMeta.getPersistentDataContainer();
     }
 
-    private static NamespacedKey namespacedKey(String namespace, String key) {
-        return new NamespacedKey(namespace.toLowerCase(), key.toLowerCase());
-    }
-
     private ItemFactory apply() {
         this.itemStack.setItemMeta(this.itemMeta);
         return this;
-    }
-
-    private static String retrieveItemId(ItemStack itemStack) {
-        NamespacedKey namespacedKey = CustomItemFactory.namespacedKey(ItemFactoryNamespace.NAMESPACE, ItemFactoryNamespace.ITEM_ID);
-
-        if(itemStack.getItemMeta() != null) {
-            return itemStack.getItemMeta().getPersistentDataContainer().get(namespacedKey, PersistentDataType.STRING);
-        }
-
-        return null;
     }
 
     public static @Nullable CustomItemFactory fromItemStack(ItemStack itemStack) {
@@ -475,6 +461,20 @@ public class CustomItemFactory implements ItemFactory {
             }
 
             itemStack.setItemMeta(itemStack.getItemMeta());
+        }
+
+        return null;
+    }
+
+    private static NamespacedKey namespacedKey(String namespace, String key) {
+        return new NamespacedKey(namespace.toLowerCase(), key.toLowerCase());
+    }
+
+    private static String retrieveItemId(ItemStack itemStack) {
+        NamespacedKey namespacedKey = CustomItemFactory.namespacedKey(ItemFactoryNamespace.NAMESPACE, ItemFactoryNamespace.ITEM_ID);
+
+        if(itemStack.getItemMeta() != null) {
+            return itemStack.getItemMeta().getPersistentDataContainer().get(namespacedKey, PersistentDataType.STRING);
         }
 
         return null;
