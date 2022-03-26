@@ -48,6 +48,28 @@ public enum AutumnLanguage {
     @Getter private final String textureId;
 
     /**
+     * Parses a locale into a AutumnLanguage
+     *
+     * @param locale locale
+     *
+     * @return an autumn language, or null, if no one was found
+     *
+     * @since 1.0.0
+     */
+    public static @Nullable AutumnLanguage fromLocale(@NotNull Locale locale) {
+        AutumnLanguage language = null;
+
+        for(AutumnLanguage autumnLanguage : AutumnLanguage.values()) {
+            if(autumnLanguage.getId().equals(locale.getLanguage())) {
+                language = autumnLanguage;
+                break;
+            }
+        }
+
+        return language;
+    }
+
+    /**
      * The storage source property used by Autumn for storing UserLanguages
      *
      * @since 1.0.0
@@ -84,27 +106,5 @@ public enum AutumnLanguage {
         public @NotNull Map<String, String> fields() {
             return Map.ofEntries(Map.entry(USER, SQLTypes.LONGTEXT), Map.entry(LANGUAGE, SQLTypes.LONGTEXT));
         }
-    }
-
-    /**
-     * Parses a locale into a AutumnLanguage
-     *
-     * @param locale locale
-     *
-     * @return an autumn language, or null, if no one was found
-     *
-     * @since 1.0.0
-     */
-    public static @Nullable AutumnLanguage fromLocale(@NotNull Locale locale) {
-        AutumnLanguage language = null;
-
-        for(AutumnLanguage autumnLanguage : AutumnLanguage.values()) {
-            if(autumnLanguage.getId().equals(locale.getLanguage())) {
-                language = autumnLanguage;
-                break;
-            }
-        }
-
-        return language;
     }
 }

@@ -12,6 +12,15 @@ import org.bukkit.Location;
 
 public class LocationHelper {
 
+    public static Location round(Location loc) {
+        String oldX = String.valueOf(loc.getX());
+        String oldZ = String.valueOf(loc.getZ());
+
+        float oldYaw = loc.getYaw();
+
+        return new Location(loc.getWorld(), getCorrectedXZ(oldX), loc.getY(), getCorrectedXZ(oldZ), getCorrectedYaw(oldYaw), 0f);
+    }
+
     private static double getCorrectedXZ(String xz) {
         String[] splittedX = xz.split("\\.");
         return Double.parseDouble(splittedX[0] + "." + "500");
@@ -32,14 +41,4 @@ public class LocationHelper {
 
         return -180.00f;
     }
-
-    public static Location round(Location loc) {
-        String oldX = String.valueOf(loc.getX());
-        String oldZ = String.valueOf(loc.getZ());
-
-        float oldYaw = loc.getYaw();
-
-        return new Location(loc.getWorld(), getCorrectedXZ(oldX), loc.getY(), getCorrectedXZ(oldZ), getCorrectedYaw(oldYaw), 0f);
-    }
-
 }

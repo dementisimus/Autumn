@@ -239,16 +239,16 @@ public abstract class CustomSetupManager implements SetupManager {
                             this.incompleteConfiguration = document;
 
                             this.autumn.configurationFile().delete();
-                            this.begin();
+                            CustomAutumn.toQueue(this);
                             break;
                         }
                     }
                 }else {
-                    this.begin();
+                    CustomAutumn.toQueue(this);
                     return;
                 }
             }else {
-                this.begin();
+                CustomAutumn.toQueue(this);
                 return;
             }
         }
