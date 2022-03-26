@@ -48,8 +48,14 @@ import org.bson.Document;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class CustomAutumn implements Autumn {
+
+    private static final List<SetupManager> SETUP_QUEUE = new ArrayList<>();
+
+    private static boolean activeSetup = false;
 
     private final Object plugin;
     private final AutumnTaskExecutor taskExecutor;
@@ -158,7 +164,7 @@ public abstract class CustomAutumn implements Autumn {
                 }
             }
 
-            this.setupManager.begin();
+            toQueue(this.setupManager);
         });
     }
 
@@ -289,6 +295,9 @@ public abstract class CustomAutumn implements Autumn {
         if(!this.skipInjection) {
             this.injector.scan();
         }
+
+        activeSetup = false;
+        beginNextSetupInQueue();
     }
 
     public void setDefaultLanguage(AutumnLanguage defaultLanguage) {
@@ -337,5 +346,24 @@ public abstract class CustomAutumn implements Autumn {
             }
         }
         emptyCallback.done();
+    }
+
+    public static void toQueue(SetupManager setupManager) {
+        if(SETUP_QUEUE.contains(setupManager)) return;
+
+        SETUP_QUEUE.add(setupManager);
+
+        beginNextSetupInQueue();
+    }
+
+    private static void beginNextSetupInQueue() {
+        if(!activeSetup && !SETUP_QUEUE.isEmpty()) {
+            SetupManager nextSetup = SETUP_QUEUE.get(0);
+
+            activeSetup = true;
+            nextSetup.begin();
+
+            SETUP_QUEUE.remove(nextSetup);
+        }
     }
 }
