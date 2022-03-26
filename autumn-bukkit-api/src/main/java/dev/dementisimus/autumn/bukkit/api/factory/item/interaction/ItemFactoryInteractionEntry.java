@@ -20,7 +20,7 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Represents an item factory interaction entry
  *
- * @since 1.1.2
+ * @since 1.2.0
  */
 public interface ItemFactoryInteractionEntry {
 
@@ -29,7 +29,7 @@ public interface ItemFactoryInteractionEntry {
      *
      * @return the namespace
      *
-     * @since 1.1.2
+     * @since 1.2.0
      */
     String namespace();
 
@@ -38,7 +38,7 @@ public interface ItemFactoryInteractionEntry {
      *
      * @return the key
      *
-     * @since 1.1.2
+     * @since 1.2.0
      */
     String key();
 
@@ -47,7 +47,7 @@ public interface ItemFactoryInteractionEntry {
      *
      * @return the {@link PersistentDataType}
      *
-     * @since 1.1.2
+     * @since 1.2.0
      */
     <T> PersistentDataType<T, T> persistentDataType();
 
@@ -56,7 +56,7 @@ public interface ItemFactoryInteractionEntry {
      *
      * @return the callback for the interaction
      *
-     * @since 1.1.2
+     * @since 1.2.0
      */
     @Nullable AutumnDoubleCallback<@NotNull Player, @NotNull ItemFactoryClickInteraction> clickInteractionCallback();
 
@@ -65,7 +65,7 @@ public interface ItemFactoryInteractionEntry {
      *
      * @return the callback for the interaction
      *
-     * @since 1.1.2
+     * @since 1.2.0
      */
     @Nullable <T> AutumnTripleCallback<@NotNull Player, @NotNull ItemFactoryClickInteraction, @Nullable T> retrieveOnClickInteractionCallback();
 
@@ -74,7 +74,7 @@ public interface ItemFactoryInteractionEntry {
      *
      * @return the callback for the interaction
      *
-     * @since 1.1.2
+     * @since 1.2.0
      */
     @Nullable <T> AutumnQuadrupleCallback<@NotNull Player, @NotNull ItemFactoryClickInteraction, @NotNull ItemFactory, @Nullable T> retrieveOnClickInteractionFactoryCallback();
 
@@ -83,7 +83,7 @@ public interface ItemFactoryInteractionEntry {
      *
      * @return the callback for the interaction
      *
-     * @since 1.1.2
+     * @since 1.2.0
      */
     @Nullable AutumnDoubleCallback<@NotNull Player, @NotNull ItemFactoryInteraction> interactionCallback();
 
@@ -92,7 +92,7 @@ public interface ItemFactoryInteractionEntry {
      *
      * @return the callback for the interaction
      *
-     * @since 1.1.2
+     * @since 1.2.0
      */
     @Nullable <T> AutumnTripleCallback<@NotNull Player, @NotNull ItemFactoryInteraction, @Nullable T> retrieveOnInteractCallback();
 
@@ -101,7 +101,7 @@ public interface ItemFactoryInteractionEntry {
      *
      * @return the callback for the interaction
      *
-     * @since 1.1.2
+     * @since 1.2.0
      */
     @Nullable <T> AutumnQuadrupleCallback<@NotNull Player, @NotNull ItemFactoryInteraction, @NotNull ItemFactory, @Nullable T> retrieveOnInteractFactoryCallback();
 
@@ -113,7 +113,7 @@ public interface ItemFactoryInteractionEntry {
      *
      * @return fetchable data, if given, otherwise null
      *
-     * @since 1.1.2
+     * @since 1.2.0
      */
     @Nullable Object preCall(@NotNull Player player, @NotNull ItemFactory itemFactory);
 }
