@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Represents an item factory player interaction
  *
- * @since 1.1.2
+ * @since 1.2.0
  */
 public interface ItemFactoryPlayerInteraction {
 
@@ -23,7 +23,7 @@ public interface ItemFactoryPlayerInteraction {
      *
      * @return the player
      *
-     * @since 1.1.2
+     * @since 1.2.0
      */
     @NotNull Player player();
 }

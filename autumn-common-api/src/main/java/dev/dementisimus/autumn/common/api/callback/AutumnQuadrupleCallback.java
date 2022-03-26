@@ -16,7 +16,7 @@ package dev.dementisimus.autumn.common.api.callback;
  * @param <C> class type for element c
  * @param <D> class type for element d
  *
- * @since 1.1.2
+ * @since 1.2.0
  */
 public interface AutumnQuadrupleCallback<A, B, C, D> {
 
@@ -26,7 +26,7 @@ public interface AutumnQuadrupleCallback<A, B, C, D> {
      * @param c element c
      * @param d element d
      *
-     * @since 1.1.2
+     * @since 1.2.0
      */
     void done(A a, B b, C c, D d);
 }

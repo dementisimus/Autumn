@@ -371,7 +371,7 @@ public interface ItemFactory {
      *
      * @return the item factory object
      *
-     * @since 1.1.2
+     * @since 1.2.0
      */
     @NotNull ItemFactory cooldown(int time, @NotNull TimeUnit timeUnit);
 
@@ -396,7 +396,7 @@ public interface ItemFactory {
      *
      * @return the item factory object
      *
-     * @since 1.1.2
+     * @since 1.2.0
      */
     @NotNull <T> ItemFactory retrieveOnClick(@NotNull String namespace, @NotNull String key, @NotNull PersistentDataType<T, T> persistentDataType, @NotNull AutumnTripleCallback<@NotNull Player, @NotNull ItemFactoryClickInteraction, @Nullable T> retrieveOnClickInteractionCallback);
 
@@ -410,7 +410,7 @@ public interface ItemFactory {
      *
      * @return the item factory object
      *
-     * @since 1.1.2
+     * @since 1.2.0
      */
     @NotNull <T> ItemFactory retrieveOnClick(@NotNull String namespace, @NotNull String key, @NotNull PersistentDataType<T, T> persistentDataType, @NotNull AutumnQuadrupleCallback<@NotNull Player, @NotNull ItemFactoryClickInteraction, @NotNull ItemFactory, @Nullable T> retrieveOnClickInteractionFactoryCallback);
 
@@ -435,7 +435,7 @@ public interface ItemFactory {
      *
      * @return the item factory object
      *
-     * @since 1.1.2
+     * @since 1.2.0
      */
     @NotNull <T> ItemFactory retrieveOnInteract(@NotNull String namespace, @NotNull String key, @NotNull PersistentDataType<T, T> persistentDataType, @NotNull AutumnTripleCallback<@NotNull Player, @NotNull ItemFactoryInteraction, @Nullable T> retrieveOnInteractCallback);
 
@@ -449,7 +449,7 @@ public interface ItemFactory {
      *
      * @return the item factory object
      *
-     * @since 1.1.2
+     * @since 1.2.0
      */
     @NotNull <T> ItemFactory retrieveOnInteract(@NotNull String namespace, @NotNull String key, @NotNull PersistentDataType<T, T> persistentDataType, @NotNull AutumnQuadrupleCallback<@NotNull Player, @NotNull ItemFactoryInteraction, @NotNull ItemFactory, @Nullable T> retrieveOnInteractFactoryCallback);
 
@@ -476,7 +476,7 @@ public interface ItemFactory {
      *
      * @return the item factory object
      *
-     * @since 1.1.2
+     * @since 1.2.0
      */
     @NotNull <T> ItemFactory retrieveOnInteract(@NotNull String namespace, @NotNull String key, @NotNull PersistentDataType<T, T> persistentDataType, @NotNull AutumnTripleCallback<@NotNull Player, @NotNull ItemFactoryInteraction, @Nullable T> retrieveOnInteractCallback, @NotNull Action... actions);
 
@@ -491,7 +491,7 @@ public interface ItemFactory {
      *
      * @return the item factory object
      *
-     * @since 1.1.2
+     * @since 1.2.0
      */
     @NotNull <T> ItemFactory retrieveOnInteract(@NotNull String namespace, @NotNull String key, @NotNull PersistentDataType<T, T> persistentDataType, @NotNull AutumnQuadrupleCallback<@NotNull Player, @NotNull ItemFactoryInteraction, @NotNull ItemFactory, @Nullable T> retrieveOnInteractFactoryCallback, @NotNull Action... actions);
 
@@ -502,7 +502,7 @@ public interface ItemFactory {
      *
      * @return the item factory object
      *
-     * @since 1.1.2
+     * @since 1.2.0
      */
     @NotNull ItemFactory onDrop(@NotNull AutumnDoubleCallback<@NotNull Player, @NotNull ItemFactoryDropInteraction> interactionCallback);
 

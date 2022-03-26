@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Represents an item factory item interaction
  *
- * @since 1.1.2
+ * @since 1.2.0
  */
 public interface ItemFactoryItemInteraction {
 
@@ -24,7 +24,7 @@ public interface ItemFactoryItemInteraction {
      *
      * @return the item
      *
-     * @since 1.1.2
+     * @since 1.2.0
      */
     @NotNull ItemStack item();
 
@@ -33,7 +33,7 @@ public interface ItemFactoryItemInteraction {
      *
      * @return the item factory
      *
-     * @since 1.1.2
+     * @since 1.2.0
      */
     @NotNull ItemFactory itemFactory();
 }

@@ -11,7 +11,7 @@ package dev.dementisimus.autumn.bukkit.api.factory.item.interaction;
 /**
  * Represents a cancellable item factory interaction
  *
- * @since 1.1.2
+ * @since 1.2.0
  */
 public interface ItemFactoryCancellableInteraction {
 
@@ -20,7 +20,7 @@ public interface ItemFactoryCancellableInteraction {
      *
      * @return true if the drop interaction is cancelled, false otherwise
      *
-     * @since 1.1.2
+     * @since 1.2.0
      */
     boolean cancelled();
 
@@ -29,7 +29,7 @@ public interface ItemFactoryCancellableInteraction {
      *
      * @param cancelled true if cancelled, false otherwise
      *
-     * @since 1.1.2
+     * @since 1.2.0
      */
     void cancelled(boolean cancelled);
 }

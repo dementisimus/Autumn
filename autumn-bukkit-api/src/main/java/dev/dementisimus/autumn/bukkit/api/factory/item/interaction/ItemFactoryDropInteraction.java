@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Represents an item factory drop item interaction
  *
- * @since 1.1.2
+ * @since 1.2.0
  */
 public interface ItemFactoryDropInteraction extends ItemFactoryPlayerInteraction, ItemFactoryItemInteraction, ItemFactoryCancellableInteraction {
 
@@ -23,7 +23,7 @@ public interface ItemFactoryDropInteraction extends ItemFactoryPlayerInteraction
      *
      * @return the {@link PlayerDropItemEvent}
      *
-     * @since 1.1.2
+     * @since 1.2.0
      */
     @NotNull PlayerDropItemEvent event();
 }
