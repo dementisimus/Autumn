@@ -290,6 +290,8 @@ public class CustomItemFactory implements ItemFactory {
         if(this.retrieve(namespace, key, persistentDataType) == null) {
             NamespacedKey namespacedKey = CustomItemFactory.namespacedKey(namespace, key);
 
+            if(namespacedKey == null) return this;
+
             this.persistentDataContainer().set(namespacedKey, persistentDataType, data);
         }
         return this.apply();
@@ -298,6 +300,8 @@ public class CustomItemFactory implements ItemFactory {
     @Override
     public <T> @Nullable T retrieve(@NotNull String namespace, @NotNull String key, @NotNull PersistentDataType<T, T> persistentDataType) {
         NamespacedKey namespacedKey = CustomItemFactory.namespacedKey(namespace, key);
+
+        if(namespacedKey == null) return null;
 
         return this.persistentDataContainer().get(namespacedKey, persistentDataType);
     }
@@ -466,12 +470,16 @@ public class CustomItemFactory implements ItemFactory {
         return null;
     }
 
-    private static NamespacedKey namespacedKey(String namespace, String key) {
+    private static @Nullable NamespacedKey namespacedKey(String namespace, String key) {
+        if(namespace == null || key == null) return null;
+
         return new NamespacedKey(namespace.toLowerCase(), key.toLowerCase());
     }
 
     private static String retrieveItemId(ItemStack itemStack) {
         NamespacedKey namespacedKey = CustomItemFactory.namespacedKey(ItemFactoryNamespace.NAMESPACE, ItemFactoryNamespace.ITEM_ID);
+
+        if(namespacedKey == null) return null;
 
         if(itemStack.getItemMeta() != null) {
             return itemStack.getItemMeta().getPersistentDataContainer().get(namespacedKey, PersistentDataType.STRING);
