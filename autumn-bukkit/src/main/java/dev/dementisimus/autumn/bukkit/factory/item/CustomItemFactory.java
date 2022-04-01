@@ -14,12 +14,14 @@ import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryCl
 import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryDropInteraction;
 import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryInteraction;
 import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryInteractionEntry;
+import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryPickupInteraction;
 import dev.dementisimus.autumn.bukkit.api.factory.item.namespace.ItemFactoryNamespace;
 import dev.dementisimus.autumn.bukkit.api.i18n.AutumnBukkitTranslation;
 import dev.dementisimus.autumn.bukkit.factory.item.interaction.CustomItemFactoryInteractionEntry;
 import dev.dementisimus.autumn.bukkit.factory.item.interaction.listener.ItemFactoryClickInteractionListener;
 import dev.dementisimus.autumn.bukkit.factory.item.interaction.listener.ItemFactoryDropInteractionListener;
 import dev.dementisimus.autumn.bukkit.factory.item.interaction.listener.ItemFactoryInteractionListener;
+import dev.dementisimus.autumn.bukkit.factory.item.interaction.listener.ItemFactoryPickupInteractionListener;
 import dev.dementisimus.autumn.bukkit.helper.BukkitHelper;
 import dev.dementisimus.autumn.bukkit.i18n.CustomBukkitTranslation;
 import dev.dementisimus.autumn.common.api.callback.AutumnDoubleCallback;
@@ -382,6 +384,13 @@ public class CustomItemFactory implements ItemFactory {
     @Override
     public @NotNull ItemFactory onDrop(@NotNull AutumnDoubleCallback<@NotNull Player, @NotNull ItemFactoryDropInteraction> interactionCallback) {
         ItemFactoryDropInteractionListener.REQUESTED_INTERACTIONS.put(this.itemId, interactionCallback);
+
+        return this;
+    }
+
+    @Override
+    public @NotNull ItemFactory onPickup(@NotNull AutumnDoubleCallback<@NotNull Player, @NotNull ItemFactoryPickupInteraction> interactionCallback) {
+        ItemFactoryPickupInteractionListener.REQUESTED_INTERACTIONS.put(this.itemId, interactionCallback);
 
         return this;
     }

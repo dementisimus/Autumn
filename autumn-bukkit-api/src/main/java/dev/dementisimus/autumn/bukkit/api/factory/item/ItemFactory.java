@@ -11,6 +11,7 @@ package dev.dementisimus.autumn.bukkit.api.factory.item;
 import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryClickInteraction;
 import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryDropInteraction;
 import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryInteraction;
+import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryPickupInteraction;
 import dev.dementisimus.autumn.common.api.callback.AutumnDoubleCallback;
 import dev.dementisimus.autumn.common.api.callback.AutumnQuadrupleCallback;
 import dev.dementisimus.autumn.common.api.callback.AutumnTripleCallback;
@@ -505,6 +506,17 @@ public interface ItemFactory {
      * @since 1.2.0
      */
     @NotNull ItemFactory onDrop(@NotNull AutumnDoubleCallback<@NotNull Player, @NotNull ItemFactoryDropInteraction> interactionCallback);
+
+    /**
+     * Listens for an item pickup interaction with this item
+     *
+     * @param interactionCallback the Callback used to deliver the interaction
+     *
+     * @return the item factory object
+     *
+     * @since 1.2.1
+     */
+    @NotNull ItemFactory onPickup(@NotNull AutumnDoubleCallback<@NotNull Player, @NotNull ItemFactoryPickupInteraction> interactionCallback);
 
     /**
      * Creates the item
