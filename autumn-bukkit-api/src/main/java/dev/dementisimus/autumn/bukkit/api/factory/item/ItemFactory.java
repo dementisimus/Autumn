@@ -292,6 +292,15 @@ public interface ItemFactory {
     @NotNull ItemFactory enchantItemForAppearance();
 
     /**
+     * Disenchants the item
+     *
+     * @return the item factory object
+     *
+     * @since 1.2.1
+     */
+    @NotNull ItemFactory disenchant();
+
+    /**
      * Adds a custom potion effect
      *
      * @param potionEffect potionEffect
@@ -517,6 +526,15 @@ public interface ItemFactory {
      * @since 1.2.1
      */
     @NotNull ItemFactory onPickup(@NotNull AutumnDoubleCallback<@NotNull Player, @NotNull ItemFactoryPickupInteraction> interactionCallback);
+
+    /**
+     * Clears the persistent storage
+     *
+     * @return the item factory object
+     *
+     * @since 1.2.1
+     */
+    @NotNull ItemFactory clearPersistentStorage();
 
     /**
      * Creates the item

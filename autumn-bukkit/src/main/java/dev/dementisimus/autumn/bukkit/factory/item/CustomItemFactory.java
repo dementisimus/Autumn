@@ -256,6 +256,15 @@ public class CustomItemFactory implements ItemFactory {
     }
 
     @Override
+    public @NotNull ItemFactory disenchant() {
+        for(Enchantment enchantment : Enchantment.values()) {
+            this.itemMeta.removeEnchant(enchantment);
+        }
+
+        return this.apply();
+    }
+
+    @Override
     public @NotNull ItemFactory customPotionEffect(@NotNull PotionEffect potionEffect, boolean overwrite) {
         if(this.itemMeta instanceof PotionMeta potionMeta) {
             potionMeta.addCustomEffect(potionEffect, overwrite);
@@ -391,6 +400,20 @@ public class CustomItemFactory implements ItemFactory {
     @Override
     public @NotNull ItemFactory onPickup(@NotNull AutumnDoubleCallback<@NotNull Player, @NotNull ItemFactoryPickupInteraction> interactionCallback) {
         ItemFactoryPickupInteractionListener.REQUESTED_INTERACTIONS.put(this.itemId, interactionCallback);
+
+        return this;
+    }
+
+    @Override
+    public @NotNull ItemFactory clearPersistentStorage() {
+        for(NamespacedKey namespacedKey : this.persistentDataContainer().getKeys()) {
+            this.persistentDataContainer().remove(namespacedKey);
+        }
+
+        this.itemId = RandomStringUtils.randomAlphanumeric(5);
+        this.store(ItemFactoryNamespace.NAMESPACE, ItemFactoryNamespace.ITEM_ID, PersistentDataType.STRING, this.itemId);
+
+        ITEM_FACTORIES.put(this.itemId, this);
 
         return this;
     }
