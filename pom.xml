@@ -33,7 +33,7 @@
         <!-- autumn -->
         <annotations.version>23.0.0</annotations.version>
         <guice.version>5.1.0</guice.version>
-        <lombok.version>1.18.22</lombok.version>
+        <lombok.version>1.18.24</lombok.version>
         <mongodb.version>4.6.0</mongodb.version>
 
         <!-- common/dependencies -->
