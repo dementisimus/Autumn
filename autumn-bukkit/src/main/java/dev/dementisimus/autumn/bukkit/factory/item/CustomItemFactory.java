@@ -14,12 +14,14 @@ import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryCl
 import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryDropInteraction;
 import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryInteraction;
 import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryInteractionEntry;
+import dev.dementisimus.autumn.bukkit.api.factory.item.interaction.ItemFactoryPickupInteraction;
 import dev.dementisimus.autumn.bukkit.api.factory.item.namespace.ItemFactoryNamespace;
 import dev.dementisimus.autumn.bukkit.api.i18n.AutumnBukkitTranslation;
 import dev.dementisimus.autumn.bukkit.factory.item.interaction.CustomItemFactoryInteractionEntry;
 import dev.dementisimus.autumn.bukkit.factory.item.interaction.listener.ItemFactoryClickInteractionListener;
 import dev.dementisimus.autumn.bukkit.factory.item.interaction.listener.ItemFactoryDropInteractionListener;
 import dev.dementisimus.autumn.bukkit.factory.item.interaction.listener.ItemFactoryInteractionListener;
+import dev.dementisimus.autumn.bukkit.factory.item.interaction.listener.ItemFactoryPickupInteractionListener;
 import dev.dementisimus.autumn.bukkit.helper.BukkitHelper;
 import dev.dementisimus.autumn.bukkit.i18n.CustomBukkitTranslation;
 import dev.dementisimus.autumn.common.api.callback.AutumnDoubleCallback;
@@ -254,6 +256,15 @@ public class CustomItemFactory implements ItemFactory {
     }
 
     @Override
+    public @NotNull ItemFactory disenchant() {
+        for(Enchantment enchantment : Enchantment.values()) {
+            this.itemMeta.removeEnchant(enchantment);
+        }
+
+        return this.apply();
+    }
+
+    @Override
     public @NotNull ItemFactory customPotionEffect(@NotNull PotionEffect potionEffect, boolean overwrite) {
         if(this.itemMeta instanceof PotionMeta potionMeta) {
             potionMeta.addCustomEffect(potionEffect, overwrite);
@@ -290,6 +301,8 @@ public class CustomItemFactory implements ItemFactory {
         if(this.retrieve(namespace, key, persistentDataType) == null) {
             NamespacedKey namespacedKey = CustomItemFactory.namespacedKey(namespace, key);
 
+            if(namespacedKey == null) return this;
+
             this.persistentDataContainer().set(namespacedKey, persistentDataType, data);
         }
         return this.apply();
@@ -298,6 +311,8 @@ public class CustomItemFactory implements ItemFactory {
     @Override
     public <T> @Nullable T retrieve(@NotNull String namespace, @NotNull String key, @NotNull PersistentDataType<T, T> persistentDataType) {
         NamespacedKey namespacedKey = CustomItemFactory.namespacedKey(namespace, key);
+
+        if(namespacedKey == null) return null;
 
         return this.persistentDataContainer().get(namespacedKey, persistentDataType);
     }
@@ -378,6 +393,27 @@ public class CustomItemFactory implements ItemFactory {
     @Override
     public @NotNull ItemFactory onDrop(@NotNull AutumnDoubleCallback<@NotNull Player, @NotNull ItemFactoryDropInteraction> interactionCallback) {
         ItemFactoryDropInteractionListener.REQUESTED_INTERACTIONS.put(this.itemId, interactionCallback);
+
+        return this;
+    }
+
+    @Override
+    public @NotNull ItemFactory onPickup(@NotNull AutumnDoubleCallback<@NotNull Player, @NotNull ItemFactoryPickupInteraction> interactionCallback) {
+        ItemFactoryPickupInteractionListener.REQUESTED_INTERACTIONS.put(this.itemId, interactionCallback);
+
+        return this;
+    }
+
+    @Override
+    public @NotNull ItemFactory clearPersistentStorage() {
+        for(NamespacedKey namespacedKey : this.persistentDataContainer().getKeys()) {
+            this.persistentDataContainer().remove(namespacedKey);
+        }
+
+        this.itemId = RandomStringUtils.randomAlphanumeric(5);
+        this.store(ItemFactoryNamespace.NAMESPACE, ItemFactoryNamespace.ITEM_ID, PersistentDataType.STRING, this.itemId);
+
+        ITEM_FACTORIES.put(this.itemId, this);
 
         return this;
     }
@@ -466,12 +502,16 @@ public class CustomItemFactory implements ItemFactory {
         return null;
     }
 
-    private static NamespacedKey namespacedKey(String namespace, String key) {
+    private static @Nullable NamespacedKey namespacedKey(String namespace, String key) {
+        if(namespace == null || key == null) return null;
+
         return new NamespacedKey(namespace.toLowerCase(), key.toLowerCase());
     }
 
     private static String retrieveItemId(ItemStack itemStack) {
         NamespacedKey namespacedKey = CustomItemFactory.namespacedKey(ItemFactoryNamespace.NAMESPACE, ItemFactoryNamespace.ITEM_ID);
+
+        if(namespacedKey == null) return null;
 
         if(itemStack.getItemMeta() != null) {
             return itemStack.getItemMeta().getPersistentDataContainer().get(namespacedKey, PersistentDataType.STRING);
