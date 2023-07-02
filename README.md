@@ -1,5 +1,7 @@
 # Autumn [![main build status](https://github.com/dementisimus/Autumn/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/dementisimus/Autumn) [![develop build status](https://github.com/dementisimus/Autumn/actions/workflows/build.yml/badge.svg?branch=develop)](https://github.com/dementisimus/Autumn/tree/develop)
 
+# discontinued due to personal reasons!
+
 ## _The Core._
 
 **Autumn** is the **core** of all **dev.dementisimus projects**!
