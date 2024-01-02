@@ -55,10 +55,13 @@ public class ItemFactoryClickInteractionListener implements Listener {
 
                 if(clickInteractionCallback != null) {
                     clickInteractionCallback.done(player, clickInteraction);
+                    event.inventoryClickEvent().setCancelled(true);
                 }else if(retrieveOnClickInteractionCallback != null) {
                     retrieveOnClickInteractionCallback.done(player, clickInteraction, namespaceKeyEntry);
+                    event.inventoryClickEvent().setCancelled(true);
                 }else if(retrieveOnClickInteractionFactoryCallback != null) {
                     retrieveOnClickInteractionFactoryCallback.done(player, clickInteraction, itemFactory, namespaceKeyEntry);
+                    event.inventoryClickEvent().setCancelled(true);
                 }
             }
         }

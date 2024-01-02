@@ -7,7 +7,7 @@
     <groupId>dev.dementisimus</groupId>
     <artifactId>autumn</artifactId>
     <packaging>pom</packaging>
-    <version>1.2.0</version>
+    <version>1.2.0+1.20.1</version>
     <modules>
         <module>autumn-bukkit</module>
         <module>autumn-bungee</module>
@@ -25,34 +25,34 @@
         <maven.compiler.target>17</maven.compiler.target>
 
         <!-- maven plugins -->
-        <maven-shade-plugin.version>3.3.0-SNAPSHOT</maven-shade-plugin.version>
-        <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
-        <maven-javadoc-plugin.version>3.3.2</maven-javadoc-plugin.version>
-        <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+        <maven-shade-plugin.version>3.5.1</maven-shade-plugin.version>
+        <maven-compiler-plugin.version>3.12.0</maven-compiler-plugin.version>
+        <maven-javadoc-plugin.version>3.6.3</maven-javadoc-plugin.version>
+        <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
 
         <!-- autumn -->
-        <annotations.version>23.0.0</annotations.version>
-        <guice.version>5.1.0</guice.version>
-        <lombok.version>1.18.22</lombok.version>
-        <mongodb.version>4.5.1</mongodb.version>
+        <annotations.version>24.1.0</annotations.version>
+        <guice.version>7.0.0</guice.version>
+        <lombok.version>1.18.30</lombok.version>
+        <mongodb.version>4.11.1</mongodb.version>
 
         <!-- common/dependencies -->
-        <jansi.version>2.4.0</jansi.version>
-        <HikariCP.version>5.0.1</HikariCP.version>
-        <mysql-connector-java.version>8.0.28</mysql-connector-java.version>
-        <sqlite-jdbc.version>3.36.0.3</sqlite-jdbc.version>
-        <gson.version>2.8.9</gson.version>
-        <guava.version>31.0.1-jre</guava.version>
-        <zip4j.version>2.9.1</zip4j.version>
-        <commons-lang3.version>3.12.0</commons-lang3.version>
-        <jackson-databind.version>2.13.2.1</jackson-databind.version>
+        <jansi.version>2.4.1</jansi.version>
+        <HikariCP.version>5.1.0</HikariCP.version>
+        <mysql-connector-java.version>8.0.33</mysql-connector-java.version>
+        <sqlite-jdbc.version>3.44.1.0</sqlite-jdbc.version>
+        <gson.version>2.10.1</gson.version>
+        <guava.version>33.0.0-jre</guava.version>
+        <zip4j.version>2.11.5</zip4j.version>
+        <commons-lang3.version>3.14.0</commons-lang3.version>
+        <jackson-databind.version>2.16.1</jackson-databind.version>
 
         <!-- bukkit -->
-        <spigot-api.version>1.17.1-R0.1-SNAPSHOT</spigot-api.version>
-        <authlib.version>1.5.21</authlib.version>
+        <spigot-api.version>1.20.1-R0.1-SNAPSHOT</spigot-api.version>
+        <authlib.version>3.16.29</authlib.version>
 
         <!-- bungee -->
-        <bungeecord-api.version>1.18-R0.1-SNAPSHOT</bungeecord-api.version>
+        <bungeecord-api.version>1.20-R0.1</bungeecord-api.version>
     </properties>
 
     <dependencies>

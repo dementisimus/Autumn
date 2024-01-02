@@ -9,6 +9,7 @@
 package dev.dementisimus.autumn.bukkit.listener;
 
 import dev.dementisimus.autumn.bukkit.api.event.inventory.ValidInventoryClickEvent;
+import dev.dementisimus.autumn.bukkit.api.factory.inventory.InventoryFactory;
 import dev.dementisimus.autumn.common.api.injection.annotation.AutumnListener;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -32,6 +33,11 @@ public class InventoryClickListener implements Listener {
                 String title = event.getView().getTitle();
                 String currentItemDisplayName = currentItem.getItemMeta().getDisplayName();
 
+                if(currentItemDisplayName.equalsIgnoreCase(InventoryFactory.PLACEHOLDER)) {
+                    event.setCancelled(true);
+                    return;
+                }
+
                 ValidInventoryClickEvent validInventoryClickEvent = new ValidInventoryClickEvent();
 
                 validInventoryClickEvent.inventoryClickEvent(event);
@@ -41,8 +47,6 @@ public class InventoryClickListener implements Listener {
                 validInventoryClickEvent.currentItemDisplayName(currentItemDisplayName);
                 validInventoryClickEvent.slot(event.getSlot());
                 validInventoryClickEvent.slotType(event.getSlotType());
-
-                event.setCancelled(true);
 
                 Bukkit.getPluginManager().callEvent(validInventoryClickEvent);
             }
