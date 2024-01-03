@@ -15,10 +15,10 @@ jobs:
 
     steps:
       - name: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: setup-jdk-17
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
@@ -33,18 +33,18 @@ jobs:
         run: echo "version=$(mvn org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
 
       - name: build dependencies
-        run: mvn -U clean install -pl :autumn,:autumn-dependencies
+        run: mvn -U clean install -pl :autumn,:dependencies
 
       - name: build api
-        run: mvn -U clean install javadoc:javadoc -pl :autumn,:autumn-common-api,:autumn-bukkit-api,:autumn-bungee-api
+        run: mvn -U clean install javadoc:javadoc -pl :autumn,:common-api,:bukkit-api,:bungee-api
 
       - name: build implementation
-        run: mvn -U clean install -pl :autumn,:autumn-bukkit,:autumn-bungee,:autumn-common -file pom.xml
+        run: mvn -U clean install -pl :autumn,:bukkit-plugin,:bungee-plugin,:common-plugin -file pom.xml
 
       - name: pre-deploy
         run: |
-          declare -a modules=("autumn-dependencies" "autumn-common-api" "autumn-common" "autumn-bukkit-api" "autumn-bukkit" "autumn-bungee-api" "autumn-bungee")
-          declare -a javadocModules=("autumn-common-api" "autumn-bukkit-api" "autumn-bungee-api")
+          declare -a modules=("dependencies" "common-api" "common-plugin" "bukkit-api" "bukkit-plugin" "bungee-api" "bungee-plugin")
+          declare -a javadocModules=("common-api" "bukkit-api" "bungee-api")
 
           fullModule=autumn-${{ env.version }}
           package=dev/dementisimus/autumn/${{ env.version }}
