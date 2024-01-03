@@ -1,0 +1,13 @@
+name: BukkitAutumn
+main: dev.dementisimus.autumn.bukkit.plugin.plugin.AutumnPlugin
+version: ${project.version}-${git.commit.id.describe-short}
+api-version: "1.20"
+softdepend:
+  - Autumn-Dependencies
+
+author: dementisimus
+website: dementisimus.dev
+
+commands:
+  language:
+  lang:

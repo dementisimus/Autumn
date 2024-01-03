@@ -1,6 +1,0 @@
-name: Autumn-Dependencies
-main: dev.dementisimus.autumn.dependencies.plugin.bungee.AutumnDependenciesPlugin
-version: ${project.version}
-
-author: dementisimus
-website: dementisimus.dev
