@@ -32,14 +32,8 @@ jobs:
       - name: evaluate project info
         run: echo "version=$(mvn org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
 
-      - name: build dependencies
-        run: mvn -U clean install -pl :autumn,:dependencies
-
-      - name: build api
-        run: mvn -U clean install javadoc:javadoc -pl :autumn,:common-api,:bukkit-api,:bungee-api
-
-      - name: build implementation
-        run: mvn -U clean install -pl :autumn,:bukkit-plugin,:bungee-plugin,:common-plugin -file pom.xml
+      - name: build
+        run: mvn -U clean install -file pom.xml
 
       - name: pre-deploy
         if: false
