@@ -29,13 +29,6 @@
             <artifactId>spigot</artifactId>
             <scope>provided</scope>
             <version>${spigot-api.version}</version>
-            <classifier>remapped-mojang</classifier>
-        </dependency>
-        <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot</artifactId>
-            <scope>provided</scope>
-            <version>${spigot-api.version}</version>
         </dependency>
 
         <dependency>
