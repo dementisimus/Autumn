@@ -81,7 +81,7 @@ public class CustomInfiniteInventoryFactory implements InfiniteInventoryFactory 
 
     @Override
     public void create(@NotNull AutumnTaskExecutor taskExecutor) {
-        Preconditions.checkNotNull(this.createFor, "No player found to create an infinite inventory for!");
+        Preconditions.checkNotNull(this.createFor, "No player found to getterNonStatic an infinite inventory for!");
 
         this.taskExecutor = taskExecutor;
 

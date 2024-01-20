@@ -9,6 +9,7 @@
 package dev.dementisimus.autumn.bukkit.plugin.injection;
 
 import com.google.inject.Injector;
+import dev.dementisimus.autumn.bukkit.api.command.AutumnBrigadierCommand;
 import dev.dementisimus.autumn.bukkit.plugin.BukkitAutumn;
 import dev.dementisimus.autumn.common.api.i18n.AutumnTranslation;
 import dev.dementisimus.autumn.common.api.injection.annotation.AutumnCommand;
@@ -91,6 +92,10 @@ public class AutumnBukkitInjector extends CustomAutumnInjector {
                         this.logging.error(translation);
                     }
                 }
+            }
+        } else if (commandObject instanceof AutumnBrigadierCommand brigadierCommand) {
+            if (!autumnCommand.isOptional() || this.autumn.optionalCommands()) {
+                this.autumn.getCommandRegistry().registerCommand(autumnCommand, brigadierCommand);
             }
         } else {
             AutumnTranslation translation = new CustomAutumnTranslation("autumn.injection.class.not.a.command");

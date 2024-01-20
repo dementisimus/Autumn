@@ -20,6 +20,8 @@
         <maven.compiler.target>17</maven.compiler.target>
         <sourceEncoding>UTF-8</sourceEncoding>
 
+        <minecraft.version>1.20.1</minecraft.version>
+
         <!-- maven plugins -->
         <maven-shade-plugin.version>3.5.1</maven-shade-plugin.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
@@ -27,6 +29,7 @@
         <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
         <maven-resource-plugin.version>3.1.0</maven-resource-plugin.version>
         <git-commit-id-maven-plugin.version>4.9.9</git-commit-id-maven-plugin.version>
+        <paper-nms-maven-plugin.version>1.4.3</paper-nms-maven-plugin.version>
 
         <!-- autumn -->
         <annotations.version>24.1.0</annotations.version>
@@ -46,11 +49,13 @@
         <jackson-databind.version>2.16.1</jackson-databind.version>
 
         <!-- bukkit -->
-        <spigot-api.version>1.20.1-R0.1-SNAPSHOT</spigot-api.version>
+        <spigot-api.version>${minecraft.version}-R0.1-SNAPSHOT</spigot-api.version>
         <authlib.version>3.16.29</authlib.version>
+        <protocollib.version>5.2.0-SNAPSHOT</protocollib.version>
+        <brigadier.version>1.0.18</brigadier.version>
 
         <!-- bungee -->
-        <bungeecord-api.version>1.20-R0.1</bungeecord-api.version>
+        <bungeecord-api.version>1.20-R0.2-SNAPSHOT</bungeecord-api.version>
     </properties>
 
     <dependencies>
@@ -58,6 +63,12 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>${annotations.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -75,12 +86,20 @@
             <id>bungeecord-repo</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </repository>
+        <repository>
+            <id>dmulloy2-repo</id>
+            <url>https://repo.dmulloy2.net/repository/public/</url>
+        </repository>
     </repositories>
 
     <pluginRepositories>
         <pluginRepository>
             <id>maven-snapshots</id>
             <url>https://repository.apache.org/content/repositories/snapshots/</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>bytecode.space</id>
+            <url>https://repo.bytecode.space/repository/maven-public/</url>
         </pluginRepository>
     </pluginRepositories>
 

@@ -17,7 +17,7 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Represents a command, executable by console or user
+ * Represents an autumn command, brigadier or bukkit
  *
  * @since 1.0.0
  */
@@ -40,6 +40,14 @@ public @interface AutumnCommand {
      * @since 1.0.0
      */
     @NotNull String name();
+
+    /**
+     * Required permissions
+     *
+     * @return permissions
+     * @since 2.0.0
+     */
+    @NotNull String permissions() default "";
 
     /**
      * The command aliases

@@ -9,11 +9,14 @@
 package dev.dementisimus.autumn.bukkit.plugin;
 
 import dev.dementisimus.autumn.bukkit.api.language.LanguageSelection;
+import dev.dementisimus.autumn.bukkit.api.npc.pool.AutumnNPCPool;
+import dev.dementisimus.autumn.bukkit.plugin.command.AutumnCommandRegistry;
 import dev.dementisimus.autumn.bukkit.plugin.executor.AutumnBukkitTaskExecutor;
 import dev.dementisimus.autumn.bukkit.plugin.injection.AutumnBukkitInjector;
 import dev.dementisimus.autumn.bukkit.plugin.language.CustomLanguageSelection;
 import dev.dementisimus.autumn.bukkit.plugin.listener.ServerCommandListener;
 import dev.dementisimus.autumn.bukkit.plugin.log.AutumnBukkitLogging;
+import dev.dementisimus.autumn.bukkit.plugin.npc.pool.CustomAutumnNPCPool;
 import dev.dementisimus.autumn.bukkit.plugin.setup.BukkitSetupManager;
 import dev.dementisimus.autumn.common.api.server.ServerType;
 import dev.dementisimus.autumn.common.api.setup.SetupManager;
@@ -26,10 +29,12 @@ import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 
+@Getter
 public class BukkitAutumn extends CustomAutumn {
 
-    @Getter
+    private AutumnCommandRegistry commandRegistry;
     private LanguageSelection languageSelection;
+    private AutumnNPCPool npcPool;
 
     public BukkitAutumn(Plugin plugin, String pluginPrefix) {
         super(plugin, pluginPrefix, new AutumnBukkitTaskExecutor(plugin), new AutumnBukkitLogging());
@@ -67,7 +72,11 @@ public class BukkitAutumn extends CustomAutumn {
         injector.registerModule(BukkitAutumn.class, this);
         injector.registerModule(Plugin.class, plugin);
 
+        this.commandRegistry = new AutumnCommandRegistry(plugin, this);
         this.languageSelection = new CustomLanguageSelection(this);
+        this.npcPool = new CustomAutumnNPCPool(this, plugin);
+
+        Bukkit.getPluginManager().registerEvents(this.commandRegistry, plugin);
     }
 
     @SneakyThrows

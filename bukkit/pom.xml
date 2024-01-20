@@ -26,14 +26,35 @@
 
         <dependency>
             <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-            <version>${spigot-api.version}</version>
+            <artifactId>spigot</artifactId>
             <scope>provided</scope>
+            <version>${spigot-api.version}</version>
+            <classifier>remapped-mojang</classifier>
         </dependency>
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot</artifactId>
+            <scope>provided</scope>
+            <version>${spigot-api.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>com.mojang</groupId>
             <artifactId>authlib</artifactId>
             <version>${authlib.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.mojang</groupId>
+            <artifactId>brigadier</artifactId>
+            <version>${brigadier.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.comphenix.protocol</groupId>
+            <artifactId>ProtocolLib</artifactId>
+            <version>${protocollib.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
