@@ -16,13 +16,10 @@ body:
       description: To what module does your bug report belong to?
       multiple: true
       options:
-        - 'Bukkit'
-        - 'Bukkit-API'
-        - 'Bungee'
-        - 'Bungee-API'
+        - 'Paper'
+        - 'Paper-API'
         - 'Common'
         - 'Common-API'
-        - 'Dependencies'
     validations:
       required: true
 
@@ -113,21 +110,10 @@ body:
     validations:
       required: false
 
-  - type: dropdown
-    id: using-paper
-    attributes:
-      label: PaperMC
-      description: Are you using PaperMC?
-      options:
-        - 'yes'
-        - 'no'
-    validations:
-      required: false
-
   - type: input
     id: autumn-version
     attributes:
       label: Autumn version
-      description: What version of Autumn are you using ('/about (Servertype)Autumn' version output)?
+      description: What version of Autumn are you using ('/about Autumn' version output)?
     validations:
       required: true

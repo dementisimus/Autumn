@@ -12,13 +12,10 @@ body:
       description: To what module does your feature request belong to?
       multiple: true
       options:
-        - 'Bukkit'
-        - 'Bukkit-API'
-        - 'Bungee'
-        - 'Bungee-API'
+        - 'Paper'
+        - 'Paper-API'
         - 'Common'
         - 'Common-API'
-        - 'Dependencies'
     validations:
       required: true
 
