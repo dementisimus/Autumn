@@ -10,7 +10,7 @@ package dev.dementisimus.autumn.plugin;
 
 import com.google.common.base.Preconditions;
 import dev.dementisimus.autumn.api.Autumn;
-import dev.dementisimus.autumn.api.callback.EmptyCallback;
+import dev.dementisimus.autumn.api.callback.SingleCallback;
 import dev.dementisimus.autumn.api.command.AutumnCommand;
 import dev.dementisimus.autumn.api.configuration.AutumnConfiguration;
 import dev.dementisimus.autumn.api.i18n.AutumnLanguage;
@@ -31,6 +31,7 @@ import dev.dementisimus.autumn.plugin.file.CustomFileDownloader;
 import dev.dementisimus.autumn.plugin.file.CustomZipFileDownloader;
 import dev.dementisimus.autumn.plugin.i18n.CustomTranslation;
 import dev.dementisimus.autumn.plugin.i18n.property.TranslationProperty;
+import dev.dementisimus.autumn.plugin.initializer.CustomAutumnInitializer;
 import dev.dementisimus.autumn.plugin.language.CustomLanguageSelection;
 import dev.dementisimus.autumn.plugin.language.command.LanguageCommand;
 import dev.dementisimus.autumn.plugin.listener.AsyncPlayerChatListener;
@@ -49,6 +50,7 @@ import org.bson.Document;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -78,12 +80,13 @@ public class CustomAutumn implements Autumn {
     private CustomStorage storage;
     private AutumnLanguage defaultLanguage = AutumnLanguage.ENGLISH;
 
-    private EmptyCallback initializationCallback;
+    private SingleCallback<Autumn> initializationCallback;
 
     private CommandRegistry commandRegistry;
     private CustomLanguageSelection languageSelection;
     private CustomAutumnNPCPool npcPool;
 
+    @ApiStatus.Internal
     public CustomAutumn(Plugin plugin, String pluginPrefix) {
         Preconditions.checkNotNull(plugin, "Plugin may not be null!");
         Preconditions.checkNotNull(pluginPrefix, "PluginPrefix may not be null!");
@@ -141,60 +144,6 @@ public class CustomAutumn implements Autumn {
     }
 
     @Override
-    public void defaultSetupStates() {
-        this.setupManager.mainSetupState(MainSetupStates.CONSOLE_LANGUAGE);
-    }
-
-    @Override
-    public void storageSetupStates() {
-        for (SetupState setupState : MainSetupStates.values()) {
-            this.setupManager.mainSetupState(setupState);
-        }
-    }
-
-    @Override
-    public void extraSetupStates(SetupState... setupStates) {
-        for (SetupState setupState : setupStates) {
-            this.extraSetupState(setupState);
-        }
-    }
-
-    @Override
-    public void extraSetupState(SetupState setupState) {
-        this.setupManager.extraSetupState(setupState);
-    }
-
-    @Override
-    public void initialize(EmptyCallback initializationCallback) {
-        this.initializationCallback = initializationCallback;
-
-        this.zipFileDownloader = new CustomZipFileDownloader(this, this.pluginName);
-
-        if (this.configurationFile != null) {
-            AutumnConfiguration configuration = new CustomAutumnConfiguration(this.configurationFile);
-            Document document = configuration.read();
-
-            if (!document.isEmpty()) {
-                this.setupManager.complete(false);
-                return;
-            }
-        }
-
-        toQueue(this.setupManager);
-    }
-
-    @Override
-    public void useStorage(StorageSourceProperty... storageSourceProperties) {
-        this.storage = new CustomStorage(this);
-
-        for (StorageSourceProperty storageSourceProperty : storageSourceProperties) {
-            this.storage.generateSourceProperty(storageSourceProperty);
-        }
-
-        this.storage.generateSourceProperty(AutumnLanguage.StorageSource.PROPERTY);
-    }
-
-    @Override
     public void registerCommand(AutumnCommand command) {
         this.commandRegistry.registerCommand((CustomAutumnCommand) command);
     }
@@ -230,7 +179,7 @@ public class CustomAutumn implements Autumn {
         this.registerListener(new ItemFactoryDropInteractionListener());
         this.registerListener(new ItemFactoryInteractionListener());
 
-        this.initializationCallback.done();
+        this.initializationCallback.done(this);
 
         activeSetup = false;
         beginNextSetupInQueue();
@@ -242,5 +191,47 @@ public class CustomAutumn implements Autumn {
 
     public void setStorageType(Storage.Type storageType) {
         if (storageType != null) this.storageType = storageType;
+    }
+
+    @ApiStatus.Internal
+    public void initialize(CustomAutumnInitializer initializer, SingleCallback<Autumn> initializationCallback) {
+        this.initializationCallback = initializationCallback;
+
+        if (initializer.isDefaultSetupStates()) {
+            this.setupManager.mainSetupState(MainSetupStates.CONSOLE_LANGUAGE);
+        }
+
+        if (initializer.isStorageSetupStates()) {
+            for (SetupState setupState : MainSetupStates.values()) {
+                this.setupManager.mainSetupState(setupState);
+            }
+        }
+
+        for (SetupState extraSetupState : initializer.getExtraSetupStates()) {
+            this.setupManager.extraSetupState(extraSetupState);
+        }
+
+        if (!initializer.getStorageSourceProperties().isEmpty()) {
+            this.storage = new CustomStorage(this);
+            for (StorageSourceProperty storageSourceProperty : initializer.getStorageSourceProperties()) {
+                this.storage.generateSourceProperty(storageSourceProperty);
+            }
+
+            this.storage.generateSourceProperty(AutumnLanguage.StorageSource.PROPERTY);
+        }
+
+        this.zipFileDownloader = new CustomZipFileDownloader(this, this.pluginName);
+
+        if (this.configurationFile != null) {
+            AutumnConfiguration configuration = new CustomAutumnConfiguration(this.configurationFile);
+            Document document = configuration.read();
+
+            if (!document.isEmpty()) {
+                this.setupManager.complete(false);
+                return;
+            }
+        }
+
+        toQueue(this.setupManager);
     }
 }

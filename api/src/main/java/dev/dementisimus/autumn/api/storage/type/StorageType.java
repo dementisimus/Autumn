@@ -42,7 +42,7 @@ public interface StorageType {
      * @param listDocumentCallback  A list callback with all storage entries as {@link Document} list
      * @since 1.0.0
      */
-    void list(StorageSourceProperty storageSourceProperty, SingleCallback<@NotNull List<Document>> listDcumentCallback);
+    void list(StorageSourceProperty storageSourceProperty, SingleCallback<@NotNull List<Document>> listDocumentCallback);
 
     /**
      * Writes to storage

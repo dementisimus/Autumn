@@ -4,13 +4,20 @@
 
 ## **Features**
 
-- ToDo
+- Automated & custom setup
+- (Infinite)InventoryFactory
+- ItemFactory
+- Brigadier commands
+- (Zip)FileDownloader
+- i18n
+- UserInput
+- Storage: MongoDB, MariaDB/SQLite, File
+- NPCs
 
 ## **Requirements**
 
 1. **Java 21**
 2. **Paper 1.21**
-3. **Access** to the **server console** (for the **automated setup**)
 
 ## **Development**
 
@@ -25,10 +32,10 @@
 </repository>
 
 <dependency>
-    <groupId>dev.dementisimus.autumn</groupId>
-    <artifactId>INSERT_MODULE_HERE-api</artifactId>
-    <version>INSERT_LATEST_RELEASE_VERSION_HERE</version>
-    <scope>provided</scope>
+<groupId>dev.dementisimus.autumn</groupId>
+<artifactId>INSERT_MODULE_HERE</artifactId>
+<version>INSERT_LATEST_RELEASE_VERSION_HERE</version>
+<scope>provided</scope>
 </dependency>
 ```
 
@@ -40,12 +47,22 @@ maven {
     url 'https://repo.dementisimus.dev/release/'
 }
 
-compileOnly group: 'dev.dementisimus.autumn', name: 'INSERT_MODULE_HERE-api', version: 'INSERT_LATEST_RELEASE_VERSION_HERE'
+compileOnly group: 'dev.dementisimus.autumn', name: 'INSERT_MODULE_HERE', version: 'INSERT_LATEST_RELEASE_VERSION_HERE'
 ```
 
 ### Example usage
+
 ```java
-ToDo
+AutumnInitializer initializer = CustomAutumnInitializer.of(this);
+
+//configure the initializer
+
+initialize(autumn -> {
+
+    //Register commands or events via autumn.registerCommand() / autumn.registerListener()
+    //etc    
+
+});
 ```
 
 ## **License**
