@@ -40,35 +40,28 @@ jobs:
 
       - name: pre-deploy
         run: |
-          declare -a modules=("api" "plugin")
-          declare -a javadocModules=("api")
-
-          fullModule=autumn-${{ env.version }}
-          package=dev/dementisimus/autumn/${{ env.version }}
-          artifactsTarget=./artifacts/$package
+          artifactsTarget=./artifacts/dev/dementisimus/autumn/${{ env.version }}
 
           mkdir -p $artifactsTarget
 
-          cp ./pom.xml $artifactsTarget/$fullModule.pom
+          cp ./pom.xml $artifactsTarget/${{ env.version }}.pom
 
-          for module in "${modules[@]}"; do
-            cp ./$module/target/$module-${{ env.version }}.jar $artifactsTarget/
-            cp ./$module/pom.xml $artifactsTarget/$module-${{ env.version }}.pom
-          done
+          artifactsTarget=./artifacts/dev/dementisimus/autumn/plugin/${{ env.version }}
 
-          for module in "${javadocModules[@]}"; do
-            fullModule=autumn-$module-${{ env.version }}
-            package=dev/dementisimus/autumn/$module/${{ env.version }}
+          cp ./plugin/target/autumn-plugin.jar $artifactsTarget/plugin-${{ env.version }}.jar
+          cp ./plugin/pom.xml $artifactsTarget/plugin-${{ env.version }}.pom
 
-            cp ./$module/target/$fullModule-sources.jar $artifactsTarget/
-          done
+          artifactsTarget=./artifacts/dev/dementisimus/autumn/api/${{ env.version }}
 
-          for module in "${javadocModules[@]}"; do
-            javadocsTarget=./javadocs/$module/${{ env.version }}
+          cp ./api/target/api-${{ env.version }}.jar $artifactsTarget/
+          cp ./api/pom.xml $artifactsTarget/api-${{ env.version }}.pom
 
-            mkdir -p $javadocsTarget
-            cp -r ./$module/target/site/apidocs/. $javadocsTarget/
-          done
+          cp ./api/target/autumn-api-${{ env.version }}-sources.jar $artifactsTarget/
+
+          javadocsTarget=./javadocs/api/${{ env.version }}
+
+          mkdir -p $javadocsTarget
+          cp -r ./api/target/site/apidocs/. $javadocsTarget/
 
       - name: deploy release artifacts
         if: endsWith(github.ref, '/main')
