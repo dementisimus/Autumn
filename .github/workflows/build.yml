@@ -30,10 +30,13 @@ jobs:
           key: ${{ runner.os }}-maven-${{ secrets.CACHE_KEY }}
 
       - name: evaluate project info
-        run: echo "version=$(mvn org.apache.maven.plugins:maven-help-plugin:3.4.1:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+        run: echo "version=$(mvn org.apache.maven.plugins:maven-help-plugin:3.5.0:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+
+      - name: build paper-nms
+        run: mvn paper-nms:init -file plugin/pom.xml
 
       - name: build
-        run: mvn -U clean install -file pom.xml
+        run: mvn -U clean install
 
 #      - name: pre-deploy
 #        if: false
