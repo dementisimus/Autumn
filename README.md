@@ -21,8 +21,6 @@
 
 ## **Development**
 
-##### repository currently not available
-
 ### Maven
 
 ```xml
@@ -32,10 +30,10 @@
 </repository>
 
 <dependency>
-<groupId>dev.dementisimus.autumn</groupId>
-<artifactId>INSERT_MODULE_HERE</artifactId>
-<version>INSERT_LATEST_RELEASE_VERSION_HERE</version>
-<scope>provided</scope>
+    <groupId>dev.dementisimus.autumn</groupId>
+    <artifactId>api/plugin</artifactId>
+    <version>INSERT_LATEST_RELEASE_VERSION_HERE</version>
+    <scope>provided</scope>
 </dependency>
 ```
 
@@ -47,10 +45,12 @@ maven {
     url 'https://repo.dementisimus.dev/release/'
 }
 
-compileOnly group: 'dev.dementisimus.autumn', name: 'INSERT_MODULE_HERE', version: 'INSERT_LATEST_RELEASE_VERSION_HERE'
+compileOnly group: 'dev.dementisimus.autumn', name: 'api/plugin', version: 'INSERT_LATEST_RELEASE_VERSION_HERE'
 ```
 
 ### Example usage
+
+» Javadocs: https://docs.dementisimus.dev/release/Autumn/api/INSERT_LATEST_RELEASE_VERSION_HERE/
 
 ```java
 AutumnInitializer initializer = CustomAutumnInitializer.of(this);
