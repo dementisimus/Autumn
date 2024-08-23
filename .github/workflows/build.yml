@@ -73,6 +73,7 @@ jobs:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.REPO_USERNAME }}
           password: ${{ secrets.REPO_PASSWORD }}
+          protocol: "ftp"
 
       - name: deploy development artifacts
         if: endsWith(github.ref, '/develop')
@@ -83,6 +84,7 @@ jobs:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.REPO_USERNAME }}
           password: ${{ secrets.REPO_PASSWORD }}
+          protocol: "ftp"
 
       - name: deploy release javadocs
         if: endsWith(github.ref, '/main')
@@ -93,6 +95,7 @@ jobs:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.DOCS_USERNAME }}
           password: ${{ secrets.DOCS_PASSWORD }}
+          protocol: "ftp"
 
       - name: deploy development javadocs
         if: endsWith(github.ref, '/develop')
@@ -103,3 +106,4 @@ jobs:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.DOCS_USERNAME }}
           password: ${{ secrets.DOCS_PASSWORD }}
+          protocol: "ftp"
