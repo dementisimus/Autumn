@@ -68,8 +68,8 @@ jobs:
         if: endsWith(github.ref, '/main')
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          local-dir: ./artifacts/dev/dementisimus
-          server-dir: /release/dev/dementisimus
+          local-dir: ./artifacts/dev/dementisimus/
+          server-dir: /release/dev/dementisimus/
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.REPO_USERNAME }}
           password: ${{ secrets.REPO_PASSWORD }}
@@ -78,8 +78,8 @@ jobs:
         if: endsWith(github.ref, '/develop')
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          local-dir: ./artifacts/dev/dementisimus
-          server-dir: /development/dev/dementisimus
+          local-dir: ./artifacts/dev/dementisimus/
+          server-dir: /development/dev/dementisimus/
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.REPO_USERNAME }}
           password: ${{ secrets.REPO_PASSWORD }}
@@ -88,7 +88,7 @@ jobs:
         if: endsWith(github.ref, '/main')
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          local-dir: ./javadocs
+          local-dir: ./javadocs/
           server-dir: /release/${{ env.name }}/
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.DOCS_USERNAME }}
@@ -98,7 +98,7 @@ jobs:
         if: endsWith(github.ref, '/develop')
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          local-dir: ./javadocs
+          local-dir: ./javadocs/
           server-dir: /development/${{ env.name }}/
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.DOCS_USERNAME }}
