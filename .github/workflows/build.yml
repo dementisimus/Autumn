@@ -38,100 +38,91 @@ jobs:
       - name: build
         run: mvn -U clean install
 
-#      - name: pre-deploy
-#        if: false
-#        run: |
-#          declare -a modules=("dependencies" "common-api" "common-plugin" "bukkit-api" "bukkit-plugin" "bungee-api" "bungee-plugin")
-#          declare -a javadocModules=("common-api" "bukkit-api" "bungee-api")
-#
-#          fullModule=autumn-${{ env.version }}
-#          package=dev/dementisimus/autumn/${{ env.version }}
-#          artifactsTarget=./artifacts/$package
-#
-#          mkdir -p $artifactsTarget
-#
-#          cp ./pom.xml $artifactsTarget/$fullModule.pom
-#
-#          for module in "${modules[@]}"; do
-#            fullModule=$module-${{ env.version }}
-#            package=dev/dementisimus/$module/${{ env.version }}
-#            artifactsTarget=./artifacts/$package
-#
-#            mkdir -p $artifactsTarget
-#
-#            cp ./$module/target/$fullModule.jar $artifactsTarget/
-#            cp ./$module/pom.xml $artifactsTarget/$fullModule.pom
-#          done
-#
-#          for module in "${javadocModules[@]}"; do
-#            fullModule=$module-${{ env.version }}
-#            package=dev/dementisimus/$module/${{ env.version }}
-#            artifactsTarget=./artifacts/$package
-#
-#            mkdir -p $artifactsTarget
-#
-#            cp ./$module/target/$fullModule-sources.jar $artifactsTarget/
-#          done
-#
-#          for module in "${javadocModules[@]}"; do
-#            javadocsTarget=./javadocs/$module/${{ env.version }}
-#
-#            mkdir -p $javadocsTarget
-#            cp -r ./$module/target/site/apidocs/. $javadocsTarget/
-#          done
-#
-#      - name: deploy release artifacts
-#        if: false && endsWith(github.ref, '/main')
-#        uses: garygrossgarten/github-action-scp@v0.7.3
-#        with:
-#          local: ./artifacts/dev/dementisimus
-#          remote: /home/repo-deployment/repository/repositories/release/dev/dementisimus/
-#          concurrency: 10
-#          host: ${{ secrets.SSH_HOST }}
-#          port: ${{ secrets.SSH_PORT }}
-#          username: ${{ secrets.SSH_USERNAME }}
-#          password: ${{ secrets.SSH_PASSWORD }}
-#          privateKey: ${{ secrets.PRIVATE_KEY}}
-#          passphrase: ${{ secrets.PRIVATE_KEY_PASSPHRASE }}
-#
-#      - name: deploy development artifacts
-#        if: false && endsWith(github.ref, '/develop')
-#        uses: garygrossgarten/github-action-scp@v0.7.3
-#        with:
-#          local: ./artifacts/dev/dementisimus
-#          remote: /home/repo-deployment/repository/repositories/development/dev/dementisimus/
-#          concurrency: 10
-#          host: ${{ secrets.SSH_HOST }}
-#          port: ${{ secrets.SSH_PORT }}
-#          username: ${{ secrets.SSH_USERNAME }}
-#          password: ${{ secrets.SSH_PASSWORD }}
-#          privateKey: ${{ secrets.PRIVATE_KEY}}
-#          passphrase: ${{ secrets.PRIVATE_KEY_PASSPHRASE }}
-#
-#      - name: deploy release javadocs
-#        if: false && endsWith(github.ref, '/main')
-#        uses: garygrossgarten/github-action-scp@v0.7.3
-#        with:
-#          local: ./javadocs
-#          remote: /var/www/dementisimus.dev/html/docs/release/${{ env.name }}/
-#          concurrency: 10
-#          host: ${{ secrets.SSH_HOST }}
-#          port: ${{ secrets.SSH_PORT }}
-#          username: ${{ secrets.SSH_USERNAME }}
-#          password: ${{ secrets.SSH_PASSWORD }}
-#          privateKey: ${{ secrets.PRIVATE_KEY}}
-#          passphrase: ${{ secrets.PRIVATE_KEY_PASSPHRASE }}
-#
-#      - name: deploy development javadocs
-#        if: false && endsWith(github.ref, '/develop')
-#        uses: garygrossgarten/github-action-scp@v0.7.3
-#        with:
-#          local: ./javadocs
-#          remote: /var/www/dementisimus.dev/html/docs/development/${{ env.name }}/
-#          concurrency: 10
-#          host: ${{ secrets.SSH_HOST }}
-#          port: ${{ secrets.SSH_PORT }}
-#          username: ${{ secrets.SSH_USERNAME }}
-#          password: ${{ secrets.SSH_PASSWORD }}
-#          privateKey: ${{ secrets.PRIVATE_KEY}}
-#          passphrase: ${{ secrets.PRIVATE_KEY_PASSPHRASE }}
+      - name: pre-deploy
+        run: |
+          declare -a modules=("api" "plugin")
+          declare -a javadocModules=("api")
+
+          fullModule=autumn-${{ env.version }}
+          package=dev/dementisimus/autumn/${{ env.version }}
+          artifactsTarget=./artifacts/$package
+
+          mkdir -p $artifactsTarget
+
+          cp ./pom.xml $artifactsTarget/$fullModule.pom
+
+          for module in "${modules[@]}"; do
+            fullModule=$module-${{ env.version }}
+            package=dev/dementisimus/$module/${{ env.version }}
+            artifactsTarget=./artifacts/$package
+
+            mkdir -p $artifactsTarget
+
+            cp ./$module/target/$fullModule.jar $artifactsTarget/
+            cp ./$module/pom.xml $artifactsTarget/$fullModule.pom
+          done
+
+          for module in "${javadocModules[@]}"; do
+            fullModule=$module-${{ env.version }}
+            package=dev/dementisimus/$module/${{ env.version }}
+            artifactsTarget=./artifacts/$package
+
+            mkdir -p $artifactsTarget
+
+            cp ./$module/target/$fullModule-sources.jar $artifactsTarget/
+          done
+
+          for module in "${javadocModules[@]}"; do
+            javadocsTarget=./javadocs/$module/${{ env.version }}
+
+            mkdir -p $javadocsTarget
+            cp -r ./$module/target/site/apidocs/. $javadocsTarget/
+          done
+
+      - name: deploy release artifacts
+        if: endsWith(github.ref, '/main')
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: ./artifacts/dev/dementisimus
+          remote: /repo.dementisimus.dev/httpdocs/release/dev/dementisimus
+          concurrency: 10
+          host: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.SSH_PORT }}
+          username: ${{ secrets.REPO_USERNAME }}
+          password: ${{ secrets.REPO_PASSWORD }}
+
+      - name: deploy development artifacts
+        if: endsWith(github.ref, '/develop')
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: ./artifacts/dev/dementisimus
+          remote: /repo.dementisimus.dev/httpdocs/development/dev/dementisimus
+          concurrency: 10
+          host: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.SSH_PORT }}
+          username: ${{ secrets.REPO_USERNAME }}
+          password: ${{ secrets.REPO_PASSWORD }}
+
+      - name: deploy release javadocs
+        if: endsWith(github.ref, '/main')
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: ./javadocs
+          remote: /docs.dementisimus.dev/httpdocs/release/${{ env.name }}/
+          concurrency: 10
+          host: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.SSH_PORT }}
+          username: ${{ secrets.DOCS_USERNAME }}
+          password: ${{ secrets.DOCS_PASSWORD }}
+
+      - name: deploy development javadocs
+        if: endsWith(github.ref, '/develop')
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: ./javadocs
+          remote: /docs.dementisimus.dev/httpdocs/development/${{ env.name }}/
+          concurrency: 10
+          host: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.SSH_PORT }}
+          username: ${{ secrets.DOCS_USERNAME }}
+          password: ${{ secrets.DOCS_PASSWORD }}
