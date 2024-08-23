@@ -41,16 +41,18 @@ jobs:
       - name: pre-deploy
         run: |
           artifactsTarget=./artifacts/dev/dementisimus/autumn/${{ env.version }}
-
           mkdir -p $artifactsTarget
 
           cp ./pom.xml $artifactsTarget/${{ env.version }}.pom
 
           artifactsTarget=./artifacts/dev/dementisimus/autumn/plugin/${{ env.version }}
+          mkdir -p $artifactsTarget
 
-
+          cp ./plugin/target/autumn-plugin.jar $artifactsTarget/plugin-${{ env.version }}.jar
+          cp ./plugin/pom.xml $artifactsTarget/plugin-${{ env.version }}.pom
 
           artifactsTarget=./artifacts/dev/dementisimus/autumn/api/${{ env.version }}
+          mkdir -p $artifactsTarget
 
           cp ./api/target/api-${{ env.version }}.jar $artifactsTarget/
           cp ./api/pom.xml $artifactsTarget/api-${{ env.version }}.pom
