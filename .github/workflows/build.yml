@@ -66,40 +66,40 @@ jobs:
 
       - name: deploy release artifacts
         if: endsWith(github.ref, '/main')
-        uses: GenieTim/ftp-action@v4.0.1
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          localDir: ./artifacts/dev/dementisimus
-          remoteDir: /release/dev/dementisimus
-          host: ${{ secrets.FTP_HOST }}
-          user: ${{ secrets.REPO_USERNAME }}
+          local-dir: ./artifacts/dev/dementisimus
+          server-dir: /release/dev/dementisimus
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.REPO_USERNAME }}
           password: ${{ secrets.REPO_PASSWORD }}
 
       - name: deploy development artifacts
         if: endsWith(github.ref, '/develop')
-        uses: GenieTim/ftp-action@v4.0.1
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          localDir: ./artifacts/dev/dementisimus
-          remoteDir: /development/dev/dementisimus
-          host: ${{ secrets.FTP_HOST }}
-          user: ${{ secrets.REPO_USERNAME }}
+          local-dir: ./artifacts/dev/dementisimus
+          server-dir: /development/dev/dementisimus
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.REPO_USERNAME }}
           password: ${{ secrets.REPO_PASSWORD }}
 
       - name: deploy release javadocs
         if: endsWith(github.ref, '/main')
-        uses: GenieTim/ftp-action@v4.0.1
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          localDir: ./javadocs
-          remoteDir: /release/${{ env.name }}/
-          host: ${{ secrets.FTP_HOST }}
-          user: ${{ secrets.DOCS_USERNAME }}
+          local-dir: ./javadocs
+          server-dir: /release/${{ env.name }}/
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.DOCS_USERNAME }}
           password: ${{ secrets.DOCS_PASSWORD }}
 
       - name: deploy development javadocs
         if: endsWith(github.ref, '/develop')
-        uses: GenieTim/ftp-action@v4.0.1
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          localDir: ./javadocs
-          remoteDir: /development/${{ env.name }}/
-          host: ${{ secrets.FTP_HOST }}
-          user: ${{ secrets.DOCS_USERNAME }}
+          local-dir: ./javadocs
+          server-dir: /development/${{ env.name }}/
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.DOCS_USERNAME }}
           password: ${{ secrets.DOCS_PASSWORD }}
