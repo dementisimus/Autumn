@@ -57,7 +57,7 @@ jobs:
           cp ./api/target/api-${{ env.version }}.jar $artifactsTarget/
           cp ./api/pom.xml $artifactsTarget/api-${{ env.version }}.pom
 
-          cp ./api/target/autumn-api-${{ env.version }}-sources.jar $artifactsTarget/
+          cp ./api/target/api-${{ env.version }}-sources.jar $artifactsTarget/
 
           javadocsTarget=./javadocs/api/${{ env.version }}
 
