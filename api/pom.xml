@@ -19,6 +19,7 @@
                 <version>${maven-javadoc-plugin.version}</version>
                 <configuration>
                     <source>${maven.compiler.source}</source>
+                    <doclint>all,-missing</doclint>
                 </configuration>
             </plugin>
             <plugin>

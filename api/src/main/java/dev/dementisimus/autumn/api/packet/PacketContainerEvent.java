@@ -87,15 +87,14 @@ public interface PacketContainerEvent {
     void sendAfter(PacketType packetType, Consumer<PacketContainer> packetContainerConsumer);
 
     /**
+     * All runnables/packets in the event will be processed in the following sequence:
+     *
      * <ul>
-     *     <li>All runnables/packets in the event will be processed in the following sequence</li>
-     *     <ul>
-     *         <li>{@link #runBefore(EmptyCallback)}</li>
-     *         <li>{@link #sendBefore(PacketContainer)} | {@link #sendBefore(PacketType, Consumer)}</li>
-     *          <li>{@link #getPacketContainer()}</li>
-     *           <li>{@link #sendAfter(PacketContainer)} | {@link #sendAfter(PacketType, Consumer)}</li>
-     *          <li>{@link #runAfter(EmptyCallback)}</li>
-     *     </ul>
+     *     <li>{@link #runBefore(EmptyCallback)}</li>
+     *     <li>{@link #sendBefore(PacketContainer)} | {@link #sendBefore(PacketType, Consumer)}</li>
+     *     <li>{@link #getPacketContainer()}</li>
+     *      <li>{@link #sendAfter(PacketContainer)} | {@link #sendAfter(PacketType, Consumer)}</li>
+     *     <li>{@link #runAfter(EmptyCallback)}</li>
      * </ul>
      */
     void process();

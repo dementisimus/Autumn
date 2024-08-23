@@ -36,7 +36,7 @@ jobs:
         run: mvn paper-nms:init -file plugin/pom.xml
 
       - name: build
-        run: mvn -U clean install
+        run: mvn -U clean install javadoc:javadoc
 
       - name: pre-deploy
         run: |
@@ -52,22 +52,13 @@ jobs:
           cp ./pom.xml $artifactsTarget/$fullModule.pom
 
           for module in "${modules[@]}"; do
-            fullModule=$module-${{ env.version }}
-            package=dev/dementisimus/$module/${{ env.version }}
-            artifactsTarget=./artifacts/$package
-
-            mkdir -p $artifactsTarget
-
-            cp ./$module/target/$fullModule.jar $artifactsTarget/
-            cp ./$module/pom.xml $artifactsTarget/$fullModule.pom
+            cp ./$module/target/$module-${{ env.version }}.jar $artifactsTarget/
+            cp ./$module/pom.xml $artifactsTarget/$module-${{ env.version }}.pom
           done
 
           for module in "${javadocModules[@]}"; do
-            fullModule=$module-${{ env.version }}
-            package=dev/dementisimus/$module/${{ env.version }}
-            artifactsTarget=./artifacts/$package
-
-            mkdir -p $artifactsTarget
+            fullModule=autumn-$module-${{ env.version }}
+            package=dev/dementisimus/autumn/$module/${{ env.version }}
 
             cp ./$module/target/$fullModule-sources.jar $artifactsTarget/
           done
