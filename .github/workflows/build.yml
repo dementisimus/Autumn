@@ -48,8 +48,8 @@ jobs:
 
           artifactsTarget=./artifacts/dev/dementisimus/autumn/plugin/${{ env.version }}
 
-          cp ./plugin/target/autumn-plugin.jar $artifactsTarget/plugin-${{ env.version }}.jar
-          cp ./plugin/pom.xml $artifactsTarget/plugin-${{ env.version }}.pom
+#          cp ./plugin/target/autumn-plugin.jar $artifactsTarget/plugin-${{ env.version }}.jar
+#          cp ./plugin/pom.xml $artifactsTarget/plugin-${{ env.version }}.pom
 
           artifactsTarget=./artifacts/dev/dementisimus/autumn/api/${{ env.version }}
 
