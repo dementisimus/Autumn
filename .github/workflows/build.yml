@@ -65,7 +65,7 @@ jobs:
           cp -r ./api/target/site/apidocs/. $javadocsTarget/
 
       - name: deploy release artifacts
-        if: endsWith(github.ref, '/main')
+        if: contains(github.event.head_commit.message, '[ci deploy]') && endsWith(github.ref, '/main')
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           local-dir: ./artifacts/dev/dementisimus/
@@ -76,7 +76,7 @@ jobs:
           protocol: "ftp"
 
       - name: deploy development artifacts
-        if: endsWith(github.ref, '/develop')
+        if: contains(github.event.head_commit.message, '[ci deploy]') && endsWith(github.ref, '/develop')
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           local-dir: ./artifacts/dev/dementisimus/
@@ -87,7 +87,7 @@ jobs:
           protocol: "ftp"
 
       - name: deploy release javadocs
-        if: endsWith(github.ref, '/main')
+        if: (contains(github.event.head_commit.message, '[ci deploy]') || contains(github.event.head_commit.message, '[ci deploy docs]')) && endsWith(github.ref, '/main')
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           local-dir: ./javadocs/
@@ -98,7 +98,7 @@ jobs:
           protocol: "ftp"
 
       - name: deploy development javadocs
-        if: endsWith(github.ref, '/develop')
+        if: (contains(github.event.head_commit.message, '[ci deploy]') || contains(github.event.head_commit.message, '[ci deploy docs]')) && endsWith(github.ref, '/develop')
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           local-dir: ./javadocs/
