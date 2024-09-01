@@ -29,81 +29,22 @@ jobs:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ secrets.CACHE_KEY }}
 
-      - name: evaluate project info
-        run: echo "version=$(mvn org.apache.maven.plugins:maven-help-plugin:3.5.0:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
-
       - name: build paper-nms
         run: mvn paper-nms:init -file plugin/pom.xml
 
-      - name: build
-        run: mvn -U clean install javadoc:javadoc
-
-      - name: pre-deploy
-        run: |
-          artifactsTarget=./artifacts/dev/dementisimus/autumn/${{ env.version }}
-          mkdir -p $artifactsTarget
-
-          cp ./pom.xml $artifactsTarget/${{ env.version }}.pom
-
-          artifactsTarget=./artifacts/dev/dementisimus/autumn/plugin/${{ env.version }}
-          mkdir -p $artifactsTarget
-
-          cp ./plugin/target/autumn-plugin.jar $artifactsTarget/plugin-${{ env.version }}.jar
-          cp ./plugin/pom.xml $artifactsTarget/plugin-${{ env.version }}.pom
-
-          artifactsTarget=./artifacts/dev/dementisimus/autumn/api/${{ env.version }}
-          mkdir -p $artifactsTarget
-
-          cp ./api/target/api-${{ env.version }}.jar $artifactsTarget/
-          cp ./api/pom.xml $artifactsTarget/api-${{ env.version }}.pom
-
-          cp ./api/target/api-${{ env.version }}-sources.jar $artifactsTarget/
-
-          javadocsTarget=./javadocs/api/${{ env.version }}
-
-          mkdir -p $javadocsTarget
-          cp -r ./api/target/site/apidocs/. $javadocsTarget/
-
-      - name: deploy release artifacts
-        if: contains(github.event.head_commit.message, '[ci deploy]') && endsWith(github.ref, '/main')
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      - uses: s4u/maven-settings-action@v3.0.0
         with:
-          local-dir: ./artifacts/dev/dementisimus/
-          server-dir: /release/dev/dementisimus/
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.REPO_USERNAME }}
-          password: ${{ secrets.REPO_PASSWORD }}
-          protocol: "ftp"
+          servers: |
+            [{
+              "id": "dementisimus-repository",
+              "username": "${{ secrets.MAVEN_NAME }}",
+              "password": "${{ secrets.MAVEN_SECRET }}"
+            }]
 
-      - name: deploy development artifacts
-        if: contains(github.event.head_commit.message, '[ci deploy]') && endsWith(github.ref, '/develop')
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          local-dir: ./artifacts/dev/dementisimus/
-          server-dir: /development/dev/dementisimus/
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.REPO_USERNAME }}
-          password: ${{ secrets.REPO_PASSWORD }}
-          protocol: "ftp"
+      - name: build & deploy development artifacts
+        if: endsWith(github.ref, '/develop')
+        run: mvn package deploy -DdevelopmentArtifacts
 
-      - name: deploy release javadocs
-        if: (contains(github.event.head_commit.message, '[ci deploy]') || contains(github.event.head_commit.message, '[ci deploy docs]')) && endsWith(github.ref, '/main')
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          local-dir: ./javadocs/
-          server-dir: /release/${{ env.name }}/
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.DOCS_USERNAME }}
-          password: ${{ secrets.DOCS_PASSWORD }}
-          protocol: "ftp"
-
-      - name: deploy development javadocs
-        if: (contains(github.event.head_commit.message, '[ci deploy]') || contains(github.event.head_commit.message, '[ci deploy docs]')) && endsWith(github.ref, '/develop')
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          local-dir: ./javadocs/
-          server-dir: /development/${{ env.name }}/
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.DOCS_USERNAME }}
-          password: ${{ secrets.DOCS_PASSWORD }}
-          protocol: "ftp"
+      - name: build & deploy release artifacts
+        if: endsWith(github.ref, '/main')
+        run: mvn package deploy -DreleaseArtifacts
