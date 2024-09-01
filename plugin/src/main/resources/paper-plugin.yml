@@ -1,0 +1,11 @@
+name: Autumn
+main: dev.dementisimus.autumn.plugin.plugin.AutumnJavaPlugin
+loader: dev.dementisimus.autumn.plugin.plugin.AutumnPluginLoader
+version: ${project.version}-${git.commit.id.describe-short}
+author: dementisimus
+api-version: "1.21"
+dependencies:
+  server:
+    ProtocolLib:
+      load: BEFORE
+      required: true
