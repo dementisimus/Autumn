@@ -1,4 +1,4 @@
-# Autumn [![main build status](https://github.com/dementisimus/Autumn/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/dementisimus/Autumn) [![develop build status](https://github.com/dementisimus/Autumn/actions/workflows/build.yml/badge.svg?branch=develop)](https://github.com/dementisimus/Autumn/tree/develop)
+# Autumn ![latest version](https://repo.dementisimus.dev/api/badge/latest/development/dev/dementisimus/autumn/autumn?color=40c14a&name=release&prefix=v) ![latest version](https://repo.dementisimus.dev/api/badge/latest/development/dev/dementisimus/autumn/autumn?color=40c14a&name=development&prefix=v)
 
 ## _Where ideas fall into place._
 
@@ -25,14 +25,20 @@
 
 ```xml
 <repository>
-    <id>dementisimus-dev-release</id>
-    <url>https://repo.dementisimus.dev/release/</url>
+    <id>dementisimus-repository-release</id>
+    <url>https://repo.dementisimus.dev/release</url>
 </repository>
 
 <dependency>
     <groupId>dev.dementisimus.autumn</groupId>
-    <artifactId>api/plugin</artifactId>
-    <version>INSERT_LATEST_RELEASE_VERSION_HERE</version>
+    <artifactId>api</artifactId>
+    <version>INSERT_LATEST_VERSION_HERE</version>
+    <scope>provided</scope>
+</dependency>
+<dependency>
+    <groupId>dev.dementisimus.autumn</groupId>
+    <artifactId>plugin</artifactId>
+    <version>INSERT_LATEST_VERSION_HERE</version>
     <scope>provided</scope>
 </dependency>
 ```
@@ -41,16 +47,17 @@
 
 ```
 maven {
-    name 'dementisimus-dev-release'
-    url 'https://repo.dementisimus.dev/release/'
+    name 'dementisimus-repository-release'
+    url 'https://repo.dementisimus.dev/release'
 }
 
-compileOnly group: 'dev.dementisimus.autumn', name: 'api/plugin', version: 'INSERT_LATEST_RELEASE_VERSION_HERE'
+compileOnly group: 'dev.dementisimus.autumn', name: 'api', version: 'INSERT_LATEST_VERSION_HERE'
+compileOnly group: 'dev.dementisimus.autumn', name: 'plugin', version: 'INSERT_LATEST_VERSION_HERE'
 ```
 
 ### Example usage
 
-» Javadocs: https://docs.dementisimus.dev/release/Autumn/api/INSERT_LATEST_RELEASE_VERSION_HERE/
+» Javadocs: [click and replace INSERT_LATEST_VERSION_HERE]
 
 ```java
 AutumnInitializer initializer = CustomAutumnInitializer.of(this);
@@ -72,3 +79,4 @@ initialize(autumn -> {
 # **Here’s to an Autumn of innovation!**
 
 [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International Public License]: <https://creativecommons.org/licenses/by-nc-nd/4.0/>
+[click and replace INSERT_LATEST_VERSION_HERE]: <https://repo.dementisimus.dev/javadoc/release/dev/dementisimus/autumn/api/INSERT_LATEST_VERSION_HERE/raw/index.html>
