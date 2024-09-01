@@ -123,6 +123,37 @@
         </pluginRepository>
     </pluginRepositories>
 
+    <profiles>
+        <profile>
+            <id>deployDevelopmentArtifacts</id>
+            <activation>
+                <property>
+                    <name>developmentArtifacts</name>
+                </property>
+            </activation>
+            <distributionManagement>
+                <repository>
+                    <id>dementisimus-repository-development</id>
+                    <url>https://repo.dementisimus.dev/development</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+        <profile>
+            <id>deployReleaseArtifacts</id>
+            <activation>
+                <property>
+                    <name>releaseArtifacts</name>
+                </property>
+            </activation>
+            <distributionManagement>
+                <repository>
+                    <id>dementisimus-repository-release</id>
+                    <url>https://repo.dementisimus.dev/release</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+    </profiles>
+
     <build>
         <plugins>
             <plugin>
