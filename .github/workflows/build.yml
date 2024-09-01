@@ -45,14 +45,6 @@ jobs:
 
       - name: build & deploy development artifacts
         if: endsWith(github.ref, '/develop')
-        uses: s4u/maven-settings-action@v3.0.0
-        with:
-          servers: |
-            [{
-              "id": "dementisimus-repository-development",
-              "username": "${{ secrets.MAVEN_NAME }}",
-              "password": "${{ secrets.MAVEN_SECRET }}"
-            }]
         run: mvn package deploy -DdevelopmentArtifacts
 
       - name: prepare settings.xml for repo release
