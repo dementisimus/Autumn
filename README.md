@@ -1,4 +1,4 @@
-# Autumn [![release](https://repo.dementisimus.dev/api/badge/latest/development/dev/dementisimus/autumn/autumn?color=40c14a&name=development&prefix=v)](https://repo.dementisimus.dev/#/release/dev/dementisimus/autumn) [![development](https://repo.dementisimus.dev/api/badge/latest/development/dev/dementisimus/autumn/autumn?color=40c14a&name=development&prefix=v)](https://repo.dementisimus.dev/#/development/dev/dementisimus/autumn)
+# Autumn [![release](https://repo.dementisimus.dev/api/badge/latest/development/dev/dementisimus/autumn/autumn?color=40c14a&name=release&prefix=v)](https://repo.dementisimus.dev/#/release/dev/dementisimus/autumn) [![development](https://repo.dementisimus.dev/api/badge/latest/development/dev/dementisimus/autumn/autumn?color=40c14a&name=development&prefix=v)](https://repo.dementisimus.dev/#/development/dev/dementisimus/autumn)
 
 ## _Where ideas fall into place._
 
