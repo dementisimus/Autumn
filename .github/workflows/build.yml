@@ -33,7 +33,7 @@ jobs:
         run: mvn paper-nms:init -file plugin/pom.xml
 
       - name: prepare settings.xml for repo development
-        if: !contains(github.event.head_commit.message, '[ci skip]') && endsWith(github.ref, '/develop')
+        if: "!contains(github.event.head_commit.message, '[ci skip]') && endsWith(github.ref, '/develop')"
         uses: s4u/maven-settings-action@v3.0.0
         with:
           servers: |
@@ -44,11 +44,11 @@ jobs:
             }]
 
       - name: build & deploy development artifacts
-        if: !contains(github.event.head_commit.message, '[ci skip]') && endsWith(github.ref, '/develop')
+        if: "!contains(github.event.head_commit.message, '[ci skip]') && endsWith(github.ref, '/develop')"
         run: mvn package deploy -DdevelopmentArtifacts
 
       - name: prepare settings.xml for repo release
-        if: !contains(github.event.head_commit.message, '[ci skip]') && endsWith(github.ref, '/main')
+        if: "!contains(github.event.head_commit.message, '[ci skip]') && endsWith(github.ref, '/main')"
         uses: s4u/maven-settings-action@v3.0.0
         with:
           servers: |
@@ -59,5 +59,5 @@ jobs:
             }]
 
       - name: build & deploy release artifacts
-        if: !contains(github.event.head_commit.message, '[ci skip]') && endsWith(github.ref, '/main')
+        if: "!contains(github.event.head_commit.message, '[ci skip]') && endsWith(github.ref, '/main')"
         run: mvn package deploy -DreleaseArtifacts
