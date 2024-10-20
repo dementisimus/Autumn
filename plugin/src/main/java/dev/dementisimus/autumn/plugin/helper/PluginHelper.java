@@ -8,20 +8,23 @@
 
 package dev.dementisimus.autumn.plugin.helper;
 
-import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.properties.Property;
+import com.destroystokyo.paper.profile.CraftPlayerProfile;
+import com.destroystokyo.paper.profile.PlayerProfile;
 import dev.dementisimus.autumn.api.callback.SingleCallback;
 import dev.dementisimus.autumn.api.executor.AutumnTaskExecutor;
 import dev.dementisimus.autumn.plugin.cache.AutumnCache;
+import org.apache.commons.lang.RandomStringUtils;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.profile.PlayerTextures;
 import org.jetbrains.annotations.NotNull;
 
-import java.lang.reflect.Field;
-import java.util.Base64;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.UUID;
 
 public class PluginHelper {
@@ -36,24 +39,21 @@ public class PluginHelper {
 
         AutumnTaskExecutor.staticAsynchronous(() -> {
             try {
-                String url = "https://textures.minecraft.net/texture/" + headID;
-
                 ItemStack itemStack = new ItemStack(Material.PLAYER_HEAD);
                 SkullMeta skullMeta = (SkullMeta) itemStack.getItemMeta();
-                GameProfile gameProfile = new GameProfile(UUID.randomUUID(), "");
+                PlayerProfile profile = new CraftPlayerProfile(UUID.randomUUID(), RandomStringUtils.randomAlphabetic(4));
+                PlayerTextures textures = profile.getTextures();
 
-                byte[] encodeBase64 = Base64.getEncoder().encode(String.format("{textures:{SKIN:{url:\"%s\"}}}", url).getBytes());
-                gameProfile.getProperties().put("textures", new Property("textures", new String(encodeBase64)));
+                textures.setSkin(new URI("https://textures.minecraft.net/texture/" + headID).toURL());
 
-                Field field = skullMeta.getClass().getDeclaredField("profile");
-                field.setAccessible(true);
-                field.set(skullMeta, gameProfile);
-
+                profile.setTextures(textures);
+                skullMeta.setPlayerProfile(profile);
                 itemStack.setItemMeta(skullMeta);
 
                 AutumnCache.set(headID, itemStack);
                 itemStackCallback.done(itemStack);
-            } catch (NoSuchFieldException | IllegalAccessException ignored) {
+            } catch (URISyntaxException | MalformedURLException e) {
+                throw new RuntimeException(e);
             }
         });
     }
