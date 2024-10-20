@@ -14,12 +14,11 @@
     </modules>
 
     <properties>
-        <!-- ToDo change to 21 -->
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <sourceEncoding>UTF-8</sourceEncoding>
 
-        <minecraft.version>1.21</minecraft.version>
+        <minecraft.version>1.21.1</minecraft.version>
 
         <maven-shade-plugin.version>3.6.0</maven-shade-plugin.version>
         <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
@@ -117,42 +116,7 @@
             <id>maven-snapshots</id>
             <url>https://repository.apache.org/content/repositories/snapshots/</url>
         </pluginRepository>
-        <pluginRepository>
-            <id>bytecode.space</id>
-            <url>https://repo.bytecode.space/repository/maven-public/</url>
-        </pluginRepository>
     </pluginRepositories>
-
-    <profiles>
-        <profile>
-            <id>deployDevelopmentArtifacts</id>
-            <activation>
-                <property>
-                    <name>developmentArtifacts</name>
-                </property>
-            </activation>
-            <distributionManagement>
-                <repository>
-                    <id>dementisimus-repository-development</id>
-                    <url>https://repo.dementisimus.dev/development</url>
-                </repository>
-            </distributionManagement>
-        </profile>
-        <profile>
-            <id>deployReleaseArtifacts</id>
-            <activation>
-                <property>
-                    <name>releaseArtifacts</name>
-                </property>
-            </activation>
-            <distributionManagement>
-                <repository>
-                    <id>dementisimus-repository-release</id>
-                    <url>https://repo.dementisimus.dev/release</url>
-                </repository>
-            </distributionManagement>
-        </profile>
-    </profiles>
 
     <build>
         <plugins>

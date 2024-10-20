@@ -9,25 +9,11 @@ body:
     attributes:
       value: Thanks for taking the time to fill out this bug report!
 
-  - type: dropdown
-    id: module
-    attributes:
-      label: Module
-      description: To what module does your bug report belong to?
-      multiple: true
-      options:
-        - 'Paper'
-        - 'Paper-API'
-        - 'Common'
-        - 'Common-API'
-    validations:
-      required: true
-
   - type: input
     id: module-section
     attributes:
       label: Module section
-      description: What section of the previously chosen module does this bug report belong to?
+      description: What section of Autumn does this bug report belong to?
     validations:
       required: true
 
@@ -91,6 +77,7 @@ body:
         - 'MongoDB'
         - 'MariaDB (MySQL)'
         - 'SQLite'
+        - 'FileSystem'
     validations:
       required: false
 

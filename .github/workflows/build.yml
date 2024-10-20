@@ -32,32 +32,5 @@ jobs:
       - name: build paper-nms
         run: mvn paper-nms:init -file plugin/pom.xml
 
-      - name: prepare settings.xml for repo development
-        if: endsWith(github.ref, '/develop')
-        uses: s4u/maven-settings-action@v3.0.0
-        with:
-          servers: |
-            [{
-              "id": "dementisimus-repository-development",
-              "username": "${{ secrets.MAVEN_NAME }}",
-              "password": "${{ secrets.MAVEN_SECRET }}"
-            }]
-
-      - name: build & deploy development artifacts
-        if: endsWith(github.ref, '/develop')
-        run: mvn package deploy -DdevelopmentArtifacts
-
-      - name: prepare settings.xml for repo release
-        if: endsWith(github.ref, '/main')
-        uses: s4u/maven-settings-action@v3.0.0
-        with:
-          servers: |
-            [{
-              "id": "dementisimus-repository-release",
-              "username": "${{ secrets.MAVEN_NAME }}",
-              "password": "${{ secrets.MAVEN_SECRET }}"
-            }]
-
-      - name: build & deploy release artifacts
-        if: endsWith(github.ref, '/main')
-        run: mvn package deploy -DreleaseArtifacts
+      - name: build
+        run: mvn package
