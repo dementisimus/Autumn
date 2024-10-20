@@ -1,0 +1,63 @@
+{
+  "libraries": [
+    {
+      "groupId": "org.mongodb",
+      "artifactId": "bson",
+      "version": "${mongodb.version}"
+    },
+    {
+      "groupId": "com.zaxxer",
+      "artifactId": "HikariCP",
+      "version": "${HikariCP.version}"
+    },
+    {
+      "groupId": "com.mysql",
+      "artifactId": "mysql-connector-j",
+      "version": "${mysql-connector-j.version}"
+    },
+    {
+      "groupId": "org.mongodb",
+      "artifactId": "mongodb-driver-reactivestreams",
+      "version": "${mongodb.version}"
+    },
+    {
+      "groupId": "org.xerial",
+      "artifactId": "sqlite-jdbc",
+      "version": "${sqlite-jdbc.version}"
+    },
+    {
+      "groupId": "org.fusesource.jansi",
+      "artifactId": "jansi",
+      "version": "${jansi.version}"
+    },
+    {
+      "groupId": "com.google.code.gson",
+      "artifactId": "gson",
+      "version": "${gson.version}"
+    },
+    {
+      "groupId": "com.google.guava",
+      "artifactId": "guava",
+      "version": "${guava.version}"
+    },
+    {
+      "groupId": "org.apache.commons",
+      "artifactId": "commons-lang3",
+      "version": "${commons-lang3.version}"
+    },
+    {
+      "groupId": "com.fasterxml.jackson.core",
+      "artifactId": "jackson-databind",
+      "version": "${jackson-databind.version}"
+    },
+    {
+      "repository": {
+        "name": "jitpack",
+        "url": "https://jitpack.io"
+      },
+      "groupId": "com.github.srikanth-lingala",
+      "artifactId": "zip4j",
+      "version": "${zip4j.version}"
+    }
+  ]
+}

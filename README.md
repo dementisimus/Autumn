@@ -1,56 +1,82 @@
 # Autumn [![main build status](https://github.com/dementisimus/Autumn/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/dementisimus/Autumn) [![develop build status](https://github.com/dementisimus/Autumn/actions/workflows/build.yml/badge.svg?branch=develop)](https://github.com/dementisimus/Autumn/tree/develop)
 
-## _The Core._
+## _Where ideas fall into place._
 
-**Autumn** is the **core** of all **dev.dementisimus projects**!
+## **Features**
+
+- Automated & custom setup
+- (Infinite)InventoryFactory
+- ItemFactory
+- Brigadier commands
+- (Zip)FileDownloader
+- i18n
+- UserInput
+- Storage: MongoDB, MariaDB/SQLite, File
+- NPCs
 
 ## **Requirements**
 
-1. **Java 17**
-2. **Spigot 1.20.1** **([PaperMC] recommended)**
-3. **Access** to the **server console** (for the **automated setup**)
+1. **Java 21**
+2. **Paper 1.21**
 
-##### Maven
+## **Development**
+
+### Maven
 
 ```xml
 <repository>
-    <id>dementisimus-dev-release</id>
-    <url>https://repo.dementisimus.dev/release/</url>
+    <id>dementisimus-repository-release</id>
+    <url>https://repo.dementisimus.dev/release</url>
 </repository>
 
 <dependency>
-    <groupId>dev.dementisimus</groupId>
-    <artifactId>autumn-(module)-api</artifactId>
-    <version>INSERT_LATEST_RELEASE_VERSION_HERE</version>
+    <groupId>dev.dementisimus.autumn</groupId>
+    <artifactId>api</artifactId>
+    <version>INSERT_LATEST_VERSION_HERE</version>
+    <scope>provided</scope>
+</dependency>
+<dependency>
+    <groupId>dev.dementisimus.autumn</groupId>
+    <artifactId>plugin</artifactId>
+    <version>INSERT_LATEST_VERSION_HERE</version>
     <scope>provided</scope>
 </dependency>
 ```
 
-##### Gradle
+### Gradle
 
 ```
 maven {
-    name 'dementisimus-dev-release'
-    url 'https://repo.dementisimus.dev/release/'
+    name 'dementisimus-repository-release'
+    url 'https://repo.dementisimus.dev/release'
 }
 
-compileOnly group: 'dev.dementisimus', name: 'autumn-(module)-api', version: 'INSERT_LATEST_RELEASE_VERSION_HERE'
+compileOnly group: 'dev.dementisimus.autumn', name: 'api', version: 'INSERT_LATEST_VERSION_HERE'
+compileOnly group: 'dev.dementisimus.autumn', name: 'plugin', version: 'INSERT_LATEST_VERSION_HERE'
+```
+
+### Example usage
+
+» Javadocs: [click and replace INSERT_LATEST_VERSION_HERE]
+
+```java
+AutumnInitializer initializer = CustomAutumnInitializer.of(this);
+
+//configure the initializer
+
+initialize(autumn -> {
+
+    //Register commands or events via autumn.registerCommand() / autumn.registerListener()
+    //etc    
+
+});
 ```
 
 ## **License**
 
 » [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International Public License]
 
-## find us on
-
-[<img src="https://discordapp.com/assets/e4923594e694a21542a489471ecffa50.svg" alt="" height="55" />](https://discord.gg/sTRg8A7)
-
-# **Happy app creating!**
-
-[planned features]: <https://github.com/dementisimus/Autumn/issues>
-
-[PaperMC]: <https://papermc.io/downloads>
-
-[GitHub Releases]: <https://github.com/dementisimus/Autumn/releases>
+# **Here’s to an Autumn of innovation!**
 
 [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International Public License]: <https://creativecommons.org/licenses/by-nc-nd/4.0/>
+[click and replace INSERT_LATEST_VERSION_HERE]: <https://repo.dementisimus.dev/javadoc/release/dev/dementisimus/autumn/api/INSERT_LATEST_VERSION_HERE/raw/index.html>

@@ -5,28 +5,11 @@ assignees:
   - dementisimus
 
 body:
-  - type: dropdown
-    id: module
-    attributes:
-      label: Module
-      description: To what module does your feature request belong to?
-      multiple: true
-      options:
-        - 'Bukkit'
-        - 'Bukkit-API'
-        - 'Bungee'
-        - 'Bungee-API'
-        - 'Common'
-        - 'Common-API'
-        - 'Dependencies'
-    validations:
-      required: true
-
   - type: input
     id: module-section
     attributes:
       label: Module section
-      description: What section of the previously chosen module does this feature request belong to?
+      description: What section of Autumn does this feature request belong to?
     validations:
       required: true
 
